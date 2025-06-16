@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-06-16T14:30:50 IST" name="Failed suite [Suite]" finished-at="2025-06-16T14:31:46 IST" duration-ms="56534">
+    <groups>
+    </groups>
+    <test started-at="2025-06-16T14:30:50 IST" name="911(failed)" finished-at="2025-06-16T14:31:46 IST" duration-ms="56534">
+      <class name="DailyTesting.Nine11">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:DailyTesting.Nine11@158d255c]" started-at="2025-06-16T14:30:50 IST" name="invokebrowser" finished-at="2025-06-16T14:31:06 IST" duration-ms="15705" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[rohan@nadsoftdesign.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[TestRohan@1234]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Admin]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- invokebrowser -->
+        <test-method signature="Products()[pri:0, instance:DailyTesting.Nine11@158d255c]" started-at="2025-06-16T14:31:06 IST" name="Products" finished-at="2025-06-16T14:31:46 IST" duration-ms="40757" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Products -->
+      </class> <!-- DailyTesting.Nine11 -->
+    </test> <!-- 911(failed) -->
+  </suite> <!-- Failed suite [Suite] -->
+</testng-results>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+<parameter name="bname" value="chrome"/>
+<parameter name="uname" value="rohan@nadsoftdesign.com"/>
+<parameter name="pass" value="TestRohan@1234"/>
+<parameter name="role" value="Admin"/>
+
+  <test name="911">
+    <classes>
+      <class name="DailyTesting.Nine11"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
+
