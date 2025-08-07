@@ -1,1 +1,4 @@
-/target/
+CentzCRM/test-output/*
+*.class
+CentzCRM/target/*
+
