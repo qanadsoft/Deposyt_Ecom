@@ -14,6 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
@@ -150,15 +151,17 @@ public class MasterClass {
 	}
 
 
-	public void AddContact(String Name, String Number, String Mail) throws Exception {
+	public void AddContact(String Name, String Number, String Mail) throws Exception 
+	{
 		Actions action = new Actions(driver);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60)) ;
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)) ;
 		WebDriverWait wait= new WebDriverWait(driver,Duration.ofSeconds(20));
 
 		driver.navigate().to(Customers);
 
 		//Checking for duplicate customers By number
-		if(!Number.equals("")){
+		if(!Number.equals(""))
+		{
 			driver.findElement(By.name("search")).sendKeys(Number);
 			action.sendKeys(Keys.ENTER).build().perform();
 
@@ -166,26 +169,30 @@ public class MasterClass {
 			Thread.sleep(3000);
 			action.sendKeys(Keys.ESCAPE).perform();
 
-			try	{
+			try
+			{
 				Thread.sleep(2000);
-				driver.findElement(By.cssSelector("#at0-cell-actions_col-0>div>a")).click();
-				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-0\"]/div/div/a[6]")).click();
+				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
+				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
 				Thread.sleep(2000);
 			}
-			catch (Exception NoSuchElementExcepation) {
+			catch (Exception NoSuchElementExcepation) 
+			{
 			}
 		}
 
 		//Checking for duplicate customers By number by Mail
-		if(!Mail.equals("")) {
+		if(!Mail.equals(""))
+		{
 			driver.findElement(By.name("search")).clear();
 			driver.findElement(By.name("search")).sendKeys(Mail);
 			action.sendKeys(Keys.ENTER).build().perform();
 
-			try {
-				driver.findElement(By.cssSelector("#at0-cell-actions_col-0>div>a")).click();
-				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-0\"]/div/div/a[6]")).click();
+			try
+			{
+				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
+				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
 				Thread.sleep(2000);
 			}
@@ -202,49 +209,64 @@ public class MasterClass {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[@id=\"add_contact_form\"]/form[1]/div[2]/input[1]")).click();
 
-		String success = null;
-		try {
+		try 
+		{
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alertify-logs")));
-			success = driver.findElement(By.id("alertify-logs")).getText();
 		}
-		catch(Exception TimeOutException) {
+		catch(Exception TimeOutException) 
+		{
+			Assert.assertTrue(false,"Contact Not Added");
 		}
-		System.out.println("	"+success);
 	}
 
-	public void DeleteContact(String Number, String Mail) throws Exception	{
+	public void DeleteContact(String Number, String Mail) throws Exception 
+	{
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)) ;
 
 		driver.navigate().to(Customers);
 		//By number
-		driver.findElement(By.name("search")).sendKeys(Number, Keys.ENTER);
 
-		try	{
-			driver.findElement(By.id("at0-cell-actions_col-0")).click();
-			driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-0\"]/div/div/a[6]")).click();
-			driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
-			Thread.sleep(2000);
-		}
-		catch (Exception NoSuchElementExcepation){
+		if(!Number.equals(""))
+		{
+			driver.findElement(By.name("search")).sendKeys(Number);
+			action.sendKeys(Keys.ENTER).build().perform();
+
+			try
+			{
+				driver.findElement(By.id("at0-cell-actions_col-30")).click();
+				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
+				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
+				Thread.sleep(2000);
+			}
+			catch (Exception NoSuchElementExcepation) 
+			{
+			}
 		}
 
 		//by Mail
-		driver.findElement(By.name("search")).clear();
-		driver.findElement(By.name("search")).sendKeys(Mail);
-		action.sendKeys(Keys.ENTER).build().perform();
 
-		try {
-			driver.findElement(By.id("at0-cell-actions_col-0")).click();
-			driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-0\"]/div/div/a[6]")).click();
-			driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
-			Thread.sleep(2000);
-		}
-		catch (Exception NoSuchElementExcepation) {
+		if(!Mail.equals(""))
+		{
+			driver.findElement(By.name("search")).clear();
+			driver.findElement(By.name("search")).sendKeys(Mail);
+			action.sendKeys(Keys.ENTER).build().perform();
+
+			try
+			{
+				driver.findElement(By.id("at0-cell-actions_col-30")).click();
+				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
+				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
+				Thread.sleep(2000);
+			}
+			catch (Exception NoSuchElementExcepation) 
+			{
+			}
 		}
 	}
 
-	public void AddTag(String TagName) throws Exception	{
+	public void AddTag(String TagName) throws Exception 
+	{
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)) ;
 
@@ -255,13 +277,15 @@ public class MasterClass {
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("#selectAll+span")).click();
 
-		try	{
+		try
+		{
 			Thread.sleep(1000);
 			driver.findElement(By.cssSelector("button.deletebulktags ")).click();
 			Thread.sleep(2000);
 			driver.findElement(By.id("deleteblkpopup")).click();
 		}
-		catch (Exception e) {
+		catch (Exception e) 
+		{
 		}
 
 		driver.findElement(By.cssSelector("div.selectize-control.custom-tag-input>div>input")).sendKeys(TagName);
@@ -269,7 +293,8 @@ public class MasterClass {
 		driver.findElement(By.id("Add_tags")).click();
 	}
 
-	public void ReLogin(String Uname, String Pass) throws InterruptedException {
+	public void ReLogin(String Uname, String Pass) throws InterruptedException
+	{
 		WebDriverWait wait= new WebDriverWait(driver,Duration.ofSeconds(5));
 
 		driver.navigate().to(url);
@@ -291,7 +316,8 @@ public class MasterClass {
 		}
 	}
 
-	public Boolean ReceivedMail(String Subject) throws InterruptedException {
+	public Boolean ReceivedMail(String Subject) throws InterruptedException
+	{
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
@@ -316,7 +342,7 @@ public class MasterClass {
 		{
 			Thread.sleep(1000);
 			String subject = driver.findElement(By.cssSelector("tr.message.unread:first-of-type>td.subject>a>span")).getText();
-			String recivedfrom = driver.findElement(By.cssSelector("tr.message.unread:first-of-type>td.fromto>span>span")).getText();
+			String recivedfrom =driver.findElement(By.cssSelector("tr.message.unread:first-of-type>td.fromto>span>span")).getText();
 			String date = driver.findElement(By.cssSelector("tr.message.unread:first-of-type>td.date")).getText();
 
 			System.out.println("	Mail Subject: " +subject);
@@ -324,8 +350,8 @@ public class MasterClass {
 			System.out.println("	Received On  : "+date);
 
 			driver.findElement(By.id("listselectmenulink")).click();
-			driver.findElement(By.id("rcmbtn143")).click();
-			driver.findElement(By.xpath("//*[@id=\"rcmbtn115\"]")).click();
+			driver.findElement(By.id("rcmbtn144")).click();
+			driver.findElement(By.id("rcmbtn116")).click();
 			MailStatus = true;
 		}
 		catch(Exception e) 
@@ -333,7 +359,7 @@ public class MasterClass {
 			MailStatus = false;
 		}
 
-		driver.findElement(By.id("rcmbtn105")).click();
+		driver.findElement(By.id("rcmbtn106")).click();
 		Thread.sleep(2000);
 		driver.close();
 		driver.switchTo().window(pwindo);
@@ -357,15 +383,15 @@ public class MasterClass {
 
 		try
 		{
-			driver.findElement(By.id("listselectmenulink")).click();
-			driver.findElement(By.id("rcmbtn143")).click();
-			driver.findElement(By.xpath("//*[@id=\"rcmbtn115\"]")).click();
+			driver.findElement(By.id("listselectmenulink")).click();//Select All and Delete
+			driver.findElement(By.id("rcmbtn144")).click();
+			driver.findElement(By.id("rcmbtn116")).click();
 		}
 		catch(Exception e) 
 		{
 		}
 
-		driver.findElement(By.id("rcmbtn105")).click();
+		driver.findElement(By.id("rcmbtn106")).click();
 		Thread.sleep(2000);
 		driver.close();
 		driver.switchTo().window(pwindo);

@@ -189,7 +189,8 @@ public class Nine11 extends MasterClass {
 		System.out.println(Order_Name);
 		System.out.println(Order_Mail);
 		System.out.println(Order_Phone);
-		
+		Assert.assertEquals(Order_Name, F_Name+" "+L_Name, "Customername not matching on order summery");
+		Assert.assertEquals(Order_Mail, F_Name+" "+L_Name, "Customername not matching on order summery");
 		//Validate order Summery - Billing details
 		
 		//Check if while creating product toggle on course is working and product is getting shared in courses 
