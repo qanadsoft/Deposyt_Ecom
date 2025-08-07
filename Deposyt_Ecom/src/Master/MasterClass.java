@@ -69,9 +69,6 @@ public class MasterClass {
 	Virtual_Terminal = Ecom_url+"virtual-terminal",
 	settings 	= Ecom_url+"settings?";
 
-	//Crons
-	protected String TriggerExecutor = url+"index.php?m=triggerexecutor";
-	protected String ListImportCron = url+"index.php?m=cronimportcustomers";
 
 	//CRM Logins
 	protected String Test02Login = "nadsoft.test02@gmail.com";
@@ -86,9 +83,6 @@ public class MasterClass {
 	protected String ATALogin 	 = "testself30@gmail.com";
 	protected String ATAPass	 = "AutomationTest@123";
 
-	protected String SALogin 	 = "admin";
-	protected String SAPass		 = "LafC!TQgk2ghQv3WIi";
-	protected String SATestAct	 = url+"index.php?m=companiesmgmt&d=switchcompany&id=1";
 
 	//webmail login
 	protected String WMURL		 = "https://gator3086.hostgator.com:2096/";

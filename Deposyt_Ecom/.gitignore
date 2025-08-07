@@ -2,3 +2,4 @@ CentzCRM/test-output/*
 *.class
 CentzCRM/target/*
 
+/target/
