@@ -111,6 +111,48 @@ public class Nine11 extends MasterClass {
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		
+		Thread.sleep(3000);
+		
+		driver.navigate().to(Courses);
+		
+		driver.findElement(By.xpath("(//a[@id='create_course_dropdown'])[1]")).click();
+		
+		driver.findElement(By.cssSelector("#course_title")).sendKeys("Testcourse");
+		
+		driver.findElement(By.cssSelector("#course_description")).sendKeys("TestCourse");
+		
+		driver.findElement(By.cssSelector("#NextCourseStep")).click();
+		
+		driver.findElement(By.cssSelector("#dontuse-ai")).click();
+		
+		driver.findElement(By.cssSelector("#create_course_final_step")).click();
+		
+		// Click the second Pricing span
+		driver.findElement(By.xpath("(//span[@class='menu-title text-sm edit_sidebar_title ml-4'][normalize-space()='Pricing'])[2]")).click();
+
+		// Wait until the #paidCourseTab element is clickable, then click
+		WebDriverWait wait4 = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebElement paidCourseTab = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#paidCourseTab")));
+		paidCourseTab.click();
+		
+		driver.findElement(By.cssSelector("#connect-product")).click();
+		
+		
+		
+		
+
+		
+		
+
+		
+		
+		
+
+		
+
+
+		
 
 		Thread.sleep(3000);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.Product-Detial-side-modal-Scrollbar")));
