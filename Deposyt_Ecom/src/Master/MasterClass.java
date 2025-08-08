@@ -96,7 +96,7 @@ public class MasterClass {
 	protected String WMPass		 = "Nadsoft@2024";
 
 	//Local Paths
-	protected String Media_Path = "C:\\Users\\Rohan kokare\\eclipse-workspace\\Deposyt_Ecom\\Sources\\Test Media\\" ;
+	protected String Media_Path 	 = System.getProperty("user.dir")+"\\Sources\\Test Media\\" ;//For windows
 
 	public WebDriver driver;
 

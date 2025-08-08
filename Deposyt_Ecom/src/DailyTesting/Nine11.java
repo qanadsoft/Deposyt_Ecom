@@ -8,10 +8,11 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import org.testng.Assert; 
 import org.testng.annotations.Test;
 
 import Master.MasterClass;
@@ -23,6 +24,7 @@ public class Nine11 extends MasterClass {
 
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(15));
 
 		Actions action = new Actions(driver);
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -62,39 +64,77 @@ public class Nine11 extends MasterClass {
 		driver.findElement(By.cssSelector("input[placeholder=\"Search Products\"]")).clear();
 		*/
 		//Create a product in test account
+		// Create a product in test account
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button.items-center.capitalize.newproductbutton"))).click();
-		//driver.findElement(By.cssSelector("button.items-center.capitalize.newproductbutton")).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_name);
 		driver.findElement(By.name("productDetails.productDescription")).sendKeys("This product is created by Automation for 911 Test");
-		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop = 500");
-		driver.findElement(By.cssSelector("input[type=\"file\"]")).sendKeys(Media_Path+"JPEG TEST.jpg");
-		driver.findElement(By.cssSelector("[name=\"productType.digital.attachment\"]+div>div>input")).sendKeys(Media_Path+"Jira Guide.pdf");
-		
-		//Entering Product price
-		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop = 500");
+
+		// 🔹 Scroll to and upload product image
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
+		uploadImage.sendKeys(Media_Path + "JPEG TEST.jpg");
+
+		// Upload product attachment
+		WebElement uploadAttachment = driver.findElement(By.cssSelector("[name=\"productType.digital.attachment\"]+div>div>input"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadAttachment);
+		uploadAttachment.sendKeys(Media_Path + "Jira Guide.pdf");
+
+		// Entering Product price
+		WebElement subscriptionButton = driver.findElement(By.xpath("//button[@id='Subscription']"));
+
+		// Scroll with offset so sticky header doesn't block it
+		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", subscriptionButton);
+		Thread.sleep(500);
+
+		// Click using JS to avoid interception
+		jse.executeScript("arguments[0].click();", subscriptionButton);
+
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(Price);
 		Thread.sleep(1000);
-		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop = 1500");
-		action.sendKeys(Keys.PAGE_DOWN).perform();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button//span")).click();
-		driver.findElement(By.cssSelector("div.sticky.bottom-0")).click();
-		driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")).click();
+		
+		driver.findElement(By.xpath("(//div[@class='scrolling-touch relative flex flex-1 flex-wrap items-center overflow-hidden'])[1]")).click();
+
+		Thread.sleep(4000);
+		
+		driver.findElement(By.xpath("//span[contains(text(),'Weekly')]")).click();
+		// 🔹 Scroll to "This Product Unlocks Courses" button
+		WebElement unlockCourseButton = driver.findElement(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button//span"));
+		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", unlockCourseButton);
+		Thread.sleep(500);
+		jse.executeScript("arguments[0].click();", unlockCourseButton);
+
+		// Save product
+		WebElement saveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0"));
+		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", saveBtn);
+		Thread.sleep(500);
+		saveBtn.click();
+
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+
 		Thread.sleep(3000);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.Product-Detial-side-modal-Scrollbar")));
-		
+
 		//validate product listing 
 		driver.findElement(By.cssSelector("input[placeholder=\"Search Products\"]")).sendKeys(Product_name);
 		
-		try 
-		{ 
-			driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		try {
+		    By productLink = By.cssSelector("#result-item-0 > a");
+		   
+		    WebElement element = wait1.until(ExpectedConditions.elementToBeClickable(productLink));
+		    
+		    element.click();
+		    
+		} catch (Exception e) {
+			
+		    // Optional: print debug info
+		    System.out.println("DEBUG: Product element not found or not clickable.");
+		    System.out.println("Page Title: " + driver.getTitle());
+		    System.out.println("Current URL: " + driver.getCurrentUrl());
+		    
+		    Assert.fail("Product Listing Not Found");
 		}
-		catch (NoSuchElementException e) 
-		{
-			Assert.assertTrue(false, "Product Listing Not Found");
-		}
-		
+
 		//Check if we can active and inactive a product on test account
 		driver.findElement(By.cssSelector("button[role=\"switch\"]>span")).click();
 		driver.findElement(By.cssSelector("div.rt-CardInner>div>button:nth-of-type(2)")).click();
@@ -107,7 +147,7 @@ public class Nine11 extends MasterClass {
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		
 		String pwindo = driver.getWindowHandle();
-		driver.findElement(By.xpath("//p[text() = 'Default Checkout Page']//following-sibling::div[2]//a")).click();
+		driver.findElement(By.xpath("//p[@class='large:w-72 w-52 inline-block relative px-1 pr-5 hover:bg-[#0000000D] rounded-md line-clamp-2']")).click();
 		
 		String Checkout_page = null;
 		for(String Tab: driver.getWindowHandles())
@@ -159,7 +199,7 @@ public class Nine11 extends MasterClass {
 		}
 		
 		//Filling Contact information
-		driver.findElement(By.id("email")).sendKeys(WMLogin);
+		driver.findElement(By.id("email")).sendKeys(WMLogin);  
 		driver.findElement(By.id("first_name")).sendKeys(F_Name);
 		driver.findElement(By.id("last_name")).sendKeys(L_Name);
 		driver.findElement(By.id("phone")).sendKeys(Number);
@@ -180,20 +220,28 @@ public class Nine11 extends MasterClass {
 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(3000);
-		
+		 
 		//Validate order Summery - Customer details
-		String Order_Name = driver.findElement(By.xpath("//span[text() = 'Customer']//following-sibling::div//span")).getText().trim();
-		String Order_Mail = driver.findElement(By.xpath("//span[text() = 'Customer']//following-sibling::div//p")).getText().trim();
-		String Order_Phone = driver.findElement(By.xpath("//span[text() = 'Customer']//following-sibling::div//span[2]")).getText().replace("-", "");
-		
+		// Wait for the Customer section to be present and visible
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+		String Order_Name = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		        By.xpath("//span[text() = 'Customer']//following-sibling::div//span"))).getText().trim();
+
+		String Order_Mail = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		        By.xpath("//span[text() = 'Customer']//following-sibling::div//p"))).getText().trim();
+
+		String Order_Phone = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		        By.xpath("//span[text() = 'Customer']//following-sibling::div//span[2]")))
+		        .getText().replace("-", "").trim();
+
+		// Debug print
 		System.out.println(Order_Name);
 		System.out.println(Order_Mail);
 		System.out.println(Order_Phone);
-		Assert.assertEquals(Order_Name, F_Name+" "+L_Name, "Customername not matching on order summery");
-		Assert.assertEquals(Order_Mail, F_Name+" "+L_Name, "Customername not matching on order summery");
-		//Validate order Summery - Billing details
-		
-		//Check if while creating product toggle on course is working and product is getting shared in courses 
-		
+
+		// Assertions
+		Assert.assertEquals(Order_Name, F_Name + " " + L_Name, "Customer name not matching on order summary");
+		Assert.assertEquals(Order_Mail, WMLogin, "Customer email not matching on order summary");
 	}
 }
