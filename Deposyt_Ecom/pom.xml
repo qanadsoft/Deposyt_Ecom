@@ -78,5 +78,13 @@
     <version>1.5.4</version>
 </dependency>
 
+<!-- Extent Reports -->
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>5.1.1</version>
+</dependency>
+
+
   </dependencies>
 </project>

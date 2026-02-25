@@ -20,88 +20,15 @@ import org.testng.annotations.Parameters;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class MasterClass {
-
-	//Modules
-	protected String url		= "https://app.deposyt.com/";
-	//protected String url		= "https://app.release.deposyt.com/";
-	//protected String url		= "https://preapp.deposyt.com/";
-	protected String Ecom_url 	= "https://store.app.deposyt.com/a/";
-
-	//Module Url's
-	protected String 
-	Dashboard	= url+"index.php?m=dashboard",
-	Messages 	= url+"index.php?m=conversation",
-	CallLog		= url+"index.php?m=customers&d=calllogs",
-	Contacts	= url+"index.php?m=customers",
-	Pipelines	= url+"index.php?m=pipelinesv2&d=pipelinedashboard",
-	Calendar	= url+"index.php?m=appointments&d=tableview", 
-	Lists		= url+"index.php?m=contactlist",
-	Notes 	 	= url+"index.php?m=notesmain&d=allnotes",
-	Tasks 		= url+"index.php?m=notesmain&d=alltasks&tab=Incomplete",
-	Campaigns	= url+"index.php?m=campaigns",
-	Forms	 	= url+"index.php?m=addformtemplates",
-	Funnels 	= url+"index.php?m=landingpage",
-	Domains 	= url+"index.php?m=landingpage&d=manage_domain",
-	Triggers	= url+"index.php?m=triggers",
-	Videos	 	= url+"index.php?m=ffmpeg",
-	Support		= url+"index.php?m=help&d=list",
-	Settings	= url+"index.php?m=settings&d=useractions",
-	MyProfile	= url+"index.php?m=employeedetails&d=myprofile",
-	UserManagment	 	= url+"index.php?m=usersmgmt&d=list",
-	AccessLevelPage 	= url+"index.php?m=usersmgmt&d=access_level_list",
-	AppointmentTypes 	= url+"index.php?m=appointments&d=eventtypes",
-	Courses 	= url+"index.php?m=courses",
-	Availibility		= url+"index.php?m=appointments&d=eventavailability",
-	TagManager	= url+"index.php?m=tags",
-	SellLive	= url+"index.php?m=employeedetails&d=videocallappointments",
-	BussinessProfile = url+"index.php?m=settings&d=businessprofile";
-	
-	//Ecom URL's
-	protected String
-	Sales 		= Ecom_url+"sales",
-	Orders 		= Ecom_url+"orders",
-	Products 	= Ecom_url+"products?",
-	Customers 	= Ecom_url+"customers?",
-	Discounts 	= Ecom_url+"discounts?",
-	Gift_Cards 	= Ecom_url+"gift-cards",
-	Pricing 	= Ecom_url+"pricing?",
-	Virtual_Terminal = Ecom_url+"virtual-terminal",
-	settings 	= Ecom_url+"settings?";
-
-
-	//CRM Logins
-	protected String Test02Login = "nadsoft.test02@gmail.com";
-	protected String Test02Pass	 =	"n2Nafcqm";
-
-	protected String Test99Login = "nadsoft.test99@gmail.com";
-	protected String Test99Pass	 = "Nadsoft@12345678";
-
-	protected String MyAccLogin	 = "rohan@nadsoftdesign.com";
-	protected String MyAccPass 	 = "icruMOgk";
-
-	protected String ATALogin 	 = "testself30@gmail.com";
-	protected String ATAPass	 = "AutomationTest@123";
-
-
-	//webmail login
-	protected String WMURL		 = "https://gator3086.hostgator.com:2096/";
-	protected String WMLogin 	 = "qa@nadsoftdesign.com";
-	protected String WMPass		 = "Nadsoft@2024";
-
-	//Local Paths
-	protected String Media_Path 	 = System.getProperty("user.dir")+"\\Sources\\Test Media\\" ;//For windows
+public class Data extends Public_Strings {
 
 	public WebDriver driver;
 
-
 	@Parameters({"bname","uname","pass", "role"})
 	@BeforeClass
-	public void invokebrowser(String bname, String uname, String pass, String role) throws Exception 
-	{
+	public void invokebrowser(String bname, String uname, String pass, String role) throws Exception {
 
-		switch(bname) 
-		{
+		switch(bname) {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
@@ -138,15 +65,12 @@ public class MasterClass {
 		Thread.sleep(2000);
 		String title = driver.getTitle();
 
-		if(title.equals("deposyt.com"))
-		{
+		if(title.equals("deposyt.com")) {
 			driver.findElement(By.xpath("//h1[text() = 'Role: "+role+"']//parent::div//parent::a")).click();
 		}
 	}
 
-
-	public void AddContact(String Name, String Number, String Mail) throws Exception 
-	{
+	public void AddContact(String Name, String Number, String Mail) throws Exception {
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)) ;
 		WebDriverWait wait= new WebDriverWait(driver,Duration.ofSeconds(20));
@@ -154,8 +78,7 @@ public class MasterClass {
 		driver.navigate().to(Customers);
 
 		//Checking for duplicate customers By number
-		if(!Number.equals(""))
-		{
+		if(!Number.equals("")) {
 			driver.findElement(By.name("search")).sendKeys(Number);
 			action.sendKeys(Keys.ENTER).build().perform();
 
@@ -163,35 +86,28 @@ public class MasterClass {
 			Thread.sleep(3000);
 			action.sendKeys(Keys.ESCAPE).perform();
 
-			try
-			{
+			try {
 				Thread.sleep(2000);
 				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
 				Thread.sleep(2000);
-			}
-			catch (Exception NoSuchElementExcepation) 
-			{
+			} catch (Exception NoSuchElementExcepation) {
 			}
 		}
 
 		//Checking for duplicate customers By number by Mail
-		if(!Mail.equals(""))
-		{
+		if(!Mail.equals("")){
 			driver.findElement(By.name("search")).clear();
 			driver.findElement(By.name("search")).sendKeys(Mail);
 			action.sendKeys(Keys.ENTER).build().perform();
 
-			try
-			{
+			try {
 				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
 				Thread.sleep(2000);
-			}
-			catch (Exception NoSuchElementExcepation) 
-			{
+			} catch (Exception NoSuchElementExcepation) {
 			}
 		}
 
@@ -203,45 +119,35 @@ public class MasterClass {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//*[@id=\"add_contact_form\"]/form[1]/div[2]/input[1]")).click();
 
-		try 
-		{
+		try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alertify-logs")));
-		}
-		catch(Exception TimeOutException) 
-		{
+		} catch(Exception TimeOutException) {
 			Assert.assertTrue(false,"Contact Not Added");
 		}
 	}
 
-	public void DeleteContact(String Number, String Mail) throws Exception 
-	{
+	public void DeleteContact(String Number, String Mail) throws Exception {
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)) ;
 
 		driver.navigate().to(Customers);
-		//By number
 
-		if(!Number.equals(""))
-		{
+		//By number
+		if(!Number.equals("")) {
 			driver.findElement(By.name("search")).sendKeys(Number);
 			action.sendKeys(Keys.ENTER).build().perform();
 
-			try
-			{
+			try {
 				driver.findElement(By.id("at0-cell-actions_col-30")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
 				Thread.sleep(2000);
-			}
-			catch (Exception NoSuchElementExcepation) 
-			{
+			} catch (Exception NoSuchElementExcepation) {
 			}
 		}
 
 		//by Mail
-
-		if(!Mail.equals(""))
-		{
+		if(!Mail.equals("")) {
 			driver.findElement(By.name("search")).clear();
 			driver.findElement(By.name("search")).sendKeys(Mail);
 			action.sendKeys(Keys.ENTER).build().perform();
@@ -252,9 +158,7 @@ public class MasterClass {
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
 				Thread.sleep(2000);
-			}
-			catch (Exception NoSuchElementExcepation) 
-			{
+			} catch (Exception NoSuchElementExcepation) {
 			}
 		}
 	}
@@ -271,15 +175,12 @@ public class MasterClass {
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("#selectAll+span")).click();
 
-		try
-		{
+		try {
 			Thread.sleep(1000);
 			driver.findElement(By.cssSelector("button.deletebulktags ")).click();
 			Thread.sleep(2000);
 			driver.findElement(By.id("deleteblkpopup")).click();
-		}
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 		}
 
 		driver.findElement(By.cssSelector("div.selectize-control.custom-tag-input>div>input")).sendKeys(TagName);
@@ -287,15 +188,14 @@ public class MasterClass {
 		driver.findElement(By.id("Add_tags")).click();
 	}
 
-	public void ReLogin(String Uname, String Pass) throws InterruptedException
-	{
+	public void ReLogin(String Uname, String Pass) throws InterruptedException {
 		WebDriverWait wait= new WebDriverWait(driver,Duration.ofSeconds(5));
 
 		driver.navigate().to(url);
 		driver.findElement(By.xpath("//*[@id=\"dropdownMenu1\"]")).click();
 		driver.findElement(By.linkText("Logout")).click();
 
-		//Login To anather test account
+		//Login To another test account
 		WebElement emf = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
 		emf.sendKeys(Uname);
 		driver.findElement(By.id("password")).sendKeys(Pass);
@@ -304,14 +204,12 @@ public class MasterClass {
 		Thread.sleep(2000);
 		String title = driver.getTitle();
 
-		if(title.equals("deposyt.com"))
-		{
+		if(title.equals("deposyt.com")){
 			driver.findElement(By.cssSelector("#multiaccountpopup_closebtn+h1+a")).click();
 		}
 	}
 
-	public Boolean ReceivedMail(String Subject) throws InterruptedException
-	{
+	public Boolean ReceivedMail(String Subject) throws InterruptedException{
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
@@ -328,12 +226,11 @@ public class MasterClass {
 		Thread.sleep(2000);
 		String msgcount1= driver.findElement(By.id("messagestack")).getText();
 		System.out.println();
-		System.out.println("Appointment Mail Confirmation Status ----->");
+		System.out.println("Mail Confirmation Status ----->");
 		System.out.println("	"+msgcount1);
 
 		boolean MailStatus;
-		try
-		{
+		try {
 			Thread.sleep(1000);
 			String subject = driver.findElement(By.cssSelector("tr.message.unread:first-of-type>td.subject>a>span")).getText();
 			String recivedfrom =driver.findElement(By.cssSelector("tr.message.unread:first-of-type>td.fromto>span>span")).getText();
@@ -347,9 +244,7 @@ public class MasterClass {
 			driver.findElement(By.id("rcmbtn144")).click();
 			driver.findElement(By.id("rcmbtn116")).click();
 			MailStatus = true;
-		}
-		catch(Exception e) 
-		{
+		} catch(Exception e){
 			MailStatus = false;
 		}
 
@@ -360,8 +255,7 @@ public class MasterClass {
 		return(MailStatus);
 	}
 
-	public void DeleteMail(String Subject) throws InterruptedException
-	{
+	public void DeleteMail(String Subject) throws InterruptedException {
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
@@ -375,14 +269,11 @@ public class MasterClass {
 		action.sendKeys(Keys.ENTER).build().perform();
 		Thread.sleep(2000);
 
-		try
-		{
+		try {
 			driver.findElement(By.id("listselectmenulink")).click();//Select All and Delete
 			driver.findElement(By.id("rcmbtn144")).click();
 			driver.findElement(By.id("rcmbtn116")).click();
-		}
-		catch(Exception e) 
-		{
+		} catch(Exception e) {
 		}
 
 		driver.findElement(By.id("rcmbtn106")).click();
@@ -390,4 +281,5 @@ public class MasterClass {
 		driver.close();
 		driver.switchTo().window(pwindo);
 	}
+
 }
