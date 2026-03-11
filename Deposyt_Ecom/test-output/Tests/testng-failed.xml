@@ -3,16 +3,16 @@
 <suite thread-count="4" parallel="tests" name="Failed suite [Tests]" guice-stage="DEVELOPMENT">
   <parameter name="role" value="Admin"/>
   <parameter name="bname" value="chrome"/>
-  <test thread-count="4" parallel="tests" name="Contacts Test(failed)">
-    <parameter name="uname" value="cirejo5004@cexch.com"/>
-    <parameter name="pass" value="Veersir@2026"/>
+  <test thread-count="4" parallel="tests" name="911 Testing (failed)">
+    <parameter name="uname" value="sandeeppawar1010@sharklasers.com"/>
+    <parameter name="pass" value="Sushant@0808"/>
     <classes>
       <class name="dailyTesting_911.Ecom_Nine11">
         <methods>
-          <include name="SubscriptionAnalytics_SalesOrder"/>
           <include name="invokebrowser"/>
+          <include name="Edit_order"/>
         </methods>
       </class> <!-- dailyTesting_911.Ecom_Nine11 -->
     </classes>
-  </test> <!-- Contacts Test(failed) -->
+  </test> <!-- 911 Testing (failed) -->
 </suite> <!-- Failed suite [Tests] -->

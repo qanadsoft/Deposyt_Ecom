@@ -7,18 +7,18 @@
     <parameter name="role"  value="Admin" />
           
 	<!--   911 Testing  -->
-	<test name="Contacts Test">
-	<parameter name="uname" value="cirejo5004@cexch.com"/>
-	<parameter name="pass"  value="Veersir@2026"/>
+	<test name="911 Testing ">
+	<parameter name="uname" value="sandeeppawar1010@sharklasers.com"/>
+	<parameter name="pass"  value="Sushant@0808"/>
 	
 	<classes>
 		<class name="dailyTesting_911.Ecom_Nine11">
 			<methods>
-				<include name="SubscriptionAnalytics_SalesOrder"/>
+				<include name="Edit_order"/>
 			</methods>
 		</class>
 	</classes>
 	</test>
-  
+
 </suite>
 

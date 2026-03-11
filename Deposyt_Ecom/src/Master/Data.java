@@ -130,7 +130,7 @@ public class Data extends Public_Strings {
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)) ;
 
-		driver.navigate().to(Customers);
+		driver.navigate().to(Contacts);
 
 		//By number
 		if(!Number.equals("")) {

@@ -59,7 +59,9 @@ public class Public_Strings {
 	Pricing 		 = Ecom_url + "pricing?",
 	Virtual_Terminal = Ecom_url + "virtual-terminal",
 	settings 	     = Ecom_url + "settings?",
-	invoices		 = Ecom_url + "invoices";
+	invoices		 = Ecom_url + "invoices",
+	dual_Pricing	 = Ecom_url + "settings/dual-pricing",
+	Customer_Hub	 = "https://smartstore.deposyt.store/";
 
 
 	//CRM Logins
