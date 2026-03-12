@@ -1851,7 +1851,7 @@ public class Ecom_Nine11 extends Data {
 		
 	}
 	
-	@Test(priority = 10)
+	@Test(priority = 9)
 	public void OneTime_SalesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -2170,7 +2170,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals(Revenueusersone, Revenueusers2, "Customer count is not incremented in one time tab");	
 	}
 	
-	@Test(priority = 11)
+	@Test(priority = 10)
 	public void subscription_SalesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -2521,7 +2521,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals((int) customersValue11, 1, "Total Customers not updated correctly After applying product filter");
 	}
 
-	@Test(priority = 12)
+	@Test(priority = 11)
 	public void Tier_SalesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -2769,7 +2769,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals((int) customersValue11, 1, "Total Customers not updated correctly After applying product filter");	
 	}
 	
-	@Test(priority = 13)
+	@Test(priority = 12)
 	public void Invoice_SalesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -2953,7 +2953,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals(recentorderdisplayed, email, "Placed order is not displayed in recent order popup");		
 	}
 	
-	@Test(priority = 14)
+	@Test(priority = 13)
 	public void Cources_SalesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -3428,7 +3428,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("orders") && driver.getCurrentUrl().toLowerCase().contains(PlacedOrderID11.toLowerCase()),"URL does not contain 'orders' or Order ID. Current URL");
 	}
 	
-	@Test(priority = 15)
+	@Test(priority = 14)
 	public void VirtualTerminal_salesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -3703,7 +3703,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals(Revenueusersaftervtcard, Revenueusersbeforevtcard, "Total users is not updated correctly after placing order from VT in VT tab");
 	}
 	
-	@Test(priority = 16)
+	@Test(priority = 15)
 	public void PremadeGift_SalesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -3848,7 +3848,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals(Revenueusersaftergifttab, Revenueusersbeforegifttab + 1, "Total users is not updated correctly after placing order for premade gift card tab");		
 	}
 	
-	@Test(priority = 17)
+	@Test(priority = 16)
 	public void SubscriptionAnalytics_SalesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -4221,7 +4221,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals(actualFirstDigit,expectedFirstDigit,"Total revenue first digit is not matching in top product section after applying product filter");
 	}
 	
-	@Test(priority = 18)
+	@Test(priority = 17)
 	public void Services_SalesOrder() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -4474,7 +4474,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("orders") && driver.getCurrentUrl().toLowerCase().contains(PlacedOrderID11.toLowerCase()),"URL does not contain 'orders' or Order ID. Current URL");
 	}
 	
-	@Test(priority = 19)
+	@Test(priority = 18)
 	public void Create_Discount() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -4645,7 +4645,7 @@ public class Ecom_Nine11 extends Data {
 		System.out.println("Discount is applied successfully in VT");
 	}
 	
-	@Test(priority = 20)
+	@Test(priority = 19)
 	public void Create_GiftCard() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -4999,7 +4999,7 @@ public class Ecom_Nine11 extends Data {
 		System.out.println("Placed Order ID : " + PlacedOrders);
 	}
 	
-	@Test(priority = 21)
+	@Test(priority = 20)
 	public void Pricing() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -5699,7 +5699,7 @@ public class Ecom_Nine11 extends Data {
 		
 	}
 	
-	@Test(priority = 22)
+	@Test(priority = 21)
 	public void VT () throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -5938,7 +5938,7 @@ public class Ecom_Nine11 extends Data {
 		ReceivedMail("Your Order is Confirmed — Order# ");		
 	}
 	
-	@Test(priority = 23)
+	@Test(priority = 22)
 	public void Settings() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -6708,7 +6708,7 @@ public class Ecom_Nine11 extends Data {
 		ReceivedMail("Card Expiration Alert");	
 	}
 	
-	@Test(priority = 24)
+	@Test(priority = 23)
 	public void PriceAdjustment() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -7232,7 +7232,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals(Double.parseDouble(TotalOrderAmounts11.replace("$", "")), 2.08, "Total order amount mismatch in order summary");		
 	}
 		
-	@Test(priority = 25)
+	@Test(priority = 24)
 	public void SubscriptionSettings() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -7623,7 +7623,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals(upgradeOption1.size(), 1, "Upgrade option is not visible");	
 	}
 	
-	@Test(priority = 26)
+	@Test(priority = 25)
 	public void Customer_Hub() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -8235,7 +8235,7 @@ public class Ecom_Nine11 extends Data {
 		Assert.assertEquals(SubscriptionStatus111, "Active", "Subscription status is not getting updated to Active after restart the subscription");	
 	}
 	
-	@Test(priority = 27)
+	@Test(priority = 26)
 	public void PaymentMethods() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -8441,7 +8441,59 @@ public class Ecom_Nine11 extends Data {
 		System.out.println("Backup card is removed successfully");		
 	}
 		
+	@Test(priority = 27)
+	public void Store_Front() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		
+		String Store_Name = "Smart Online Store " + java.util.UUID.randomUUID().toString().substring(0,2);
+				
+		//Verify that the storefront URL is fetched from the Settings module and store name and url  is correct 
+		driver.navigate().to(settings + "/details");
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Store Details']/parent::div/parent::button"))).click(); //Click on Region button
+		WebElement storeName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder=\"Store name\"]")));
+		storeName.clear();
+		storeName.sendKeys(Store_Name);		
+		String StoreUrl = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("base_url"))).getAttribute("value").trim();		
+		String expectedUrl = "https://" + StoreUrl + ".app.deposyt.com/";
+		System.out.println("Store URL: " + expectedUrl);
+		
+		//Verify that the logo is displayed correctly when the square logo is selected, and also when the rectangular logo is selected.
+		driver.findElement(By.id("squareLogo")).click();
+		driver.findElement(By.cssSelector("div.setting-ui-logo-custom-class>div>label:first-of-type>div>div>p>div>button:first-of-type")).click();
+		Thread.sleep(2000);	
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(Media_Path + Fileone);				
+		Thread.sleep(2000);	
+		driver.findElement(By.xpath("//span[normalize-space()=\"Crop\"]//parent::button")).click();
+		driver.findElement(By.xpath("//span[normalize-space()=\"Done\"]")).click();
+		driver.findElement(By.xpath("//span[normalize-space()=\"Publish\"]//parent::button")).click();
+			
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("a[rel='noopener noreferrer']:first-of-type")).click();
+		Thread.sleep(10000);		
+		String storeNameOnUI = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("((//nav[contains(@class,'text-ui-fg-subtle')]//div)[8]//div//h1)[1]"))).getText().trim();
+		Assert.assertEquals(storeNameOnUI, Store_Name, "Store name is not correct on store front");
+		System.out.println("Store name is correct on store front page");
+		
+		String currentUrl = driver.getCurrentUrl();
+		System.out.println("Current URL: " + currentUrl);
+		Assert.assertEquals(currentUrl, expectedUrl, "Store URL is not correct");
+		System.out.println("Store URL is correct and navigated to store front successfully");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 		
 		
 		

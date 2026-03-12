@@ -3,14 +3,14 @@ package Master;
 public class Public_Strings {
 
 	//Modules
-	//protected String url		= "https://appdev.deposyt.com/";
+	protected String url		= "https://appdev.deposyt.com/";
 	//protected String url		= "https://app.release.deposyt.com/";
 	//protected String url		= "https://preapp.deposyt.com/";
-	protected String url		= "https://app.deposyt.com/";
+	//protected String url		= "https://app.deposyt.com/";
 	
-	//protected String Ecom_url = "https://store.app.dev.deposyt.com/a/";
+	protected String Ecom_url   = "https://store.app.dev.deposyt.com/a/";
 	//protected String Ecom_url = "https://store.app.release.deposyt.com/a/";
-	protected String Ecom_url 	= "https://store.app.deposyt.com/a/";
+	//protected String Ecom_url = "https://store.app.deposyt.com/a/";
 
 	//Module Url's
 	protected String 
@@ -58,11 +58,10 @@ public class Public_Strings {
 	Gift_Cards 		 = Ecom_url + "gift-cards",
 	Pricing 		 = Ecom_url + "pricing?",
 	Virtual_Terminal = Ecom_url + "virtual-terminal",
-	settings 	     = Ecom_url + "settings?",
+	settings 	     = Ecom_url + "settings",
 	invoices		 = Ecom_url + "invoices",
 	dual_Pricing	 = Ecom_url + "settings/dual-pricing",
 	Customer_Hub	 = "https://smartstore.deposyt.store/";
-
 
 	//CRM Logins
 	protected String Test02Login = "nadsoft.test02@gmail.com";
@@ -77,14 +76,13 @@ public class Public_Strings {
 	protected String ATALogin 	 = "testself30@gmail.com";
 	protected String ATAPass	 = "AutomationTest@123";
 
-
 	//web mail login
 	protected String WMURL		 = "https://gator3086.hostgator.com:2096/";
 	protected String WMLogin 	 = "qa@nadsoftdesign.com";
 	protected String WMPass		 = "Nadsoft@2024";
 
 	//Local Paths
-	//protected String Media_Path  = System.getProperty("user.dir")+"\\Sources\\Test Media\\" ; 		//For windows
+	//protected String Media_Path  		  = System.getProperty("user.dir")+"\\Sources\\Test Media\\" ; 	   //For windows
 	protected static String Media_Path    = "/home/nadsoft/Deposyt_Ecom/Deposyt_Ecom/Sources/Test Media/"; //for Linux OS
 	
 }

@@ -10,7 +10,7 @@
       <class name="dailyTesting_911.Ecom_Nine11">
         <methods>
           <include name="invokebrowser"/>
-          <include name="Edit_order"/>
+          <include name="Store_Front"/>
         </methods>
       </class> <!-- dailyTesting_911.Ecom_Nine11 -->
     </classes>
