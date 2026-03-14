@@ -3,13 +3,13 @@ package Master;
 public class Public_Strings {
 
 	//Modules
-	protected String url		= "https://appdev.deposyt.com/";
-	//protected String url		= "https://app.release.deposyt.com/";
+	//protected String url		= "https://appdev.deposyt.com/";
+	protected String url		= "https://app.release.deposyt.com/";
 	//protected String url		= "https://preapp.deposyt.com/";
 	//protected String url		= "https://app.deposyt.com/";
 	
-	protected String Ecom_url   = "https://store.app.dev.deposyt.com/a/";
-	//protected String Ecom_url = "https://store.app.release.deposyt.com/a/";
+	//protected String Ecom_url = "https://store.app.dev.deposyt.com/a/";
+	protected String Ecom_url 	= "https://store.app.release.deposyt.com/a/";
 	//protected String Ecom_url = "https://store.app.deposyt.com/a/";
 
 	//Module Url's
@@ -61,7 +61,7 @@ public class Public_Strings {
 	settings 	     = Ecom_url + "settings",
 	invoices		 = Ecom_url + "invoices",
 	dual_Pricing	 = Ecom_url + "settings/dual-pricing",
-	Customer_Hub	 = "https://smartstore.deposyt.store/";
+	Customer_Hub	 = "https://automation.release.deposyt.store/";
 
 	//CRM Logins
 	protected String Test02Login = "nadsoft.test02@gmail.com";

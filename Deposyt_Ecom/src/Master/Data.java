@@ -1,9 +1,12 @@
 package Master;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
@@ -32,9 +35,15 @@ public class Data extends Public_Strings {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
-			options.addArguments("use-fake-ui-for-media-stream");
-			options.addArguments("use-fake-device-for-media-stream");
+			Map<String, Object> prefs = new HashMap<>();
+			prefs.put("credentials_enable_service", false);
+			prefs.put("profile.password_manager_enabled", false);
+			options.setExperimentalOption("prefs", prefs);
+			options.addArguments("--disable-save-password-bubble");
+			options.addArguments("--disable-extensions");
+			options.addArguments("--disable-password-manager-reauthentication");
 			options.setExperimentalOption("excludeSwitches", new String[] {"enable-automation"});
+			options.addArguments("use-fake-ui-for-media-stream");
 			driver = new ChromeDriver(options);
 			break;
 
@@ -70,95 +79,79 @@ public class Data extends Public_Strings {
 		}
 	}
 
-	public void AddContact(String Name, String Number, String Mail) throws Exception {
-		Actions action = new Actions(driver);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)) ;
-		WebDriverWait wait= new WebDriverWait(driver,Duration.ofSeconds(20));
+	public void AddContact(String Name,String lastName, String Number, String Mail) throws Exception 
+	{
+		WebDriver driver = DriverFactory.getDriver();
 
-		driver.navigate().to(Customers);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+		DeleteContact(Number, Mail);
+ 
+		driver.findElement(By.cssSelector("div.contact-table-header>div>a.new-sml-insert")).click();// add customer button
+		Thread.sleep(2000);
+		driver.findElement(By.id("first_name")).sendKeys(Name);
+		driver.findElement(By.id("last_name")).sendKeys(lastName);
+		driver.findElement(By.id("email")).sendKeys(Mail);
+		driver.findElement(By.id("cellphonefrommodal")).sendKeys(Number);
+		Thread.sleep(1000);
+		driver.findElement(By.id("addnewcustomernew")).click();
+
+		try {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("toast-container")));
+		}
+		catch(TimeoutException e) 
+		{
+			Assert.assertTrue(false,"Contact Not Added");
+		}
+	}
+
+
+	public void DeleteContact(String Number, String Mail) throws InterruptedException	
+	{
+		WebDriver driver = DriverFactory.getDriver();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));	
+
+ 
+		driver.navigate().to(Contacts);  
 
 		//Checking for duplicate customers By number
-		if(!Number.equals("")) {
+		if(!Number.equals("")){
 			driver.findElement(By.name("search")).sendKeys(Number);
-			action.sendKeys(Keys.ENTER).build().perform();
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("(//div[@id='list']/descendant::p[@data-search-in=\"phone_number\"])[1]")).click();
 
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("search")));
-			Thread.sleep(3000);
-			action.sendKeys(Keys.ESCAPE).perform();
 
-			try {
-				Thread.sleep(2000);
+			int SearchedContacts = driver.findElements(By.cssSelector(".contacttablebody tr.admintable_row")).size();
+			if(SearchedContacts>0)
+			{
 				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
-				Thread.sleep(2000);
-			} catch (Exception NoSuchElementExcepation) {
 			}
 		}
 
 		//Checking for duplicate customers By number by Mail
 		if(!Mail.equals("")){
 			driver.findElement(By.name("search")).clear();
+			Thread.sleep(1000);
 			driver.findElement(By.name("search")).sendKeys(Mail);
-			action.sendKeys(Keys.ENTER).build().perform();
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("(//div[@id='list']/descendant::p[@data-search-in= \"email\"])[1]")).click();
 
 			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+			}
+
+			int SearchedContacts = driver.findElements(By.cssSelector(".contacttablebody tr.admintable_row")).size();
+
+			if(SearchedContacts>0)
+			{
 				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
-				Thread.sleep(2000);
-			} catch (Exception NoSuchElementExcepation) {
-			}
-		}
-
-		driver.findElement(By.xpath("//*[@id=\"block0body\"]/div/div[1]/div/div[1]/a[1]")).click();// add customer button
-		Thread.sleep(2000);
-		driver.findElement(By.id("first_name")).sendKeys(Name);	
-		driver.findElement(By.id("cellphone")).sendKeys(Number);
-		driver.findElement(By.id("email")).sendKeys(Mail);
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[@id=\"add_contact_form\"]/form[1]/div[2]/input[1]")).click();
-
-		try {
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alertify-logs")));
-		} catch(Exception TimeOutException) {
-			Assert.assertTrue(false,"Contact Not Added");
-		}
-	}
-
-	public void DeleteContact(String Number, String Mail) throws Exception {
-		Actions action = new Actions(driver);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)) ;
-
-		driver.navigate().to(Contacts);
-
-		//By number
-		if(!Number.equals("")) {
-			driver.findElement(By.name("search")).sendKeys(Number);
-			action.sendKeys(Keys.ENTER).build().perform();
-
-			try {
-				driver.findElement(By.id("at0-cell-actions_col-30")).click();
-				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
-				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
-				Thread.sleep(2000);
-			} catch (Exception NoSuchElementExcepation) {
-			}
-		}
-
-		//by Mail
-		if(!Mail.equals("")) {
-			driver.findElement(By.name("search")).clear();
-			driver.findElement(By.name("search")).sendKeys(Mail);
-			action.sendKeys(Keys.ENTER).build().perform();
-
-			try
-			{
-				driver.findElement(By.id("at0-cell-actions_col-30")).click();
-				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
-				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
-				Thread.sleep(2000);
-			} catch (Exception NoSuchElementExcepation) {
 			}
 		}
 	}

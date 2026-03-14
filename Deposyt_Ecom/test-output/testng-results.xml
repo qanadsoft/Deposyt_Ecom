@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="26" total="27" passed="0" failed="1" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-12T15:57:48 IST" name="Suite" finished-at="2026-03-12T15:58:31 IST" duration-ms="43107">
+  <suite started-at="2026-03-14T19:23:15 IST" name="Suite" finished-at="2026-03-14T19:24:13 IST" duration-ms="57959">
     <groups>
     </groups>
-    <test started-at="2026-03-12T15:57:48 IST" name="911" finished-at="2026-03-12T15:58:31 IST" duration-ms="43107">
-      <class name="dailyTesting_911.Ecom_Nine11">
-        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:dailyTesting_911.Ecom_Nine11@680d4a6a]" started-at="2026-03-12T15:57:48 IST" name="invokebrowser" finished-at="2026-03-12T15:58:00 IST" duration-ms="12474" status="PASS">
+    <test started-at="2026-03-14T19:23:15 IST" name="911" finished-at="2026-03-14T19:24:13 IST" duration-ms="57959">
+      <class name="dailyTesting_911.store_Front">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:dailyTesting_911.store_Front@1b11ef33]" started-at="2026-03-14T19:23:15 IST" name="invokebrowser" finished-at="2026-03-14T19:23:30 IST" duration-ms="14508" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -16,12 +16,12 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[Cardexpiry@guerrillamail.org]]>
+                <![CDATA[rishikesh.sakharekar@gmail.com]]>
               </value>
             </param>
             <param index="2">
               <value>
-                <![CDATA[Cardexpiry@123456]]>
+                <![CDATA[Djismylige@1998]]>
               </value>
             </param>
             <param index="3">
@@ -33,53 +33,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- invokebrowser -->
-        <test-method signature="Store_Front()[pri:27, instance:dailyTesting_911.Ecom_Nine11@680d4a6a]" started-at="2026-03-12T15:58:00 IST" name="Store_Front" finished-at="2026-03-12T15:58:31 IST" duration-ms="30572" status="FAIL">
-          <exception class="org.openqa.selenium.TimeoutException">
-            <message>
-              <![CDATA[Expected condition failed: waiting for element to be clickable: By.xpath: //h3[normalize-space()='Store Details']/parent::div/parent::button (tried for 20 second(s) with 500 milliseconds interval)
-Build info: version: '4.13.0', revision: 'ba948ece5b*'
-System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-139-generic', java.version: '21.0.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 145.0.7632.75, chrome: {chromedriverVersion: 145.0.7632.117 (de4e5d6e13b..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:35531}, goog:processID: 50233, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:35531/devtoo..., se:cdpVersion: 145.0.7632.75, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: e2cf0885aa8793a4dad244e684e0c2f2]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //h3[normalize-space()='Store Details']/parent::div/parent::button (tried for 20 second(s) with 500 milliseconds interval)
-Build info: version: '4.13.0', revision: 'ba948ece5b*'
-System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-139-generic', java.version: '21.0.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 145.0.7632.75, chrome: {chromedriverVersion: 145.0.7632.117 (de4e5d6e13b..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:35531}, goog:processID: 50233, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:35531/devtoo..., se:cdpVersion: 145.0.7632.75, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: e2cf0885aa8793a4dad244e684e0c2f2
-at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-at dailyTesting_911.Ecom_Nine11.Store_Front(Ecom_Nine11.java:8454)
-at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-at org.testng.TestRunner.privateRun(TestRunner.java:741)
-at org.testng.TestRunner.run(TestRunner.java:616)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
-at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-at java.base/java.lang.Thread.run(Thread.java:1583)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.TimeoutException -->
+        <test-method signature="Store_Front()[pri:1, instance:dailyTesting_911.store_Front@1b11ef33]" started-at="2026-03-14T19:23:30 IST" name="Store_Front" finished-at="2026-03-14T19:24:13 IST" duration-ms="43388" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Store_Front -->
-      </class> <!-- dailyTesting_911.Ecom_Nine11 -->
+      </class> <!-- dailyTesting_911.store_Front -->
     </test> <!-- 911 -->
   </suite> <!-- Suite -->
 </testng-results>

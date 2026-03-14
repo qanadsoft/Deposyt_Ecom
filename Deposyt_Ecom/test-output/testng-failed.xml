@@ -4,15 +4,15 @@
   <parameter name="role" value="Admin"/>
   <parameter name="bname" value="chrome"/>
   <test thread-count="2" parallel="tests" name="911(failed)">
-    <parameter name="uname" value="Cardexpiry@guerrillamail.org"/>
-    <parameter name="pass" value="Cardexpiry@123456"/>
+    <parameter name="uname" value="rishikesh.sakharekar@gmail.com"/>
+    <parameter name="pass" value="Djismylige@1998"/>
     <classes>
-      <class name="dailyTesting_911.Ecom_Nine11">
+      <class name="dailyTesting_911.store_Front">
         <methods>
-          <include name="invokebrowser"/>
           <include name="Store_Front"/>
+          <include name="invokebrowser"/>
         </methods>
-      </class> <!-- dailyTesting_911.Ecom_Nine11 -->
+      </class> <!-- dailyTesting_911.store_Front -->
     </classes>
   </test> <!-- 911(failed) -->
 </suite> <!-- Failed suite [Suite] -->

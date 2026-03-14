@@ -1,5 +1,9 @@
 package dailyTesting_911;
 
-public class access_level {
+import Master.Data;
+
+public class access_level extends Data {
+	
+
 
 }

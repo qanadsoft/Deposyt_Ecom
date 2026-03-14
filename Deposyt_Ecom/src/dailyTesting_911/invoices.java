@@ -1,5 +1,7 @@
 package dailyTesting_911;
 
-public class invoices {
+import Master.Data;
+
+public class invoices extends Data {
 
 }
