@@ -2,17 +2,18 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="Suite" parallel="tests" thread-count="2">
-    <parameter name="bname" value="chrome"/>
-    <parameter name="role" value="Admin"/>
+    <parameter name = "bname" 					value = "chrome"/>
+    <parameter name = "role"  					value = "Admin"/>
+    <parameter name = "loginTypeMainAccess"     value = "user"/>
 
     <test name="911">
-       <parameter name="uname" value="rishikesh.sakharekar@gmail.com"/>
-	   <parameter name="pass"  value="Djismylige@1998"/>
+       <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com"/>
+	   <parameter name = "pass"  value = "Djismylige@1998"/>
 
         <classes>
-            <class name="dailyTesting_911.store_Front">
+            <class name="dailyTesting_911.access_level">
                 <methods>
-                    <include name="Store_Front"/>
+                    <include name="NoneAccess"/>
                 </methods>
             </class>
         </classes>
