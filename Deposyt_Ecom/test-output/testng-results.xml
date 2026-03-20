@@ -2,12 +2,12 @@
 <testng-results ignored="2" total="3" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-19T20:25:25 IST" name="Suite" finished-at="2026-03-19T20:27:23 IST" duration-ms="117675">
+  <suite started-at="2026-03-20T20:41:06 IST" name="Suite" finished-at="2026-03-20T20:44:09 IST" duration-ms="183175">
     <groups>
     </groups>
-    <test started-at="2026-03-19T20:25:25 IST" name="911" finished-at="2026-03-19T20:27:23 IST" duration-ms="117675">
+    <test started-at="2026-03-20T20:41:06 IST" name="911" finished-at="2026-03-20T20:44:09 IST" duration-ms="183175">
       <class name="dailyTesting_911.access_level">
-        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:dailyTesting_911.access_level@2c95ac9e]" started-at="2026-03-19T20:25:25 IST" name="invokebrowser" finished-at="2026-03-19T20:25:37 IST" duration-ms="11771" status="PASS">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:dailyTesting_911.access_level@74f7d1d2]" started-at="2026-03-20T20:41:06 IST" name="invokebrowser" finished-at="2026-03-20T20:41:21 IST" duration-ms="14840" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -33,7 +33,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- invokebrowser -->
-        <test-method is-config="true" signature="userNavigationMainAcess(java.lang.String)[pri:0, instance:dailyTesting_911.access_level@2c95ac9e]" started-at="2026-03-19T20:25:37 IST" name="userNavigationMainAcess" finished-at="2026-03-19T20:26:09 IST" duration-ms="31821" status="PASS">
+        <test-method is-config="true" signature="userNavigationMainAcess(java.lang.String)[pri:0, instance:dailyTesting_911.access_level@74f7d1d2]" started-at="2026-03-20T20:41:21 IST" name="userNavigationMainAcess" finished-at="2026-03-20T20:42:08 IST" duration-ms="47767" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -44,10 +44,10 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- userNavigationMainAcess -->
-        <test-method signature="NoneAccess()[pri:2, instance:dailyTesting_911.access_level@2c95ac9e]" started-at="2026-03-19T20:26:09 IST" name="NoneAccess" finished-at="2026-03-19T20:27:23 IST" duration-ms="74007" status="PASS">
+        <test-method signature="ViewAccess()[pri:2, instance:dailyTesting_911.access_level@74f7d1d2]" started-at="2026-03-20T20:42:08 IST" name="ViewAccess" finished-at="2026-03-20T20:44:09 IST" duration-ms="120362" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- NoneAccess -->
+        </test-method> <!-- ViewAccess -->
       </class> <!-- dailyTesting_911.access_level -->
     </test> <!-- 911 -->
   </suite> <!-- Suite -->

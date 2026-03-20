@@ -54,8 +54,7 @@ public class store_Front extends Data {
 			feeOption.click();
 			Thread.sleep(2000);	
 			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();	
-		}
-		catch(Exception e) {
+		}catch(Exception e) {
 			System.out.println("ACH_Payment is enabled for the store");
 		}
 						

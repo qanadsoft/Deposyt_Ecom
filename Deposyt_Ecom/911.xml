@@ -13,7 +13,7 @@
         <classes>
             <class name="dailyTesting_911.access_level">
                 <methods>
-                    <include name="NoneAccess"/>
+                    <include name="ViewAccess"/>
                 </methods>
             </class>
         </classes>

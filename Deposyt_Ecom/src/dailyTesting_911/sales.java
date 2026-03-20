@@ -99,7 +99,7 @@ public class sales extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
-		driver.findElement(By.name("productDetails.productDescription")).sendKeys("This product is created for 911 Automation product Test");
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
 
 		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
@@ -421,7 +421,7 @@ public class sales extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
-		driver.findElement(By.name("productDetails.productDescription")).sendKeys("This product is created for 911 Automation product Test");
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
 
 		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
@@ -772,7 +772,7 @@ public class sales extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name1);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
-		driver.findElement(By.name("productDetails.productDescription")).sendKeys("This product is created for 911 Automation product Test");
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
 
 		// Scroll to and upload product image
@@ -1226,7 +1226,7 @@ public class sales extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name2);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
-		driver.findElement(By.name("productDetails.productDescription")).sendKeys("This product is created for 911 Automation product Test");
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
 
 		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
@@ -1448,7 +1448,7 @@ public class sales extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name1);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
-		driver.findElement(By.name("productDetails.productDescription")).sendKeys("This product is created for 911 Automation product Test");
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
 
 		WebElement uploadImage1 = driver.findElement(By.cssSelector("input[type=\"file\"]"));
@@ -2060,7 +2060,7 @@ public class sales extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
-		driver.findElement(By.name("productDetails.productDescription")).sendKeys("This product is created for 911 Automation product Test");
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
 
 		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));

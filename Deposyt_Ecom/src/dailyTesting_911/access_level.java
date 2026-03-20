@@ -1,10 +1,15 @@
 package dailyTesting_911;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.UUID;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -14,9 +19,19 @@ import org.testng.annotations.Test;
 import Master.Data;
 
 public class access_level extends Data {
+	java.util.Random r = new java.util.Random();
 	
-	String it, username, adminID, userLoginNavigation, userID, secoundUserID, personalAccessPage;
-	
+	String it, username, adminID, userLoginNavigation, userID, secoundUserID, personalAccessPage,
+	Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Country_Add = "Boardman, Oregon, 97818",
+	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
+	Fileone = "file1.jpg", chars = "abcdefghijklmnopqrstuvwxyz", Value = "1",	
+	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000)), EXP = "12/44", CVV = "123", 
+	Card_No = "4242424242424242",F_Name = "NineEleven", L_Name = "Contact", Street_Add = "Allen Court", country = "United States";
+					
+					
 	@BeforeMethod
 	@Parameters("loginTypeMainAccess")
 	public void userNavigationMainAcess(@Optional("none") String loginTypeMainAcess) throws Exception {  
@@ -72,10 +87,11 @@ public class access_level extends Data {
 	        Thread.sleep(4000);
 	        driver.navigate().to(it);
 	        Thread.sleep(1000);
+	        
+	        DefaultAccess();
 	    }
 	}
 	
-	@Test(priority = 1)
 	public void DefaultAccess() throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		Actions action = new Actions(driver); 
@@ -160,10 +176,9 @@ public class access_level extends Data {
 		driver.findElement(By.cssSelector("button.ac_store_subscriptionsetting_grant_modify")).click();
 		driver.findElement(By.cssSelector("button.ac_store_cardexpiry_grant_modify")).click();
 		driver.findElement(By.cssSelector("button.ac_store_fulfillment_grant_modify")).click();				
-		driver.findElement(By.cssSelector("button.saveaccesslevel")).click();
 	}
 	
-	@Test(priority = 2)
+	@Test(priority = 1)
 	public void NoneAccess() throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		Actions action = new Actions(driver);
@@ -189,6 +204,13 @@ public class access_level extends Data {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", productsOff);
 		Thread.sleep(500);
 		driver.findElement(By.cssSelector("button.ac_product_grant_none")).click();
+		
+		//For invoices Module
+		WebElement invoicesOff = driver.findElement(By.id("section-invoices"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", invoicesOff);
+		Thread.sleep(500);
+		driver.findElement(By.cssSelector("button.ac_invoices_grant_none")).click();
+		driver.findElement(By.cssSelector("button.ac_invoices_settings_grant_none")).click();
 		
 		//For virtual terminal Module
 		WebElement virtualTerminalOff = driver.findElement(By.id("section-virtual-terminal"));
@@ -260,6 +282,18 @@ public class access_level extends Data {
 		String ProductsURL = driver.getCurrentUrl();
 		Assert.assertEquals(ProductsURL, Dashboard);*/
 		
+		//Invoices module  in "None" condition
+		try {
+			driver.findElement(By.xpath("//a[@title=\"Invoices\"]")).click();
+			Assert.assertTrue(false, "Test Failed: Invoices Tab is Displayed.");
+		} catch(Exception noSuchEelementException){
+			System.out.println("Invoices Tab is hidden.");
+		}
+
+		/*driver.navigate().to(Invoices);
+		String InvoicesURL = driver.getCurrentUrl();
+		Assert.assertEquals(InvoicesURL, Dashboard);*/
+		
 		//Virtual Terminal  module  in "None" condition
 		try {
 			driver.findElement(By.xpath("//a[@title=\"Virtual Terminal\"]")).click();
@@ -267,7 +301,7 @@ public class access_level extends Data {
 		} catch(Exception noSuchEelementException){
 		    System.out.println("Virtual Terminal Tab is hidden.");
 		}
-		
+				
 		/*driver.navigate().to(Virtual_Terminal);
 		String Virtual_TerminalURL = driver.getCurrentUrl();
 		Assert.assertEquals(Virtual_TerminalURL, Dashboard);*/
@@ -285,20 +319,23 @@ public class access_level extends Data {
 		Assert.assertEquals(settingsURL, Dashboard);*/		
 	}
 	
-	@Test(priority = 3)
+	@Test(priority = 2)
 	public void ViewAccess() throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		Actions action = new Actions(driver);
 		
 		WebElement allAccess = driver.findElement(By.cssSelector("div.content-access"));
 		action.moveToElement(allAccess).build().perform();
 		Thread.sleep(500);
 		
-		//For orders Module
+		//for orders Module
 		WebElement ordersOff = driver.findElement(By.id("section-orders"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", ordersOff);
 		Thread.sleep(500);
-		driver.findElement(By.cssSelector("button.ac_orders_grant_none")).click();
+		driver.findElement(By.cssSelector("button.ac_orders_grant_view")).click();
+		driver.findElement(By.cssSelector("button.ac_orders_all_on")).click();
 		
 		//for products Module
 		WebElement productsOff = driver.findElement(By.id("section-products"));
@@ -306,7 +343,9 @@ public class access_level extends Data {
 		Thread.sleep(500);
 		driver.findElement(By.cssSelector("button.ac_product_grant_view")).click();
 		driver.findElement(By.cssSelector("button.ac_product_others_grant_view")).click();
-		
+		driver.findElement(By.cssSelector("button.ac_product_create_on")).click();
+		driver.findElement(By.cssSelector("button.ac_product_delete_on")).click();
+				
 		//for invoices Module
 		WebElement invoicesOff = driver.findElement(By.id("section-invoices"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", invoicesOff);
@@ -347,6 +386,440 @@ public class access_level extends Data {
 	    Thread.sleep(500);
 	    driver.findElement(By.cssSelector("form#formloginactionmodaldiv>div>button")).click();		
 		Thread.sleep(2000);
+		
+//		driver.navigate().to(Products);
+//		Thread.sleep(5000);
+//		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+//		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+//		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+//		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+//		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+//
+//		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+//		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
+//		
+//		Thread.sleep(3000);
+//		String[] files1 = {Media_Path + Fileone};
+//		String allFiles1 = String.join("\n", files1);
+//		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+//		Thread.sleep(3000);
+//		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+//
+//		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
+//		Thread.sleep(1000);
+//		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+//		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+//		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+//		Thread.sleep(3000);
+//		
+//		driver.navigate().to(Products);
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+//		Thread.sleep(4000);
+//		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+//		
+//		Thread.sleep(2000);
+//		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
+//		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
+//		
+//		String originalTab = driver.getWindowHandle();
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//					break;
+//			}
+//		}	
+//		
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+//		
+//		Thread.sleep(5000);
+//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+//		Thread.sleep(2000);
+//
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+//		driver.switchTo().defaultContent();
+//
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+//		driver.switchTo().defaultContent();
+//
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+//		driver.switchTo().defaultContent();
+//
+//		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+//		cardHolder.clear();
+//		cardHolder.sendKeys(F_Name + " " + L_Name);
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("button[type='submit']")).click();
+//		Thread.sleep(7000);
+//		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+//		System.out.println("Placed Order ID: " + PlacedOrderID11);
+//		driver.close();
+//		driver.switchTo().window(originalTab);
+//		
+//		//Products module in "View Only" condition
+//		driver.navigate().to(Products);
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+//		Thread.sleep(4000);
+//		driver.findElement(By.cssSelector("#result-item-0>a")).click();		
+//		Thread.sleep(2000);
+//		
+//		try {
+//			driver.findElement(By.xpath("(//button[@type=\"submit\"])[1]")).click();
+//			Assert.assertTrue(false, "Test Failed: Save button is Displayed for product.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Save button is not Displayed for product.");
+//		}
+//		
+//		try {
+//			driver.findElement(By.cssSelector("button[role='switch']:first-of-type")).click();//click on toggle button to make product inactive
+//			Thread.sleep(2000);
+//			driver.findElement(By.xpath("//button[normalize-space()=\"Make Inactive\"]")).click();//click on inactive button
+//			Thread.sleep(2000);
+//			driver.findElement(By.xpath("//button[contains(@class,'btn-primary')]")).click();//confirm inactive
+//			Assert.assertTrue(false, "Test Failed: Toggle Active/ InActive button is Displayed for product.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Toggle button is In-Active for product.");			
+//		}
+//		
+//		Thread.sleep(2000);
+//		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
+//		
+//		/*try {
+//			driver.findElement(By.xpath("(//button[@aria-label='Page Settings'])[1]")).click();//Click on order page created by product
+//			Assert.assertTrue(false, "Test Failed: Edit Page is clicakable for product.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Edit Page button is not clicakable for product.");
+//		}*/
+//		
+//		//Orders module in "View Only" condition
+//		driver.navigate().to(Orders);
+//		Thread.sleep(5000);
+//		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click(); //Click on order details
+//		Thread.sleep(3000);
+//		
+//		try {
+//			driver.findElement(By.xpath("((//span[normalize-space()=\"Edit Order\"])[1]//parent::button)[1]")).click();
+//			Assert.assertTrue(false, "Test Failed: Edit Order button is clicakable for order.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Edit Order button is not clicakable for order.");
+//		}
+//		
+//		try {
+//			driver.findElement(By.xpath("((//span[normalize-space()='Refund'])[1]//parent::button)[1]")).click();
+//			Assert.assertTrue(false, "Test Failed: Refund button is clicakable for order.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Refund button is not clicakable for order.");
+//		}
+//		
+//		//Virtual Terminal  module in "View Only" condition
+//		driver.navigate().to(Virtual_Terminal);
+//		Thread.sleep(5000);
+//		
+//		try {
+//			driver.navigate().to(Virtual_Terminal);
+//			Thread.sleep(20000);
+//			driver.findElement(By.xpath("//button[normalize-space(.)='Cash']")).click(); //Select cash payment method
+//			Thread.sleep(1000);
+//			driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
+//			Thread.sleep(2000);
+//			driver.findElement(By.xpath("//span[@class=\"truncate font-sans\"]//parent::span//parent::button")).click(); 
+//			Thread.sleep(1000);
+//			driver.findElement(By.id("field_first_name")).sendKeys("Ecom"); 
+//			driver.findElement(By.id("field_last_name")).sendKeys("Contact"); 
+//			driver.findElement(By.id("field_email_id")).sendKeys(WMLogin); 
+//			driver.findElement(By.name("phone_no")).sendKeys(ContactPhone1); 
+//			driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add);
+//			driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+//			Thread.sleep(2000);
+//			driver.findElement(By.xpath("//span[normalize-space()=\"Done\"]")).click(); 
+//
+//			Thread.sleep(5000);
+//			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click(); //Clicking on add line items button
+//			Thread.sleep(2000);
+//			driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); //Clicking on item name field
+//			Thread.sleep(1000);
+//			driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); //Clicking on first product from the dropdown
+//			Thread.sleep(1000);
+//
+//			jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Type']")));
+//			Thread.sleep(3000);
+//			driver.findElement(By.xpath("//div[contains(@class,'custom-class-for-aaply-the-css')]//div[contains(@class,'flex flex-1 items-center') and .//div[contains(@id,'placeholder')]]")).click(); //Clicking on payment type dropdown
+//			Thread.sleep(2000);
+//			driver.findElement(By.xpath("//div[@id='react-select-2-listbox']//div[@role='option'][1]")).click(); //Select payment type cash
+//			Thread.sleep(1000);
+//			WebElement button = driver.findElement(By.xpath("//button[.//p[contains(text(),'Record Cash Sale')]]"));
+//			Assert.assertFalse(button.isEnabled(), "Button should be disabled");
+//			Assert.assertTrue(button.getAttribute("class").contains("cursor-not-allowed"),"Virtual Terminal Record Cash Sale button Disabled.");
+//			System.out.println("Virtual Terminal Record Cash Sale button is Disabled.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Record Cash Sale button is not clicakable in virtual terminal Module.");
+//		}
+//		
+//		//Invoices module in "View Only" condition
+//		driver.navigate().to(invoices);
+//		Thread.sleep(5000);
+//		driver.navigate().to(invoices);
+//		Thread.sleep(7000);
+//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='+ New Invoice'])[2]"))).click(); //Click on new invoice button
+//		
+//		Thread.sleep(3000);
+//		driver.findElement(By.xpath("(//input[contains(@placeholder,'Describe what this invoice is about')])[1]")).sendKeys("This invoice is created for 911 Automation Test");
+//		driver.findElement(By.xpath("//span[normalize-space()='+ Add Recipient']")).click(); //Click on add recipient button
+//		driver.findElement(By.xpath("//input[contains(@placeholder,'Search Customers')]")).click();
+//		driver.findElement(By.xpath("(//span[contains(text(),'Create new customer')])[1]")).click(); //Select create contact
+//		driver.findElement(By.id("field_first_name")).sendKeys(firstName); //Input first name
+//		driver.findElement(By.id("field_last_name")).sendKeys(lastName); //Input last name
+//		driver.findElement(By.id("field_email_id")).sendKeys(email); //Input email
+//		driver.findElement(By.name("phone_no")).sendKeys(phone); //Input phone number
+//		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add); //Input street address
+//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+//		
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); 
+//		
+//		Thread.sleep(3000);
+//		driver.findElement(By.xpath("//span[normalize-space()='+ Add Line Items']")).click(); //Click on add item button
+//		driver.findElement(By.xpath("//div[contains(@class,'truncate flex justify-start')]")).click(); //Click on select product drop down
+//		
+//		driver.findElement(By.xpath("(//input[@placeholder='Enter Line Item Name'])[1]")).sendKeys("Product 1"); //Select product
+//		driver.findElement(By.xpath("(//input[contains(@placeholder,'—')])[1]")).sendKeys(Value); //Input quantity
+//		driver.findElement(By.id("unit-price")).sendKeys(Value); //input value in unit price field
+//		driver.findElement(By.xpath("//textarea[@placeholder=\"Custom line item description\"]")).sendKeys("Add New Product Discription"); 
+//		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); //Click on save button to save line item
+//		
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("(//span[text()='Save And Send'])[1]//parent::span//parent::button")).click(); //Click on send invoice button
+//		Thread.sleep(3000);
+//		driver.findElement(By.cssSelector("div.vf-code-frame > div:nth-of-type(3) > div > button:first-of-type")); //Click on send now button in pop up
+//		Thread.sleep(2000);
+//		WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[role='dialog'] > div > div:nth-of-type(3) > div > button:first-of-type")));
+//		jse.executeScript("arguments[0].click();", button);
+//		
+//		Thread.sleep(5000);
+//		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:last-of-type>button")).click();
+//		Thread.sleep(2000);
+//		
+//		try {
+//			driver.findElement(By.xpath("//p[normalize-space()=\"Edit Invoice\"]//parent::div")).click(); 
+//			Assert.assertTrue(button.getAttribute("class").contains("cursor-not-allowed"),"Disabled styling not applied");
+//			System.out.println("Edit Invoice button is Disabled for invoice.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Edit Invoice button is clicakable for invoice.");
+//		}
+//		
+//		try {
+//			driver.findElement(By.xpath("//p[normalize-space()=\"Make Payment\"]//parent::div")).click(); 
+//			Assert.assertTrue(button.getAttribute("class").contains("cursor-not-allowed"),"Disabled styling not applied");
+//			System.out.println("Make Payment button is Disabled for invoice.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Make Payment button is clicakable for invoice.");
+//		}
+//		
+//		try {
+//			driver.findElement(By.xpath("//p[normalize-space()=\"Archive Invoice\"]//parent::div")).click(); 
+//			Assert.assertTrue(button.getAttribute("class").contains("cursor-not-allowed"),"Disabled styling not applied");
+//			System.out.println("Archive Invoice button is Disabled for invoice.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Archive Invoice button is clicakable for invoice.");
+//		}
+//		
+//		try {
+//			driver.findElement(By.xpath("//p[normalize-space()=\"Stop Auto Reminder\"]//parent::div")).click(); 
+//			Assert.assertTrue(button.getAttribute("class").contains("cursor-not-allowed"),"Disabled styling not applied");
+//			System.out.println("Stop Auto Reminder button is Disabled for invoice.");
+//		} catch(Exception noSuchEelementException){
+//		    System.out.println("Stop Auto Reminder button is clicakable for invoice.");
+//		}
+		
+		//Store Settings module in "View Only" condition
+		driver.navigate().to(settings);
+		Thread.sleep(15000);
+		driver.findElement(By.xpath("//h3[normalize-space()='Store Details']/parent::div/parent::button")).click(); 
+		Thread.sleep(2000);
+		
+		try {			
+			List<WebElement> elements = driver.findElements(By.xpath("//span[normalize-space()='Edit Store Settings']//parent::button"));
+			Assert.assertTrue(elements.isEmpty(), "Test Failed: Edit Store Settings button is clickable for store settings.");
+		} catch(Exception noSuchEelementException){
+		    System.out.println("Edit Store Settings button is Disabled for store settings.");
+		}
+		
+		try {
+		    WebElement element = driver.findElement(By.xpath("//span[normalize-space()='Change Image']//parent::button"));
+		    jse.executeScript("arguments[0].click();", element);
+		    Assert.assertFalse(element.isEnabled(), "Button should be disabled");
+		    System.out.println("Change Image button is Disabled for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Edit Payments Settings button is Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(2)")).click(); 
+		Thread.sleep(2000);
+		
+		try{
+			WebElement button = driver.findElement(By.xpath("//button[normalize-space()=\"+ Add Another Offline Payment Method\"]"));
+			Assert.assertFalse(button.isEnabled(), "Button should be disabled");
+			System.out.println("Add Another Offline Payment Method button is Disabled for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Add Another Offline Payment Method button is Disabled for store settings.");
+		}
+		
+		try {
+			WebElement button = driver.findElement(By.xpath("//button[normalize-space()=\"Manage Templates\"]"));
+			Assert.assertFalse(button.isEnabled(), "Button should be disabled");
+			System.out.println("Manage Templates button is Disabled for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Manage Templates button is Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(3)")).click(); 
+		Thread.sleep(2000);
+		
+		try {
+			WebElement button = driver.findElement(By.xpath("//button[@value=\"on\"]"));
+			Assert.assertEquals(button.getAttribute("aria-checked"), "true");
+		} catch (Exception e) {
+		    System.out.println("2FA Settings button is Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(5)")).click(); 
+		Thread.sleep(2000);
+		
+		try {
+			driver.findElement(By.cssSelector("div[role='radiogroup']>label>div>button")).click();
+			Assert.assertTrue(false, "Test Failed: Tax Settings button Disabled for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Tax Settings button is Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(6)")).click(); 
+		Thread.sleep(2000);
+		
+		try {
+			WebElement button = driver.findElement(By.cssSelector("#main-page-ui-div>main>div>div:nth-of-type(2)>div:last-of-type>div>div>div>div>div>button")); //Click on Add region button
+			Assert.assertFalse(button.isEnabled(), "Button should be disabled");
+			System.out.println("Add Region button is Disabled for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Regions button is not Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(7)")).click(); 
+		Thread.sleep(2000);
+		
+		try {
+			driver.findElement(By.cssSelector("button[aria-label='Add return reason']")).click(); //Click on Add return reason button
+			Assert.assertTrue(false, "Test Failed: Return Reason button is clickable for store settings.");
+			System.out.println("Return Reason button is Disabled for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Return Reason button is not Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(8)")).click();
+		Thread.sleep(5000);
+		
+		try {
+			WebElement feeOption = driver.findElement(By.xpath("(//input[contains(@name,'fee_option')])[2]"));
+			jse.executeScript("arguments[0].scrollIntoView({block:'center'});", feeOption);
+			Assert.assertFalse(feeOption.isEnabled(), "Button should be disabled");
+			System.out.println("Price Adjustment Settings button is Disabled for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Price Adjustment Settings button is not Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(9)")).click();
+		Thread.sleep(2000);
+		
+		try {
+			WebElement button = driver.findElement(By.xpath("(//span[normalize-space()='Save'])[1]"));
+			Boolean isDisabled = (Boolean) jse.executeScript("return arguments[0].disabled;", button);
+			Assert.assertTrue(isDisabled, "Button should be disabled");
+		} catch (Exception e) {
+			System.out.println("Subscription Settings Save button is Disabled for store settings.");
+		}
+		
+		try {
+			WebElement button = driver.findElement(By.xpath("(//span[normalize-space()='Save'])[2]"));
+			Boolean isDisabled = (Boolean) jse.executeScript("return arguments[0].disabled;", button);
+			Assert.assertTrue(isDisabled, "Button should be disabled");
+		} catch (Exception e) {
+			System.out.println("Subscription Settings Save button is Disabled for store settings.");
+		}
+		
+		try {
+			WebElement button = driver.findElement(By.xpath("(//span[normalize-space()='Save'])[3]"));
+			Boolean isDisabled = (Boolean) jse.executeScript("return arguments[0].disabled;", button);
+			Assert.assertTrue(isDisabled, "Button should be disabled");			
+		} catch (Exception e) {
+			System.out.println("Subscription Settings Save button is Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(10)")).click();
+		Thread.sleep(2000);
+		
+		try {
+			WebElement button = driver.findElement(By.xpath("(//span[normalize-space()='Save'])[1]//parent::button")); 
+			Assert.assertFalse(button.isEnabled(), "Button should be disabled");
+			System.out.println("Card Expiration Settings Save button is Disabled for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Card Expiration Settings button is not Disabled for store settings.");
+		}
+		
+		driver.findElement(By.cssSelector("div.sticky.top-0.self-start>div>a:nth-of-type(11)")).click();
+		Thread.sleep(2000);
+		
+		try {
+			driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[1]")).click(); //Click on Add fulfillment option button
+			Assert.assertTrue(false, "Test Failed: Shipping Options button is clickable for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Shipping Options button is Disabled for store settings.");
+		}
+		
+		try {
+			driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[2]")).click(); //Click on save button
+			Assert.assertTrue(false, "Test Failed: Return Shipping Options button is clickable for store settings.");
+		} catch (Exception e) {
+		    System.out.println("Return Shipping Options button is Disabled for store settings.");
+		}	
+	}
+	
+	@Test(priority = 3)
+	public void ModifyAccess() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		Actions action = new Actions(driver);
+		
+		WebElement allAccess = driver.findElement(By.cssSelector("div.content-access"));
+		action.moveToElement(allAccess).build().perform();
+		Thread.sleep(500);
+		
+		//for orders Module
+		WebElement ordersOff = driver.findElement(By.id("section-orders"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", ordersOff);
+		Thread.sleep(500);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

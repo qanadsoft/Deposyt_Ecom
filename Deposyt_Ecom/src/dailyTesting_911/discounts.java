@@ -203,5 +203,4 @@ public class discounts extends Data {
 		Assert.assertEquals(discountappliedvt, DiscountAmount);
 		System.out.println("Discount is applied successfully in VT");
 	}
-
 }

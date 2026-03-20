@@ -222,7 +222,7 @@ public class virtualTerminal extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
-		driver.findElement(By.name("productDetails.productDescription")).sendKeys("This product is created for 911 Automation product Test");
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
 		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);

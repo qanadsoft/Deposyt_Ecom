@@ -10,9 +10,9 @@
     <classes>
       <class name="dailyTesting_911.access_level">
         <methods>
-          <include name="NoneAccess"/>
           <include name="userNavigationMainAcess"/>
           <include name="invokebrowser"/>
+          <include name="ViewAccess"/>
         </methods>
       </class> <!-- dailyTesting_911.access_level -->
     </classes>
