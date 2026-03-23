@@ -8,13 +8,12 @@
     <parameter name="uname" value="rishikesh.sakharekar@gmail.com"/>
     <parameter name="pass" value="Djismylige@1998"/>
     <classes>
-      <class name="dailyTesting_911.access_level">
+      <class name="dailyTesting_911.invoices">
         <methods>
-          <include name="userNavigationMainAcess"/>
+          <include name="FullPayment_Invoice"/>
           <include name="invokebrowser"/>
-          <include name="ViewAccess"/>
         </methods>
-      </class> <!-- dailyTesting_911.access_level -->
+      </class> <!-- dailyTesting_911.invoices -->
     </classes>
   </test> <!-- 911(failed) -->
 </suite> <!-- Failed suite [Suite] -->

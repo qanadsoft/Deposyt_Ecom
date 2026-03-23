@@ -231,6 +231,10 @@ public class virtualTerminal extends Data {
 		String[] files1 = {Media_Path + Fileone};
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(Price);
 		Thread.sleep(1000);
 

@@ -57,7 +57,7 @@ java.util.Random r = new java.util.Random();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='New Gift Card'])[3]"))).click(); // click on New Gift Card button
 		driver.findElement(By.xpath("(//div[@id='region.region_id'])[1]")).click(); //click on region drop down
-		driver.findElement(By.id("react-select-2-option-1")).click(); //Select Default as region
+		driver.findElement(By.id("react-select-2-option-0")).click(); //Select Default as region
 		driver.findElement(By.xpath("(//input[@placeholder='-'])[1]")).sendKeys(GiftCard);
 		driver.findElement(By.name("receiver.email")).sendKeys(WMLogin);
 		driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //click on create gift card button
@@ -72,7 +72,7 @@ java.util.Random r = new java.util.Random();
 		driver.findElement(By.cssSelector("div[data-orientation=\"vertical\"]:nth-of-type(2)>h3>div:first-of-type")).click();
 		
 		driver.findElement(By.cssSelector("#regions>div")).click();//click on region drop down
-		driver.findElement(By.id("react-select-2-option-1")).click(); //Select Default as region
+		driver.findElement(By.id("react-select-2-option-0")).click(); //Select Default as region
 		Thread.sleep(2000);
 		driver.findElement(By.name("rule.description")).sendKeys("This discount is created for 911 Automation Test");
 		driver.findElement(By.name("code")).sendKeys(giftCardName); //input code
@@ -97,11 +97,14 @@ java.util.Random r = new java.util.Random();
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
 		
 		Thread.sleep(3000);
-		String[] files1 = {Media_Path + Fileone, Media_Path + Filetwo, Media_Path + Filethree, Media_Path + Filefour, Media_Path + Filefive, Media_Path + Filesix,
-			Media_Path + Fileseven, Media_Path + Fileeight, Media_Path + Filenine};
+		String[] files1 = {Media_Path + Fileone};
 
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
 		Thread.sleep(1000);
@@ -832,6 +835,10 @@ java.util.Random r = new java.util.Random();
 
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
