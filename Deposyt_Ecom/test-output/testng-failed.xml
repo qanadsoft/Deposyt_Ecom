@@ -10,7 +10,7 @@
     <classes>
       <class name="dailyTesting_911.invoices">
         <methods>
-          <include name="FullPayment_Invoice"/>
+          <include name="Bulk_Operations"/>
           <include name="invokebrowser"/>
         </methods>
       </class> <!-- dailyTesting_911.invoices -->

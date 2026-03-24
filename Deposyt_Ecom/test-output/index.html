@@ -103,7 +103,7 @@
                     <div class="method-list-content failed suite-Suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="dailyTesting_911.invoices" class="method navigator-link" hash-for-method="FullPayment_Invoice">FullPayment_Invoice</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Suite" title="dailyTesting_911.invoices" class="method navigator-link" hash-for-method="Bulk_Operations">Bulk_Operations</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Suite -->
@@ -126,43 +126,17 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="FullPayment_Invoice">
-                  </a> <!-- FullPayment_Invoice -->
-                  <span class="method-name">FullPayment_Invoice</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for frame to be available: By.xpath: //iframe[@title=&apos;Secure card number input frame&apos;] (tried for 20 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-	at dailyTesting_911.invoices.FullPayment_Invoice(invoices.java:152)
+                  <a name="Bulk_Operations">
+                  </a> <!-- Bulk_Operations -->
+                  <span class="method-name">Bulk_Operations</span>
+                  <div class="stack-trace">java.lang.AssertionError: Cancel reminder operation is not performed successfully expected [Selected invoices have been cancelled successfully..] but found [Selected invoices have been cancelled successfully.]
+	at dailyTesting_911.invoices.Bulk_Operations(invoices.java:995)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//iframe[@title=&apos;Secure card number input frame&apos;]&quot;}
-  (Session info: chrome=145.0.7632.75)
-For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
-Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
-System info: os.name: &apos;Linux&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;5.15.0-139-generic&apos;, java.version: &apos;21.0.1&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [df42a3fa0656c62660ad866e043df0e1, findElement {using=xpath, value=//iframe[@title=&apos;Secure card number input frame&apos;]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 145.0.7632.75, chrome: {chromedriverVersion: 145.0.7632.117 (de4e5d6e13b..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:35839}, goog:processID: 62098, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:35839/devtoo..., se:cdpVersion: 145.0.7632.75, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: df42a3fa0656c62660ad866e043df0e1
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:196)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:171)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:602)
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:359)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:353)
-	at org.openqa.selenium.support.ui.ExpectedConditions$17.apply(ExpectedConditions.java:491)
-	at org.openqa.selenium.support.ui.ExpectedConditions$17.apply(ExpectedConditions.java:487)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:205)
-	... 21 more
-... Removed 18 stack frames
+... Removed 20 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
@@ -187,7 +161,7 @@ Session ID: df42a3fa0656c62660ad866e043df0e1
     &lt;classes&gt;
       &lt;class name=&quot;dailyTesting_911.invoices&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;FullPayment_Invoice&quot;/&gt;
+          &lt;include name=&quot;Bulk_Operations&quot;/&gt;
         &lt;/methods&gt;
       &lt;/class&gt; &lt;!-- dailyTesting_911.invoices --&gt;
     &lt;/classes&gt;
@@ -231,14 +205,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'FullPayment_Invoice')
+data.setCell(0, 1, 'Bulk_Operations')
 data.setCell(0, 2, 'dailyTesting_911.invoices')
-data.setCell(0, 3, 141349);
+data.setCell(0, 3, 94839);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 2 minutes</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -253,9 +227,26 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">6 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">dailyTesting_911.invoices</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">FullPayment_WithDualprice</span>
+                <br/>
+                <span class="ignored-method-name">SplitPayment_WithDualPrice</span>
+                <br/>
+                <span class="ignored-method-name">FullPayment_WithoutDualPrice</span>
+                <br/>
+                <span class="ignored-method-name">Filter_Invoice</span>
+                <br/>
+                <span class="ignored-method-name">SplitPayment_WithoutDualPrice</span>
+                <br/>
+                <span class="ignored-method-name">Createtemplate</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-Suite" class="panel">
@@ -272,8 +263,8 @@ return data;
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">FullPayment_Invoice</span>
-                <span class="method-start">12461 ms</span>
+                <span class="method-name">Bulk_Operations</span>
+                <span class="method-start">11668 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

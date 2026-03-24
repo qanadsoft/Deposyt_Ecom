@@ -13,7 +13,7 @@
         <classes>
             <class name="dailyTesting_911.invoices">
                 <methods>
-                    <include name="FullPayment_Invoice"/>
+                    <include name="Bulk_Operations"/>
                 </methods>
             </class>
         </classes>
