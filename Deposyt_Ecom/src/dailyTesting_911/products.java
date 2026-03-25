@@ -23,19 +23,15 @@ import org.testng.annotations.Test;
 import Master.Data;
 
 public class products extends Data {
-	
 	java.util.Random r = new java.util.Random();	
 	
-	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Filetwo = "file2.png", Filethree = "file3.jpeg", Filefour = "file4.png", Filefive = "file5.png",
-	Filesix = "file6.jpg", Fileseven = "file7.jpg",Fileeight = "file8.jpg", Filenine = "file9.jpg", Attachment = "Jira_Guide.pdf",
-
+	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
 	Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Country_Add = "Boardman, Oregon, 97818",
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
 	F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
-	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242";
-	
-	String chars = "abcdefghijklmnopqrstuvwxyz",	    
+	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",	
+	chars = "abcdefghijklmnopqrstuvwxyz",	    
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",
@@ -92,8 +88,7 @@ public class products extends Data {
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
 		
 		Thread.sleep(3000);
-		String[] files1 = {Media_Path + Fileone, Media_Path + Filetwo, Media_Path + Filethree, Media_Path + Filefour, Media_Path + Filefive, Media_Path + Filesix,
-			Media_Path + Fileseven, Media_Path + Fileeight, Media_Path + Filenine};
+		String[] files1 = {Media_Path + Fileone};
 
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
@@ -141,7 +136,7 @@ public class products extends Data {
 		driver.navigate().to(Services);
 		Thread.sleep(3000);
 		driver.findElement(By.name("search")).sendKeys(Product_Name,Keys.ENTER);
-		Thread.sleep(7000);
+		Thread.sleep(15000);
 		String serviceName = driver.findElement(By.cssSelector("span.servicenamespan")).getText();
 		Assert.assertEquals(serviceName, Product_Name, "Service not created with product name");
 		System.out.println("\nService found in connect product listing");
@@ -240,7 +235,7 @@ public class products extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		Thread.sleep(2000);
 		
-		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(2)>div.flex-nowrap>div:nth-of-type(3)>div>span:first-of-type")).getText().trim();
+		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
 		System.out.println("Order Tax: " + ordertax);
 		String extractedTax = ordertax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax, Tax_Rate, "Tax rate mismatch in order summary");
@@ -324,11 +319,24 @@ public class products extends Data {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		
-		String Product_Name = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-		SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-		Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase();
-			
+		String Product_Name = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();			
 		//DeleteMail("Your Order is Confirmed — Order# ");
+		
+		try {
+			driver.navigate().to(settings);
+			Thread.sleep(7000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Price Adjustment Settings']/parent::div/parent::button"))).click(); 	
+			Thread.sleep(3000);
+			WebElement feeOption = driver.findElement(By.xpath("(//input[contains(@name,'fee_option')])[5]"));
+			jse.executeScript("arguments[0].scrollIntoView({block:'center'});", feeOption);
+			feeOption.click();
+			Thread.sleep(2000);
+			driver.findElement(By.id("dialog-checkbox")).click();		
+			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();	
+		}
+		catch(Exception e) {
+			System.out.println("ACH_Payment is already enabled for the store");
+		}
 		
 		driver.navigate().to(Products);
 		Thread.sleep(3000);
@@ -361,8 +369,7 @@ public class products extends Data {
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
 		
 		Thread.sleep(3000);
-		String[] files1 = {Media_Path + Fileone, Media_Path + Filetwo, Media_Path + Filethree, Media_Path + Filefour, Media_Path + Filefive, Media_Path + Filesix,
-			Media_Path + Fileseven, Media_Path + Fileeight, Media_Path + Filenine};
+		String[] files1 = {Media_Path + Fileone};
 
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
@@ -403,18 +410,6 @@ public class products extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
-		
-		//Scroll to "This Product Unlocks Courses" button
-		WebElement unlockCourseButton = driver.findElement(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button//span"));
-		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", unlockCourseButton);
-		Thread.sleep(500);
-		jse.executeScript("arguments[0].click();", unlockCourseButton);
-
-		//click on Link Product to Services button
-		WebElement unlockservicesButton = driver.findElement(By.xpath("//p[text() = 'Link Product to Services']//following-sibling::button//span"));
-		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", unlockservicesButton);
-		Thread.sleep(500);
-		jse.executeScript("arguments[0].click();", unlockservicesButton);
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -435,7 +430,7 @@ public class products extends Data {
 			}
 		}		
 		
-		Thread.sleep(5000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -449,7 +444,9 @@ public class products extends Data {
 		Thread.sleep(2000);
 
 		//Payment Information
-		driver.findElement(By.xpath("//input[@value=\"ach-cash\"]")).click();//click on ACH cash payment
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Information']")));
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);
@@ -530,7 +527,7 @@ public class products extends Data {
 			}
 		}		
 		
-		Thread.sleep(5000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -544,7 +541,9 @@ public class products extends Data {
 		Thread.sleep(2000);
 
 		//Payment Information
-		driver.findElement(By.xpath("//input[@value=\"ach-cash\"]")).click();//click on ACH cash payment
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Information']")));
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);
@@ -563,13 +562,13 @@ public class products extends Data {
 		
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(5000);		
-		String Upsell_Product_in_Checkout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.overflow-x-hidden p p:first-of-type"))).getText().trim();
+		String Upsell_Product_in_Checkout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.overflow-x-hidden>div>div>div:nth-of-type(2)>div>p:first-of-type"))).getText().trim();
 		System.out.println("Upsell Product in Checkout: " + Upsell_Product_in_Checkout);
 		Assert.assertEquals(Upsell_Product, Upsell_Product_in_Checkout, "Upsell product not added to checkout");
 		
-		driver.findElement(By.xpath("//button[text()='Add To Order']")).click(); //Place order
+		driver.findElement(By.xpath("//button[text()='Add to Order']")).click(); //Place order
 		Thread.sleep(5000);
-		driver.findElement(By.xpath("//span[text()='Complete Checkout']")).click(); //confirm place order
+		driver.findElement(By.xpath("//span[text()='Complete Checkout']//parent::span//parent::button")).click(); //confirm place order
 		Thread.sleep(7000);
 		Assert.assertEquals(Order_Name, firstName + " " + lastName, "Customer name not matching on order summary");
 		Assert.assertEquals(Order_Mail, email, "Customer email not matching on order summary");
@@ -623,31 +622,10 @@ public class products extends Data {
 		Actions actions = new Actions(driver);
 		
 		String Product_Name = "Tier Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-		SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-		Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(),
 		DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
 		TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one";
 		
-		//DeleteMail("Subscription Charge Receipt for Subscription# ");
-		
-		driver.navigate().to(Products);
-		Thread.sleep(3000);
-		
-		//check that we can create inventory product 
-		/*wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
-		try { 
-			Thread.sleep(4000);
-			driver.findElement(By.cssSelector("#result-item-0>a")).click();
-			Thread.sleep(2000);
-			driver.findElement(By.cssSelector("button[type=\"submit\"]+div>div>button")).click();
-			Thread.sleep(2000);
-			driver.findElement(By.xpath("//button[.//span[normalize-space()='Delete Product']]")).click();
-			Thread.sleep(1000);
-			driver.findElement(By.cssSelector("div.verification-model-code+div>div>button:last-of-type")).click();		
-		}catch (NoSuchElementException e) {
-			System.out.println("No Duplicate Product Found, Proceeding with New Product Creation...");
-		}*/
-		
+		//DeleteMail("Subscription Charge Receipt for Subscription# ");		
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
@@ -661,8 +639,7 @@ public class products extends Data {
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
 		
 		Thread.sleep(3000);
-		String[] files1 = {Media_Path + Fileone, Media_Path + Filetwo, Media_Path + Filethree, Media_Path + Filefour, Media_Path + Filefive, Media_Path + Filesix,
-			Media_Path + Fileseven, Media_Path + Fileeight, Media_Path + Filenine};
+		String[] files1 = {Media_Path + Fileone};
 
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
@@ -670,15 +647,6 @@ public class products extends Data {
 		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
-
-		// Upload product attachment
-		/*WebElement uploadAttachment = driver.findElement(By.xpath("//p[normalize-space()='Upload File']/parent::div/parent::div/parent::label"));
-		jse.executeScript("arguments[0].scrollIntoView(true);", uploadAttachment);	
-		Thread.sleep(5000);
-		driver.findElement(By.xpath("//p[normalize-space()='Upload File']/parent::div/parent::div/parent::label")).click();
-		Thread.sleep(2500);
-		driver.findElement(By.xpath("(//div[normalize-space()='Upload File'])[3]")).click();
-		uploadAttachment.sendKeys(Media_Path + Attachment);*/
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -693,6 +661,7 @@ public class products extends Data {
 		
 		//tier - I
 		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys("First Tier Installment");
+		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("#tier-item-1>div>div>div>button")).click();//click on price
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
@@ -712,6 +681,7 @@ public class products extends Data {
 		driver.findElement(By.xpath("(//input[contains(@name,'productDetails.variants.1.title')])[1]")).sendKeys("Second Tier Installment");
 		Thread.sleep(1000);
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("#tier-item-2>div>div>div>button")).click();//click on price
 		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
 		driver.findElement(By.xpath("(//input[@name='productDetails.variants.1.prices[0].amount'])[1]")).sendKeys(susbcriptionPrice);
@@ -719,6 +689,7 @@ public class products extends Data {
 		driver.findElement(By.xpath("(//div[normalize-space()='Description + Bullet points'])[2]")).click();//click on description and bullet points to save tier details
 		driver.findElement(By.xpath("//textarea[@name=\"productDetails.variants.1.product_tier_description\"]")).sendKeys(DiscriptionTier2);
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//input[@name=\"productDetails.variants.1.product_tier_features.0.title\"]")).sendKeys(TitleTier2);
 		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(1).click();//click on feature one
 		driver.findElement(By.xpath("//input[contains(@name,\"productDetails.variants.1.product_tier_features.0.feature_title.0\")]")).sendKeys(Tier2Feature1);
@@ -749,7 +720,7 @@ public class products extends Data {
 		    driver.switchTo().window(window);
 		}
 		
-		Thread.sleep(2000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -763,7 +734,9 @@ public class products extends Data {
 		Thread.sleep(2000);
 
 		//Payment Information
-		driver.findElement(By.xpath("//input[@value=\"ach-cash\"]")).click();//click on ACH cash payment
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Information']")));
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);

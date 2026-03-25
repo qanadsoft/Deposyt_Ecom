@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="6" total="7" passed="0" failed="1" skipped="0">
+<testng-results ignored="2" total="3" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-03-24T20:47:05 IST" name="Suite" finished-at="2026-03-24T20:48:51 IST" duration-ms="106561">
+  <suite started-at="2026-03-25T20:17:27 IST" name="Suite" finished-at="2026-03-25T20:19:36 IST" duration-ms="129039">
     <groups>
     </groups>
-    <test started-at="2026-03-24T20:47:05 IST" name="911" finished-at="2026-03-24T20:48:51 IST" duration-ms="106561">
-      <class name="dailyTesting_911.invoices">
-        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:dailyTesting_911.invoices@475b7792]" started-at="2026-03-24T20:47:05 IST" name="invokebrowser" finished-at="2026-03-24T20:47:17 IST" duration-ms="11657" status="PASS">
+    <test started-at="2026-03-25T20:17:27 IST" name="911" finished-at="2026-03-25T20:19:36 IST" duration-ms="129039">
+      <class name="dailyTesting_911.products">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:dailyTesting_911.products@38875e7d]" started-at="2026-03-25T20:17:27 IST" name="invokebrowser" finished-at="2026-03-25T20:17:40 IST" duration-ms="12693" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -33,46 +33,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- invokebrowser -->
-        <test-method signature="Bulk_Operations()[pri:7, instance:dailyTesting_911.invoices@475b7792]" started-at="2026-03-24T20:47:17 IST" name="Bulk_Operations" finished-at="2026-03-24T20:48:51 IST" duration-ms="94839" status="FAIL">
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[Cancel reminder operation is not performed successfully expected [Selected invoices have been cancelled successfully..] but found [Selected invoices have been cancelled successfully.]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: Cancel reminder operation is not performed successfully expected [Selected invoices have been cancelled successfully..] but found [Selected invoices have been cancelled successfully.]
-at org.testng.Assert.fail(Assert.java:111)
-at org.testng.Assert.failNotEquals(Assert.java:1590)
-at org.testng.Assert.assertEqualsImpl(Assert.java:150)
-at org.testng.Assert.assertEquals(Assert.java:132)
-at org.testng.Assert.assertEquals(Assert.java:656)
-at dailyTesting_911.invoices.Bulk_Operations(invoices.java:995)
-at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-at org.testng.TestRunner.privateRun(TestRunner.java:741)
-at org.testng.TestRunner.run(TestRunner.java:616)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
-at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
-at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-at java.base/java.lang.Thread.run(Thread.java:1583)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+        <test-method signature="Inventory_TierProducts()[pri:3, instance:dailyTesting_911.products@38875e7d]" started-at="2026-03-25T20:17:40 IST" name="Inventory_TierProducts" finished-at="2026-03-25T20:19:36 IST" duration-ms="116269" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Bulk_Operations -->
-      </class> <!-- dailyTesting_911.invoices -->
+        </test-method> <!-- Inventory_TierProducts -->
+      </class> <!-- dailyTesting_911.products -->
     </test> <!-- 911 -->
   </suite> <!-- Suite -->
 </testng-results>

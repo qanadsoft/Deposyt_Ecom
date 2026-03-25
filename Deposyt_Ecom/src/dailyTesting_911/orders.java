@@ -20,19 +20,15 @@ import org.testng.annotations.Test;
 import Master.Data;
 
 public class orders extends Data {
+	java.util.Random r = new java.util.Random();	
 	
-java.util.Random r = new java.util.Random();	
-	
-	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Filetwo = "file2.png", Filethree = "file3.jpeg", Filefour = "file4.png", Filefive = "file5.png",
-	Filesix = "file6.jpg", Fileseven = "file7.jpg",Fileeight = "file8.jpg", Filenine = "file9.jpg", Attachment = "Jira_Guide.pdf",
-
+	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
 	Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Country_Add = "Boardman, Oregon, 97818",
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
 	F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
-	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242";
-	
-	String chars = "abcdefghijklmnopqrstuvwxyz",	    
+	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",	
+	chars = "abcdefghijklmnopqrstuvwxyz",	    
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
@@ -50,6 +46,22 @@ java.util.Random r = new java.util.Random();
 
 		for (int i = 0; i < 10; i++) {
 		    giftCard.append(java.util.concurrent.ThreadLocalRandom.current().nextBoolean()? (char) ('A' + java.util.concurrent.ThreadLocalRandom.current().nextInt(26)): (char) ('0' + java.util.concurrent.ThreadLocalRandom.current().nextInt(10)));
+		}
+		
+		try {
+			driver.navigate().to(settings);
+			Thread.sleep(7000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Price Adjustment Settings']/parent::div/parent::button"))).click(); 	
+			Thread.sleep(3000);
+			WebElement feeOption = driver.findElement(By.xpath("(//input[contains(@name,'fee_option')])[5]"));
+			jse.executeScript("arguments[0].scrollIntoView({block:'center'});", feeOption);
+			feeOption.click();
+			Thread.sleep(2000);
+			driver.findElement(By.id("dialog-checkbox")).click();		
+			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();	
+		}
+		catch(Exception e) {
+			System.out.println("ACH_Payment is already enabled for the store");
 		}
 		
 		//6A Verify is giftcard is visible
@@ -98,7 +110,6 @@ java.util.Random r = new java.util.Random();
 		
 		Thread.sleep(3000);
 		String[] files1 = {Media_Path + Fileone};
-
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
@@ -182,7 +193,9 @@ java.util.Random r = new java.util.Random();
 		Thread.sleep(2000);		
 
 		//Payment Information
-		driver.findElement(By.xpath("//input[@value=\"ach-cash\"]")).click();//click on ACH cash payment
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Information']")));
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);
@@ -1007,63 +1020,131 @@ java.util.Random r = new java.util.Random();
 	public void refund_order() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 
-		DeleteMail("Your Voided Order Receipt");
-
-		//Verify Refund functionality is operational ( Full and partial)
+		//Check refund functionality is workable
 		driver.navigate().to(Products);
-		Thread.sleep(7000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
-		Thread.sleep(4000);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
 
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
+		
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileone};
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("100");
+		Thread.sleep(1000);
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+		Thread.sleep(3000);
+		
+		driver.navigate().to(Products);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
+		
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-				break;
+					break;
 			}
-		}		
-
-		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("input#email")).sendKeys(WMLogin);  
-		driver.findElement(By.cssSelector("input#first_name")).sendKeys(F_Name);
-		driver.findElement(By.cssSelector("input#last_name")).sendKeys(L_Name);
-		driver.findElement(By.cssSelector("input#phone")).sendKeys(Number);
+		}	
+		
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
-		//Payment Information
-		driver.findElement(By.xpath("//input[@value=\"ach-cash\"]")).click();//click on ACH cash payment
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
-		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);
-		driver.findElement(By.id("achAccountNumber")).sendKeys(Account_Number);
-		driver.findElement(By.xpath("(//button[@role='combobox'])[1]")).click();//click on mode drop down
-		driver.findElement(By.cssSelector("#AchAccTypeDropdown>button")).click();//select checking
-		driver.findElement(By.xpath("(//button[contains(@role,'combobox')])[2]")).click(); //click on account category drop down
-		driver.findElement(By.cssSelector("#AchAccTypeDropdown>button")).click(); //select personal
-
-		List<WebElement> checkboxes = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("button[role='checkbox']")));
-		for (WebElement checkbox : checkboxes) {
-			if (checkbox.isDisplayed() && checkbox.isEnabled()) {
-				checkbox.click();
-			}
-		}
-
-		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
-		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		System.out.println("Placed Order ID: " + PlacedOrderID11);
+		driver.close();
+		driver.switchTo().window(originalTab);
 
 		driver.navigate().to(Orders);
 		Thread.sleep(7000);
-		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)>span")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:nth-of-type(2)>span")).click();
+		Thread.sleep(4000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='Refund']//parent::span//parent::button)[1]"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@id=\"Partially Refund\"]")).click();
 		
+		Thread.sleep(2000);
+		WebElement refundAmountField = driver.findElement(By.xpath("//input[contains(@placeholder,\"0.00\")]"));
+		Thread.sleep(3000);
+		refundAmountField.click();
+		refundAmountField.sendKeys(Keys.CONTROL, "a");
+		refundAmountField.sendKeys(Keys.DELETE);
+		refundAmountField.sendKeys("10");
+		refundAmountField.getText().trim();
+		System.out.println("Refund Amount Entered: " + refundAmountField);
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[normalize-space()=\"Complete\"]//parent::button")).click(); 
 		
+		Thread.sleep(2000);
+		String PartialRefund_Tag = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#overflow-main-div span > div > span"))).getText().trim();
+		Assert.assertEquals(PartialRefund_Tag, "Partially Refunded", "Refunded tag not found in order details");
+		
+		Thread.sleep(2000);
+		String PartialRefund_Status = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.custom-class-add-for-the-status-css-second"))).getText().trim();
+		Assert.assertEquals(PartialRefund_Status, "Partial Refund", "Refunded Status not found in order details");
+		System.out.println("Partial refund is successful and status is updated to Refunded");
+		
+		Thread.sleep(4000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='Refund']//parent::span//parent::button)[1]"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[normalize-space()=\"Complete\"]//parent::button")).click(); 
+		Thread.sleep(2000);
+		String FullRefund_Tag = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#overflow-main-div span > div > span"))).getText().trim();
+		Assert.assertEquals(FullRefund_Tag, "Refunded", "Refunded tag not found in order details");
+		
+		Thread.sleep(2000);
+		String FullRefund_Status = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.custom-class-add-for-the-status-css-second"))).getText().trim();
+		Assert.assertEquals(FullRefund_Status, "Refunded", "Refunded Status not found in order details");
+		System.out.println("Partial refund is successful and status is updated to Refunded");	
 	}
 }

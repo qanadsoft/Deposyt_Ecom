@@ -8,12 +8,12 @@
     <parameter name="uname" value="rishikesh.sakharekar@gmail.com"/>
     <parameter name="pass" value="Djismylige@1998"/>
     <classes>
-      <class name="dailyTesting_911.invoices">
+      <class name="dailyTesting_911.products">
         <methods>
-          <include name="Bulk_Operations"/>
+          <include name="Inventory_TierProducts"/>
           <include name="invokebrowser"/>
         </methods>
-      </class> <!-- dailyTesting_911.invoices -->
+      </class> <!-- dailyTesting_911.products -->
     </classes>
   </test> <!-- 911(failed) -->
 </suite> <!-- Failed suite [Suite] -->

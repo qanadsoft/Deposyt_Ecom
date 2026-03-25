@@ -684,7 +684,7 @@ public class access_level extends Data {
 			WebElement button2 = driver.findElement(By.xpath("//button[normalize-space()=\"Manage Templates\"]"));
 			Assert.assertFalse(button2.isEnabled(), "Button should be disabled");
 			System.out.println("Manage Templates button is Disabled for store settings.");
-		} catch (Exception e) {
+		} catch (Exception e) { 
 		    System.out.println("Manage Templates button is Disabled for store settings.");
 		}
 		
