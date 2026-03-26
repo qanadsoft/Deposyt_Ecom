@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -35,7 +36,8 @@ public class discounts extends Data {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
-
+		
+		String Region_Name = "Europe";
 		String DiscountAmount = "10";		
 		String coupon = "";
 		String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -46,7 +48,7 @@ public class discounts extends Data {
 
 		for (int i = 0; i < 3; i++)
 			coupon += nums.charAt((int)(Math.random() * nums.length()));
-
+		
 		//Check fixed amount discount can be created
 		driver.navigate().to(Discounts);
 		Thread.sleep(5000);
@@ -55,7 +57,7 @@ public class discounts extends Data {
 		driver.findElement(By.cssSelector("div[data-orientation=\"vertical\"]:nth-of-type(2)>h3>div:first-of-type")).click();
 
 		driver.findElement(By.cssSelector("#regions>div")).click(); //click on region drop down
-		driver.findElement(By.id("react-select-2-option-1")).click(); //Select Default as region
+		driver.findElement(By.id("react-select-2-option-0")).click(); //Select Default as region
 		Thread.sleep(2000);
 		driver.findElement(By.name("code")).sendKeys(coupon,Keys.TAB); //input code
 		driver.switchTo().activeElement().sendKeys("10");
@@ -111,7 +113,7 @@ public class discounts extends Data {
 			}
 		}		
 
-		Thread.sleep(5000);		
+		Thread.sleep(10000);		
 		driver.findElement(By.id("couponCode1")).sendKeys(coupon); //Input gift card code in cart
 		driver.findElement(By.id("applyDiscountCoupon")).click(); //Click on apply button
 
@@ -120,6 +122,22 @@ public class discounts extends Data {
 		System.out.println("Discount applied : " + discountapplied);
 		Assert.assertTrue(discountapplied.contains(coupon), "Discount code is not applied successfully");
 		driver.switchTo().window(originalTab);
+		
+		driver.navigate().to(settings);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Regions']/parent::div/parent::button"))).click();
+		Thread.sleep(2000);
+		
+		driver.findElement(By.cssSelector("#main-page-ui-div>main>div>div:nth-of-type(2)>div:last-of-type>div>div>div>div>div>button")).click(); //Click on Add region button
+		Thread.sleep(2000);
+		driver.findElement(By.name("details.name")).sendKeys(Region_Name); //Enter region name
+		driver.findElement(By.id("details.currency_code")).click();
+		driver.findElement(By.id("react-select-2-option-0")).click();
+		driver.findElement(By.id("details.countries")).click(); //Click on country drop down
+		WebElement countryInput = wait.until(ExpectedConditions.elementToBeClickable(By.id("react-select-3-option-0")));
+		countryInput.click();	
+		jse.executeScript("arguments[0].click();",driver.findElement(By.xpath("//span[normalize-space()='Create Region']//parent::button")));
+		Thread.sleep(2000);
 
 		//Check region of account and then apply discount on another region to check if it gets applied on another region chechout link or not
 		driver.navigate().to(Discounts);
@@ -149,10 +167,11 @@ public class discounts extends Data {
 		Thread.sleep(2000);
 		String discountapplied1 = driver.findElement(By.cssSelector("div.animate-enter>div:nth-of-type(2)>span:last-of-type")).getText().trim();
 		System.out.println("Discount applied on another region checkout : " + discountapplied1);
-		Assert.assertEquals(discountapplied1,"This discount code cannot be used in the selected region!","Wrong error message displayed for region restriction");
+		Assert.assertEquals(discountapplied1,"Discount cannot be used in the selected region.","Wrong error message displayed for region restriction");
 
 		driver.close();
 		driver.switchTo().window(originalTab);
+		
 		driver.navigate().to(Discounts);
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:last-of-type>div>button")).click(); //Click on edit button of product
@@ -199,5 +218,22 @@ public class discounts extends Data {
 		System.out.println("Discount applied in VT : " + discountappliedvt);
 		Assert.assertEquals(discountappliedvt, DiscountAmount);
 		System.out.println("Discount is applied successfully in VT");
+		
+		try {
+			driver.navigate().to(settings);
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Regions']/parent::div/parent::button"))).click(); //Click on Region button
+			WebElement europeHeading = driver.findElement(By.xpath("//h1[normalize-space()='Europe']"));
+			jse.executeScript("arguments[0].scrollIntoView(true);", europeHeading);
+			Assert.assertTrue(europeHeading.isDisplayed(),"Europe heading is not displayed");
+			
+			driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[1]")).click(); 
+			driver.findElement(By.xpath("//span[contains(text(),\"Delete Region\")]")).click();
+			driver.findElement(By.cssSelector("input.remove-number-spinner")).sendKeys(Region_Name);
+			driver.findElement(By.xpath("//span[normalize-space()=\"Yes, Confirm\"]")).click();	
+			Thread.sleep(2000);
+		} catch (NoSuchElementException e) {
+			Assert.fail("Region not found: " + e.getMessage());
+		}
 	}
 }

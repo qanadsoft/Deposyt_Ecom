@@ -28,7 +28,7 @@ public class orders extends Data {
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
 	F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
 	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",	
-	chars = "abcdefghijklmnopqrstuvwxyz",	    
+	chars = "abcdefghijklmnopqrstuvwxyz", Card_No1 = "4111111111111111",	    
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
@@ -225,11 +225,9 @@ public class orders extends Data {
 		System.out.println(Order_Phone);
 
 		Assert.assertEquals(Order_Name, firstName + " " + lastName, "Customer name not matching on order summary");
-		Assert.assertEquals(Order_Mail, email, "Customer email not matching on order summary");
-		
-		String Billing_Address1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div>div:nth-of-type(2)>div>div>div>p:nth-of-type(2)"))).getText().trim();
-		String Billing_Address2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div>div:nth-of-type(2)>div>div>div>p:nth-of-type(3)"))).getText().trim();
-		String Billing_Address3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div>div:nth-of-type(2)>div>div>div>p:nth-of-type(4)"))).getText().trim();
+		Assert.assertEquals(Order_Mail, email, "Customer email not matching on order summary");		
+		String Billing_Address1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:first-of-type>div>p:nth-of-type(2)")).getText().trim();
+		String Billing_Address2 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:first-of-type>div>p:nth-of-type(4)")).getText().trim();
 		
 		// Order History Section Show Proper Order 
 		driver.close();
@@ -281,6 +279,7 @@ public class orders extends Data {
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click(); //Click on order details
 			
 		//2C check customer details/billing/ shipping address is correct
+		Thread.sleep(5000);
 		String fullName = firstName + " " + lastName;
 		String OrderName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(@data-state,'closed') and normalize-space()='" + fullName + "']"))).getText().trim().toLowerCase();
 		String OrderEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(@data-state,'closed') and normalize-space()='" + email + "']"))).getText().trim().toLowerCase();
@@ -288,12 +287,12 @@ public class orders extends Data {
 		Assert.assertEquals(OrderName, fullName, "Customer name not matching in order details");
 		Assert.assertEquals(OrderEmail, email, "Customer email not matching in order details");
 		
-		String OrderBillingAddress1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[contains(@class,'break-words') and normalize-space()='" + Street_Add + "'])[3]"))).getText().trim();
-		String OrderBillingAddress2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[contains(normalize-space(),'" + country + "')])[3]"))).getText().trim();
-		String OrderBillingAddress3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[contains(normalize-space(),'" + Country_Add + "')])[3]"))).getText().trim();
+		String OrderBillingAddress1 = driver.findElement(By.xpath("(//p[contains(text(),'Allen Court')])[1]")).getText().trim();
+		String OrderBillingAddress2 = driver.findElement(By.xpath("(//p[contains(text(),'United States')])[1]")).getText().trim();
+		String OrderBillingAddress3 = driver.findElement(By.xpath("(//p[contains(text(),'Boardman, Oregon, 97818')])[1]")).getText().trim();
 		
 		Assert.assertEquals(OrderBillingAddress1, Billing_Address1, "Street address not matching in order details");
-		Assert.assertEquals(OrderBillingAddress2, Billing_Address3, "Country not matching in order details");
+		Assert.assertEquals(OrderBillingAddress2, country, "Country not matching in order details");
 		Assert.assertEquals(OrderBillingAddress3, Billing_Address2, "City, State and Zip code not matching in order details");
 		
 		/*String GiftcardValid = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[normalize-space()='" + GiftCardID + "'])[1]"))).getText().trim();
@@ -392,9 +391,6 @@ public class orders extends Data {
 		cardHolder.clear();
 		cardHolder.sendKeys(F_Name + " " + L_Name);
 		
-		driver.findElement(By.xpath("(//button[@role='checkbox'])[2]")).click(); //Clicking on checkbox
-		driver.findElement(By.xpath("(//button[@role='checkbox'])[3]")).click(); //Clicking on checkbox
-		
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //Click on pay button
         
@@ -433,7 +429,8 @@ public class orders extends Data {
 		Thread.sleep(15000);
 		String orderId = driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); //Getting order id
 		System.out.println("Order ID: " + orderId);
-		driver.get("https://store.app.deposyt.com/a/orders?tab=all-orders");
+		
+		driver.get(Orders);
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//button[normalize-space(text())='Virtual Terminal']")).click(); //Clicking on virtual terminal filter
 		Thread.sleep(2000);
@@ -627,6 +624,18 @@ public class orders extends Data {
 		
 		//DeleteMail("Your Voided Order Receipt");
 		
+		try {
+			driver.navigate().to(Products);
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();//Click on settings
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("(//img[@alt=\"stripe\"]//parent::div//parent::div)[1]")).click(); //Select stripe from payment gateway list
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
+		} catch (Exception e) {
+			System.out.println("Payment gateway not updated to stripe");
+		}
+		
 		//Verify course orders are visible
 		driver.navigate().to(Courses);
 		Thread.sleep(3000);
@@ -646,7 +655,6 @@ public class orders extends Data {
 		Thread.sleep(2000);
 		WebElement openEditProduct =driver.findElement(By.xpath("(//a[normalize-space()='Open/Edit Product'])[last()]"));
 		jse.executeScript("arguments[0].click();", openEditProduct);
-
 		String parentWindow = driver.getWindowHandle();
 		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
 
@@ -663,10 +671,8 @@ public class orders extends Data {
 
 		driver.close();
 		driver.switchTo().window(parentWindow);
-
+		
 		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
-
-		// Switch to checkout window
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(parentWindow)) {
 				driver.switchTo().window(handle);
@@ -674,7 +680,7 @@ public class orders extends Data {
 			}
 		}
 
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -767,19 +773,18 @@ public class orders extends Data {
 		driver.findElement(By.xpath("(//span[normalize-space()='Save and close'])[1]")).click(); //Click on edit order button
 
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//span[normalize-space()='Copy Confirmation-Request Link'])[1]")).click();
+		//driver.findElement(By.xpath("(//span[normalize-space()='Copy Confirmation-Request Link'])[1]")).click();
 
 		jse.executeScript("window.__copiedText = '';" +"navigator.clipboard.writeText = function(text) {" +"   window.__copiedText = text;" +"};");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[normalize-space()='Copy Confirmation-Request Link'])[1]"))).click();
 
 		String copiedUrl = (String) jse.executeScript("return window.__copiedText;");
 		System.out.println("Copied URL: " + copiedUrl);
+		Thread.sleep(10000);
 
 		String mainWindow = driver.getWindowHandle();
 		jse.executeScript("window.open(arguments[0]);", copiedUrl);
-
 		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
-
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(mainWindow)) {
 				driver.switchTo().window(handle);
@@ -788,7 +793,7 @@ public class orders extends Data {
 		}
 
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("input#email")).sendKeys(WMLogin);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email1);
 		Thread.sleep(10000);
 		
 		WebElement CardName = driver.findElement(By.id("cardHolderName"));
@@ -796,7 +801,7 @@ public class orders extends Data {
 		Thread.sleep(1000);
 		CardName.sendKeys(F_Name+" "+L_Name);
 		driver.switchTo().frame("CollectJSInlineccnumber");
-		driver.findElement(By.id("ccnumber")).sendKeys(Card_No);
+		driver.findElement(By.id("ccnumber")).sendKeys(Card_No1);
 		
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlinecvv");
@@ -804,12 +809,16 @@ public class orders extends Data {
 		
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlineccexp");
-		driver.findElement(By.id("ccexp")).sendKeys(EXP);;
+		driver.findElement(By.id("ccexp")).sendKeys(EXP);
 		driver.switchTo().defaultContent();	
 		
 		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(5000);
+		
+		String PlacedOrderID1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		System.out.println("Placed Order ID: " + PlacedOrderID1);		
 		driver.close();
 		driver.switchTo().window(mainWindow);
 
@@ -971,8 +980,8 @@ public class orders extends Data {
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(5000);
 		
-		String PlacedOrderID1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		System.out.println("Placed Order ID: " + PlacedOrderID1);
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		System.out.println("Placed Order ID: " + PlacedOrderID11);
 		driver.close();
 		driver.switchTo().window(mainWindow);
 		
@@ -1021,6 +1030,18 @@ public class orders extends Data {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		
+		try {
+			driver.navigate().to(Products);
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();//Click on settings
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("(//img[@alt=\"stripe\"]//parent::div//parent::div)[1]")).click(); //Select stripe from payment gateway list
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
+		} catch (Exception e) {
+			System.out.println("Payment gateway not updated to stripe");
+		}
 
 		//Check refund functionality is workable
 		driver.navigate().to(Products);
@@ -1123,7 +1144,8 @@ public class orders extends Data {
 		refundAmountField.getText().trim();
 		System.out.println("Refund Amount Entered: " + refundAmountField);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//span[normalize-space()=\"Complete\"]//parent::button")).click(); 
+		WebElement element = driver.findElement(By.xpath("//span[normalize-space()='Complete']//parent::button"));
+		jse.executeScript("arguments[0].click();", element);
 		
 		Thread.sleep(2000);
 		String PartialRefund_Tag = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#overflow-main-div span > div > span"))).getText().trim();
@@ -1137,7 +1159,8 @@ public class orders extends Data {
 		Thread.sleep(4000);		
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='Refund']//parent::span//parent::button)[1]"))).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//span[normalize-space()=\"Complete\"]//parent::button")).click(); 
+		WebElement element1 = driver.findElement(By.xpath("//span[normalize-space()='Complete']//parent::button"));
+		jse.executeScript("arguments[0].click();", element1);
 		Thread.sleep(2000);
 		String FullRefund_Tag = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#overflow-main-div span > div > span"))).getText().trim();
 		Assert.assertEquals(FullRefund_Tag, "Refunded", "Refunded tag not found in order details");

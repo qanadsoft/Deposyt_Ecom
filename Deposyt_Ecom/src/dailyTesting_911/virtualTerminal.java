@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -43,8 +42,8 @@ public class virtualTerminal extends Data {
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 
 		//Verify that after cash payment user will receive email for the order
-		DeleteMail("Your Order is Confirmed — Order# ");		
-		DeleteContact(WMLogin, ContactPhone1);
+		//DeleteMail("Your Order is Confirmed — Order# ");		
+		//DeleteContact(ContactPhone1,WMLogin);
 
 		//verify that user can create new customer and select the existing customer
 		//verify that user can purchase product using cash payment
@@ -59,7 +58,7 @@ public class virtualTerminal extends Data {
 		driver.findElement(By.id("field_first_name")).sendKeys("Ecom"); 
 		driver.findElement(By.id("field_last_name")).sendKeys("Contact"); 
 		driver.findElement(By.id("field_email_id")).sendKeys(WMLogin); 
-		driver.findElement(By.name("phone_no")).sendKeys(ContactPhone1); 
+		driver.findElement(By.name("phone_no")).sendKeys(Number); 
 		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
 
@@ -103,7 +102,7 @@ public class virtualTerminal extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(ContactPhone1); //Select first customer from the list
+		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(Number); //Select first customer from the list
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//div[contains(@class,'overflow-y-auto')]/div[contains(@class,'mb-[5px]')][1]")).click(); //Select first customer from the list
 		Thread.sleep(1000);
@@ -154,7 +153,9 @@ public class virtualTerminal extends Data {
 
 		//verify that user can send 2 FA via SMS for the card payment
 		driver.navigate().to(Messages);
-		driver.findElement(By.name("filters")).sendKeys(ContactPhone1,Keys.ENTER);
+		driver.findElement(By.name("filters")).sendKeys(Number);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//div[@id='list']/descendant::p[@data-search-in=\"phone_number\"])[1]")).click();
 		Thread.sleep(7000);
 		WebElement lastSms = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.sms-box:last-of-type>div>div:nth-of-type(2)>div:first-of-type")));
 		String smsText = lastSms.getText().trim();
@@ -200,6 +201,23 @@ public class virtualTerminal extends Data {
 
 		//Verify that after ACH payment user will receive email for the order
 		DeleteMail("Your Order is Confirmed — Order# ");
+		
+		try {
+			driver.navigate().to(settings);
+			Thread.sleep(7000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Price Adjustment Settings']/parent::div/parent::button"))).click(); 	
+			Thread.sleep(3000);
+			WebElement feeOption = driver.findElement(By.xpath("(//input[contains(@name,'fee_option')])[5]"));
+			jse.executeScript("arguments[0].scrollIntoView({block:'center'});", feeOption);
+			feeOption.click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//input[@id='displayStyleCashDiscount']")).click();
+			driver.findElement(By.id("dialog-checkbox")).click();		
+			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();	
+		}
+		catch(Exception e) {
+			System.out.println("ACH_Payment is already enabled for the store");
+		}
 
 		//verify that user can purchase product using ACH payment
 		driver.navigate().to(Virtual_Terminal);
@@ -208,7 +226,7 @@ public class virtualTerminal extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(ContactPhone1); //Select first customer from the list
+		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(Number); //Select first customer from the list
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//div[contains(@class,'overflow-y-auto')]/div[contains(@class,'mb-[5px]')][1]")).click(); //Select first customer from the list
 		Thread.sleep(1000);

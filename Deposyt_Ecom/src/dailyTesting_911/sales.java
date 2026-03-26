@@ -54,8 +54,8 @@ public class sales extends Data {
 	    String phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 		
 		driver.navigate().to(Sales);
-		Thread.sleep(7000);
-		String totalRevenue1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Revenue Statistics Card']>div>div>p"))).getText().trim();
+		Thread.sleep(10000);
+		String totalRevenue1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueValue1 = totalRevenue1.replaceAll("[^0-9.]", ""); 
 		double RevenueValue1 = Double.parseDouble(totalRevenueValue1);	
 		System.out.println("Total Revenue Value Before In Sales Tab : " + RevenueValue1);
@@ -75,7 +75,7 @@ public class sales extends Data {
 		driver.findElement(By.cssSelector("button[aria-label='One-Time Toggle Button']")).click();//Click on one time toggle button
 		Thread.sleep(3000);
 		
-		String totalRevenue2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Revenue Statistics Card']>div>div>p"))).getText().trim();
+		String totalRevenue2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueValue2 = totalRevenue2.replaceAll("[^0-9.]", ""); 
 		double RevenueValue2 = Double.parseDouble(totalRevenueValue2);	
 		System.out.println("Total Revenue Value Before In One-Time Tab : " + RevenueValue2);
@@ -111,19 +111,8 @@ public class sales extends Data {
 		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
-
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
-		
-		WebElement unlockCourseButton = driver.findElement(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button//span"));
-		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", unlockCourseButton);
-		Thread.sleep(1000);
-		jse.executeScript("arguments[0].click();", unlockCourseButton);
-		
-		WebElement unlockservicesButton = driver.findElement(By.xpath("//p[text() = 'Link Product to Services']//following-sibling::button//span"));
-		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", unlockservicesButton);
-		Thread.sleep(1000);
-		jse.executeScript("arguments[0].click();", unlockservicesButton);
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -147,7 +136,7 @@ public class sales extends Data {
 			}
 		}	
 		
-		Thread.sleep(2000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -190,7 +179,7 @@ public class sales extends Data {
 		
 		driver.navigate().to(Sales);
 		Thread.sleep(7000);
-		String totalRevenue3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Revenue Statistics Card']>div>div>p"))).getText().trim();
+		String totalRevenue3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueValue3 = totalRevenue3.replaceAll("[^0-9.]", ""); 
 		double RevenueValue3 = Double.parseDouble(totalRevenueValue3);	
 		System.out.println("Total Revenue Value After In Sales Tab : " + RevenueValue3);
@@ -199,7 +188,7 @@ public class sales extends Data {
 		driver.findElement(By.cssSelector("button[aria-label='One-Time Toggle Button']")).click();//Click on one time toggle button
 		Thread.sleep(3000);
 		
-		String totalRevenue4 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Revenue Statistics Card']>div>div>p"))).getText().trim();
+		String totalRevenue4 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueValue4 = totalRevenue4.replaceAll("[^0-9.]", ""); 
 		double RevenueValue4 = Double.parseDouble(totalRevenueValue4);	
 		System.out.println("Total Revenue Value After In One-Time Tab : " + RevenueValue4);
@@ -216,7 +205,7 @@ public class sales extends Data {
 		driver.findElement(By.cssSelector("div#product-dropdown>div:nth-of-type(2)>div>div:first-of-type")).click(); //Search with product name in filter
 		driver.findElement(By.xpath("(//span[normalize-space()='Apply'])[1]")).click(); //Click on apply button in filter
 		
-		String totalRevenue5 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Revenue Statistics Card']>div>div>p"))).getText().trim();
+		String totalRevenue5 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueValue5 = totalRevenue5.replaceAll("[^0-9.]","");
 		double RevenueValue5 = Double.parseDouble(totalRevenueValue5);
 		System.out.println("Total Revenue Value After Applying Product Filter In Sales Tab : " + RevenueValue5);		
@@ -276,7 +265,7 @@ public class sales extends Data {
 			}
 		}	
 		
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -313,6 +302,9 @@ public class sales extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(5000);
+		
+		String PlacedOrderID = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		System.out.println("Placed Order ID: " + PlacedOrderID);
 		driver.close();
 		driver.switchTo().window(originalTab1);
 		
@@ -339,7 +331,7 @@ public class sales extends Data {
 		driver.findElement(By.cssSelector("button[aria-label='One-Time Toggle Button']")).click();//Click on one time toggle button
 		Thread.sleep(3000);
 		
-		String totalRevenueone = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Revenue Statistics Card']>div>div>p"))).getText().trim();
+		String totalRevenueone = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueValueone = totalRevenueone.replaceAll("[^0-9.]", ""); 
 		double RevenueValueone = Double.parseDouble(totalRevenueValueone);	
 		System.out.println("Total Revenue Value After In One-Time Tab : " + RevenueValueone);

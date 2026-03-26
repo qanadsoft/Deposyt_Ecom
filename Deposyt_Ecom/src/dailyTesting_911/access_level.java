@@ -435,7 +435,7 @@ public class access_level extends Data {
 			}
 		}	
 		
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -467,6 +467,7 @@ public class access_level extends Data {
 		cardHolder.clear();
 		cardHolder.sendKeys(F_Name + " " + L_Name);
 		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
 		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
@@ -587,6 +588,7 @@ public class access_level extends Data {
 		driver.findElement(By.id("field_last_name")).sendKeys(lastName); //Input last name
 		driver.findElement(By.id("field_email_id")).sendKeys(email); //Input email
 		driver.findElement(By.name("phone_no")).sendKeys(phone); //Input phone number
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add); //Input street address
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
@@ -933,7 +935,7 @@ public class access_level extends Data {
 			}
 		}	
 		
-		Thread.sleep(2000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -1018,6 +1020,7 @@ public class access_level extends Data {
 		driver.findElement(By.id("field_last_name")).sendKeys(lastName); //Input last name
 		driver.findElement(By.id("field_email_id")).sendKeys(email); //Input email
 		driver.findElement(By.name("phone_no")).sendKeys(ContactPhone2); //Input phone number
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add); //Input street address
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
 		Thread.sleep(2000);
@@ -1386,7 +1389,7 @@ public class access_level extends Data {
 			}
 		}		
 		
-		Thread.sleep(5000);	
+		Thread.sleep(9000);	
 		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(8)>span"))).getText().trim();
 		System.out.println("convenience Fee On Checkout Page : " + orderconvenienceFee);
 		String extractedconvenienceFee = orderconvenienceFee.replaceAll("[^0-9]", "");

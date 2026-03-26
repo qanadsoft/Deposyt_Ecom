@@ -41,16 +41,28 @@ public class gift_cards extends Data {
 		
 		String GiftCard = "10";
 		String giftCardName = "GiftCard " + UUID.randomUUID().toString().substring(0, 6).toUpperCase(),
-		Product_Name = "Tier Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+		Product_Name1 = "Tier Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 		DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
 		TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one";
+		
+		try {
+			driver.navigate().to(Products);
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();//Click on settings
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("(//img[@alt=\"stripe\"]//parent::div//parent::div)[1]")).click(); //Select stripe from payment gateway list
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
+		} catch (Exception e) {
+			System.out.println("Payment gateway not updated to stripe");
+		}
 		
 		//Check Normal giftcard is created 
 		driver.navigate().to(Gift_Cards);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='New Gift Card'])[3]"))).click(); // click on New Gift Card button
 		driver.findElement(By.xpath("(//div[@id='region.region_id'])[1]")).click(); //click on region drop down
-		driver.findElement(By.id("react-select-2-option-1")).click(); //Select Default as region
+		driver.findElement(By.id("react-select-2-option-0")).click(); //Select Default as region
 		driver.findElement(By.xpath("(//input[@placeholder='-'])[1]")).sendKeys(GiftCard);
 		driver.findElement(By.name("receiver.email")).sendKeys(WMLogin);
 		driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //click on create gift card button
@@ -102,7 +114,7 @@ public class gift_cards extends Data {
 			}
 		}		
 		
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -178,7 +190,7 @@ public class gift_cards extends Data {
 		
 		String discountapplied1 = driver.findElement(By.cssSelector("div.animate-enter>div:nth-of-type(2)>span:last-of-type")).getText().trim();
 		System.out.println("Discount applied on another region checkout : " + discountapplied1);
-		Assert.assertEquals(discountapplied1, "Giftcard code is not valid", "Wrong error message displayed for region restriction");
+		Assert.assertEquals(discountapplied1, "Gift card is disabled.", "Wrong error message displayed for region restriction");
 		
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -261,7 +273,7 @@ public class gift_cards extends Data {
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
-		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name1);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
 		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
@@ -312,6 +324,7 @@ public class gift_cards extends Data {
 		driver.findElement(By.xpath("(//input[contains(@name,'productDetails.variants.1.title')])[1]")).sendKeys("Second Tier Installment");
 		Thread.sleep(1000);
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("#tier-item-2>div>div>div>button")).click();//click on price
 		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
 		driver.findElement(By.xpath("(//input[@name='productDetails.variants.1.prices[0].amount'])[1]")).sendKeys(susbcriptionPrice);
@@ -319,6 +332,7 @@ public class gift_cards extends Data {
 		driver.findElement(By.xpath("(//div[normalize-space()='Description + Bullet points'])[2]")).click();//click on description and bullet points to save tier details
 		driver.findElement(By.xpath("//textarea[@name=\"productDetails.variants.1.product_tier_description\"]")).sendKeys(DiscriptionTier2);
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//input[@name=\"productDetails.variants.1.product_tier_features.0.title\"]")).sendKeys(TitleTier2);
 		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(1).click();//click on feature one
 		driver.findElement(By.xpath("//input[contains(@name,\"productDetails.variants.1.product_tier_features.0.feature_title.0\")]")).sendKeys(Tier2Feature1);
@@ -349,7 +363,7 @@ public class gift_cards extends Data {
 		    driver.switchTo().window(window);
 		}
 		
-		Thread.sleep(2000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);

@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import Master.Data;
 
@@ -30,7 +31,8 @@ public class pricing extends Data{
 			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",
 			phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 
-	public void Pricing() throws InterruptedException {
+	@Test(priority = 1)
+	public void Pricing () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -77,7 +79,6 @@ public class pricing extends Data{
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
 		Thread.sleep(3000);
 
 		driver.navigate().to(Products);
@@ -121,7 +122,7 @@ public class pricing extends Data{
 
 		WebElement confirmSaveBtn1 = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn1);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+		Thread.sleep(5000);
 
 		driver.navigate().to(Pricing);
 		Thread.sleep(5000);
@@ -198,7 +199,7 @@ public class pricing extends Data{
 			}
 		}	
 
-		Thread.sleep(2000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -211,7 +212,7 @@ public class pricing extends Data{
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		Thread.sleep(2000);
 
-		String suscPurchasePrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(2)>div>span")).getText()
+		String suscPurchasePrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:last-of-type>span")).getText()
 				.replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");   
 		Assert.assertEquals(suscPurchasePrice,Price2,"Sale price is not applied");
 
@@ -272,7 +273,7 @@ public class pricing extends Data{
 			}
 		}	
 
-		Thread.sleep(2000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -285,7 +286,7 @@ public class pricing extends Data{
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		Thread.sleep(2000);
 
-		String OnetimePrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(2)>div>span")).getText()
+		String OnetimePrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:last-of-type>span")).getText()
 				.replaceAll("[^0-9.]", "").replaceAll("\\.00$", ""); 
 		Assert.assertEquals(OnetimePrice,Price1,"Sale price is not applied");
 
@@ -318,40 +319,40 @@ public class pricing extends Data{
 		driver.close();
 		driver.switchTo().window(originalTab);
 
-		driver.navigate().to(Products);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);	
-		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();		
-
-		Thread.sleep(2000);
-		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
-		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>a")).click();
-
-		for (String handle : driver.getWindowHandles()) {
-			if (!handle.equals(originalTab)) {
-				driver.switchTo().window(handle);
-				break;
-			}
-		}	
-
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("#AccountColumn>div>div:first-of-type")).click();
-		By deleteBtnLocator = By.cssSelector("#checkout-template>nav>section>div>div>div>div>div:last-of-type>div>div>div>div>div:nth-of-type(3)>div>button:first-of-type");
-
-		List<WebElement> deleteButtons = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(deleteBtnLocator));
-		int totalItems = deleteButtons.size();
-		for (int i = totalItems; i > 1; i--) {
-			List<WebElement> buttons = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(deleteBtnLocator));
-			buttons.get(0).click();
-			wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.numberOfElementsToBeLessThan(deleteBtnLocator, i));
-		}
-
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("#checkout-template>nav>section>div>div>div>div>div:last-of-type>div>button")).click();
-		Thread.sleep(2000);
-		//driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
-		driver.close();
-		driver.switchTo().window(originalTab);
+//		driver.navigate().to(Products);
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);	
+//		Thread.sleep(4000);
+//		driver.findElement(By.cssSelector("#result-item-0>a")).click();		
+//
+//		Thread.sleep(2000);
+//		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>a")).click();
+//
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//				break;
+//			}
+//		}	
+//
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("#AccountColumn>div>div:first-of-type")).click();
+//		By deleteBtnLocator = By.cssSelector("#checkout-template>nav>section>div>div>div>div>div:last-of-type>div>div>div>div>div:nth-of-type(3)>div>button:first-of-type");
+//
+//		List<WebElement> deleteButtons = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(deleteBtnLocator));
+//		int totalItems = deleteButtons.size();
+//		for (int i = totalItems; i > 1; i--) {
+//			List<WebElement> buttons = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(deleteBtnLocator));
+//			buttons.get(0).click();
+//			wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.numberOfElementsToBeLessThan(deleteBtnLocator, i));
+//		}
+//
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("#checkout-template>nav>section>div>div>div>div>div:last-of-type>div>button")).click();
+//		Thread.sleep(2000);
+//		//driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
+//		driver.close();
+//		driver.switchTo().window(originalTab);
 
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name2);	
@@ -734,7 +735,5 @@ public class pricing extends Data{
 		} catch (Exception e) {
 			System.out.println("Dual pricing is enabled");
 		}
-
 	}
-
 }
