@@ -103,7 +103,7 @@
                     <div class="method-list-content failed suite-Suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="dailyTesting_911.pricing" class="method navigator-link" hash-for-method="Pricing">Pricing</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Suite" title="dailyTesting_911.sales" class="method navigator-link" hash-for-method="Services_SalesOrder">Services_SalesOrder</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Suite -->
@@ -121,23 +121,23 @@
           <div class="suite-Suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">dailyTesting_911.pricing</span>
+              <span class="class-name">dailyTesting_911.sales</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="Pricing">
-                  </a> <!-- Pricing -->
-                  <span class="method-name">Pricing</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of all elements located by By.cssSelector: #checkout-template&gt;nav&gt;section&gt;div&gt;div&gt;div&gt;div&gt;div:last-of-type&gt;div&gt;div&gt;div&gt;div&gt;div:nth-of-type(3)&gt;div&gt;button:first-of-type (tried for 20 second(s) with 500 milliseconds interval)
+                  <a name="Services_SalesOrder">
+                  </a> <!-- Services_SalesOrder -->
+                  <span class="method-name">Services_SalesOrder</span>
+                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.cssSelector: p.serviceinfocardprice.serviceinfochild2 (tried for 20 second(s) with 500 milliseconds interval)
 Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
 System info: os.name: &apos;Linux&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;5.15.0-139-generic&apos;, java.version: &apos;21.0.1&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:33251}, goog:processID: 100653, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:33251/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 6391447d187509c4af0602339799736c
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:35239}, goog:processID: 107929, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:35239/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: c102ba611b6d2e6bc5c896539e5b3c45
 	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-	at dailyTesting_911.pricing.Pricing(pricing.java:342)
+	at dailyTesting_911.sales.Services_SalesOrder(sales.java:2478)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
@@ -166,11 +166,11 @@ Session ID: 6391447d187509c4af0602339799736c
     &lt;parameter name=&quot;uname&quot; value=&quot;rishikesh.sakharekar@gmail.com&quot;/&gt;
     &lt;parameter name=&quot;pass&quot; value=&quot;Djismylige@1998&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;dailyTesting_911.pricing&quot;&gt;
+      &lt;class name=&quot;dailyTesting_911.sales&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;Pricing&quot;/&gt;
+          &lt;include name=&quot;Services_SalesOrder&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- dailyTesting_911.pricing --&gt;
+      &lt;/class&gt; &lt;!-- dailyTesting_911.sales --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- 911 --&gt;
 &lt;/suite&gt; &lt;!-- Suite --&gt;
@@ -212,14 +212,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'Pricing')
-data.setCell(0, 2, 'dailyTesting_911.pricing')
-data.setCell(0, 3, 244978);
+data.setCell(0, 1, 'Services_SalesOrder')
+data.setCell(0, 2, 'dailyTesting_911.sales')
+data.setCell(0, 3, 85228);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 4 minutes</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -234,9 +234,30 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">8 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">dailyTesting_911.sales</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">Tier_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">SubscriptionAnalytics_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">OneTime_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">Invoice_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">subscription_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">Cources_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">VirtualTerminal_salesOrder</span>
+                <br/>
+                <span class="ignored-method-name">PremadeGift_SalesOrder</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-Suite" class="panel">
@@ -245,7 +266,7 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">dailyTesting_911.pricing</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">dailyTesting_911.sales</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
                 <span class="method-name">invokebrowser(chrome, rishikesh.sakharekar@gmail.com, Djismylige@1998, Admin)</span>
                 <span class="method-start">0 ms</span>
@@ -253,8 +274,8 @@ return data;
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">Pricing</span>
-                <span class="method-start">16176 ms</span>
+                <span class="method-name">Services_SalesOrder</span>
+                <span class="method-start">14132 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

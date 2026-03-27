@@ -61,7 +61,7 @@ public class Public_Strings {
 	settings 	     = Ecom_url + "settings",
 	invoices		 = Ecom_url + "invoices",
 	dual_Pricing	 = Ecom_url + "settings/dual-pricing",
-	Customer_Hub	 = "https://automation.release.deposyt.store/";
+	Customer_Hub	 = "https://automationqa.release.deposyt.store/store";
 
 	//CRM Logins
 	protected String Test02Login = "nadsoft.test02@gmail.com";

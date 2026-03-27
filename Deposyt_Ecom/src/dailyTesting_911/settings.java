@@ -55,6 +55,19 @@ public class settings extends Data {
 		//Check card expiry trigger is run successfully
 	
 		DeleteMail("Card Expiration Alert");
+		
+		try {
+			driver.navigate().to(Products);
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();//Click on settings
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("(//img[@alt=\"stripe\"]//parent::div//parent::div)[1]")).click(); //Select stripe from payment gateway list
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
+		} catch (Exception e) {
+			System.out.println("Payment gateway not updated to stripe");
+		}
+		
 		driver.navigate().to(settings);
 		Thread.sleep(7000);
 		//driver.findElement(By.xpath("//button[@id=\"3\"]")).click();
@@ -192,7 +205,7 @@ public class settings extends Data {
 		cardHolder.clear();
 		cardHolder.sendKeys(F_Name + " " + L_Name);
 
-		//driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
@@ -293,7 +306,8 @@ public class settings extends Data {
 
 		Assert.assertTrue(isPresentAndClicked,"Payment mode '" + Payment_Mode + "' is not present in the list");		
 		driver.findElement(By.cssSelector("[type=\"file\"]")).sendKeys(Media_Path + Fileone);
-		//driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();		
 		
 		Thread.sleep(7000);
@@ -385,7 +399,7 @@ public class settings extends Data {
 		driver.findElement(By.cssSelector("#yearDropdown>button:first-of-type")).click();
 		
 		Thread.sleep(1000);
-		//driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
 		String PlacedOrderIDs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderIDs);		
@@ -485,7 +499,7 @@ public class settings extends Data {
 		driver.findElement(By.id("ccexp")).sendKeys("12/2044");;
 		driver.switchTo().defaultContent();
 		
-		//driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
 		String PlacedOrderIDs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderIDs1);		
@@ -636,7 +650,7 @@ public class settings extends Data {
 			}
 		}		
 		
-		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(2)>div.flex-nowrap>div:nth-of-type(3)>div>span:first-of-type")).getText().trim();
+		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type")).getText().trim();
 		System.out.println("Order Tax: " + ordertax);
 		String extractedTax = ordertax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax, taxRegion, "Tax rate mismatch in order summary");
@@ -689,7 +703,7 @@ public class settings extends Data {
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);
 
-		//driver.findElement(By.xpath("//button[@role='checkbox']")).click(); //Clicking on checkbox				
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click(); //Clicking on checkbox				
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 
 		Thread.sleep(7000);
@@ -933,7 +947,7 @@ public class settings extends Data {
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
-		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(3)>div:nth-of-type(1)>span"))).getText().trim();
+		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type"))).getText().trim();
 		System.out.println("convenience Fee On Checkout Page : " + orderconvenienceFee);
 		String extractedconvenienceFee = orderconvenienceFee.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedconvenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),convenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Convenience Fee mismatch in order summary");
@@ -957,7 +971,7 @@ public class settings extends Data {
 		cardHolder.clear();
 		cardHolder.sendKeys(F_Name + " " + L_Name);
 
-		//driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
@@ -1032,7 +1046,7 @@ public class settings extends Data {
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
-		String SurchargeFees = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(3)>div:nth-of-type(1)>span"))).getText().trim();
+		String SurchargeFees = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type"))).getText().trim();
 		System.out.println("Surcharge Fee On Checkout Page : " + SurchargeFees);
 		String extractedSurchargeFee = SurchargeFees.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedSurchargeFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),SurchargeFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Surcharge Fee mismatch in order summary");
@@ -1055,7 +1069,7 @@ public class settings extends Data {
 		cardHolderd.clear();
 		cardHolderd.sendKeys(F_Name + " " + L_Name);
 
-		//driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
@@ -1128,7 +1142,7 @@ public class settings extends Data {
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 
-		String ServiceFees = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(2)>div:nth-of-type(6)>div:nth-of-type(3)>div:nth-of-type(1)>span"))).getText().trim();
+		String ServiceFees = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type"))).getText().trim();
 		System.out.println("Service Fee On Checkout Page : " + ServiceFees);
 		String extractedServiceFee = ServiceFees.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedServiceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),ServiceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Service Fee mismatch in order summary");
@@ -1151,7 +1165,7 @@ public class settings extends Data {
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);
 
-		//driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
@@ -1390,7 +1404,7 @@ public class settings extends Data {
 		//Assert.assertEquals(Double.parseDouble(TotalOrderAmounts11.replace("$", "")), 2.08, "Total order amount mismatch in order summary");		
 	}
 		
-	@Test(priority = 1)
+	@Test(priority = 3)
 	public void SubscriptionSettings() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
@@ -1488,7 +1502,7 @@ public class settings extends Data {
 		cardHolder.clear();
 		cardHolder.sendKeys(F_Name + " " + L_Name);
 
-		//driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
@@ -1613,6 +1627,7 @@ public class settings extends Data {
 		driver.findElement(By.xpath("(//input[contains(@name,'productDetails.variants.1.title')])[1]")).sendKeys("Second Tier Installment");
 		Thread.sleep(1000);
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("#tier-item-2>div>div>div>button")).click();//click on price
 		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
 		driver.findElement(By.xpath("(//input[@name='productDetails.variants.1.prices[0].amount'])[1]")).sendKeys(susbcriptionPrice);
@@ -1620,6 +1635,7 @@ public class settings extends Data {
 		driver.findElement(By.xpath("(//div[normalize-space()='Description + Bullet points'])[2]")).click();//click on description and bullet points to save tier details
 		driver.findElement(By.xpath("//textarea[@name=\"productDetails.variants.1.product_tier_description\"]")).sendKeys(DiscriptionTier2);
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath("//input[@name=\"productDetails.variants.1.product_tier_features.0.title\"]")).sendKeys(TitleTier2);
 		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(1).click();//click on feature one
 		driver.findElement(By.xpath("//input[contains(@name,\"productDetails.variants.1.product_tier_features.0.feature_title.0\")]")).sendKeys(Tier2Feature1);
@@ -1679,6 +1695,7 @@ public class settings extends Data {
 		cardHolder1.sendKeys(F_Name + " " + L_Name);
 
 		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
 		String PlacedOrderd1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
@@ -1787,5 +1804,4 @@ public class settings extends Data {
 		List<WebElement> upgradeOption1 = driver.findElements(By.cssSelector("div.modal-scroll>div>div>div"));
 		Assert.assertEquals(upgradeOption1.size(), 1, "Upgrade option is not visible");	
 	}
-
 }

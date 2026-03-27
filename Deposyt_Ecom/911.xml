@@ -11,9 +11,9 @@
 	   <parameter name = "pass"  value = "Djismylige@1998"/>
 
         <classes>
-            <class name="dailyTesting_911.pricing">
+            <class name="dailyTesting_911.sales">
                 <methods>
-                    <include name="Pricing"/>
+                    <include name="Services_SalesOrder"/>
                 </methods>
             </class>
         </classes>

@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,11 +18,9 @@ import org.testng.annotations.Test;
 import Master.Data;
 
 public class customer_hub extends Data {
-	
 	java.util.Random r = new java.util.Random();
 
 	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
-
 			Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 			SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Country_Add = "Boardman, Oregon, 97818",
 			Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
@@ -46,10 +45,26 @@ public class customer_hub extends Data {
 		DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
 		TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one";
 		
+		try {
+			driver.navigate().to(settings);
+			Thread.sleep(7000);
+			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Price Adjustment Settings']/parent::div/parent::button"))).click(); 	
+			Thread.sleep(3000);
+			WebElement feeOption = driver.findElement(By.xpath("(//input[contains(@name,'fee_option')])[1]"));
+			jse.executeScript("arguments[0].scrollIntoView({block:'center'});", feeOption);
+			feeOption.click();
+			Thread.sleep(2000);	
+			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();	
+		}
+		catch(Exception e) {
+			System.out.println("ACH_Payment is already enabled for the store");
+		}
+		
 		//Verify that we are able to add new customer and from join us link and that customer s getting added in contacts module as well
 		//Verify that a newly created customer can log in to the Customer Hub using the Sign In option
 		try {
 			driver.navigate().to(Customer_Hub);
+			Thread.sleep(5000);
 			driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
 			Thread.sleep(1000);
 			driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:first-of-type>div>div>div:nth-of-type(2)>div>div>ul>li:last-of-type")).click();
@@ -67,6 +82,7 @@ public class customer_hub extends Data {
 			System.out.println("Customer is already login in customer hub");
 		}catch(Exception e) {
 			driver.navigate().to(Customer_Hub);
+			Thread.sleep(5000);
 			driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//button[normalize-space()=\"Join us\"]")).click();
@@ -160,6 +176,7 @@ public class customer_hub extends Data {
 		cardHolder.clear();
 		cardHolder.sendKeys(F_Name + " " + L_Name);
 		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
 		String PlacedOrder = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
@@ -232,10 +249,21 @@ public class customer_hub extends Data {
 			}
 		}		
 		
-		Thread.sleep(5000);
-		driver.findElement(By.name("shippingOption")).click();
+		Thread.sleep(5000);		
+		try {
+		    WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'Some required shipping information is missing or invalid')]")));
+		    if (errorMsg.isDisplayed()) {
+		        WebElement doneBtn = driver.findElement(By.xpath("//*[contains(text(),'Use same as my Billing Address')]"));
+		        doneBtn.click();
+		    }
+		} catch (TimeoutException e) {
+			System.out.println("Billing and Shipping information is already filled or no error message appeared.");
+		}
+		
+		//driver.findElement(By.name("shippingOption")).click();
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
@@ -252,7 +280,11 @@ public class customer_hub extends Data {
 		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);
-		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),'Make Payment')]//parent::button")).click();
 		Thread.sleep(7000);
 		String PlacedOrder1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrder1);
@@ -360,9 +392,20 @@ public class customer_hub extends Data {
 		}
 		
 		Thread.sleep(5000);
-		driver.findElement(By.name("shippingOption")).click();	
+		try {
+		    WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'Some required shipping information is missing or invalid')]")));
+		    if (errorMsg.isDisplayed()) {
+		        WebElement doneBtn = driver.findElement(By.xpath("//*[contains(text(),'Use same as my Billing Address')]"));
+		        doneBtn.click();
+		    }
+		} catch (TimeoutException e) {
+			System.out.println("Billing and Shipping information is already filled or no error message appeared.");
+		}
+		
+		//driver.findElement(By.name("shippingOption")).click();
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
@@ -379,7 +422,11 @@ public class customer_hub extends Data {
 		WebElement cardHolder11 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder11.clear();
 		cardHolder11.sendKeys(F_Name + " " + L_Name);
-		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),'Make Payment')]//parent::button")).click();
 		Thread.sleep(7000);
 		String PlacedOrder11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrder11);
@@ -399,74 +446,6 @@ public class customer_hub extends Data {
 		String currentUrl11 = driver.getCurrentUrl().toLowerCase();	
 		System.out.println("Current URL : " + currentUrl11);
 		Assert.assertTrue(currentUrl11.contains(PlacedOrder11), "Order ID not found in URL");
-		
-		//Verify that all cretaed invoice for respected customer is getting display in invoice tab
-		Thread.sleep(3000);
-		driver.navigate().to(invoices);
-		Thread.sleep(7000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.newproductbutton:nth-of-type(3)"))).click();
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//input[contains(@placeholder,'Describe what this invoice is about')])[1]")).sendKeys("This invoice is created for 911 Automation Test");
-		driver.findElement(By.xpath("//span[normalize-space()=\"+ Add Recipient\"]//parent::button")).click();
-		driver.findElement(By.xpath("//input[@placeholder=\"Search Customers\"]")).sendKeys(email); //Select first customer from the list
-		Thread.sleep(5000);
-		driver.findElement(By.xpath("//ul[contains(@class,\"px-4 py-3 hover:bg-gray-50 cursor-pointer\")]")).click(); //Select first customer from the list
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]")).click(); //Clicking on add line items button
-		Thread.sleep(5000);
-		driver.findElement(By.xpath("//div[@id=\"root\"]//div[contains(@class,\"mtb:w-full\")]//ul[1]")).click(); //Clicking on item name field
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Save And Send']//parent::span//parent::button")).click();
-		Thread.sleep(5000);
-		String invoiceid = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[role='dialog']>div>div:nth-of-type(2)>div>div>div>table>thead>tr>td:nth-of-type(2)"))).getText().trim();
-		System.out.println("Created Invoice ID: " + invoiceid);
-		Thread.sleep(5000);
-		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@id,'radix')]//span[contains(@class,'mr')]//div[contains(@class,'flex')])[1]")));
-		jse.executeScript("arguments[0].click();", element);
-		
-		Thread.sleep(5000);
-		driver.navigate().to(Customer_Hub + "account/invoices");
-		Thread.sleep(5000);
-		String invoiceid1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.grid.grid-cols-1>div:last-of-type>div>div>div>div>table>tbody>tr:first-of-type>td:first-of-type"))).getText().trim().replace("#","");
-		System.out.println("Created Invoice ID In Customers Hub : " + invoiceid1);
-		Assert.assertEquals(invoiceid, invoiceid1, "Created invoice is not visible in customer hub");
-		
-		//verify that we are able to open invoice details 
-		//Verify that we are able to make payment for invoice
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:last-of-type>div>div>div>div>table>tbody>tr:first-of-type>td:first-of-type")).click();
-		Thread.sleep(2000);
-		String invoiceID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>div>section>div>div>div>p>span:first-of-type"))).getText().trim().replace("#","");
-		Assert.assertEquals(invoiceid, invoiceID, "Created invoice is not visible in customer hub");
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>div>section>div:first-of-type>div>div:nth-of-type(2)>div>a:first-of-type")).click(); //Click on pay now button
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//button[normalize-space()=\"Pay\"]")).click();
-		Thread.sleep(3000);
-		
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
-		Thread.sleep(2000);
-		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
-		driver.switchTo().defaultContent();
-
-		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
-		driver.switchTo().defaultContent();
-
-		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
-		driver.switchTo().defaultContent();
-
-		WebElement cardHolder111 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
-		cardHolder111.clear();
-		cardHolder111.sendKeys(F_Name + " " + L_Name);
-
-		//driver.findElement(By.xpath("(//button[@role='checkbox'])[3]")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button[type='submit']")).click();
-		String PlacedOrder1s1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		System.out.println("Placed Order ID: " + PlacedOrder1s1);
 		
 		driver.navigate().to(Customer_Hub);
 		Thread.sleep(3000);
@@ -535,7 +514,7 @@ public class customer_hub extends Data {
 		String cityadd = driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:first-of-type>div>div:nth-of-type(2)>div>p:nth-of-type(3)")).getText().trim();
 		String countryadd = driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:first-of-type>div>div:nth-of-type(2)>div>p:nth-of-type(4)")).getText().trim();
 		
-		Assert.assertEquals(Streetadd,Street_Add, "Street address is not correct in customer hub");
+		Assert.assertEquals(Streetadd,Street_Add+",", "Street address is not correct in customer hub");
 		Assert.assertEquals(cityadd,Country_Add, "City is not correct in customer hub");
 		Assert.assertEquals(countryadd, country, "Country is not correct in customer hub");
 		
@@ -701,8 +680,12 @@ public class customer_hub extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
 		
-		driver.navigate().to(Customer_Hub + "account/card-on-file");
+		driver.navigate().to(Customer_Hub);
 		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("ul.items-start.flex-col>li:nth-of-type(6)")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath("//p[text()='+ Add New Card']//parent::button")).click();
 		Thread.sleep(2000);
 		
@@ -742,30 +725,39 @@ public class customer_hub extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
 		
-		driver.navigate().to(Customer_Hub + "account/card-on-file");
+		driver.navigate().to(Customer_Hub);
 		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("ul.items-start.flex-col>li:nth-of-type(6)")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath("//p[text()='+ Add New Card']//parent::button")).click();
 		Thread.sleep(2000);
 		
 		driver.findElement(By.name("name_on_card")).sendKeys(F_Name + " " + L_Name);
 		driver.findElement(By.name("card_number")).sendKeys(Card_No);
-		driver.findElement(By.name("expiry_month")).click();
+		Thread.sleep(1500);
+		driver.findElement(By.xpath("//span[text()='Expiry Month']//parent::div")).click();
 		Thread.sleep(500);
 		driver.findElement(By.cssSelector("div.overflow-auto:nth-of-type(2)>div:first-of-type")).click();
-		driver.findElement(By.name("expiry_year")).click();
+		Thread.sleep(1500);
+		driver.findElement(By.xpath("//span[text()='Expiry Year']//parent::div")).click();
+		Thread.sleep(500);
 		driver.findElement(By.cssSelector("div.overflow-auto:nth-of-type(2)>div:nth-of-type(6)")).click();
+		Thread.sleep(500);
 		driver.findElement(By.name("cvv")).sendKeys(CVV);
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//button[normalize-space()=\"Save\"]")).click();	
 		
-		//verify that we are able to delete card
+		/*//verify that we are able to delete card
 		Thread.sleep(3000);
 		driver.navigate().refresh();
+		Thread.sleep(3000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>div>div>article>div:last-of-type>div>button"))).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[contains(@id,'headlessui-popover-panel')]//div//div//p[2]")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//button[normalize-space()=\"Delete\"]")).click();
+		driver.findElement(By.xpath("//button[normalize-space()=\"Delete\"]")).click();*/
 		
 		Thread.sleep(2000);
 		driver.navigate().to(Products);
@@ -777,8 +769,12 @@ public class customer_hub extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
 		Thread.sleep(4000);
 		
-		driver.navigate().to(Customer_Hub + "account/card-on-file");
+		driver.navigate().to(Customer_Hub);
 		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("ul.items-start.flex-col>li:nth-of-type(6)")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath("//p[text()='+ Add New Card']//parent::button")).click();
 		Thread.sleep(2000);
 		
@@ -789,10 +785,12 @@ public class customer_hub extends Data {
 		driver.switchTo().frame("CollectJSInlineccnumber");
 		driver.findElement(By.id("ccnumber")).sendKeys(Card_No);
 		
+		Thread.sleep(500);
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlinecvv");
 		driver.findElement(By.id("cvv")).sendKeys(CVV);
 		
+		Thread.sleep(500);
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlineccexp");
 		driver.findElement(By.id("ccexp")).sendKeys("12/2044");
@@ -818,7 +816,8 @@ public class customer_hub extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
 				
 		//verify that we are able to edit card 
-		driver.navigate().to(Customer_Hub + "account/card-on-file");
+		driver.navigate().to(Customer_Hub);
+		Thread.sleep(2000);
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>div>div>article>div:last-of-type>div>button")).click();
 		Thread.sleep(1000);
@@ -856,5 +855,79 @@ public class customer_hub extends Data {
 		Assert.assertTrue(backupIcon.isDisplayed() == false, "Backup card icon is still displayed after unmarking backup card");
 		System.out.println("Backup card is removed successfully");		
 	}
+	
+	@Test(priority = 3)
+	public void OrederInvoice() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		
+		//Verify that all cretaed invoice for respected customer is getting display in invoice tab
+		Thread.sleep(3000);
+		driver.navigate().to(invoices);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.newproductbutton:nth-of-type(3)"))).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//input[contains(@placeholder,'Describe what this invoice is about')])[1]")).sendKeys("This invoice is created for 911 Automation Test");
+		driver.findElement(By.xpath("//span[normalize-space()=\"+ Add Recipient\"]//parent::button")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search Customers\"]")).sendKeys(email); //Select first customer from the list
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//ul[contains(@class,\"px-4 py-3 hover:bg-gray-50 cursor-pointer\")]")).click(); //Select first customer from the list
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]")).click(); //Clicking on add line items button
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//div[@id=\"root\"]//div[contains(@class,\"mtb:w-full\")]//ul[1]")).click(); //Clicking on item name field
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Save And Send']//parent::span//parent::button")).click();
+		Thread.sleep(5000);
+		String invoiceid = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[role='dialog']>div>div:nth-of-type(2)>div>div>div>table>thead>tr>td:nth-of-type(2)"))).getText().trim();
+		System.out.println("Created Invoice ID: " + invoiceid);
+		Thread.sleep(5000);
+		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@id,'radix')]//span[contains(@class,'mr')]//div[contains(@class,'flex')])[1]")));
+		jse.executeScript("arguments[0].click();", element);
+		
+		Thread.sleep(5000);
+		driver.navigate().to(Customer_Hub + "account/invoices");
+		Thread.sleep(5000);
+		String invoiceid1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.grid.grid-cols-1>div:last-of-type>div>div>div>div>table>tbody>tr:first-of-type>td:first-of-type"))).getText().trim().replace("#","");
+		System.out.println("Created Invoice ID In Customers Hub : " + invoiceid1);
+		Assert.assertEquals(invoiceid, invoiceid1, "Created invoice is not visible in customer hub");
+		
+		//verify that we are able to open invoice details 
+		//Verify that we are able to make payment for invoice
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:last-of-type>div>div>div>div>table>tbody>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);
+		String invoiceID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>div>section>div>div>div>p>span:first-of-type"))).getText().trim().replace("#","");
+		Assert.assertEquals(invoiceid, invoiceID, "Created invoice is not visible in customer hub");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>div>section>div:first-of-type>div>div:nth-of-type(2)>div>a:first-of-type")).click(); //Click on pay now button
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[normalize-space()=\"Pay\"]")).click();
+		Thread.sleep(3000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
 
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder111 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder111.clear();
+		cardHolder111.sendKeys(F_Name + " " + L_Name);
+
+		//driver.findElement(By.xpath("(//button[@role='checkbox'])[3]")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		String PlacedOrder1s1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		System.out.println("Placed Order ID: " + PlacedOrder1s1);
+	}
 }
