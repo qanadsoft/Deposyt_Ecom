@@ -274,5 +274,23 @@ public class Data extends Public_Strings {
 		driver.close();
 		driver.switchTo().window(pwindo);
 	}
+	
+	public void StoreFront() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		
+		driver.navigate().to(settings);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Store Details']/parent::div/parent::button"))).click();
+		Thread.sleep(2000);
+		WebElement Store =  driver.findElement(By.cssSelector("a[rel='noopener noreferrer']:first-of-type"));
+		String Storeurl = Store.getAttribute("href");
+		//driver.switchTo().newWindow(WindowType.TAB);
+		driver.get(Storeurl);	
+		
+//		Thread.sleep(2000);
+//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='SHOP NOW']"))).click();
+//		Thread.sleep(5000);
+	}
 
 }
