@@ -12,7 +12,7 @@
         <classes>
             <class name="Modules.Products">
                 <methods>
-                    <include name="addProduct"/>
+                    <include name="ProductPrice"/>
                 </methods>
             </class>
         </classes>

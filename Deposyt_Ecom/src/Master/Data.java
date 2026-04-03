@@ -285,12 +285,7 @@ public class Data extends Public_Strings {
 		Thread.sleep(2000);
 		WebElement Store =  driver.findElement(By.cssSelector("a[rel='noopener noreferrer']:first-of-type"));
 		String Storeurl = Store.getAttribute("href");
-		//driver.switchTo().newWindow(WindowType.TAB);
-		driver.get(Storeurl);	
-		
-//		Thread.sleep(2000);
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='SHOP NOW']"))).click();
-//		Thread.sleep(5000);
+		driver.get(Storeurl);
 	}
 
 }

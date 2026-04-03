@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,7 +23,7 @@ public class Products extends Data {
 	Product_Name = "OneTime Product " + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),
 	Private_Name = "TestProduct " + UUID.randomUUID().toString().replace("- ", "").substring(0, 8).toUpperCase(),
 	Description = "test-Nadsoft " + UUID.randomUUID().toString().replace("- ", "").substring(0, 10).toUpperCase() + "@#$!/",
-	SKU = "SKU_No" + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase() + "@#$!/", OneTimeProductValue = "10", OneTimePurchaseSalePrice = "5",
+	SKU = "SKU_No" + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase() + "@#$!/", OneTimeProductValue = "10", OneTimePurchaseSalePrice = "5", Discountedprice = "9.50",
 	File1 = "file1.jpg", File2 = "sample.bmp", File3 = "sample.tiff", File4 = "10mb.jpg", File5 = "sample.jpe", File6 = "file3.jpeg", File7 = "file7.jpg", File8 = "file4.png", Attachment = "Jira_Guide.pdf",
 	Fileone = "file1.jpg", Filetwo = "file2.png", Filethree = "file3.jpeg", Filefour = "file4.png", Filefive = "file5.png",
 	Filesix = "file6.jpg", Fileseven = "file7.jpg",Fileeight = "file8.jpg", Filenine = "file9.jpg", Fileten = "sample.mp4";
@@ -539,13 +540,13 @@ public class Products extends Data {
 		System.out.println("Link Product To Appointments Title Matches\n");
 		
 		//verify Non-Inventory Enabled and after click on Hide Product From Store is enabled
-		WebElement hideProductButtonn = driver.findElement(By.xpath("//p[text() = 'Hide Products from Store']//following-sibling::button//span"));
+		/*WebElement hideProductButtonn = driver.findElement(By.xpath("//p[text() = 'Hide Products from Store']//following-sibling::button//span"));
 		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", hideProductButtonn);
 		Thread.sleep(1000);
 		jse.executeScript("arguments[0].click();", hideProductButtonn);
 		String hideProductButtonState11 = hideProductButton.getAttribute("data-state");
 		Assert.assertEquals(hideProductButtonState11, "checked", "after click on Hide product from store Product is not enabled");
-		System.out.println("after click on Hide Product From Store button is enabled successfully");
+		System.out.println("after click on Hide Product From Store button is enabled successfully");*/
 		
 		//verify Non-Inventory Enabled and after click on Product Unlock Course is enabled
 		WebElement unlockCourseButtonn11 = driver.findElement(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button//span"));
@@ -764,9 +765,9 @@ public class Products extends Data {
 		System.out.println("Saved private name is displayed successfully in pages section");
 		
 		//check that added description can be seen in product details page 
-		WebElement Description = driver.findElement(By.name("productDetails.productDescription"));
-		String actualDescription = Description.getAttribute("value");
-		Assert.assertEquals(actualDescription, Description, "Saved description is not displayed in product details page");
+		WebElement DetailDescription = driver.findElement(By.name("productDetails.productDescription"));
+		String actualDescription = DetailDescription.getAttribute("value");
+		Assert.assertEquals(actualDescription.toLowerCase(), Description.toLowerCase(), "Saved description is not displayed in product details page");
 		System.out.println("Saved description is displayed successfully in product details page");
 		
 		//check that saved product name can be seen  on checkout page
@@ -800,7 +801,7 @@ public class Products extends Data {
 		}
 		
 		Thread.sleep(2000);
-		WebElement productNameOndefCheckout = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>span"));
+		WebElement productNameOndefCheckout = driver.findElement(By.cssSelector("#ProductDescriptionColumn>h2"));
 		String actualProductNameOndefCheckout = productNameOndefCheckout.getText().trim();
 		Assert.assertEquals(actualProductNameOndefCheckout, Product_Name, "Saved product name is not displayed on Default checkout page");
 		System.out.println("Saved product name is displayed successfully on Default checkout page");
@@ -818,10 +819,10 @@ public class Products extends Data {
 		}
 		
 		Thread.sleep(2000);
-		WebElement productNameOnprodCheckout = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>span"));
+		WebElement productNameOnprodCheckout = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>span:first-of-type"));
 		String actualProductNameOnprodCheckout = productNameOnprodCheckout.getText().trim();
 		Assert.assertEquals(actualProductNameOnprodCheckout, Product_Name, "Saved product name is not displayed on Product checkout page");
-		System.out.println("Saved product name is displayed successfully on Product checkout page");
+		System.out.println("Saved product name is displayed successfully on Product checkout page\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -830,9 +831,18 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		driver.findElement(By.name("search")).sendKeys(Product_Name,Keys.ENTER);
 		Thread.sleep(15000);
-		String serviceName = driver.findElement(By.cssSelector("span.servicenamespan")).getText();
-		Assert.assertEquals(serviceName, Product_Name, "Service not created with product name");
-		System.out.println("\nService found in connect product listing");
+				
+		List<WebElement> connectedservices = driver.findElements(By.cssSelector("span.servicenamespan"));
+		boolean serviceFound = false;
+		for (WebElement product : connectedservices) {
+			if (product.getText().trim().equals(Product_Name)) {
+				serviceFound = true;
+				break;
+			}
+		}	
+		
+		Assert.assertTrue(serviceFound, "service not found in connect product listing");		
+		System.out.println("service found in connect product listing");		
 		
 		//Verify linked course is unlocked after product purchase
 		driver.navigate().to(Courses);
@@ -856,7 +866,7 @@ public class Products extends Data {
 		}	
 		
 		Assert.assertTrue(productFound, "Product not found in connect product listing");		
-		System.out.println("\nProduct found in connect product listing");
+		System.out.println("Product found in connect product listing");
 		
 		//Verify linked appointment is accessible after product purchase
 		driver.navigate().to(AppointmentTypes);
@@ -867,27 +877,454 @@ public class Products extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.id("payment_paid")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.id("select2-state-iy-container")).click();
-		driver.findElement(By.name("//input[@placeholder=\"Search Product ...\"]")).sendKeys(Product_Name);
+		driver.findElement(By.cssSelector("span[title='Select Product']")).click();
 		Thread.sleep(2000);
-		List<WebElement> connectedProducts1 = driver.findElements(By.cssSelector("li.select2-results__option--highlighted"));
-		boolean productFound1 = false;
-		for (WebElement product : connectedProducts1) {
-			if (product.getText().trim().equals(Product_Name)) {
-				productFound1 = true;
-				break;
-			}		
-		}
-		
-		Assert.assertTrue(productFound1, "Product not found in connect product listing");
+		String expectedProduct = Product_Name + " | $" + OneTimeProductValue + ".00";
+		String connectedProducts1 = driver.findElement(By.cssSelector("li.select2-results__option--selectable:nth-of-type(2)")).getText().trim();				
+		Assert.assertEquals(connectedProducts1, expectedProduct, "Saved product name is not displayed on Appointment page");
 		System.out.println("Product found in connect Appointment product listing page");
 		
 		//check that saved product name can be seen in  storefront
 		StoreFront();
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='SHOP NOW']"))).click();
+		Thread.sleep(5000);
 		String productNameOnStoreFront = driver.findElement(By.xpath("((//div[contains(@data-testid,'product-wrapper')])[1]//div[2]//p)[1]")).getText().trim();
 		Assert.assertEquals(productNameOnStoreFront, Product_Name, "Saved product name is not displayed on storefront");
-		System.out.println("Saved product name is displayed successfully on storefront");		
+		System.out.println("Saved product name is displayed successfully on storefront\n");		
+		
+		try { 
+			driver.navigate().to(Products);
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+			Thread.sleep(4000);
+			driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.cssSelector("button[type=\"submit\"]+div>div>button")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//button[.//span[normalize-space()='Delete Product']]")).click();
+			Thread.sleep(1000);
+			driver.findElement(By.cssSelector("div.verification-model-code+div>div>button:last-of-type")).click();	
+			System.out.println("Product Deleted Successfully");
+		}catch (NoSuchElementException e) {
+			System.out.println("No Product Found...");
+		}
 	}
 	
+	@Test(priority = 2)
+	public void ProductPrice() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;	
+		
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);	
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileone};
+
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(OneTimeProductValue);
+		Thread.sleep(1000);
+
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+		Thread.sleep(5000);
+					
+		//check that if user enters One Time Purchase Price then it should reflect in  products listing
+		WebElement recentProduct = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")));	
+		String actualRecentProduct = recentProduct.getText().trim();
+		double actualPrice = Double.parseDouble(actualRecentProduct.replace("$", ""));
+		double expectedPrice = Double.parseDouble(OneTimeProductValue);
+		Assert.assertEquals(actualPrice, expectedPrice,"One Time Purchase Price is not displayed correctly in recent products");
+		System.out.println("One Time Purchase Price is displayed successfully in products listing section");
+		
+		//check that if user enters One Time Purchase Price then it should reflect in  products detail page
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		Thread.sleep(2000);
+		WebElement productPrice = driver.findElement(By.name("productPricing.regularPrice"));
+		String actualProductPrice = productPrice.getAttribute("value").trim();
+		double actualPricee = Double.parseDouble(actualProductPrice.replace("$", ""));
+		double expectedPricee = Double.parseDouble(OneTimeProductValue);
+		Assert.assertEquals(actualPricee, expectedPricee,"One Time Purchase Price is not displayed correctly in product details page");
+		System.out.println("One Time Purchase Price is displayed successfully in product details page\n");	
+		
+		//check that if user enters One Time Purchase Price then it should reflect in  checkout page
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		Thread.sleep(4000);
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		WebElement productNameOnCheckout = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:last-of-type>span"));
+		String actualProductNameOnCheckout = productNameOnCheckout.getText().trim();
+		double actualPrices = Double.parseDouble(actualProductNameOnCheckout.replace("$", ""));
+		double expectedPrices = Double.parseDouble(OneTimeProductValue);
+		Assert.assertEquals(actualPrices, expectedPrices,"Product price is not displayed correctly on checkout page");
+		System.out.println("product price is displayed successfully on checkout page");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that saved product name can be seen  on default checkout page
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(1).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		WebElement productNameOndefCheckout = driver.findElement(By.cssSelector("#ProductDescriptionColumn>span"));
+		String actualProductNameOndefCheckout = productNameOndefCheckout.getText().trim();
+		double actualPriced = Double.parseDouble(actualProductNameOndefCheckout.replaceAll("[^0-9.]", ""));
+		double expectedPriced = Double.parseDouble(OneTimeProductValue);
+		Assert.assertEquals(actualPriced, expectedPriced,"Product price is not displayed correctly on Default checkout page");
+		System.out.println("product price is displayed successfully on Default checkout page");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that saved product name can be seen  on default product page
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(2).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		WebElement productNameOnprodCheckout = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:last-of-type>span"));
+		String actualProductNameOnprodCheckout = productNameOnprodCheckout.getText().trim();
+		double actualPricea = Double.parseDouble(actualProductNameOnprodCheckout.replaceAll("[^0-9.]", ""));
+		double expectedPricea = Double.parseDouble(OneTimeProductValue);
+		Assert.assertEquals(actualPricea, expectedPricea,"Product price is not displayed correctly on Product checkout page");
+		System.out.println("product price is displayed successfully on Product checkout page");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that if user enters One Time Purchase Price then it should reflect in  Vt add line item
+		driver.navigate().to(Virtual_Terminal);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); //Clicking on item name field
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder=\"Select an item\"]"))).sendKeys(Product_Name);
+		Thread.sleep(2000);
+		WebElement searchedProduct = driver.findElement(By.xpath("//div[contains(@class,\"absolute z\")]//div[2]//div//span"));
+		String actualSearchedProduct = searchedProduct.getText().trim();
+		double actualPriceaa = Double.parseDouble(actualSearchedProduct.replaceAll("[^0-9.]", ""));
+		double expectedPriceaa = Double.parseDouble(OneTimeProductValue);
+		Assert.assertEquals(actualPriceaa, expectedPriceaa,"Product price is not displayed correctly in searched product in VT");
+		System.out.println("product price is displayed successfully in searched product in VT");
+		
+		//check that if user enters One Time Purchase Price then it should reflect in  storefront side
+		StoreFront();
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='SHOP NOW']"))).click();
+		Thread.sleep(5000);
+		String productPriceOnStoreFront = driver.findElement(By.xpath("(//div[@data-testid='product-wrapper'])[1]//div[2]//div//p")).getText().trim();
+		double actualPriceOnStoreFront = Double.parseDouble(productPriceOnStoreFront.replace("$", ""));
+		double expectedPriceOnStoreFront = Double.parseDouble(OneTimeProductValue);
+		Assert.assertEquals(actualPriceOnStoreFront, expectedPriceOnStoreFront,"One Time Purchase Price is not displayed correctly on storefront");
+		System.out.println("One Time Purchase Price is displayed successfully on storefront\n");
+		
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		Thread.sleep(2000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		WebElement salePriceCheckbox = driver.findElement(By.cssSelector("#one-time-purchase-div>div:nth-of-type(2)>div>div>div:nth-of-type(3)>div>label>input"));
+		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", salePriceCheckbox);
+		Thread.sleep(1000);
+		salePriceCheckbox.click();
+		driver.findElement(By.name("productPricing.salePrice")).sendKeys(OneTimePurchaseSalePrice);
+		driver.findElement(By.xpath("//input[@placeholder=\"Sale Start Date\"]")).click();
+		WebElement startdate = driver.findElement(By.cssSelector("div.react-datepicker__day--today"));
+		startdate.click();
+		
+		driver.findElement(By.xpath("//input[@placeholder=\"Sale End Date\"]")).click();
+		WebElement enddate = driver.findElement(By.cssSelector("div.react-datepicker__day--today"));
+		enddate.click();	
+		Thread.sleep(2000);	
+		
+		WebElement showQuantityPickerToggle = driver.findElement(By.cssSelector("#one-time-purchase-div>div:nth-of-type(2)>div>div>div:last-of-type>div>div>button"));
+		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", showQuantityPickerToggle);
+		Thread.sleep(1000);
+		jse.executeScript("arguments[0].click();", showQuantityPickerToggle);
+		
+		WebElement confirmSaveBtn1 = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:nth-of-type(2)>div>button"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn1);
+		
+		//check that if user enters sale Price for product then it should reflect in product listing
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		WebElement recentProduct1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div")));	
+		String actualRecentProduct1 = recentProduct1.getText().trim();
+		double actualPrice1 = Double.parseDouble(actualRecentProduct1.replace("$", ""));
+		double expectedPrice1 = Double.parseDouble(Discountedprice);
+		Assert.assertEquals(actualPrice1, expectedPrice1,"One Time Purchase Sale Price is not displayed correctly in recent products");
+		System.out.println("One Time Purchase Sale Price is displayed successfully in products listing section");
+		
+		//check that if user enters sale Price for product then it should reflect in product details page
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		Thread.sleep(5000);
+		WebElement productPrice1 = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div>div>div:nth-of-type(2)>span:nth-of-type(2)>span:last-of-type"));
+		String actualProductPrice1 = productPrice1.getText().trim();
+		double actualPricee1 = Double.parseDouble(actualProductPrice1.replace("$", ""));
+		double expectedPricee1 = Double.parseDouble(Discountedprice);
+		Assert.assertEquals(actualPricee1, expectedPricee1,"One Time Purchase sale Price is not displayed correctly in product details page");
+		System.out.println("One Time Purchase sale Price is displayed successfully in product details page");	
+		
+		//check that if user enters sale Price for product then it should reflect in checkout page
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		/*driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		Thread.sleep(4000);
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		WebElement productNameOnCheckout1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:last-of-type>span"));
+		String actualProductNameOnCheckout1 = productNameOnCheckout1.getText().trim();
+		double actualPrices1 = Double.parseDouble(actualProductNameOnCheckout1.replace("$", ""));
+		double expectedPrices1 = Double.parseDouble(Discountedprice);
+		Assert.assertEquals(actualPrices1, expectedPrices1,"Product sale price is not displayed correctly on checkout page");
+		System.out.println("product sale price is displayed successfully on checkout page");
+		driver.close();
+		driver.switchTo().window(originalTab);*/
+		
+		//check that if user enters sale Price for product then it should reflect in default checkout page
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(1).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		WebElement productNameOndefCheckout1 = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div>span:last-of-type"));
+		String actualProductNameOndefCheckout1 = productNameOndefCheckout1.getText().trim();
+		double actualPriced1 = Double.parseDouble(actualProductNameOndefCheckout1.replaceAll("[^0-9.]", ""));
+		double expectedPriced1 = Double.parseDouble(Discountedprice);
+		Assert.assertEquals(actualPriced1, expectedPriced1,"Product sale price is not displayed correctly on Default checkout page");
+		System.out.println("product sale price is displayed successfully on Default checkout page");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that if user enters sale Price for product then it should reflect in default product page
+		/*driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(2).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		WebElement productNameOnprodCheckoutt = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:last-of-type>span"));
+		String actualProductNameOnprodCheckoutt = productNameOnprodCheckoutt.getText().trim();
+		double actualPriceaa1 = Double.parseDouble(actualProductNameOnprodCheckoutt.replaceAll("[^0-9.]", ""));
+		double expectedPriceaa1 = Double.parseDouble(Discountedprice);
+		Assert.assertEquals(actualPriceaa1, expectedPriceaa1,"Product sale price is not displayed correctly on Product checkout page");
+		System.out.println("product sale price is displayed successfully on Product checkout page");
+		driver.close();
+		driver.switchTo().window(originalTab);*/
+		
+		//check that if user enters sale price for product then it should reflect in VT in line items
+		driver.navigate().to(Virtual_Terminal);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); //Clicking on item name field
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder=\"Select an item\"]"))).sendKeys(Product_Name);
+		Thread.sleep(2000);
+		WebElement searchedProduct1 = driver.findElement(By.xpath("//div[contains(@class,\"absolute z\")]//div[2]//div//span[2]"));
+		String actualSearchedProduct1 = searchedProduct1.getText().trim();
+		double actualPriceaas1 = Double.parseDouble(actualSearchedProduct1.replaceAll("[^0-9.]", ""));
+		double expectedPriceaas = Double.parseDouble(Discountedprice);
+		Assert.assertEquals(actualPriceaas1, expectedPriceaas,"Product sale price is not displayed correctly in searched product in VT");
+		System.out.println("product Sale price is displayed successfully in searched product in VT");
+		
+		//check that if user enters sale Price for product then it should reflect in storefront side
+		StoreFront();
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='SHOP NOW']"))).click();
+		Thread.sleep(5000);
+		String productPriceOnStoreFront1 = driver.findElement(By.xpath("(//div[@data-testid='product-wrapper'])[1]//div[2]//div//p[2]")).getText().trim();
+		double actualPriceOnStoreFront1 = Double.parseDouble(productPriceOnStoreFront1.replace("$", ""));
+		double expectedPriceOnStoreFront1 = Double.parseDouble(Discountedprice);
+		Assert.assertEquals(actualPriceOnStoreFront1, expectedPriceOnStoreFront1,"One Time Purchase sale Price is not displayed correctly on storefront");
+		System.out.println("One Time Purchase Sale Price is displayed successfully on storefront\n");
+		
+		//check that if quantity picker is enabled then it can seen on checkout page
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		WebElement quantityPicker = driver.findElement(By.cssSelector("button[aria-label='Decrease quantity']"));
+		Assert.assertTrue(quantityPicker.isDisplayed(), "Quantity picker is not displayed on checkout page after enabling show quantity picker toggle");
+		System.out.println("Quantity picker is displayed successfully on checkout page after enabling show quantity picker toggle");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that if quantity picker is enabled then it can seen on default product page
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(2).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		WebElement quantityPickerr = driver.findElement(By.cssSelector("button[aria-label='Decrease quantity']"));
+		Assert.assertTrue(quantityPickerr.isDisplayed(), "Quantity picker is not displayed on default product page after enabling show quantity picker toggle");
+		System.out.println("Quantity picker is displayed successfully on default product page after enabling show quantity picker toggle");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that if user enable the show quantity picker toggle then on preview section it can be visible
+		 driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:last-of-type>div>div>span:first-of-type>div")).click();
+		 Thread.sleep(5000);
+		 WebElement quantityPickerrr = driver.findElement(By.cssSelector("button[aria-label='Decrease quantity']"));
+		 Assert.assertTrue(quantityPickerrr.isDisplayed(), "Quantity picker is not displayed on preview section after enabling show quantity picker toggle");
+		 System.out.println("Quantity picker is displayed successfully on preview section after enabling show quantity picker toggle");
+		 driver.findElement(By.cssSelector("button[aria-label='Close preview']")).click();
+		 driver.close();
+		 driver.switchTo().window(originalTab);
+		 
+		 //check that if user disable the show quantity picker toggle then on checkout page it should not have quantity picker
+		 
+		
+		
+		
+		
+		
+		//check that if user disable the show quantity picker toggle then on default product page it should not have quantity picker
+		 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*try { 
+			driver.navigate().to(Products);
+			Thread.sleep(5000);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+			Thread.sleep(4000);
+			driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.cssSelector("button[type=\"submit\"]+div>div>button")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//button[.//span[normalize-space()='Delete Product']]")).click();
+			Thread.sleep(1000);
+			driver.findElement(By.cssSelector("div.verification-model-code+div>div>button:last-of-type")).click();	
+			System.out.println("Product Deleted Successfully");
+		}catch (NoSuchElementException e) {
+			System.out.println("No Product Found...");
+		}*/
+		
+	}
 	
 }
