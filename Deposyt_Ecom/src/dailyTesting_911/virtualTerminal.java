@@ -18,7 +18,6 @@ import org.testng.annotations.Test;
 import Master.Data;
 
 public class virtualTerminal extends Data {
-
 	java.util.Random r = new java.util.Random();
 
 	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
@@ -51,8 +50,14 @@ public class virtualTerminal extends Data {
 		Thread.sleep(20000);
 		driver.findElement(By.xpath("//button[normalize-space(.)='Cash']")).click(); //Select cash payment method
 		Thread.sleep(1000);
+		driver.navigate().refresh();
+		driver.navigate().to(Virtual_Terminal);
+		Thread.sleep(20000);
+		driver.findElement(By.xpath("//button[normalize-space(.)='Cash']")).click(); //Select cash payment method
+		
+		Thread.sleep(1000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//span[@class=\"truncate font-sans\"]//parent::span//parent::button")).click(); 
 		Thread.sleep(1000);
 		driver.findElement(By.id("field_first_name")).sendKeys("Ecom"); 
@@ -296,5 +301,4 @@ public class virtualTerminal extends Data {
 
 		ReceivedMail("Your Order is Confirmed — Order# ");		
 	}
-
 }

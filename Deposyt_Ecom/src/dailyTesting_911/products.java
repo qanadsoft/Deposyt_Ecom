@@ -49,9 +49,13 @@ public class products extends Data {
 		//DeleteMail("Your Order is Confirmed — Order# ");
 		
 		driver.navigate().to(Products);
-		Thread.sleep(10000);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		driver.navigate().refresh();
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
 		
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();//Click on settings
 		Thread.sleep(3000);
 		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		Thread.sleep(3000);
@@ -64,7 +68,7 @@ public class products extends Data {
 		/*wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		try { 
 			Thread.sleep(4000);
-			driver.findElement(By.cssSelector("#result-item-0>a")).click();
+			driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 			Thread.sleep(2000);
 			driver.findElement(By.cssSelector("button[type=\"submit\"]+div>div>button")).click();
 			Thread.sleep(2000);
@@ -136,7 +140,7 @@ public class products extends Data {
 		driver.navigate().to(Services);
 		Thread.sleep(3000);
 		driver.findElement(By.name("search")).sendKeys(Product_Name,Keys.ENTER);
-		Thread.sleep(15000);
+		Thread.sleep(20000);
 		String serviceName = driver.findElement(By.cssSelector("span.servicenamespan")).getText();
 		Assert.assertEquals(serviceName, Product_Name, "Service not created with product name");
 		System.out.println("\nService found in connect product listing");
@@ -169,7 +173,7 @@ public class products extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		
 		//Thread.sleep(5000);
 		//wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("tr#close-list-prod_01KHB1KKJQPKTEFEBT4A3ANBWG > td > div > a"))).click();//*********remove this line
@@ -235,16 +239,16 @@ public class products extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		Thread.sleep(2000);
 		
-		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
+		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type")).getText().trim();
 		System.out.println("Order Tax: " + ordertax);
 		String extractedTax = ordertax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax, Tax_Rate, "Tax rate mismatch in order summary");
 
 		//verify that user can do cash payment
-		driver.findElement(By.xpath("//input[@value=\"cash\"]")).click();//click on cash payment
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();//click on cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();//click on mode drop down
-		driver.findElement(By.id("CashPaymentMethodDropdown")).click();//select cash 
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();//select cash 
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(3000);
@@ -345,7 +349,7 @@ public class products extends Data {
 		/*wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		try { 
 			Thread.sleep(4000);
-			driver.findElement(By.cssSelector("#result-item-0>a")).click();
+			driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 			Thread.sleep(2000);
 			driver.findElement(By.cssSelector("button[type=\"submit\"]+div>div>button")).click();
 			Thread.sleep(2000);
@@ -391,7 +395,7 @@ public class products extends Data {
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("button#Physical")).click(); //Select physical product	
-		jse.executeScript("window.scrollBy(0,500)");
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
 		driver.findElement(By.xpath("//div[@id='one-time-purchase-div']/descendant::button[@role=\"switch\"][1]")).click(); //One time purchase toggle button
 		Thread.sleep(1000);
 		WebElement subscriptionToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='subscription-option-div']//button[@role='switch'][1]")));
@@ -417,7 +421,7 @@ public class products extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -444,9 +448,9 @@ public class products extends Data {
 		Thread.sleep(2000);
 
 		//Payment Information
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(3)>div:nth-of-type(2)")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);
@@ -541,9 +545,9 @@ public class products extends Data {
 		Thread.sleep(2000);
 
 		//Payment Information
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(3)>div:nth-of-type(2)")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);
@@ -629,6 +633,9 @@ public class products extends Data {
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
 		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
@@ -701,7 +708,7 @@ public class products extends Data {
 		//check that we can purchase tier product
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		Thread.sleep(3000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
@@ -734,9 +741,9 @@ public class products extends Data {
 		Thread.sleep(2000);
 
 		//Payment Information
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(3)>div:nth-of-type(2)")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);

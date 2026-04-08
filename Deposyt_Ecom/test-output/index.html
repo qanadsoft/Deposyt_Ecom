@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Suite" class="navigator-link ">
-                    <span>Modules.xml</span>
+                    <span>911.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -103,7 +103,7 @@
                     <div class="method-list-content failed suite-Suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="Modules.Products" class="method navigator-link" hash-for-method="ProductPrice">ProductPrice</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Suite" title="dailyTesting_911.sales" class="method navigator-link" hash-for-method="Services_SalesOrder">Services_SalesOrder</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content failed suite-Suite -->
@@ -121,29 +121,22 @@
           <div class="suite-Suite-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
-              <span class="class-name">Modules.Products</span>
+              <span class="class-name">dailyTesting_911.sales</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="ProductPrice">
-                  </a> <!-- ProductPrice -->
-                  <span class="method-name">ProductPrice</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.cssSelector: div.custom-class-table&gt;table&gt;tbody&gt;tr:first-of-type&gt;td:nth-of-type(3)&gt;div&gt;div&gt;div (tried for 20 second(s) with 500 milliseconds interval)
-Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
-System info: os.name: &apos;Linux&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;5.15.0-139-generic&apos;, java.version: &apos;21.0.1&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:34527}, goog:processID: 77289, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:34527/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: c2f86b83ad4bc0f7446fbc43ce3044d7
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-	at Modules.Products.ProductPrice(Products.java:1092)
+                  <a name="Services_SalesOrder">
+                  </a> <!-- Services_SalesOrder -->
+                  <span class="method-name">Services_SalesOrder</span>
+                  <div class="stack-trace">java.lang.AssertionError: Revenue after sale does not match expected value expected [1252.62] but found [1253.12]
+	at dailyTesting_911.sales.Services_SalesOrder(sales.java:2539)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
-... Removed 15 stack frames
+... Removed 18 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
@@ -152,7 +145,7 @@ Session ID: c2f86b83ad4bc0f7446fbc43ce3044d7
         </div> <!-- panel Suite -->
         <div panel-name="test-xml-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/home/nadsoft/Deposyt_Ecom/Deposyt_Ecom/src/Modules/Modules.xml</span>
+            <span class="header-content">/home/nadsoft/Deposyt_Ecom/Deposyt_Ecom/911.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -166,11 +159,11 @@ Session ID: c2f86b83ad4bc0f7446fbc43ce3044d7
     &lt;parameter name=&quot;uname&quot; value=&quot;rishikesh.sakharekar@gmail.com&quot;/&gt;
     &lt;parameter name=&quot;pass&quot; value=&quot;Djismylige@1998&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Modules.Products&quot;&gt;
+      &lt;class name=&quot;dailyTesting_911.sales&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;ProductPrice&quot;/&gt;
+          &lt;include name=&quot;Services_SalesOrder&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- Modules.Products --&gt;
+      &lt;/class&gt; &lt;!-- dailyTesting_911.sales --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- 911 --&gt;
 &lt;/suite&gt; &lt;!-- Suite --&gt;
@@ -212,9 +205,9 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'ProductPrice')
-data.setCell(0, 2, 'Modules.Products')
-data.setCell(0, 3, 154669);
+data.setCell(0, 1, 'Services_SalesOrder')
+data.setCell(0, 2, 'dailyTesting_911.sales')
+data.setCell(0, 3, 110362);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
@@ -234,13 +227,27 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">1 ignored method</span>
+            <span class="header-content">8 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">Modules.Products</span>
+              <span class="ignored-class-name">dailyTesting_911.sales</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">addProduct</span>
+                <span class="ignored-method-name">VirtualTerminal_salesOrder</span>
+                <br/>
+                <span class="ignored-method-name">PremadeGift_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">SubscriptionAnalytics_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">Invoice_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">Cources_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">subscription_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">Tier_SalesOrder</span>
+                <br/>
+                <span class="ignored-method-name">OneTime_SalesOrder</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -252,7 +259,7 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">Modules.Products</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">dailyTesting_911.sales</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
                 <span class="method-name">invokebrowser(chrome, rishikesh.sakharekar@gmail.com, Djismylige@1998, Admin)</span>
                 <span class="method-start">0 ms</span>
@@ -260,8 +267,8 @@ return data;
               <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">ProductPrice</span>
-                <span class="method-start">11377 ms</span>
+                <span class="method-name">Services_SalesOrder</span>
+                <span class="method-start">13000 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

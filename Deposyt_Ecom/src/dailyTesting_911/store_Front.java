@@ -142,7 +142,7 @@ public class store_Front extends Data {
 		storeName1.clear();
 		Thread.sleep(500);
 		storeName1.sendKeys(Store_Name_Updated);	
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		driver.findElement(By.xpath("//span[normalize-space()=\"Publish\"]//parent::button	")).click();
 		
 		//Verify that after changing store Url, new url is working for existing store 	
@@ -163,7 +163,7 @@ public class store_Front extends Data {
 		Assert.assertTrue(currentUrl1.contains(storelink1), "Store URL is not correct");
 		System.out.println("Store URL is Updated and navigated to store front successfully");
 		
-		Thread.sleep(3000);				
+		Thread.sleep(5000);				
 		String storeNameheader = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("((//nav[contains(@class,'text-ui-fg-subtle')]//div)[8]//div//h1)[1]"))).getText().trim();
 		Assert.assertEquals(storeNameheader, Store_Name_Updated, "Store name is not correct on store front header section");
 		
@@ -345,10 +345,10 @@ public class store_Front extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
-		driver.findElement(By.xpath("//input[@value=\"cash\"]")).click();//click on cash payment
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();//click on cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();//click on mode drop down
 		driver.findElement(By.id("CashPaymentMethodDropdown")).click();//select cash 
@@ -440,10 +440,10 @@ public class store_Front extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 		
-		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(3)>div:nth-of-type(2)")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);
@@ -477,6 +477,8 @@ public class store_Front extends Data {
 		
 		//Verify that an order placed with gift card + dual pricing + tax (one-time purchase) is listed in the Recent Orders tab in the Sales module.
 		driver.navigate().to(Gift_Cards);
+		Thread.sleep(15000);
+		driver.navigate().refresh();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='New Gift Card'])[3]"))).click(); // click on New Gift Card button
 		driver.findElement(By.xpath("(//div[@id='region.region_id'])[1]")).click(); //click on region drop down
@@ -573,7 +575,7 @@ public class store_Front extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));

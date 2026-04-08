@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="1" total="2" passed="0" failed="1" skipped="0">
+<testng-results ignored="8" total="9" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-03T20:13:31 IST" name="Suite" finished-at="2026-04-03T20:16:17 IST" duration-ms="166097">
+  <suite started-at="2026-04-08T14:29:37 IST" name="Suite" finished-at="2026-04-08T14:31:40 IST" duration-ms="123415">
     <groups>
     </groups>
-    <test started-at="2026-04-03T20:13:31 IST" name="911" finished-at="2026-04-03T20:16:17 IST" duration-ms="166097">
-      <class name="Modules.Products">
-        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:Modules.Products@3ad394e6]" started-at="2026-04-03T20:13:31 IST" name="invokebrowser" finished-at="2026-04-03T20:13:42 IST" duration-ms="11353" status="PASS">
+    <test started-at="2026-04-08T14:29:37 IST" name="911" finished-at="2026-04-08T14:31:40 IST" duration-ms="123415">
+      <class name="dailyTesting_911.sales">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:dailyTesting_911.sales@16423501]" started-at="2026-04-08T14:29:37 IST" name="invokebrowser" finished-at="2026-04-08T14:29:50 IST" duration-ms="12972" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -33,26 +33,17 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- invokebrowser -->
-        <test-method signature="ProductPrice()[pri:2, instance:Modules.Products@3ad394e6]" started-at="2026-04-03T20:13:42 IST" name="ProductPrice" finished-at="2026-04-03T20:16:17 IST" duration-ms="154669" status="FAIL">
-          <exception class="org.openqa.selenium.TimeoutException">
+        <test-method signature="Services_SalesOrder()[pri:9, instance:dailyTesting_911.sales@16423501]" started-at="2026-04-08T14:29:50 IST" name="Services_SalesOrder" finished-at="2026-04-08T14:31:40 IST" duration-ms="110362" status="FAIL">
+          <exception class="java.lang.AssertionError">
             <message>
-              <![CDATA[Expected condition failed: waiting for visibility of element located by By.cssSelector: div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div (tried for 20 second(s) with 500 milliseconds interval)
-Build info: version: '4.13.0', revision: 'ba948ece5b*'
-System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-139-generic', java.version: '21.0.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:34527}, goog:processID: 77289, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:34527/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: c2f86b83ad4bc0f7446fbc43ce3044d7]]>
+              <![CDATA[Revenue after sale does not match expected value expected [1252.62] but found [1253.12]]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.cssSelector: div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div (tried for 20 second(s) with 500 milliseconds interval)
-Build info: version: '4.13.0', revision: 'ba948ece5b*'
-System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-139-generic', java.version: '21.0.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:34527}, goog:processID: 77289, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:34527/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: c2f86b83ad4bc0f7446fbc43ce3044d7
-at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-at Modules.Products.ProductPrice(Products.java:1092)
+              <![CDATA[java.lang.AssertionError: Revenue after sale does not match expected value expected [1252.62] but found [1253.12]
+at org.testng.Assert.fail(Assert.java:111)
+at org.testng.Assert.failNotEquals(Assert.java:1590)
+at org.testng.Assert.assertEquals(Assert.java:698)
+at dailyTesting_911.sales.Services_SalesOrder(sales.java:2539)
 at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
@@ -75,11 +66,11 @@ at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecut
 at java.base/java.lang.Thread.run(Thread.java:1583)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- ProductPrice -->
-      </class> <!-- Modules.Products -->
+        </test-method> <!-- Services_SalesOrder -->
+      </class> <!-- dailyTesting_911.sales -->
     </test> <!-- 911 -->
   </suite> <!-- Suite -->
 </testng-results>

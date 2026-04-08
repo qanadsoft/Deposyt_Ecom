@@ -330,6 +330,14 @@ public class access_level extends Data {
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		Actions action = new Actions(driver);
 		
+		String firstName1 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		lastName1 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		email1 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone1 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+		
+		String firstName2 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		lastName2 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		email2 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone2 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+		
 		WebElement allAccess = driver.findElement(By.cssSelector("div.content-access"));
 		action.moveToElement(allAccess).build().perform();
 		Thread.sleep(500);
@@ -394,6 +402,9 @@ public class access_level extends Data {
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
 		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
@@ -421,7 +432,7 @@ public class access_level extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -435,7 +446,7 @@ public class access_level extends Data {
 			}
 		}	
 		
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -448,7 +459,7 @@ public class access_level extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -479,7 +490,7 @@ public class access_level extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();		
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();		
 		Thread.sleep(2000);
 		
 		try {
@@ -543,10 +554,11 @@ public class access_level extends Data {
 			Thread.sleep(2000);
 			driver.findElement(By.xpath("//span[@class=\"truncate font-sans\"]//parent::span//parent::button")).click(); 
 			Thread.sleep(1000);
-			driver.findElement(By.id("field_first_name")).sendKeys("Ecom"); 
-			driver.findElement(By.id("field_last_name")).sendKeys("Contact"); 
-			driver.findElement(By.id("field_email_id")).sendKeys(WMLogin); 
-			driver.findElement(By.name("phone_no")).sendKeys(ContactPhone1); 
+			
+			driver.findElement(By.id("field_first_name")).sendKeys(firstName1); 
+			driver.findElement(By.id("field_last_name")).sendKeys(lastName1); 
+			driver.findElement(By.id("field_email_id")).sendKeys(email1); 
+			driver.findElement(By.name("phone_no")).sendKeys(phone1); 
 			driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add);
 			driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
 			Thread.sleep(2000);
@@ -584,10 +596,11 @@ public class access_level extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()='+ Add Recipient']")).click(); //Click on add recipient button
 		driver.findElement(By.xpath("//input[contains(@placeholder,'Search Customers')]")).click();
 		driver.findElement(By.xpath("(//span[contains(text(),'Create new customer')])[1]")).click(); //Select create contact
-		driver.findElement(By.id("field_first_name")).sendKeys(firstName); //Input first name
-		driver.findElement(By.id("field_last_name")).sendKeys(lastName); //Input last name
-		driver.findElement(By.id("field_email_id")).sendKeys(email); //Input email
-		driver.findElement(By.name("phone_no")).sendKeys(phone); //Input phone number
+		
+		driver.findElement(By.id("field_first_name")).sendKeys(firstName2); //Input first name
+		driver.findElement(By.id("field_last_name")).sendKeys(lastName2); //Input last name
+		driver.findElement(By.id("field_email_id")).sendKeys(email2); //Input email
+		driver.findElement(By.name("phone_no")).sendKeys(phone2); //Input phone number
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add); //Input street address
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
@@ -806,6 +819,14 @@ public class access_level extends Data {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		Actions actions = new Actions (driver);
+		String firstName1 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		lastName1 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		email1 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone1 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+				
+		String firstName2 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		lastName2 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		email2 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone2 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+				
 		String Price1 = "5", Price2 = "25", Region_Name = "Europe";
 		String Store_Name = "Smart Online Store " + java.util.UUID.randomUUID().toString().substring(0,2);
 		
@@ -893,7 +914,10 @@ public class access_level extends Data {
 		
 		//Products module in "modify" condition
 		driver.navigate().to(Products);
-		Thread.sleep(7000);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.navigate().refresh();
+		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
@@ -922,7 +946,7 @@ public class access_level extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();		
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
@@ -949,7 +973,7 @@ public class access_level extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -1016,10 +1040,10 @@ public class access_level extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()='+ Add Recipient']")).click(); //Click on add recipient button
 		driver.findElement(By.xpath("//input[contains(@placeholder,'Search Customers')]")).click();
 		driver.findElement(By.xpath("(//span[contains(text(),'Create new customer')])[1]")).click(); //Select create contact
-		driver.findElement(By.id("field_first_name")).sendKeys(firstName); //Input first name
-		driver.findElement(By.id("field_last_name")).sendKeys(lastName); //Input last name
-		driver.findElement(By.id("field_email_id")).sendKeys(email); //Input email
-		driver.findElement(By.name("phone_no")).sendKeys(ContactPhone2); //Input phone number
+		driver.findElement(By.id("field_first_name")).sendKeys(firstName1); //Input first name
+		driver.findElement(By.id("field_last_name")).sendKeys(lastName1); //Input last name
+		driver.findElement(By.id("field_email_id")).sendKeys(email1); //Input email
+		driver.findElement(By.name("phone_no")).sendKeys(phone1); //Input phone number
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add); //Input street address
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
@@ -1069,7 +1093,7 @@ public class access_level extends Data {
 		Thread.sleep(2000);
         driver.findElement(By.name("tips_amount")).sendKeys(Value); //Input tip amount in invoice checkout page           
 		
-        jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+        jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -1077,7 +1101,7 @@ public class access_level extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);// MMYY format
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -1088,7 +1112,7 @@ public class access_level extends Data {
 		cardHolder1.sendKeys(F_Name + " " + L_Name);	
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
-        driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //Click on pay button
+        driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click();
         
         Thread.sleep(7000);
 		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
@@ -1377,7 +1401,7 @@ public class access_level extends Data {
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -1390,7 +1414,7 @@ public class access_level extends Data {
 		}		
 		
 		Thread.sleep(9000);	
-		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(8)>span"))).getText().trim();
+		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(9)>span"))).getText().trim();
 		System.out.println("convenience Fee On Checkout Page : " + orderconvenienceFee);
 		String extractedconvenienceFee = orderconvenienceFee.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedconvenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),convenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Convenience Fee mismatch in order summary");

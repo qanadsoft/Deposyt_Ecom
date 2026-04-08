@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 import Master.Data;
 
 public class discounts extends Data {
-	
 	java.util.Random r = new java.util.Random();
 
 	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
@@ -33,7 +32,7 @@ public class discounts extends Data {
 
 	@Test(priority = 1)
 	public void Create_Discount() throws InterruptedException {
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		
@@ -51,7 +50,9 @@ public class discounts extends Data {
 		
 		//Check fixed amount discount can be created
 		driver.navigate().to(Discounts);
-		Thread.sleep(5000);
+		Thread.sleep(15000);
+		driver.navigate().refresh();
+		Thread.sleep(7000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='+ Add Discount']"))).click(); // click on new discount button
 		driver.findElement(By.cssSelector("button#fixed")).click();
 		driver.findElement(By.cssSelector("div[data-orientation=\"vertical\"]:nth-of-type(2)>h3>div:first-of-type")).click();
@@ -190,8 +191,6 @@ public class discounts extends Data {
 		driver.navigate().to(Virtual_Terminal);
 
 		Thread.sleep(20000);
-		driver.findElement(By.xpath("//button[normalize-space(.)='Credit Card']")).click(); //Select card payment method
-		Thread.sleep(1000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(ContactPhone2); //Select first customer from the list

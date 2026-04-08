@@ -24,11 +24,11 @@ public class orders extends Data {
 	
 	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
 	Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Country_Add = "Boardman, Oregon, 97818",
+	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Country_Add = "Boardman United States, 97818",
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
 	F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
 	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",	
-	chars = "abcdefghijklmnopqrstuvwxyz", Card_No1 = "4111111111111111",	    
+	chars = "abcdefghijklmnopqrstuvwxyz", Card_No1 = "5411111111111115",	    
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
@@ -59,8 +59,7 @@ public class orders extends Data {
 			Thread.sleep(2000);
 			driver.findElement(By.id("dialog-checkbox")).click();		
 			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();	
-		}
-		catch(Exception e) {
+		} catch(Exception e) {
 			System.out.println("ACH_Payment is already enabled for the store");
 		}
 		
@@ -70,6 +69,7 @@ public class orders extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='New Gift Card'])[3]"))).click(); // click on New Gift Card button
 		driver.findElement(By.xpath("(//div[@id='region.region_id'])[1]")).click(); //click on region drop down
 		driver.findElement(By.id("react-select-2-option-0")).click(); //Select Default as region
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@placeholder='-'])[1]")).sendKeys(GiftCard);
 		driver.findElement(By.name("receiver.email")).sendKeys(WMLogin);
 		driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //click on create gift card button
@@ -159,7 +159,8 @@ public class orders extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		Thread.sleep(4000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -193,9 +194,9 @@ public class orders extends Data {
 		Thread.sleep(2000);		
 
 		//Payment Information
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space(text())='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//input[@value=\"ach\"]")).click();//click on ACH cash payment
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(3)>div:nth-of-type(2)")).click();//click on ACH cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.id("achAccountHolderName")).sendKeys(Account_Holder_Name);
 		driver.findElement(By.id("achRoutingNumber")).sendKeys(Routing_Number);
@@ -226,8 +227,8 @@ public class orders extends Data {
 
 		Assert.assertEquals(Order_Name, firstName + " " + lastName, "Customer name not matching on order summary");
 		Assert.assertEquals(Order_Mail, email, "Customer email not matching on order summary");		
-		String Billing_Address1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:first-of-type>div>p:nth-of-type(2)")).getText().trim();
-		String Billing_Address2 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:first-of-type>div>p:nth-of-type(4)")).getText().trim();
+		String Billing_Address1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>p:first-of-type")).getText().trim();
+		String Billing_Address2 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>p:nth-of-type(4)")).getText().trim();
 		
 		// Order History Section Show Proper Order 
 		driver.close();
@@ -263,7 +264,7 @@ public class orders extends Data {
 			driver.switchTo().window(Tab);
 			Checkout_page11 = Tab;
 		}
-		Thread.sleep(3000); //Added Wait due to optimization
+		Thread.sleep(3000);
 		try{
 			String heading3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#checkout-template>div>section>div>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>span:first-of-type"))).getText().trim();
 			Assert.assertEquals(heading3, Product_Name, "Heading not matching on checkout page");
@@ -310,6 +311,8 @@ public class orders extends Data {
 			
 		//Verify order is visible in order list after complete order from invoice
 		driver.navigate().to(invoices);
+		Thread.sleep(15000);
+		driver.navigate().refresh();
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='+ New Invoice'])[2]"))).click(); //Click on new invoice button
 		
@@ -480,7 +483,7 @@ public class orders extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("a.closemaintippopuplater")).click();
 		driver.findElement(By.cssSelector("a.floatingbtnfornextaction")).click();
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -491,10 +494,9 @@ public class orders extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -561,7 +563,7 @@ public class orders extends Data {
 			}
 		}		
 		
-		Thread.sleep(5000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -575,7 +577,7 @@ public class orders extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -664,7 +666,8 @@ public class orders extends Data {
 				break;
 			}
 		}
-
+		
+		Thread.sleep(3000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
 		Thread.sleep(3000);
@@ -680,7 +683,7 @@ public class orders extends Data {
 			}
 		}
 
-		Thread.sleep(5000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -691,10 +694,9 @@ public class orders extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -739,7 +741,12 @@ public class orders extends Data {
 		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains(PlacedOrderID),"Order ID not found in URL");
 		
 		//2A check  edit order functinality by adding products
-		Thread.sleep(3000);
+		driver.navigate().to(Orders);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='One-Time'])[1]"))).click();
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)>span")).click();
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("(//button[normalize-space()='Edit Order'])[1]")).click(); //Click on edit order button
 		Thread.sleep(2000);
 		List<WebElement> products = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[role='dialog'] .edit-order-model-content span > div")));
@@ -760,7 +767,7 @@ public class orders extends Data {
 		Assert.assertTrue(totalProductsAfter < totalProductsBefore,"Product count did NOT increase after adding item");
 
 		Thread.sleep(2000);
-		driver.findElements(By.xpath("//div[@role='dialog']//button[@aria-haspopup='menu']")).get(1).click(); //Click on edit order button
+		driver.findElement(By.xpath("//div[@role='dialog']//button[@aria-haspopup='menu']")).click(); //Click on edit order button
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//span[contains(text(),'Remove item')])[1]")).click(); //Click on delete button in dropdown		
 		Thread.sleep(2000);
@@ -866,7 +873,7 @@ public class orders extends Data {
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("button#Physical")).click(); //Select physical product	
-		jse.executeScript("window.scrollBy(0,500)");
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
 		driver.findElement(By.xpath("//div[@id='one-time-purchase-div']/descendant::button[@role=\"switch\"][1]")).click(); //One time purchase toggle button
 		Thread.sleep(1000);
 		WebElement subscriptionToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='subscription-option-div']//button[@role='switch'][1]")));
@@ -928,10 +935,10 @@ public class orders extends Data {
 			}
 		}
 
+		Thread.sleep(3000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
 		Thread.sleep(3000);
-
 		driver.close();
 		driver.switchTo().window(parentWindow);
 
@@ -956,7 +963,7 @@ public class orders extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 		
 		WebElement CardName1 = driver.findElement(By.id("cardHolderName"));
@@ -964,7 +971,7 @@ public class orders extends Data {
 		Thread.sleep(1000);
 		CardName1.sendKeys(F_Name+" "+L_Name);
 		driver.switchTo().frame("CollectJSInlineccnumber");
-		driver.findElement(By.id("ccnumber")).sendKeys("4111111111111111");
+		driver.findElement(By.id("ccnumber")).sendKeys(Card_No1);
 		
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlinecvv");
@@ -972,7 +979,7 @@ public class orders extends Data {
 		
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlineccexp");
-		driver.findElement(By.id("ccexp")).sendKeys(EXP);;
+		driver.findElement(By.id("ccexp")).sendKeys(EXP);
 		driver.switchTo().defaultContent();	
 		
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); //Clicking on checkbox
@@ -1074,7 +1081,7 @@ public class orders extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -1088,7 +1095,7 @@ public class orders extends Data {
 			}
 		}	
 		
-		Thread.sleep(2000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -1098,7 +1105,7 @@ public class orders extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));

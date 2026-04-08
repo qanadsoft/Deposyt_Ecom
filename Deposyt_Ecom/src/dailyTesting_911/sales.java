@@ -122,7 +122,7 @@ public class sales extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -149,7 +149,7 @@ public class sales extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -232,7 +232,7 @@ public class sales extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -282,7 +282,7 @@ public class sales extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -440,7 +440,7 @@ public class sales extends Data {
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("button#Physical")).click(); //Select physical product	
-		jse.executeScript("window.scrollBy(0,500)");
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
 		driver.findElement(By.xpath("//div[@id='one-time-purchase-div']/descendant::button[@role=\"switch\"][1]")).click(); //One time purchase toggle button
 		Thread.sleep(1000);
 		WebElement subscriptionToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='subscription-option-div']//button[@role='switch'][1]")));
@@ -466,7 +466,7 @@ public class sales extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -493,7 +493,7 @@ public class sales extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -587,7 +587,7 @@ public class sales extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();	
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();	
 		Thread.sleep(2000);	
 		driver.findElement(By.cssSelector("div.button-group-class>button:nth-of-type(3)>div")).click();//click on up sell
 		Thread.sleep(2000);
@@ -623,7 +623,7 @@ public class sales extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -839,7 +839,7 @@ public class sales extends Data {
 		//check that we can purchase tier product
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		Thread.sleep(3000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 
@@ -872,7 +872,7 @@ public class sales extends Data {
 		Thread.sleep(2000);
 
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -1057,11 +1057,9 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
-        driver.findElement(By.name("tips_amount")).sendKeys(Value); //Input tip amount in invoice checkout page           
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down          
 		
-        jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+        jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -1255,7 +1253,7 @@ public class sales extends Data {
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("button#Physical")).click(); //Select physical product	
-		jse.executeScript("window.scrollBy(0,500)");
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
 		driver.findElement(By.xpath("//div[@id='one-time-purchase-div']/descendant::button[@role=\"switch\"][1]")).click(); //One time purchase toggle button
 		Thread.sleep(1000);
 		WebElement subscriptionToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='subscription-option-div']//button[@role='switch'][1]")));
@@ -1295,7 +1293,7 @@ public class sales extends Data {
 		driver.findElement(By.cssSelector("button.connect-productbtn")).click();
 
 		Thread.sleep(2000);
-		WebElement openEditProduct = driver.findElement(By.xpath("(//a[normalize-space()='Open/Edit Product'])[1]"));
+		WebElement openEditProduct = driver.findElement(By.xpath("(//a[normalize-space()='Open/Edit Product'])[last()]"));
 		jse.executeScript("arguments[0].scrollIntoView(true);", openEditProduct);
 		openEditProduct.click();
 
@@ -1338,7 +1336,7 @@ public class sales extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -1357,11 +1355,11 @@ public class sales extends Data {
 		cardHolder.clear();
 		cardHolder.sendKeys(F_Name + " " + L_Name);
 
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
-		Thread.sleep(5000);
-		
+		Thread.sleep(7000);
+		String PlacedOrderID11s = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		System.out.println("Placed Order ID: " + PlacedOrderID11s);
 		driver.close();
 		driver.switchTo().window(parentWindow);
 		
@@ -1487,7 +1485,7 @@ public class sales extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -1515,7 +1513,7 @@ public class sales extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -1534,7 +1532,6 @@ public class sales extends Data {
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);
 
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
@@ -1661,7 +1658,7 @@ public class sales extends Data {
 		System.out.println();
 			
 		driver.navigate().to(Virtual_Terminal);
-		Thread.sleep(20000);
+		Thread.sleep(10000);
 		driver.findElement(By.xpath("//button[normalize-space(.)='Cash']")).click(); //Select cash payment method
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
@@ -1765,9 +1762,7 @@ public class sales extends Data {
 		System.out.println();
 		
 		driver.navigate().to(Virtual_Terminal);
-		Thread.sleep(20000);
-		driver.findElement(By.xpath("//button[normalize-space(.)='Credit Card']")).click(); //Select card payment method
-		Thread.sleep(1000);
+		Thread.sleep(10000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(ContactPhone2); //Select first customer from the list
@@ -1818,6 +1813,7 @@ public class sales extends Data {
 		}
 
 		driver.navigate().to(Messages);
+		Thread.sleep(4000);
 		driver.findElement(By.name("filters")).sendKeys(ContactPhone2);
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//div[@id='list']/descendant::p[@data-search-in= \"phone_number\"])[1]")).click();
@@ -1921,7 +1917,9 @@ public class sales extends Data {
 		System.out.println();
 		
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//button[@aria-label='Courses Toggle Button'])[2]")).click(); 
+		driver.findElement(By.cssSelector("div.sales-list-section>div>div:first-of-type")).click();		
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[@aria-label='Gift Cards Toggle Button']")).click(); 
 		
 		String totalRevenuebeforegifttab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenuebeforegifttabs = totalRevenuebeforegifttab.replaceAll("[^0-9.]", ""); 
@@ -1967,7 +1965,7 @@ public class sales extends Data {
 			}
 		}		
 		
-		Thread.sleep(7000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -1978,10 +1976,9 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -1998,8 +1995,7 @@ public class sales extends Data {
 		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);
-		
-		driver.findElement(By.xpath("(//button[@role='checkbox'])[2]")).click(); //Clicking on checkbox				
+		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		
 		Thread.sleep(7000);
@@ -2018,7 +2014,9 @@ public class sales extends Data {
 		System.out.println();
 		
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//button[@aria-label='Courses Toggle Button'])[2]")).click(); 
+		driver.findElement(By.cssSelector("div.sales-list-section>div>div:first-of-type")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[@aria-label='Gift Cards Toggle Button']")).click(); 
 		
 		String totalRevenueaftergifttab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueaftergifttabs = totalRevenueaftergifttab.replaceAll("[^0-9.]", ""); 
@@ -2036,10 +2034,10 @@ public class sales extends Data {
 		System.out.println("Total Users After In Premade Gift Cards Tab : " + Revenueusersaftergifttab);
 		System.out.println();
 		
-		double expectedRevenueaftergifttab = RevenueValuebeforegifttab + GiftCradValue1; 
+		double expectedRevenueaftergifttab = RevenueValuebeforegifttab + GiftCradValue2; 
 		Assert.assertEquals(RevenueValueaftergifttab, expectedRevenueaftergifttab, "Total revenue is not updated correctly after placing order for premade gift card tab");
 		
-		double expectedRevenueaftersalestab = beforerevvalsaletab + GiftCradValue1; 
+		double expectedRevenueaftersalestab = beforerevvalsaletab + GiftCradValue2; 
 		Assert.assertEquals(afterrevvalsaletab, expectedRevenueaftersalestab, "Total revenue is not updated correctly after placing order for premade gift card in all sales tab");
 		
 		Assert.assertEquals(Revenueorderaftergifttab, Revenueorderbeforegifttab + 1, "Total orders is not updated correctly after placing order for premade gift card tab");
@@ -2091,7 +2089,7 @@ public class sales extends Data {
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("button#Physical")).click(); //Select physical product	
-		jse.executeScript("window.scrollBy(0,500)");
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
 		driver.findElement(By.xpath("//div[@id='one-time-purchase-div']/descendant::button[@role=\"switch\"][1]")).click(); //One time purchase toggle button
 		Thread.sleep(1000);
 		WebElement subscriptionToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='subscription-option-div']//button[@role='switch'][1]")));
@@ -2117,7 +2115,7 @@ public class sales extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("#result-item-0>a")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -2141,10 +2139,9 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -2475,7 +2472,7 @@ public class sales extends Data {
 		String servicename = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.allservicesviewdiv>div>div>div>div:first-of-type>a>div>h2"))).getText().trim();
 		driver.findElement(By.id("searchservicefield")).sendKeys(servicename);
 		Thread.sleep(2000);
-		String ServicePrice = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("p.serviceinfocardprice.serviceinfochild2"))).getAttribute("data-original-title");
+		String ServicePrice = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("p.base_service_price:first-of-type"))).getText().trim();
 		String ServicePriceValue = ServicePrice.replaceAll("[^0-9.]", "");
 		double serviceAmount = Double.parseDouble(ServicePriceValue);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='professional-content']//h2[contains(text(),'"+servicename+"')]//ancestor::a"))).click();
@@ -2490,7 +2487,7 @@ public class sales extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("a.closemaintippopuplater")).click();
 		driver.findElement(By.cssSelector("a.floatingbtnfornextaction")).click();
-		Thread.sleep(7000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -2504,7 +2501,7 @@ public class sales extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -2616,7 +2613,7 @@ public class sales extends Data {
 		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Payment Information']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
