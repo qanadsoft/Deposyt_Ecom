@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="4" total="5" passed="1" failed="0" skipped="0">
+<testng-results ignored="7" total="8" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-10T12:23:31 IST" name="Suite" finished-at="2026-04-10T12:26:44 IST" duration-ms="192662">
+  <suite started-at="2026-04-10T20:30:17 IST" name="Suite" finished-at="2026-04-10T20:33:18 IST" duration-ms="181021">
     <groups>
     </groups>
-    <test started-at="2026-04-10T12:23:31 IST" name="911" finished-at="2026-04-10T12:26:44 IST" duration-ms="192662">
+    <test started-at="2026-04-10T20:30:17 IST" name="911" finished-at="2026-04-10T20:33:18 IST" duration-ms="181021">
       <class name="Modules.Products">
-        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:Modules.Products@28b576a9]" started-at="2026-04-10T12:23:31 IST" name="invokebrowser" finished-at="2026-04-10T12:23:41 IST" duration-ms="10220" status="PASS">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:Modules.Products@169da7f2]" started-at="2026-04-10T20:30:17 IST" name="invokebrowser" finished-at="2026-04-10T20:30:31 IST" duration-ms="13991" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -33,10 +33,45 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- invokebrowser -->
-        <test-method signature="SubscriptionProduct_Validation()[pri:5, instance:Modules.Products@28b576a9]" started-at="2026-04-10T12:23:41 IST" name="SubscriptionProduct_Validation" finished-at="2026-04-10T12:26:44 IST" duration-ms="182371" status="PASS">
+        <test-method signature="SubscriptionProduct_Yearly()[pri:7, instance:Modules.Products@169da7f2]" started-at="2026-04-10T20:30:31 IST" name="SubscriptionProduct_Yearly" finished-at="2026-04-10T20:33:18 IST" duration-ms="166944" status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Price mismatch expected [10] but found [5]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Price mismatch expected [10] but found [5]
+at org.testng.Assert.fail(Assert.java:111)
+at org.testng.Assert.failNotEquals(Assert.java:1590)
+at org.testng.Assert.assertEqualsImpl(Assert.java:150)
+at org.testng.Assert.assertEquals(Assert.java:132)
+at org.testng.Assert.assertEquals(Assert.java:656)
+at Modules.Products.SubscriptionProduct_Yearly(Products.java:3079)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+at java.base/java.lang.Thread.run(Thread.java:1583)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- SubscriptionProduct_Validation -->
+        </test-method> <!-- SubscriptionProduct_Yearly -->
       </class> <!-- Modules.Products -->
     </test> <!-- 911 -->
   </suite> <!-- Suite -->

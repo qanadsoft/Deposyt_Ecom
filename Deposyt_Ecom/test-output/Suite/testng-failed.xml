@@ -10,7 +10,7 @@
     <classes>
       <class name="Modules.Products">
         <methods>
-          <include name="SubscriptionProduct_Validation"/>
+          <include name="SubscriptionProduct_Yearly"/>
           <include name="invokebrowser"/>
         </methods>
       </class> <!-- Modules.Products -->

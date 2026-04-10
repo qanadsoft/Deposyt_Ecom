@@ -12,7 +12,7 @@
         <classes>
             <class name="Modules.Products">
                 <methods>
-                    <include name="SubscriptionProduct_Validation"/>
+                    <include name="SubscriptionProduct_Yearly"/>
                 </methods>
             </class>
         </classes>
