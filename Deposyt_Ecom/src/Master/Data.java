@@ -27,11 +27,12 @@ public class Data extends Public_Strings {
 
 	public WebDriver driver;
 
-	@Parameters({"bname","uname","pass", "role"})
+	@Parameters({"bname","uname","pass","role"})
 	@BeforeClass
 	public void invokebrowser(String bname, String uname, String pass, String role) throws Exception {
 
 		switch(bname) {
+		
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
@@ -70,19 +71,15 @@ public class Data extends Public_Strings {
 		emf.sendKeys(uname);
 		driver.findElement(By.id("password")).sendKeys(pass);
 		driver.findElement(By.xpath("//*[@id=\"loginForm\"]/div[4]/button[1]")).click();
-
 		Thread.sleep(2000);
 		String title = driver.getTitle();
-
 		if(title.equals("deposyt.com")) {
 			driver.findElement(By.xpath("//h1[text() = 'Role: "+role+"']//parent::div//parent::a")).click();
 		}
 	}
 
-	public void AddContact(String Name,String lastName, String Number, String Mail) throws Exception 
-	{
+	public void AddContact(String Name,String lastName, String Number, String Mail) throws Exception {
 		WebDriver driver = DriverFactory.getDriver();
-
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -99,20 +96,15 @@ public class Data extends Public_Strings {
 
 		try {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("toast-container")));
-		}
-		catch(TimeoutException e) 
-		{
+		} catch(TimeoutException e) {
 			Assert.assertTrue(false,"Contact Not Added");
 		}
 	}
 
-
-	public void DeleteContact(String Number, String Mail) throws InterruptedException	
-	{
+	public void DeleteContact(String Number, String Mail) throws InterruptedException{
 		WebDriver driver = DriverFactory.getDriver();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));	
 
- 
 		driver.navigate().to(Contacts);  
 
 		//Checking for duplicate customers By number
@@ -124,8 +116,7 @@ public class Data extends Public_Strings {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("search")));
 
 			int SearchedContacts = driver.findElements(By.cssSelector(".contacttablebody tr.admintable_row")).size();
-			if(SearchedContacts>0)
-			{
+			if(SearchedContacts>0){
 				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
@@ -147,8 +138,7 @@ public class Data extends Public_Strings {
 
 			int SearchedContacts = driver.findElements(By.cssSelector(".contacttablebody tr.admintable_row")).size();
 
-			if(SearchedContacts>0)
-			{
+			if(SearchedContacts>0){
 				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
@@ -156,8 +146,7 @@ public class Data extends Public_Strings {
 		}
 	}
 
-	public void AddTag(String TagName) throws Exception 
-	{
+	public void AddTag(String TagName) throws Exception {
 		Actions action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)) ;
 

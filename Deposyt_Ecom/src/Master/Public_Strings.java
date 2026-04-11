@@ -2,7 +2,6 @@ package Master;
 
 public class Public_Strings {
 
-	//Modules
 	//protected String url		= "https://appdev.deposyt.com/";
 	protected String url		= "https://app.release.deposyt.com/";
 	//protected String url		= "https://preapp.deposyt.com/";
@@ -12,7 +11,7 @@ public class Public_Strings {
 	protected String Ecom_url 	= "https://store.app.release.deposyt.com/a/";
 	//protected String Ecom_url = "https://store.app.deposyt.com/a/";
 
-	//Module Url's
+	//CRM Url's
 	protected String 
 	Dashboard			= url+"index.php?m=dashboard",
 	Messages 			= url+"index.php?m=conversation", 
