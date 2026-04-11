@@ -2,12 +2,12 @@
 <testng-results ignored="7" total="8" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-10T20:30:17 IST" name="Suite" finished-at="2026-04-10T20:33:18 IST" duration-ms="181021">
+  <suite started-at="2026-04-11T17:30:22 IST" name="Suite" finished-at="2026-04-11T17:34:32 IST" duration-ms="249171">
     <groups>
     </groups>
-    <test started-at="2026-04-10T20:30:17 IST" name="911" finished-at="2026-04-10T20:33:18 IST" duration-ms="181021">
+    <test started-at="2026-04-11T17:30:22 IST" name="Products" finished-at="2026-04-11T17:34:32 IST" duration-ms="249171">
       <class name="Modules.Products">
-        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:Modules.Products@169da7f2]" started-at="2026-04-10T20:30:17 IST" name="invokebrowser" finished-at="2026-04-10T20:30:31 IST" duration-ms="13991" status="PASS">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:Modules.Products@169da7f2]" started-at="2026-04-11T17:30:23 IST" name="invokebrowser" finished-at="2026-04-11T17:30:38 IST" duration-ms="15291" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -33,19 +33,44 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- invokebrowser -->
-        <test-method signature="SubscriptionProduct_Yearly()[pri:7, instance:Modules.Products@169da7f2]" started-at="2026-04-10T20:30:31 IST" name="SubscriptionProduct_Yearly" finished-at="2026-04-10T20:33:18 IST" duration-ms="166944" status="FAIL">
-          <exception class="java.lang.AssertionError">
+        <test-method signature="SubscriptionProduct_Weekly()[pri:5, instance:Modules.Products@169da7f2]" started-at="2026-04-11T17:30:38 IST" name="SubscriptionProduct_Weekly" finished-at="2026-04-11T17:34:32 IST" duration-ms="233772" status="FAIL">
+          <exception class="org.openqa.selenium.NoSuchElementException">
             <message>
-              <![CDATA[Price mismatch expected [10] but found [5]]]>
+              <![CDATA[no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()="monthly"]"}
+  (Session info: chrome=146.0.7680.164)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.13.0', revision: 'ba948ece5b*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-139-generic', java.version: '21.0.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [5b5d0fb562a49ff0942d3a1c861c29fb, findElement {using=xpath, value=//span[normalize-space()="monthly"]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:37921}, goog:processID: 48750, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:37921/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 5b5d0fb562a49ff0942d3a1c861c29fb]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: Price mismatch expected [10] but found [5]
-at org.testng.Assert.fail(Assert.java:111)
-at org.testng.Assert.failNotEquals(Assert.java:1590)
-at org.testng.Assert.assertEqualsImpl(Assert.java:150)
-at org.testng.Assert.assertEquals(Assert.java:132)
-at org.testng.Assert.assertEquals(Assert.java:656)
-at Modules.Products.SubscriptionProduct_Yearly(Products.java:3079)
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//span[normalize-space()="monthly"]"}
+  (Session info: chrome=146.0.7680.164)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.13.0', revision: 'ba948ece5b*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-139-generic', java.version: '21.0.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [5b5d0fb562a49ff0942d3a1c861c29fb, findElement {using=xpath, value=//span[normalize-space()="monthly"]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:37921}, goog:processID: 48750, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:37921/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 5b5d0fb562a49ff0942d3a1c861c29fb
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:196)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:171)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:602)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:359)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:353)
+at Modules.Products.SubscriptionProduct_Weekly(Products.java:2632)
 at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
@@ -68,11 +93,11 @@ at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecut
 at java.base/java.lang.Thread.run(Thread.java:1583)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- SubscriptionProduct_Yearly -->
+        </test-method> <!-- SubscriptionProduct_Weekly -->
       </class> <!-- Modules.Products -->
-    </test> <!-- 911 -->
+    </test> <!-- Products -->
   </suite> <!-- Suite -->
 </testng-results>

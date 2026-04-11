@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite" parallel="tests" thread-count="2">
+
+<suite name="Suite" parallel="tests" thread-count="1">
     <parameter name = "bname" 					value = "chrome"/>
     <parameter name = "role"  					value = "Admin"/>
     <parameter name = "loginTypeMainAccess"     value = "user"/>
 
-    <test name="911">
+    <test name="Products">
        <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com"/>
 	   <parameter name = "pass"  value = "Djismylige@1998"/>
 
         <classes>
             <class name="Modules.Products">
                 <methods>
-                    <include name="SubscriptionProduct_Yearly"/>
+                    <include name="SubscriptionProduct_Weekly"/>
                 </methods>
             </class>
         </classes>

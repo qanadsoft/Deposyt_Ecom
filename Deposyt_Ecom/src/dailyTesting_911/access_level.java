@@ -823,10 +823,6 @@ public class access_level extends Data {
 		lastName1 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 		email1 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone1 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 				
-		String firstName2 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-		lastName2 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-		email2 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone2 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
-				
 		String Price1 = "5", Price2 = "25", Region_Name = "Europe";
 		String Store_Name = "Smart Online Store " + java.util.UUID.randomUUID().toString().substring(0,2);
 		

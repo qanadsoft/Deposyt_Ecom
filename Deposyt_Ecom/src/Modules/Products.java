@@ -2026,31 +2026,39 @@ public class Products extends Data {
 		String subscriptionprice1 = subscriptionprice.replaceAll("[^0-9.]", ""); 
 		int actualPrice = (int) Double.parseDouble(subscriptionprice1);
 		Assert.assertEquals(String.valueOf(actualPrice), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("monthly Subscription Price on products listing matches.");
+		System.out.println("Monthly Subscription Price on products listing matches.");
 
 		//Verify that if user enters subscription Price then it should reflect in  products detail page 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		Thread.sleep(5000);
-		WebElement subscriptionPriceOnDetail = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
-		String priceText = subscriptionPriceOnDetail.getText().trim();
+		WebElement subscriptionPb = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
+		String priceText = subscriptionPb.getText().trim();
 		String numericPrice = priceText.replaceAll("[^0-9.]", "");
 		int actualPrice1 = (int) Double.parseDouble(numericPrice);
 		Assert.assertEquals(String.valueOf(actualPrice1), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("monthly Subscription Price on product detail page matches.\n");
+		System.out.println("Monthly Subscription Price on product detail page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on product details page in subscription section
+		WebElement subscriptionPbb = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)>span"));
+		String priceTexct = subscriptionPbb.getText().trim();
+		String numericPricce = priceTexct.replaceAll("[^0-9.]", "");
+		int actualPricex1 = (int) Double.parseDouble(numericPricce);
+		Assert.assertEquals(String.valueOf(actualPricex1), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Monthly Subscription Price on product detail page in subscription section matches.\n");
 		
 		//Verify that when Monthly option is selected then it will reflect on product detail page at the top
 		WebElement frequencytopsection = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)"));	
 		String frequency = frequencytopsection.getText().trim().toLowerCase();
 		Assert.assertTrue(frequency.contains("monthly"),"Frequency is not displayed as monthly on product detail page");
-		System.out.println("monthly Frequency on product detail page matches.");
+		System.out.println("Monthly Frequency on product detail page matches.");
 			
 		//Verify that when Monthly option is selected then it will reflect on product detail page in subscription section
 		WebElement frequencysubsection = driver.findElement(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p:nth-of-type(4)>span:nth-of-type(2)"));	
 		String frequency1 = frequencysubsection.getText().trim().toLowerCase();
 		Assert.assertTrue(frequency1.contains("monthly"),"Frequency is not displayed as monthly on product detail page");
-		System.out.println("monthly Frequency on product detail subscription section matches.\n");
+		System.out.println("Monthly Frequency on product detail subscription section matches.\n");
 		
 		//Verify that when Monthly option is selected then it will reflect on preview section of product details 
 		Thread.sleep(2000);
@@ -2066,10 +2074,10 @@ public class Products extends Data {
 		}		
 		
 		Thread.sleep(7000);
-		WebElement frequencydetailsection = driver.findElement(By.xpath("//span[normalize-space()=\"Monthly\"]"));	
-		String frequency2 = frequencydetailsection.getText().trim().toLowerCase();
+		WebElement frequencyde = driver.findElement(By.xpath("//span[normalize-space()=\"Monthly\"]"));	
+		String frequency2 = frequencyde.getText().trim().toLowerCase();
 		Assert.assertTrue(frequency2.contains("monthly"),"Frequency is not displayed as monthly on product checkout page");
-		System.out.println("monthly Frequency on product preview page matches.\n"); 
+		System.out.println("Monthly Frequency on product preview page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -2086,18 +2094,26 @@ public class Products extends Data {
 		}		
 		
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDetails = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
-		String priceTexts = subscriptionPriceOnDetails.getText().trim();
+		WebElement subscriptionPrv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		String priceTexts = subscriptionPrv.getText().trim();
 		String numericPrices = priceTexts.replaceAll("[^0-9.]", "");
-		int actualPrice11 = (int) Double.parseDouble(numericPrices);
-		Assert.assertEquals(String.valueOf(actualPrice11), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("monthly Subscription Price on product checkout page matches.");
+		int actualPrics = (int) Double.parseDouble(numericPrices);
+		Assert.assertEquals(String.valueOf(actualPrics), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Monthly Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on checkout page 
+		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>span:first-of-type"));
+		String priceTexxts = subscriptionPrcv.getText().trim();
+		String numericPdrices = priceTexxts.replaceAll("[^0-9.]", "");
+		int actualPrxics = (int) Double.parseDouble(numericPdrices);
+		Assert.assertEquals(String.valueOf(actualPrxics), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Monthly Subscription Price on product checkout page matches.");
 		
 		//Verify that when Monthly option is selected then it will reflect on checkout page 
-		WebElement frequencydetailsection1 = driver.findElement(By.xpath("//span[normalize-space()=\"Monthly\"]"));	
-		String frequency21 = frequencydetailsection1.getText().trim().toLowerCase();
-		Assert.assertTrue(frequency21.contains("monthly"),"Frequency is not displayed as monthly on product checkout page");
-		System.out.println("monthly Frequency on product checkout page matches.\n"); 
+		WebElement frequencydetav = driver.findElement(By.xpath("//span[normalize-space()=\"Monthly\"]"));	
+		String frequenca = frequencydetav.getText().trim().toLowerCase();
+		Assert.assertTrue(frequenca.contains("monthly"),"Frequency is not displayed as monthly on product checkout page");
+		System.out.println("Monthly Frequency on product checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -2114,18 +2130,26 @@ public class Products extends Data {
 		}		
 		
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDefpage = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
-		String priceTextss = subscriptionPriceOnDefpage.getText().trim();
+		WebElement subscriptionPfe = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		String priceTextss = subscriptionPfe.getText().trim();
 		String numericPricess = priceTextss.replaceAll("[^0-9.]", "");
-		int actualPrice111 = (int) Double.parseDouble(numericPricess);
-		Assert.assertEquals(String.valueOf(actualPrice111), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("monthly Subscription Price on product checkout page matches.");
+		int actualPricez = (int) Double.parseDouble(numericPricess);
+		Assert.assertEquals(String.valueOf(actualPricez), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Monthly Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on default checkout page 
+		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div>div>p>span:first-of-type"));
+		String priceTextsss = subscriptionPfne.getText().trim();
+		String numerdicPricess = priceTextsss.replaceAll("[^0-9.]", "");
+		int actualPrxicez = (int) Double.parseDouble(numerdicPricess);
+		Assert.assertEquals(String.valueOf(actualPrxicez), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Monthly Subscription Price on product checkout page matches.");
 		
 		//Verify that when Monthly option is selected then it will reflect on default checkout page 
-		WebElement frequencydetailsectionn = driver.findElement(By.xpath("//span[normalize-space()=\"Monthly\"]"));	
-		String frequencyy = frequencydetailsectionn.getText().trim().toLowerCase();
+		WebElement frequencydev = driver.findElement(By.xpath("//span[normalize-space()=\"Monthly\"]"));	
+		String frequencyy = frequencydev.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyy.contains("monthly"),"Frequency is not displayed as monthly on product checkout page");
-		System.out.println("monthly Frequency on product checkout page matches.\n"); 
+		System.out.println("Monthly Frequency on product checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -2142,18 +2166,26 @@ public class Products extends Data {
 		}		
 		
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDefprodpage = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:first-of-type"));
-		String priceTexta = subscriptionPriceOnDefprodpage.getText().trim();
+		WebElement subscriptions = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:first-of-type"));
+		String priceTexta = subscriptions.getText().trim();
 		String numericPricess1 = priceTexta.replaceAll("[^0-9.]", "");
-		int actualPrice1111 = (int) Double.parseDouble(numericPricess1);
-		Assert.assertEquals(String.valueOf(actualPrice1111), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("monthly Subscription Price on product checkout page matches.");
+		int actualPricev = (int) Double.parseDouble(numericPricess1);
+		Assert.assertEquals(String.valueOf(actualPricev), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Monthly Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on default product page 
+		WebElement subscriptiovns = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:nth-of-type(2)"));
+		String priceTsexta = subscriptiovns.getText().trim();
+		String numericPricsess1 = priceTsexta.replaceAll("[^0-9.]", "");
+		int actualPsricev = (int) Double.parseDouble(numericPricsess1);
+		Assert.assertEquals(String.valueOf(actualPsricev), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Monthly Subscription Price on product checkout page matches.");
 		
 		//Verify that when Monthly option is selected then it will reflect on default product page
-		WebElement frequencydetailsectionn1 = driver.findElement(By.xpath("//span[normalize-space()=\"monthly\"]"));	
-		String frequencyy1 = frequencydetailsectionn1.getText().trim().toLowerCase();
+		WebElement frequencydetv = driver.findElement(By.xpath("//span[normalize-space()=\"monthly\"]"));	
+		String frequencyy1 = frequencydetv.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyy1.contains("monthly"),"Frequency is not displayed as monthly on product checkout page");
-		System.out.println("monthly Frequency on product checkout page matches.\n"); 
+		System.out.println("Monthly Frequency on product checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -2162,32 +2194,40 @@ public class Products extends Data {
 		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)>span")).click();
 		Thread.sleep(4000);
-		WebElement subscriptionPriceOnOrdersummary = driver.findElement(By.xpath("(//span[contains(@class,'text-xlarge font-semibold')])[1]"));
-		String priceTexta1 = subscriptionPriceOnOrdersummary.getText().trim();
-		String numericPricess11 = priceTexta1.replaceAll("[^0-9.]", "");
-		int actualPrice11111 = (int) Double.parseDouble(numericPricess11);
-		Assert.assertEquals(String.valueOf(actualPrice11111), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("monthly Subscription Price on order summary page matches.");
+		WebElement subscriptionPcm = driver.findElement(By.xpath("(//span[contains(@class,'text-xlarge font-semibold')])[1]"));
+		String priceTexta1 = subscriptionPcm.getText().trim();
+		String numericPricef = priceTexta1.replaceAll("[^0-9.]", "");
+		int actualPricex = (int) Double.parseDouble(numericPricef);
+		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Monthly Subscription Price on order summary page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on order summary of order module
+		WebElement subscriptiosnPcm = driver.findElement(By.xpath("(//p[@class='mr-2'])[1]"));
+		String pricesTexta1 = subscriptiosnPcm.getText().trim();
+		String numesricPricef = pricesTexta1.replaceAll("[^0-9.]", "");
+		int actualPsricex = (int) Double.parseDouble(numesricPricef);
+		Assert.assertEquals(String.valueOf(actualPsricex), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Monthly Subscription Price on order summary page matches.");
 		
 		//Verify that when Monthly option is selected then it will reflect on order summary of order module
 		WebElement frequencydetailorders = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
 		String frequencys = frequencydetailorders.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencys.contains("monthly"),"Frequency is not displayed as monthly on order summary page");
-		System.out.println("monthly Frequency on order summary page matches.\n"); 
+		System.out.println("Monthly Frequency on order summary page matches.\n"); 
 		
 		//Verify that if user enters subscription price then it should reflect in  subscription summary of order module  
-		WebElement subscriptionPriceOnOrdersummary1 = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
-		String priceTexta11 = subscriptionPriceOnOrdersummary1.getText().trim();
-		String numericPricess111 = priceTexta11.replaceAll("[^0-9.]", "");
-		int actualPrice111111 = (int) Double.parseDouble(numericPricess111);
-		Assert.assertEquals(String.valueOf(actualPrice111111), OneTimeProductValue, "Price mismatch");
-		System.out.println("monthly Subscription Price on order subscription summary page matches.");
+		WebElement subscriptionPm = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
+		String priceTexta11 = subscriptionPm.getText().trim();
+		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
+		int actualPricde = (int) Double.parseDouble(numericPricen);
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Monthly Subscription Price on order subscription summary page matches.");
 
 		//Verify that when Monthly option is selected then it will reflect on subscription summary of order module 
-		WebElement frequencydetailorders1 = driver.findElement(By.xpath("//span[normalize-space()=\"Monthly\"]"));	
-		String frequencys1 = frequencydetailorders1.getText().trim().toLowerCase();
+		WebElement frequencydetm = driver.findElement(By.xpath("//span[normalize-space()=\"Monthly\"]"));	
+		String frequencys1 = frequencydetm.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencys1.contains("monthly"),"Frequency is not displayed as monthly on order subscription summary page");
-		System.out.println("monthly Frequency on order subscription summary page matches.\n"); 
+		System.out.println("Monthly Frequency on order subscription summary page matches.\n"); 
 		
 		//Verify that if user enters subscription price then it should reflect in  Vt add line item 
 		driver.navigate().to(Virtual_Terminal);
@@ -2215,18 +2255,26 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("p[data-testid='search-result-title']:first-of-type")).click();
 		Thread.sleep(3000);	
-		WebElement subscriptionPriceOnstorefront = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span"));
-		String priceTextastore = subscriptionPriceOnstorefront.getText().trim();
+		WebElement subscriptionPrm = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span"));
+		String priceTextastore = subscriptionPrm.getText().trim();
 		String numericPricesstore = priceTextastore.replaceAll("[^0-9.]", "");
-		int actualPrice1111111 = (int) Double.parseDouble(numericPricesstore);
-		Assert.assertEquals(String.valueOf(actualPrice1111111), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("monthly Subscription Price on storefront side matches.");
+		int actualPriced = (int) Double.parseDouble(numericPricesstore);
+		Assert.assertEquals(String.valueOf(actualPriced), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Monthly Subscription Price on storefront side matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on storefront side
+		WebElement subscriptiondPrm = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span:nth-of-type(2)>span:first-of-type"));
+		String priceTexstastore = subscriptiondPrm.getText().trim();
+		String numericPriscesstore = priceTexstastore.replaceAll("[^0-9.]", "");
+		int actualPrsiced = (int) Double.parseDouble(numericPriscesstore);
+		Assert.assertEquals(String.valueOf(actualPrsiced), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Monthly Subscription Price on storefront side matches.");
 		
 		//Verify that when Monthly option is selected then it will reflect on storefront side
 		WebElement frequencydetailstore = driver.findElement(By.xpath("//span[normalize-space()=\"monthly\"]"));	
 		String frequencyss = frequencydetailstore.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyss.contains("monthly"),"Frequency is not displayed as monthly on storefront side page");
-		System.out.println("monthly Frequency on storefront side matches.\n"); 		
+		System.out.println("Monthly Frequency on storefront side matches.\n"); 		
 	}
 	
 	@Test(priority = 5)
@@ -2344,8 +2392,8 @@ public class Products extends Data {
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		String subscriptionprices1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
-		String subscriptionprices11 = subscriptionprices1.replaceAll("[^0-9.]", ""); 
-		int actualPricec = (int) Double.parseDouble(subscriptionprices11);
+		String subscriptionces = subscriptionprices1.replaceAll("[^0-9.]", ""); 
+		int actualPricec = (int) Double.parseDouble(subscriptionces);
 		Assert.assertEquals(String.valueOf(actualPricec), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Weekly Subscription Price on products listing matches.");
 
@@ -2354,22 +2402,30 @@ public class Products extends Data {
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>	li>a:first-of-type")).click();
 		Thread.sleep(5000);
-		WebElement subscriptionPriceOnDetaill = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
-		String priceTextt = subscriptionPriceOnDetaill.getText().trim();
+		WebElement subscriptionPxc = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
+		String priceTextt = subscriptionPxc.getText().trim();
 		String numericPricee = priceTextt.replaceAll("[^0-9.]", "");
 		int actualPricee1 = (int) Double.parseDouble(numericPricee);
 		Assert.assertEquals(String.valueOf(actualPricee1), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("Weekly Subscription Price on product detail page matches.\n");
+		System.out.println("Weekly Subscription Price on product detail page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on product details page in subscription section
+		WebElement subscriptionPbb = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)>span"));
+		String priceTexct = subscriptionPbb.getText().trim();
+		String numericPricce = priceTexct.replaceAll("[^0-9.]", "");
+		int actualPricex1 = (int) Double.parseDouble(numericPricce);
+		Assert.assertEquals(String.valueOf(actualPricex1), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment weekly Subscription Price on product detail page in subscription section matches.\n");
 
 		//Verify that when weekly option is selected then it will reflect on product detail page at the top
-		WebElement frequencytopsection1 = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)"));	
-		String frequencyy11 = frequencytopsection1.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencyy11.contains("weekly"),"Frequency is not displayed as Weekly on product detail page");
+		WebElement frequencytopsectc = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)"));	
+		String frequencyyx = frequencytopsectc.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyyx.contains("weekly"),"Frequency is not displayed as Weekly on product detail page");
 		System.out.println("Weekly Frequency on product detail page matches.");
 
 		//Verify that when weekly option is selected then it will reflect on product detail page in subscription section
-		WebElement frequencysubsectionn = driver.findElement(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p:nth-of-type(4)>span:nth-of-type(2)"));	
-		String frequencyc1 = frequencysubsectionn.getText().trim().toLowerCase();
+		WebElement frequencym = driver.findElement(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p:nth-of-type(4)>span:nth-of-type(2)"));	
+		String frequencyc1 = frequencym.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyc1.contains("weekly"),"Frequency is not displayed as Weekly on product detail page");
 		System.out.println("Weekly Frequency on product detail subscription section matches.\n");
 
@@ -2388,17 +2444,25 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDetails1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
-		String priceTexts1 = subscriptionPriceOnDetails1.getText().trim();
+		WebElement subscriptionPc = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		String priceTexts1 = subscriptionPc.getText().trim();
 		String numericPrices1 = priceTexts1.replaceAll("[^0-9.]", "");
-		int actualPrices111 = (int) Double.parseDouble(numericPrices1);
-		Assert.assertEquals(String.valueOf(actualPrices111), OneTimePurchaseSalePrice, "Price mismatch");
+		int actualPricesa = (int) Double.parseDouble(numericPrices1);
+		Assert.assertEquals(String.valueOf(actualPricesa), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Weekly Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on checkout page 
+		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>span:first-of-type"));
+		String priceTexxts = subscriptionPrcv.getText().trim();
+		String numericPdrices = priceTexxts.replaceAll("[^0-9.]", "");
+		int actualPrxics = (int) Double.parseDouble(numericPdrices);
+		Assert.assertEquals(String.valueOf(actualPrxics), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Weekly Subscription Price on product checkout page matches.");
 
 		//Verify that when Weekly option is selected then it will reflect on checkout page 
-		WebElement frequencydetailssectionn1 = driver.findElement(By.xpath("//span[normalize-space()=\"Weekly\"]"));	
-		String frequencyy21 = frequencydetailssectionn1.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencyy21.contains("weekly"),"Frequency is not displayed as Weekly on product checkout page");
+		WebElement frequencydetaiv = driver.findElement(By.xpath("//span[normalize-space()=\"Weekly\"]"));	
+		String frequencyys = frequencydetaiv.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyys.contains("weekly"),"Frequency is not displayed as Weekly on product checkout page");
 		System.out.println("Weekly Frequency on product checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -2416,17 +2480,25 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDefpagge = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
-		String priceTextgss = subscriptionPriceOnDefpagge.getText().trim();
+		WebElement subscriptionPrib = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		String priceTextgss = subscriptionPrib.getText().trim();
 		String numericPricegss = priceTextgss.replaceAll("[^0-9.]", "");
-		int actualPriceg111 = (int) Double.parseDouble(numericPricegss);
-		Assert.assertEquals(String.valueOf(actualPriceg111), OneTimePurchaseSalePrice, "Price mismatch");
+		int actualPricegs = (int) Double.parseDouble(numericPricegss);
+		Assert.assertEquals(String.valueOf(actualPricegs), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Weekly Subscription Price on default checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on default checkout page 
+		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div>div>p>span:first-of-type"));
+		String priceTextsss = subscriptionPfne.getText().trim();
+		String numerdicPricess = priceTextsss.replaceAll("[^0-9.]", "");
+		int actualPrxicez = (int) Double.parseDouble(numerdicPricess);
+		Assert.assertEquals(String.valueOf(actualPrxicez), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Weekly Subscription Price on product checkout page matches.");
 
 		//Verify that when weekly option is selected then it will reflect on default checkout page 
-		WebElement frequencydetailsectiion1 = driver.findElement(By.xpath("//span[normalize-space()=\"Weekly\"]"));	
-		String frequencyi21 = frequencydetailsectiion1.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencyi21.contains("weekly"),"Frequency is not displayed as Weekly on default checkout page");
+		WebElement frequencydetav = driver.findElement(By.xpath("//span[normalize-space()=\"Weekly\"]"));	
+		String frequencyid = frequencydetav.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyid.contains("weekly"),"Frequency is not displayed as Weekly on default checkout page");
 		System.out.println("Weekly Frequency on default checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -2444,16 +2516,24 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDefprodpage = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:first-of-type"));
-		String priceTexta = subscriptionPriceOnDefprodpage.getText().trim();
-		String numericPricess1 = priceTexta.replaceAll("[^0-9.]", "");
-		int actualPrice1111 = (int) Double.parseDouble(numericPricess1);
-		Assert.assertEquals(String.valueOf(actualPrice1111), OneTimePurchaseSalePrice, "Price mismatch");
+		WebElement subscriptionPm = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:first-of-type"));
+		String priceTexta = subscriptionPm.getText().trim();
+		String numericPriceg = priceTexta.replaceAll("[^0-9.]", "");
+		int actualPricea = (int) Double.parseDouble(numericPriceg);
+		Assert.assertEquals(String.valueOf(actualPricea), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on default product page 
+		WebElement subscriptiovns = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:nth-of-type(2)"));
+		String priceTsexta = subscriptiovns.getText().trim();
+		String numericPricsess1 = priceTsexta.replaceAll("[^0-9.]", "");
+		int actualPsricev = (int) Double.parseDouble(numericPricsess1);
+		Assert.assertEquals(String.valueOf(actualPsricev), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment weekly Subscription Price on product checkout page matches.");
 
 		//Verify that when weekly option is selected then it will reflect on default product page 
-		WebElement frequencydetailsectionn1 = driver.findElement(By.xpath("//span[normalize-space()=\"weekly\"]"));	
-		String frequencyy1 = frequencydetailsectionn1.getText().trim().toLowerCase();
+		WebElement frequencydetaig = driver.findElement(By.xpath("//span[normalize-space()=\"weekly\"]"));	
+		String frequencyy1 = frequencydetaig.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyy1.contains("weekly"),"Frequency is not displayed as weekly on product checkout page");
 		System.out.println("Frequency on product checkout page matches.\n"); 
 		driver.close();
@@ -2464,31 +2544,47 @@ public class Products extends Data {
 		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)>span")).click();
 		Thread.sleep(4000);
-		WebElement subscriptionPriceOnOrdersummaryy1 = driver.findElement(By.xpath("(//span[contains(@class,'text-xlarge font-semibold')])[1]"));
-		String priceTextaa11 = subscriptionPriceOnOrdersummaryy1.getText().trim();
-		String numericPricesss111 = priceTextaa11.replaceAll("[^0-9.]", "");
-		int actualPrices111111 = (int) Double.parseDouble(numericPricesss111);
-		Assert.assertEquals(String.valueOf(actualPrices111111), OneTimePurchaseSalePrice, "Price mismatch");
+		WebElement subscriptionPrh = driver.findElement(By.xpath("(//span[contains(@class,'text-xlarge font-semibold')])[1]"));
+		String priceTextaa11 = subscriptionPrh.getText().trim();
+		String numericPriw= priceTextaa11.replaceAll("[^0-9.]", "");
+		int actualPrih = (int) Double.parseDouble(numericPriw);
+		Assert.assertEquals(String.valueOf(actualPrih), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Weekly Subscription Price on order summary page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on order summary of order module
+		WebElement subscriptiosnPcm = driver.findElement(By.xpath("(//p[@class='mr-2'])[1]"));
+		String pricesTexta1 = subscriptiosnPcm.getText().trim();
+		String numesricPricef = pricesTexta1.replaceAll("[^0-9.]", "");
+		int actualPsricex = (int) Double.parseDouble(numesricPricef);
+		Assert.assertEquals(String.valueOf(actualPsricex), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Weekly Subscription Price on order summary page matches.");
 
 		//Verify that when weekly option is selected then it will reflect on subscription summary of order module 
-		WebElement frequencydetailorderss1 = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
-		String frequencyss1 = frequencydetailorderss1.getText().trim().toLowerCase();
+		WebElement frequencydetg = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
+		String frequencyss1 = frequencydetg.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyss1.contains("weekly"),"Frequency is not displayed as Weekly on order summary page");
 		System.out.println("Weekly Frequency on order summary page matches.\n"); 
 
 		//Verify that if user enters weekly subscription price then it should reflect in  order summary of order module
-		WebElement subscriptionPriceOnOrdersummary11 = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
-		String priceTexta111 = subscriptionPriceOnOrdersummary11.getText().trim();
-		String numericPricess1111 = priceTexta111.replaceAll("[^0-9.]", "");
-		int actualPricesd = (int) Double.parseDouble(numericPricess1111);
+		WebElement subscriptionw = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
+		String priceTexta111 = subscriptionw.getText().trim();
+		String numericPricews = priceTexta111.replaceAll("[^0-9.]", "");
+		int actualPricesd = (int) Double.parseDouble(numericPricews);
 		Assert.assertEquals(String.valueOf(actualPricesd), OneTimeProductValue, "Price mismatch");
 		System.out.println("Weekly Subscription Price on order subscription summary page matches.");
+		
+		//Verify that if user enters subscription price then it should reflect in  subscription summary of order module  
+		WebElement subscriptionPm1 = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
+		String priceTexta11 = subscriptionPm1.getText().trim();
+		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
+		int actualPricde = (int) Double.parseDouble(numericPricen);
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Weekly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters weekly subscription price then it should reflect in  subscription summary of order module  
-		WebElement frequencydetailorders11 = driver.findElement(By.xpath("//span[normalize-space()=\"Weekly\"]"));	
-		String frequencys11 = frequencydetailorders11.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencys11.contains("weekly"),"Frequency is not displayed as Weekly on order subscription summary page");
+		WebElement frequencydw = driver.findElement(By.xpath("//span[normalize-space()=\"Weekly\"]"));	
+		String frequencyw = frequencydw.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyw.contains("weekly"),"Frequency is not displayed as Weekly on order subscription summary page");
 		System.out.println("Weekly Frequency on order subscription summary page matches.\n"); 
 
 		//Verify that when weekly option is selected then it will reflect on add line items field of VT module
@@ -2503,8 +2599,8 @@ public class Products extends Data {
 		WebElement searchedProduct1 = driver.findElement(By.xpath("(//div[contains(@class,\"absolute z\")]//div[2]//div//span)[1]"));
 		String actualSearchedProduct1 = searchedProduct1.getText().trim();
 		double actualPriceaa1 = Double.parseDouble(actualSearchedProduct1.replaceAll("[^0-9.]", ""));
-		double expectedPriceaa1 = Double.parseDouble(OneTimeProductValue);
-		Assert.assertEquals(actualPriceaa1, expectedPriceaa1,"Product price is not displayed correctly in searched product in VT");
+		double expectedPricw = Double.parseDouble(OneTimeProductValue);
+		Assert.assertEquals(actualPriceaa1, expectedPricw,"Product price is not displayed correctly in searched product in VT");
 		System.out.println("Weekly product price is displayed successfully in searched product in VT\n");
 
 		//Verify that when weekly option is selected then it will reflect on storefront side
@@ -2517,12 +2613,26 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("p[data-testid='search-result-title']:first-of-type")).click();
 		Thread.sleep(3000);	
-		WebElement subscriptionPriceOnstorefront1 = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span"));
-		String priceTextastore1 = subscriptionPriceOnstorefront1.getText().trim();
-		String numericPricesstore1 = priceTextastore1.replaceAll("[^0-9.]", "");
-		int actualPricex = (int) Double.parseDouble(numericPricesstore1);
+		WebElement subscriptionsw = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span"));
+		String priceTextastore1 = subscriptionsw.getText().trim();
+		String numericPricew = priceTextastore1.replaceAll("[^0-9.]", "");
+		int actualPricex = (int) Double.parseDouble(numericPricew);
 		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Weekly Subscription Price on storefront side matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on storefront side
+		WebElement subscriptiondPrm = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span:nth-of-type(2)>span:first-of-type"));
+		String priceTexstastore = subscriptiondPrm.getText().trim();
+		String numericPriscesstore = priceTexstastore.replaceAll("[^0-9.]", "");
+		int actualPrsiced = (int) Double.parseDouble(numericPriscesstore);
+		Assert.assertEquals(String.valueOf(actualPrsiced), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Weekly Subscription Price on storefront side matches.");
+
+		//Verify that when Weekly option is selected then it will reflect on storefront side
+		WebElement frequencydetailstore = driver.findElement(By.xpath("//span[normalize-space()=\"weekly\"]"));	
+		String frequencyss = frequencydetailstore.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyss.contains("monthly"),"Frequency is not displayed as monthly on storefront side page");
+		System.out.println("Weekly Frequency on storefront side matches.\n"); 
 	}
 	
 	@Test(priority = 6)
@@ -2641,8 +2751,8 @@ public class Products extends Data {
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		String subscriptionprices1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
-		String subscriptionprices11 = subscriptionprices1.replaceAll("[^0-9.]", ""); 
-		int actualPricec = (int) Double.parseDouble(subscriptionprices11);
+		String subscriptionpriced = subscriptionprices1.replaceAll("[^0-9.]", ""); 
+		int actualPricec = (int) Double.parseDouble(subscriptionpriced);
 		Assert.assertEquals(String.valueOf(actualPricec), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on products listing matches.");
 
@@ -2651,12 +2761,20 @@ public class Products extends Data {
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>	li>a:first-of-type")).click();
 		Thread.sleep(5000);
-		WebElement subscriptionPriceOnDetaill = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
-		String priceTextt = subscriptionPriceOnDetaill.getText().trim();
+		WebElement subscriptionf = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
+		String priceTextt = subscriptionf.getText().trim();
 		String numericPricee = priceTextt.replaceAll("[^0-9.]", "");
 		int actualPricee1 = (int) Double.parseDouble(numericPricee);
 		Assert.assertEquals(String.valueOf(actualPricee1), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on product detail page matches.\n");
+		
+		//Verify that when first payment different is entered then it will reflect on product details page in subscription section
+		WebElement subscriptionPbb = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)>span"));
+		String priceTexct = subscriptionPbb.getText().trim();
+		String numericPricce = priceTexct.replaceAll("[^0-9.]", "");
+		int actualPricex1 = (int) Double.parseDouble(numericPricce);
+		Assert.assertEquals(String.valueOf(actualPricex1), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Quarterly Subscription Price on product detail page in subscription section matches.\n");
 
 		//Verify that when Quarterly option is selected then it will reflect on product detail page at the top
 		WebElement frequencytopsection1 = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)"));	
@@ -2685,17 +2803,25 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDetails1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
-		String priceTexts1 = subscriptionPriceOnDetails1.getText().trim();
+		WebElement subscriptior = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		String priceTexts1 = subscriptior.getText().trim();
 		String numericPrices1 = priceTexts1.replaceAll("[^0-9.]", "");
-		int actualPrices111 = (int) Double.parseDouble(numericPrices1);
-		Assert.assertEquals(String.valueOf(actualPrices111), OneTimePurchaseSalePrice, "Price mismatch");
+		int actualPricesg = (int) Double.parseDouble(numericPrices1);
+		Assert.assertEquals(String.valueOf(actualPricesg), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on checkout page 
+		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>span:first-of-type"));
+		String priceTexxts = subscriptionPrcv.getText().trim();
+		String numericPdrices = priceTexxts.replaceAll("[^0-9.]", "");
+		int actualPrxics = (int) Double.parseDouble(numericPdrices);
+		Assert.assertEquals(String.valueOf(actualPrxics), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Quarterly Subscription Price on product checkout page matches.");
 
 		//Verify that when Quarterly option is selected then it will reflect on checkout page 
-		WebElement frequencydetailssectionn1 = driver.findElement(By.xpath("//span[normalize-space()=\"Quarterly\"]"));	
-		String frequencyy21 = frequencydetailssectionn1.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencyy21.contains("quarterly"),"Frequency is not displayed as Quarterly on product checkout page");
+		WebElement frequencydets = driver.findElement(By.xpath("//span[normalize-space()=\"Quarterly\"]"));	
+		String frequencyyw = frequencydets.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyyw.contains("quarterly"),"Frequency is not displayed as Quarterly on product checkout page");
 		System.out.println("Quarterly Frequency on product checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -2713,16 +2839,24 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDefpagge = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
-		String priceTextgss = subscriptionPriceOnDefpagge.getText().trim();
+		WebElement subscriptionm = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		String priceTextgss = subscriptionm.getText().trim();
 		String numericPricegss = priceTextgss.replaceAll("[^0-9.]", "");
 		int actualPriceg111 = (int) Double.parseDouble(numericPricegss);
 		Assert.assertEquals(String.valueOf(actualPriceg111), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on default checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on default checkout page 
+		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div>div>p>span:first-of-type"));
+		String priceTextsss = subscriptionPfne.getText().trim();
+		String numerdicPricess = priceTextsss.replaceAll("[^0-9.]", "");
+		int actualPrxicez = (int) Double.parseDouble(numerdicPricess);
+		Assert.assertEquals(String.valueOf(actualPrxicez), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Quarterly Subscription Price on product checkout page matches.");
 
 		//Verify that when Quarterly option is selected then it will reflect on default checkout page 
-		WebElement frequencydetailsectiion1 = driver.findElement(By.xpath("//span[normalize-space()=\"Quarterly\"]"));	
-		String frequencyi21 = frequencydetailsectiion1.getText().trim().toLowerCase();
+		WebElement frequencydetail = driver.findElement(By.xpath("//span[normalize-space()=\"Quarterly\"]"));	
+		String frequencyi21 = frequencydetail.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyi21.contains("quarterly"),"Frequency is not displayed as Quarterly on default checkout page");
 		System.out.println("Quarterly Frequency on default checkout page matches.\n"); 
 		driver.close();
@@ -2741,16 +2875,24 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDefprodpage = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:first-of-type"));
-		String priceTexta = subscriptionPriceOnDefprodpage.getText().trim();
+		WebElement subscriptionPrik = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:first-of-type"));
+		String priceTexta = subscriptionPrik.getText().trim();
 		String numericPricess1 = priceTexta.replaceAll("[^0-9.]", "");
-		int actualPrice1111 = (int) Double.parseDouble(numericPricess1);
-		Assert.assertEquals(String.valueOf(actualPrice1111), OneTimePurchaseSalePrice, "Price mismatch");
+		int actualPricew = (int) Double.parseDouble(numericPricess1);
+		Assert.assertEquals(String.valueOf(actualPricew), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on default product page 
+		WebElement subscriptiovns = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:nth-of-type(2)"));
+		String priceTsexta = subscriptiovns.getText().trim();
+		String numericPricsess1 = priceTsexta.replaceAll("[^0-9.]", "");
+		int actualPsricev = (int) Double.parseDouble(numericPricsess1);
+		Assert.assertEquals(String.valueOf(actualPsricev), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Quarterly Subscription Price on product checkout page matches.");
 
 		//Verify that when Quarterly option is selected then it will reflect on default product page 
-		WebElement frequencydetailsectionn1 = driver.findElement(By.xpath("//span[normalize-space()=\"quarterly\"]"));	
-		String frequencyy1 = frequencydetailsectionn1.getText().trim().toLowerCase();
+		WebElement frequencyg = driver.findElement(By.xpath("//span[normalize-space()=\"quarterly\"]"));	
+		String frequencyy1 = frequencyg.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyy1.contains("quarterly"),"Frequency is not displayed as Quarterly on product checkout page");
 		System.out.println("Quarterly Frequency on product checkout page matches.\n"); 
 		driver.close();
@@ -2761,30 +2903,46 @@ public class Products extends Data {
 		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)>span")).click();
 		Thread.sleep(4000);
-		WebElement subscriptionPriceOnOrdersummaryy1 = driver.findElement(By.xpath("(//span[contains(@class,'text-xlarge font-semibold')])[1]"));
-		String priceTextaa11 = subscriptionPriceOnOrdersummaryy1.getText().trim();
-		String numericPricesss111 = priceTextaa11.replaceAll("[^0-9.]", "");
-		int actualPrices111111 = (int) Double.parseDouble(numericPricesss111);
-		Assert.assertEquals(String.valueOf(actualPrices111111), OneTimePurchaseSalePrice, "Price mismatch");
+		WebElement subscriptionPria = driver.findElement(By.xpath("(//span[contains(@class,'text-xlarge font-semibold')])[1]"));
+		String priceTextaa11 = subscriptionPria.getText().trim();
+		String numericPricesz = priceTextaa11.replaceAll("[^0-9.]", "");
+		int actualPricesq = (int) Double.parseDouble(numericPricesz);
+		Assert.assertEquals(String.valueOf(actualPricesq), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on order summary page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on order summary of order module
+		WebElement subscriptiosnPcm = driver.findElement(By.xpath("(//p[@class='mr-2'])[1]"));
+		String pricesTexta1 = subscriptiosnPcm.getText().trim();
+		String numesricPricef = pricesTexta1.replaceAll("[^0-9.]", "");
+		int actualPsricex = (int) Double.parseDouble(numesricPricef);
+		Assert.assertEquals(String.valueOf(actualPsricex), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Quarterly Subscription Price on order summary page matches.");
 
 		//Verify that when Quarterly option is selected then it will reflect on subscription summary of order module 
-		WebElement frequencydetailorderss1 = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
-		String frequencyss1 = frequencydetailorderss1.getText().trim().toLowerCase();
+		WebElement frequencyde = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
+		String frequencyss1 = frequencyde.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyss1.contains("quarterly"),"Frequency is not displayed as Quarterly on order summary page");
 		System.out.println("Quarterly Frequency on order summary page matches.\n"); 
 
 		//Verify that if user enters Quarterly subscription price then it should reflect in  order summary of order module
-		WebElement subscriptionPriceOnOrdersummary11 = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
-		String priceTexta111 = subscriptionPriceOnOrdersummary11.getText().trim();
-		String numericPricess1111 = priceTexta111.replaceAll("[^0-9.]", "");
-		int actualPricesd = (int) Double.parseDouble(numericPricess1111);
-		Assert.assertEquals(String.valueOf(actualPricesd), OneTimeProductValue, "Price mismatch");
+		WebElement subscriptionPri = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
+		String priceTextaz = subscriptionPri.getText().trim();
+		String numericPric = priceTextaz.replaceAll("[^0-9.]", "");
+		int actualPricesd = (int) Double.parseDouble(numericPric);
+		Assert.assertEquals(String.valueOf(actualPricesd), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on order subscription summary page matches.");
+		
+		//Verify that if user enters subscription price then it should reflect in  subscription summary of order module  
+		WebElement subscriptionPm = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
+		String priceTexta11 = subscriptionPm.getText().trim();
+		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
+		int actualPricde = (int) Double.parseDouble(numericPricen);
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Quarterly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters Quarterly subscription price then it should reflect in  subscription summary of order module  
-		WebElement frequencydetailorders11 = driver.findElement(By.xpath("//span[normalize-space()=\"Quarterly\"]"));	
-		String frequencys11 = frequencydetailorders11.getText().trim().toLowerCase();
+		WebElement frequencydetai = driver.findElement(By.xpath("//span[normalize-space()=\"Quarterly\"]"));	
+		String frequencys11 = frequencydetai.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencys11.contains("quarterly"),"Frequency is not displayed as Quarterly on order subscription summary page");
 		System.out.println("Quarterly Frequency on order subscription summary page matches.\n"); 
 
@@ -2798,11 +2956,11 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder=\"Select an item\"]"))).sendKeys(Product_Name);
 		Thread.sleep(2000);
 		WebElement searchedProduct1 = driver.findElement(By.xpath("(//div[contains(@class,\"absolute z\")]//div[2]//div//span)[1]"));
-		String actualSearchedProduct1 = searchedProduct1.getText().trim();
-		double actualPriceaa1 = Double.parseDouble(actualSearchedProduct1.replaceAll("[^0-9.]", ""));
+		String actualSearched = searchedProduct1.getText().trim();
+		double actualPriceaa1 = Double.parseDouble(actualSearched.replaceAll("[^0-9.]", ""));
 		double expectedPriceaa1 = Double.parseDouble(OneTimeProductValue);
 		Assert.assertEquals(actualPriceaa1, expectedPriceaa1,"Product price is not displayed correctly in searched product in VT");
-		System.out.println("product price is displayed successfully in searched product in VT\n");
+		System.out.println("Product price is displayed successfully in searched product in VT\n");
 
 		//Verify that when Quarterly option is selected then it will reflect on storefront side
 		StoreFront();
@@ -2814,12 +2972,26 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("p[data-testid='search-result-title']:first-of-type")).click();
 		Thread.sleep(3000);	
-		WebElement subscriptionPriceOnstorefront1 = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span"));
-		String priceTextastore1 = subscriptionPriceOnstorefront1.getText().trim();
-		String numericPricesstore1 = priceTextastore1.replaceAll("[^0-9.]", "");
-		int actualPricex = (int) Double.parseDouble(numericPricesstore1);
+		WebElement subscriptionst = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span"));
+		String priceTextastore1 = subscriptionst.getText().trim();
+		String numericstore= priceTextastore1.replaceAll("[^0-9.]", "");
+		int actualPricex = (int) Double.parseDouble(numericstore);
 		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on storefront side matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on storefront side
+		WebElement subscriptiondPrm = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span:nth-of-type(2)>span:first-of-type"));
+		String priceTexstastore = subscriptiondPrm.getText().trim();
+		String numericPriscesstore = priceTexstastore.replaceAll("[^0-9.]", "");
+		int actualPrsiced = (int) Double.parseDouble(numericPriscesstore);
+		Assert.assertEquals(String.valueOf(actualPrsiced), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Quarterly Subscription Price on storefront side matches.");
+
+		//Verify that when Quarterly option is selected then it will reflect on storefront side
+		WebElement frequencydetailstore = driver.findElement(By.xpath("//span[normalize-space()=\"quarterly\"]"));	
+		String frequencyss = frequencydetailstore.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyss.contains("monthly"),"Frequency is not displayed as monthly on storefront side page");
+		System.out.println("Quarterly Frequency on storefront side matches.\n"); 
 	}
 	
 	@Test(priority = 7)
@@ -2941,31 +3113,39 @@ public class Products extends Data {
 		String subscriptionprices11 = subscriptionprices1.replaceAll("[^0-9.]", ""); 
 		int actualPricec = (int) Double.parseDouble(subscriptionprices11);
 		Assert.assertEquals(String.valueOf(actualPricec), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("yearly Subscription Price on products listing matches.");
+		System.out.println("Yearly Subscription Price on products listing matches.");
 
 		//Verify that if user enters Quarterly subscription Price then it should reflect in  products detail page
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>	li>a:first-of-type")).click();
 		Thread.sleep(5000);
-		WebElement subscriptionPriceOnDetaill = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
-		String priceTextt = subscriptionPriceOnDetaill.getText().trim();
+		WebElement subscriptiol = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
+		String priceTextt = subscriptiol.getText().trim();
 		String numericPricee = priceTextt.replaceAll("[^0-9.]", "");
 		int actualPricee1 = (int) Double.parseDouble(numericPricee);
 		Assert.assertEquals(String.valueOf(actualPricee1), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("yearly Subscription Price on product detail page matches.\n");
+		System.out.println("Yearly Subscription Price on product detail page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on product details page in subscription section
+		WebElement subscriptionPbb = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)>span"));
+		String priceTexct = subscriptionPbb.getText().trim();
+		String numericPricce = priceTexct.replaceAll("[^0-9.]", "");
+		int actualPricex1 = (int) Double.parseDouble(numericPricce);
+		Assert.assertEquals(String.valueOf(actualPricex1), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Yearly Subscription Price on product detail page in subscription section matches.\n");
 
 		//Verify that when Yearly option is selected then it will reflect on product detail page at the top
 		WebElement frequencytopsection1 = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span:nth-of-type(2)"));	
 		String frequencyy11 = frequencytopsection1.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyy11.contains("yearly"),"Frequency is not displayed as yearly on product detail page");
-		System.out.println("yearly Frequency on product detail page matches.");
+		System.out.println("Yearly Frequency on product detail page matches.");
 
 		//Verify that when Yearly option is selected then it will reflect on product detail page in subscription section
 		WebElement frequencysubsectionn = driver.findElement(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p:nth-of-type(4)>span:nth-of-type(2)"));	
 		String frequencyc1 = frequencysubsectionn.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyc1.contains("yearly"),"Frequency is not displayed as yearly on product detail page");
-		System.out.println("yearly Frequency on product detail subscription section matches.\n");
+		System.out.println("Yearly Frequency on product detail subscription section matches.\n");
 
 		//Verify that when Yearly option is selected then it will reflect on checkout page 
 		Thread.sleep(2000);
@@ -2982,18 +3162,26 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDetails1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
-		String priceTexts1 = subscriptionPriceOnDetails1.getText().trim();
+		WebElement subscriptio= driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		String priceTexts1 = subscriptio.getText().trim();
 		String numericPrices1 = priceTexts1.replaceAll("[^0-9.]", "");
-		int actualPrices111 = (int) Double.parseDouble(numericPrices1);
-		Assert.assertEquals(String.valueOf(actualPrices111), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("yearly Subscription Price on product checkout page matches.");
+		int actualPricesz = (int) Double.parseDouble(numericPrices1);
+		Assert.assertEquals(String.valueOf(actualPricesz), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Yearly Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on checkout page 
+		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>span:first-of-type"));
+		String priceTexxts = subscriptionPrcv.getText().trim();
+		String numericPdrices = priceTexxts.replaceAll("[^0-9.]", "");
+		int actualPrxics = (int) Double.parseDouble(numericPdrices);
+		Assert.assertEquals(String.valueOf(actualPrxics), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Yearly Subscription Price on product checkout page matches.");
 
 		//Verify that when Yearly option is selected then it will reflect on checkout page 
-		WebElement frequencydetailssectionn1 = driver.findElement(By.xpath("//span[normalize-space()=\"Yearly\"]"));	
-		String frequencyy21 = frequencydetailssectionn1.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencyy21.contains("yearly"),"Frequency is not displayed as yearly on product checkout page");
-		System.out.println("yearly Frequency on product checkout page matches.\n"); 
+		WebElement frequencydl = driver.findElement(By.xpath("//span[normalize-space()=\"Yearly\"]"));	
+		String frequencyz = frequencydl.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyz.contains("yearly"),"Frequency is not displayed as yearly on product checkout page");
+		System.out.println("Yearly Frequency on product checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
 
@@ -3010,18 +3198,26 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDefpagge = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
-		String priceTextgss = subscriptionPriceOnDefpagge.getText().trim();
+		WebElement subscriptionPg = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		String priceTextgss = subscriptionPg.getText().trim();
 		String numericPricegss = priceTextgss.replaceAll("[^0-9.]", "");
 		int actualPriceg111 = (int) Double.parseDouble(numericPricegss);
 		Assert.assertEquals(String.valueOf(actualPriceg111), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("yearly Subscription Price on default checkout page matches.");
+		System.out.println("Yearly Subscription Price on default checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on default checkout page 
+		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div>div>p>span:first-of-type"));
+		String priceTextsss = subscriptionPfne.getText().trim();
+		String numerdicPricess = priceTextsss.replaceAll("[^0-9.]", "");
+		int actualPrxicez = (int) Double.parseDouble(numerdicPricess);
+		Assert.assertEquals(String.valueOf(actualPrxicez), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Yearly Subscription Price on product checkout page matches.");
 
 		//Verify that when Yearly option is selected then it will reflect on default checkout page 
-		WebElement frequencydetailsectiion1 = driver.findElement(By.xpath("//span[normalize-space()=\"Yearly\"]"));	
-		String frequencyi21 = frequencydetailsectiion1.getText().trim().toLowerCase();
+		WebElement frequencydel = driver.findElement(By.xpath("//span[normalize-space()=\"Yearly\"]"));	
+		String frequencyi21 = frequencydel.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyi21.contains("yearly"),"Frequency is not displayed as yearly on default checkout page");
-		System.out.println("yearly Frequency on default checkout page matches.\n"); 
+		System.out.println("Yearly Frequency on default checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -3038,18 +3234,26 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPriceOnDefprodpage = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:first-of-type"));
-		String priceTexta = subscriptionPriceOnDefprodpage.getText().trim();
-		String numericPricess1 = priceTexta.replaceAll("[^0-9.]", "");
-		int actualPrice1111 = (int) Double.parseDouble(numericPricess1);
-		Assert.assertEquals(String.valueOf(actualPrice1111), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("yearly Subscription Price on product checkout page matches.");
+		WebElement subscriptionPriceO = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:first-of-type"));
+		String priceTexta = subscriptionPriceO.getText().trim();
+		String numericPrices = priceTexta.replaceAll("[^0-9.]", "");
+		int actualPricex = (int) Double.parseDouble(numericPrices);
+		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Yearly Subscription Price on product checkout page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on default product page 
+		WebElement subscriptiovns = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div:first-of-type>p>span:nth-of-type(2)"));
+		String priceTsexta = subscriptiovns.getText().trim();
+		String numericPricsess1 = priceTsexta.replaceAll("[^0-9.]", "");
+		int actualPsricev = (int) Double.parseDouble(numericPricsess1);
+		Assert.assertEquals(String.valueOf(actualPsricev), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Yearly Subscription Price on product checkout page matches.");
 
 		//Verify that when Yearly option is selected then it will reflect on default product page 
-		WebElement frequencydetailsectionn1 = driver.findElement(By.xpath("//span[normalize-space()=\"yearly\"]"));	
-		String frequencyy1 = frequencydetailsectionn1.getText().trim().toLowerCase();
+		WebElement frequencydetl = driver.findElement(By.xpath("//span[normalize-space()=\"yearly\"]"));	
+		String frequencyy1 = frequencydetl.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyy1.contains("yearly"),"Frequency is not displayed as yearly on product checkout page");
-		System.out.println("yearly Frequency on product checkout page matches.\n"); 
+		System.out.println("Yearly Frequency on product checkout page matches.\n"); 
 		driver.close();
 		driver.switchTo().window(originalTab);
 
@@ -3058,32 +3262,48 @@ public class Products extends Data {
 		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)>span")).click();
 		Thread.sleep(4000);
-		WebElement subscriptionPriceOnOrdersummaryy1 = driver.findElement(By.xpath("(//span[contains(@class,'text-xlarge font-semibold')])[1]"));
-		String priceTextaa11 = subscriptionPriceOnOrdersummaryy1.getText().trim();
-		String numericPricesss111 = priceTextaa11.replaceAll("[^0-9.]", "");
-		int actualPrices111111 = (int) Double.parseDouble(numericPricesss111);
-		Assert.assertEquals(String.valueOf(actualPrices111111), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("yearly Subscription Price on order summary page matches.");
+		WebElement subscriptionsum = driver.findElement(By.xpath("(//span[contains(@class,'text-xlarge font-semibold')])[1]"));
+		String priceTextas = subscriptionsum.getText().trim();
+		String numericPric = priceTextas.replaceAll("[^0-9.]", "");
+		int actualPricd = (int) Double.parseDouble(numericPric);
+		Assert.assertEquals(String.valueOf(actualPricd), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Yearly Subscription Price on order summary page matches.");
+		
+		//Verify that when first payment different is entered then it will reflect on order summary of order module
+		WebElement subscriptiosnPcm = driver.findElement(By.xpath("(//p[@class='mr-2'])[1]"));
+		String pricesTexta1 = subscriptiosnPcm.getText().trim();
+		String numesricPricef = pricesTexta1.replaceAll("[^0-9.]", "");
+		int actualPsricex = (int) Double.parseDouble(numesricPricef);
+		Assert.assertEquals(String.valueOf(actualPsricex), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Yearly Subscription Price on order summary page matches.");
 
 		//Verify that when Yearly option is selected then it will reflect on subscription summary of order module 
-		WebElement frequencydetailorderss1 = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
-		String frequencyss1 = frequencydetailorderss1.getText().trim().toLowerCase();
+		WebElement frequencydet = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
+		String frequencyss1 = frequencydet.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyss1.contains("yearly"),"Frequency is not displayed as yearly on order summary page");
-		System.out.println("yearly Frequency on order summary page matches.\n"); 
+		System.out.println("Yearly Frequency on order summary page matches.\n"); 
 
 		//Verify that if user enters Yearly subscription price then it should reflect in  order summary of order module
-		WebElement subscriptionPriceOnOrdersummary11 = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
-		String priceTexta111 = subscriptionPriceOnOrdersummary11.getText().trim();
-		String numericPricess1111 = priceTexta111.replaceAll("[^0-9.]", "");
-		int actualPricesd = (int) Double.parseDouble(numericPricess1111);
+		WebElement subscriptionsumm = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
+		String priceTextam = subscriptionsumm.getText().trim();
+		String numericPricesd = priceTextam.replaceAll("[^0-9.]", "");
+		int actualPricesd = (int) Double.parseDouble(numericPricesd);
 		Assert.assertEquals(String.valueOf(actualPricesd), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("yearly Subscription Price on order subscription summary page matches.");
+		System.out.println("Yearly Subscription Price on order subscription summary page matches.");
+		
+		//Verify that if user enters subscription price then it should reflect in  subscription summary of order module  
+		WebElement subscriptionPm = driver.findElement(By.xpath("(//p[@class='text-2xl font-bold self-end'])[1]"));
+		String priceTexta11 = subscriptionPm.getText().trim();
+		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
+		int actualPricde = (int) Double.parseDouble(numericPricen);
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Yearly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters Yearly subscription price then it should reflect in  subscription summary of order module  
-		WebElement frequencydetailorders11 = driver.findElement(By.xpath("//span[normalize-space()=\"Yearly\"]"));	
-		String frequencys11 = frequencydetailorders11.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencys11.contains("yearly"),"Frequency is not displayed as yearly on order subscription summary page");
-		System.out.println("yearly Frequency on order subscription summary page matches.\n"); 
+		WebElement frequencyde = driver.findElement(By.xpath("//span[normalize-space()=\"Yearly\"]"));	
+		String frequencysd = frequencyde.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencysd.contains("yearly"),"Frequency is not displayed as yearly on order subscription summary page");
+		System.out.println("Yearly Frequency on order subscription summary page matches.\n"); 
 
 		//Verify that when Yearly option is selected then it will reflect on add line items field of VT module
 		driver.navigate().to(Virtual_Terminal);
@@ -3099,7 +3319,7 @@ public class Products extends Data {
 		double actualPriceaa1 = Double.parseDouble(actualSearchedProduct1.replaceAll("[^0-9.]", ""));
 		double expectedPriceaa1 = Double.parseDouble(OneTimeProductValue);
 		Assert.assertEquals(actualPriceaa1, expectedPriceaa1,"Product price is not displayed correctly in searched product in VT");
-		System.out.println("yearly product price is displayed successfully in searched product in VT\n");
+		System.out.println("Yearly product price is displayed successfully in searched product in VT\n");
 
 		//Verify that when Yearly option is selected then it will reflect on storefront side
 		StoreFront();
@@ -3111,14 +3331,28 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("p[data-testid='search-result-title']:first-of-type")).click();
 		Thread.sleep(3000);	
-		WebElement subscriptionPriceOnstorefront1 = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span"));
-		String priceTextastore1 = subscriptionPriceOnstorefront1.getText().trim();
+		WebElement storefront1 = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span"));
+		String priceTextastore1 = storefront1.getText().trim();
 		String numericPricesstore1 = priceTextastore1.replaceAll("[^0-9.]", "");
-		int actualPricex = (int) Double.parseDouble(numericPricesstore1);
-		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
-		System.out.println("yearly Subscription Price on storefront side matches.");
+		int actualPricez = (int) Double.parseDouble(numericPricesstore1);
+		Assert.assertEquals(String.valueOf(actualPricez), OneTimePurchaseSalePrice, "Price mismatch");
+		System.out.println("Yearly Subscription Price On Storefront Side Matches.");
+		
+		//Verify that for yearly frequency when first payment different is entered then it will reflect on storefront side
+		WebElement subscriptiondPrm = driver.findElement(By.cssSelector("div.content-container>div:nth-of-type(3)>div>div>span>span>span:nth-of-type(2)>span:first-of-type"));
+		String priceTexstastore = subscriptiondPrm.getText().trim();
+		String numericPriscesstore = priceTexstastore.replaceAll("[^0-9.]", "");
+		int actualPrsiced = (int) Double.parseDouble(numericPriscesstore);
+		Assert.assertEquals(String.valueOf(actualPrsiced), OneTimeProductValue, "Price mismatch");
+		System.out.println("first payment Yearly Subscription Price on storefront side matches.");
+
+		//Verify that when yearly option is selected then it will reflect on storefront side
+		WebElement frequencydetailstore = driver.findElement(By.xpath("//span[normalize-space()=\"yearly\"]"));	
+		String frequencyss = frequencydetailstore.getText().trim().toLowerCase();
+		Assert.assertTrue(frequencyss.contains("yearly"),"Frequency is not displayed as yearly on storefront side page");
+		System.out.println("yearly Frequency on storefront side matches.\n"); 
 	}
-	
+
 	
 	
 	
