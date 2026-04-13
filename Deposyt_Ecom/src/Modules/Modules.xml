@@ -13,7 +13,7 @@
         <classes>
             <class name="Modules.Products">
                 <methods>
-                    <include name="SubscriptionProduct_Weekly"/>
+                    <include name="TierPricing"/>
                 </methods>
             </class>
         </classes>

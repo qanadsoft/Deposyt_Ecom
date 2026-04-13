@@ -2858,7 +2858,7 @@ public class Products extends Data {
 		WebElement frequencydetail = driver.findElement(By.xpath("//span[normalize-space()=\"Quarterly\"]"));	
 		String frequencyi21 = frequencydetail.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyi21.contains("quarterly"),"Frequency is not displayed as Quarterly on default checkout page");
-		System.out.println("Quarterly Frequency on default checkout page matches.\n"); 
+		System.out.println("Quarterly Frequency on default checkout page matches.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -3353,22 +3353,227 @@ public class Products extends Data {
 		System.out.println("yearly Frequency on storefront side matches.\n"); 
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
+	@Test(priority = 8)
+	public void TierPricing() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		
+		String Product_Name = "Tier Product " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Tier1 = "First Tier Installment";
+		
+		//Verify user can create a new product with valid tiered pricing details.
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);	
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileone};
+
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
+		driver.findElement(By.cssSelector("button#Physical")).click();	
+		WebElement TierToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='tiered-pricing-option-div']//button[@role='switch'][1]")));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});",TierToggle);
+		TierToggle.click();
+		Thread.sleep(2000);
+		
+		//Verify product creation fails when required fields (e.g., Tier Name) are empty.
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		Thread.sleep(3000);
+		WebElement warningMessage = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>div>div:last-of-type")); 
+		String actualMessage = warningMessage.getText().trim();
+		String expectedMessage = "Tier Name is required";
+		Assert.assertEquals(actualMessage, expectedMessage, "Warning message not Displays");
+		System.out.println("Tier Name is required message displayed successfully when user try to save product without Tier Name.\n");
+		
+		//Verify Active Tier toggle enables/disables a tier.
+		WebElement activeButton = driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(2)>span>button"));
+		String activebtn = activeButton.getAttribute("data-state");
+		Assert.assertEquals(activebtn, "checked", "Default state of Active Tier is not enabled");
+		System.out.println("deafult state of Active Tier button disabled by deafult.\n");
+		
+		//Verify error message appears for invalid URL input.
+		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys(Tier1);
+		Thread.sleep(2000);
+		
+		//Verify user can add a new tier with valid inputs.
+		driver.findElement(By.name("productDetails.variants.0.tier_option_url")).sendKeys(Product_Name);
+		WebElement warningMessage1 = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>div>div:last-of-type")); 
+		String actualMessage1 = warningMessage1.getText().trim();
+		String expectedMessage1 = "Invalid URL format";
+		Assert.assertEquals(actualMessage1, expectedMessage1, "Warning message not Displays");
+		System.out.println("Invalid URL format message displayed successfully when user try to save product URL with Invalid format.\n");
+		
+		Thread.sleep(2000);
+		WebElement confirmSaveBtn1 = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn1);	
+		driver.findElement(By.name("productDetails.variants.0.tier_option_url")).clear();
+		
+		//Check that there is a toggle for Offer Annual Upsell On Tiers Widget
+		//Check that once the user enables the toggle Offer Annual Upsell On Tiers Widget it shows yearly price option
+		WebElement offerannual = driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>button"));
+		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", offerannual);
+		Thread.sleep(1000);
+		jse.executeScript("arguments[0].click();", offerannual);
+		String offerannualbtn = offerannual.getAttribute("data-state");
+		Assert.assertEquals(offerannualbtn, "checked", "after click on Offer Annual Upsell On Tiers Widget is not enabled");		
+		String offerannualtext = driver.findElement(By.xpath("//p[text()='Yearly Price']")).getText().trim();
+		Assert.assertEquals(offerannualtext, "Yearly Price", "Yearly price text is not displayed after enable offer annual upsell toggle");
+		System.out.println("Yearly price text is displayed successfully after enable offer annual upsell toggle.\n");
+		
+		//Check that yearly price has 0% off option and user can select that option 
+		//Verify that if user select 0% off option then while creating price tier user can see the yearly price 0% 
+		driver.findElement(By.cssSelector("div.yearly-price>button")).click();
+		Thread.sleep(1000);
+		WebElement off0 = driver.findElement(By.xpath("(//div[normalize-space()='0% Off'])[1]"));
+		jse.executeScript("arguments[0].click();", off0);
+		String offer0 = driver.findElement(By.xpath("//p[text()='0% Off']")).getText().trim();
+		Assert.assertEquals(offer0, "0% Off", "0% Off text is not displayed after enable offer annual upsell toggle");
+		System.out.println("0% Off text is displayed successfully after enable offer annual upsell toggle");
+		
+		//Check that yearly price has 10% off option and user can select that option 
+		//Verify that if user select 10% off option then while creating price tier user can see the yearly price 10% 
+		driver.findElement(By.cssSelector("div.yearly-price>button")).click();
+		Thread.sleep(1000);
+		WebElement off1 = driver.findElement(By.xpath("(//div[normalize-space()='10% Off'])[1]"));
+		jse.executeScript("arguments[0].click();", off1);
+		String offer1 = driver.findElement(By.xpath("//p[text()='10% Off']")).getText().trim();
+		Assert.assertEquals(offer1, "10% Off", "0% Off text is not displayed after enable offer annual upsell toggle");
+		System.out.println("10% Off text is displayed successfully after enable offer annual upsell toggle");
+		
+		//Check that yearly price has 20% off option and user can select that option 
+		//Verify that if user select 20% off option then while creating price tier user can see the yearly price 20% 
+		driver.findElement(By.cssSelector("div.yearly-price>button")).click();
+		Thread.sleep(1000);
+		WebElement off2 = driver.findElement(By.xpath("(//div[normalize-space()='20% Off'])[1]"));
+		jse.executeScript("arguments[0].click();", off2);
+		String offer2 = driver.findElement(By.xpath("//p[text()='20% Off']")).getText().trim();
+		Assert.assertEquals(offer2, "20% Off", "0% Off text is not displayed after enable offer annual upsell toggle");
+		System.out.println("20% Off text is displayed successfully after enable offer annual upsell toggle");
+		
+		//Check that yearly price has 30% off option and user can select that option 
+		//Verify that if user select 30% off option then while creating price tier user can see the yearly price 30% 
+		driver.findElement(By.cssSelector("div.yearly-price>button")).click();
+		Thread.sleep(1000);
+		WebElement off3 = driver.findElement(By.xpath("(//div[normalize-space()='30% Off'])[1]"));
+		jse.executeScript("arguments[0].click();", off3);
+		String offer3 = driver.findElement(By.xpath("//p[text()='30% Off']")).getText().trim();
+		Assert.assertEquals(offer3, "30% Off", "0% Off text is not displayed after enable offer annual upsell toggle");
+		System.out.println("30% Off text is displayed successfully after enable offer annual upsell toggle");
+		
+		//Check that yearly price has 40% off option and user can select that option 
+		//Verify that if user select 40% off option then while creating price tier user can see the yearly price 40% 
+		driver.findElement(By.cssSelector("div.yearly-price>button")).click();
+		Thread.sleep(1000);
+		WebElement off4 = driver.findElement(By.xpath("(//div[normalize-space()='40% Off'])[1]"));
+		jse.executeScript("arguments[0].click();", off4);
+		String offer4 = driver.findElement(By.xpath("//p[text()='40% Off']")).getText().trim();
+		Assert.assertEquals(offer4, "40% Off", "0% Off text is not displayed after enable offer annual upsell toggle");
+		System.out.println("40% Off text is displayed successfully after enable offer annual upsell toggle");
+		
+		//Check that yearly price has 50% off option and user can select that option 
+		//Verify that if user select 50% off option then while creating price tier user can see the yearly price 50% 
+		driver.findElement(By.cssSelector("div.yearly-price>button")).click();
+		Thread.sleep(1000);
+		WebElement off5 = driver.findElement(By.xpath("(//div[normalize-space()='50% Off'])[1]"));
+		jse.executeScript("arguments[0].click();", off5);
+		String offer5 = driver.findElement(By.xpath("//p[text()='50% Off']")).getText().trim();
+		Assert.assertEquals(offer5, "50% Off", "0% Off text is not displayed after enable offer annual upsell toggle");
+		System.out.println("50% Off text is displayed successfully after enable offer annual upsell toggle.\n");
+		
+		//Check that user can disable the toggle of Offer Annual Upsell On Tiers Widget
+		WebElement offerannual1 = driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>button"));
+		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", offerannual1);
+		Thread.sleep(1000);
+		jse.executeScript("arguments[0].click();", offerannual1);
+		String offerannualbtn1 = offerannual1.getAttribute("data-state");
+		Assert.assertEquals(offerannualbtn1, "unchecked", "after click on Offer Annual Upsell On Tiers Widget is not enabled");
+		System.out.println("Offer Annual Upsell On Tiers Widget is disabled successfully after click on offer annual toggle.\n");
+		
+		//Verify “Most Popular” toggle highlights the selected tier.
+		WebElement mostpopular = driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:last-of-type>div>div>div>button"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", mostpopular);
+		Thread.sleep(1000);
+		jse.executeScript("arguments[0].click();", mostpopular);
+		String mostpopularbtn = mostpopular.getAttribute("data-state");
+		Assert.assertEquals(mostpopularbtn, "checked", "after click on Most Popular On Tiers Widget is not enabled");
+		String mostpopulartext = driver.findElement(By.xpath("(//span[text()='Most Popular'])[1]")).getText().trim();
+		Assert.assertEquals(mostpopulartext, "Most Popular", "Most Popular text is not displayed after enable Most Popular toggle");
+		System.out.println("Most Popular text is displayed successfully after enable Most Popular toggle.\n");
+		
+		//Verify URL option accepts only valid URLs.
+		//Verify Form option allows selection of a valid form.
+		driver.findElement(By.name("productDetails.variants.0.tier_option_url")).sendKeys(url);
+		driver.findElement(By.xpath("//span[normalize-space()=\"Form\"]//parent::button")).click();
+		driver.findElement(By.xpath("//span[text()='Select CRM Form']//parent::button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//div[@role='menuitem'])[1]")).click();		
+		
+		//Verify that tier name will be reflected in tier name at the top of tier section 
+		String tierNameTopSection = driver.findElement(By.cssSelector("div.tier-name>h1>div")).getText().trim();
+		String actualTierName = tierNameTopSection.split("—")[1].trim();
+		Assert.assertEquals(actualTierName,Tier1,"Tier Name is not displayed on top section of product detail page");
+		System.out.println("Tier Name is displayed successfully on top section of product detail page.\n");
+		
+		//Check that user can see free option just below the tier name 
+		WebElement freeoption = driver.findElement(By.xpath("//p[text()='Free']"));
+		Assert.assertEquals(freeoption.getText().trim(), "Free", "Free option text is not correct");
+		System.out.println("Free option is displayed just below the tier name successfully.\n");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
