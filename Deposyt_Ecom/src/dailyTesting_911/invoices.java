@@ -116,6 +116,7 @@ public class invoices extends Data {
         driver.get(checkoutUrl);
         
         Thread.sleep(5000);
+        driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
         Thread.sleep(2000);
@@ -143,7 +144,6 @@ public class invoices extends Data {
 		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);	
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //Click on pay button
         
@@ -253,6 +253,7 @@ public class invoices extends Data {
         driver.get(checkoutUrl);
         
         Thread.sleep(5000);
+        driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
         Thread.sleep(2000);
@@ -280,7 +281,6 @@ public class invoices extends Data {
 		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);	
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //Click on pay button
         
@@ -403,6 +403,7 @@ public class invoices extends Data {
 		System.out.println("Invoice Amount: " + invoiceAmount);
         
         Thread.sleep(5000);
+        driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
         Thread.sleep(2000);
@@ -430,7 +431,7 @@ public class invoices extends Data {
 		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);	
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //Click on pay button
         
@@ -551,6 +552,7 @@ public class invoices extends Data {
 		System.out.println("Invoice Amount: " + invoiceAmount);
         
         Thread.sleep(5000);
+        driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
         Thread.sleep(2000);
@@ -578,7 +580,7 @@ public class invoices extends Data {
 		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);	
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //Click on pay button
         
@@ -639,8 +641,7 @@ public class invoices extends Data {
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("(//input[contains(@placeholder,'Describe what this invoice is about')])[1]")).sendKeys("This invoice is created for 911 Automation Test");		
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//span[normalize-space()='+ Add Line Items']")).click(); //Click on add item button
-		driver.findElement(By.xpath("//div[contains(@class,'truncate flex justify-start')]")).click(); //Click on select product drop down		
+		driver.findElement(By.xpath("//span[normalize-space()='+ Add Line Items']")).click(); //Click on add item button	
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//div[@id=\"main-page-ui-div\"]//ul[1]")).click(); //Select product
 		
@@ -1040,7 +1041,7 @@ public class invoices extends Data {
 		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); //Click on save button to save line item
 		
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h1[normalize-space()='Payment Terms']")));
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		driver.findElement(By.xpath("//p[text()=' Add Discount']//parent::span//parent::button")).click(); 
 		driver.findElement(By.xpath("//input[@placeholder=\" \"]")).sendKeys(Discounts_Price); //Input discount name
 		driver.findElement(By.xpath("//span[normalize-space()=\"Add\"]")).click(); //Click on save button to save discount

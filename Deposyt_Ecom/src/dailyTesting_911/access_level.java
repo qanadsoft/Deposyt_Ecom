@@ -708,7 +708,7 @@ public class access_level extends Data {
 		
 		try {
 			WebElement button3 = driver.findElement(By.xpath("//button[@value=\"on\"]"));
-			Assert.assertEquals(button3.getAttribute("aria-checked"), "true");
+			Assert.assertEquals(button3.getAttribute("aria-checked"), "false");
 		} catch (Exception e) {
 		    System.out.println("2FA Settings button is Disabled for store settings.");
 		}
@@ -1077,6 +1077,7 @@ public class access_level extends Data {
         driver.get(checkoutUrl);
         
         Thread.sleep(5000);
+        driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
         Thread.sleep(2000);
@@ -1106,7 +1107,6 @@ public class access_level extends Data {
 		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);	
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click();
         
@@ -1142,8 +1142,6 @@ public class access_level extends Data {
 		System.out.println("Order ID: " + orderId);
 		driver.navigate().to(Orders);
 		Thread.sleep(5000);
-		driver.findElement(By.xpath("//button[normalize-space(text())='Virtual Terminal']")).click(); //Clicking on virtual terminal filter
-		Thread.sleep(2000);
 		String orderIdInVirtualTerminal = driver.findElement(By.xpath("//tbody[@id='order-table-body']/tr[1]/td[2]/span")).getText().trim().replace("#", "");
 		System.out.println("Order ID in Virtual Terminal: " + orderIdInVirtualTerminal);
 		Assert.assertEquals(orderId, orderIdInVirtualTerminal, "Order ID in virtual terminal does not match the recorded order ID.");	

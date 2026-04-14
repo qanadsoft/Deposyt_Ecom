@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Suite" class="navigator-link">
-              <span class="suite-name border-passed">Suite</span>
+              <span class="suite-name border-failed">Suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Suite" class="navigator-link ">
-                    <span>Modules.xml</span>
+                    <span>911.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -92,21 +92,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">1 method, 1 failed,   </span>
                   </li>
                   <li>
-                    <span class="method-list-title passed">Passed methods</span>
-                    <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-Suite" class="hide-methods passed suite-Suite"> (hide)</a> <!-- hide-methods passed suite-Suite -->
-                      <a href="#" panel-name="suite-Suite" class="show-methods passed suite-Suite"> (show)</a> <!-- show-methods passed suite-Suite -->
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Suite" class="hide-methods failed suite-Suite"> (hide)</a> <!-- hide-methods failed suite-Suite -->
+                      <a href="#" panel-name="suite-Suite" class="show-methods failed suite-Suite"> (show)</a> <!-- show-methods failed suite-Suite -->
                     </span>
-                    <div class="method-list-content passed suite-Suite">
+                    <div class="method-list-content failed suite-Suite">
                       <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="Modules.Products" class="method navigator-link" hash-for-method="TierPricing">TierPricing</a> <!-- method navigator-link -->
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Suite" title="dailyTesting_911.invoices" class="method navigator-link" hash-for-method="FullPayment_Operations">FullPayment_Operations</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content passed suite-Suite -->
+                    </div> <!-- method-list-content failed suite-Suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -118,45 +118,71 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Suite" class="panel Suite">
-          <div class="suite-Suite-class-passed">
+          <div class="suite-Suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">Modules.Products</span>
+              <img src="failed.png"/>
+              <span class="class-name">dailyTesting_911.invoices</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="TierPricing">
-                  </a> <!-- TierPricing -->
-                  <span class="method-name">TierPricing</span>
+                  <a name="FullPayment_Operations">
+                  </a> <!-- FullPayment_Operations -->
+                  <span class="method-name">FullPayment_Operations</span>
+                  <div class="stack-trace">org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;button class=&quot;btn focus:shadow-none btn-large h-[11px] mt-2 !px-2 ml-3 w-auto hover:bg-[#0000000A] mr-2 rounded-[99px]&quot; type=&quot;button&quot;&gt;...&lt;/button&gt; is not clickable at point (845, 434). Other element would receive the click: &lt;svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;...&lt;/svg&gt;
+  (Session info: chrome=146.0.7680.164)
+Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
+System info: os.name: &apos;Linux&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;5.15.0-139-generic&apos;, java.version: &apos;21.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [777dcf1339471da7ca0165b26021cdaf, clickElement {id=f.1B68F8D368E0F3F98D238894F606C1F3.d.8148988FE0C5B1657A18DA16F7D30494.e.863}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:35901}, goog:processID: 95338, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:35901/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on linux (777dcf1339471da7ca0165b26021cdaf)] -&gt; xpath: //p[text()=&apos; Add Discount&apos;]//parent::span//parent::button]
+Session ID: 777dcf1339471da7ca0165b26021cdaf
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:196)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:171)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:602)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:224)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:77)
+	at dailyTesting_911.invoices.FullPayment_Operations(invoices.java:1045)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 18 stack frames
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Suite-class-passed -->
+          </div> <!-- suite-Suite-class-failed -->
         </div> <!-- panel Suite -->
         <div panel-name="test-xml-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/home/nadsoft/Deposyt_Ecom/Deposyt_Ecom/src/Modules/Modules.xml</span>
+            <span class="header-content">/home/nadsoft/Deposyt_Ecom/Deposyt_Ecom/911.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
-&lt;suite thread-count=&quot;1&quot; parallel=&quot;tests&quot; name=&quot;Suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
+&lt;suite thread-count=&quot;2&quot; parallel=&quot;tests&quot; name=&quot;Suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;parameter name=&quot;role&quot; value=&quot;Admin&quot;/&gt;
   &lt;parameter name=&quot;bname&quot; value=&quot;chrome&quot;/&gt;
   &lt;parameter name=&quot;loginTypeMainAccess&quot; value=&quot;user&quot;/&gt;
-  &lt;test thread-count=&quot;1&quot; parallel=&quot;tests&quot; name=&quot;Products&quot;&gt;
-    &lt;parameter name=&quot;uname&quot; value=&quot;rishikesh.sakharekar@gmail.com&quot;/&gt;
-    &lt;parameter name=&quot;pass&quot; value=&quot;Djismylige@1998&quot;/&gt;
+  &lt;test thread-count=&quot;2&quot; parallel=&quot;tests&quot; name=&quot;911&quot;&gt;
+    &lt;parameter name=&quot;uname&quot; value=&quot;sandeeppawar1010@sharklasers.com&quot;/&gt;
+    &lt;parameter name=&quot;pass&quot; value=&quot;Sushant@0808&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Modules.Products&quot;&gt;
+      &lt;class name=&quot;dailyTesting_911.invoices&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;TierPricing&quot;/&gt;
+          &lt;include name=&quot;FullPayment_Operations&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- Modules.Products --&gt;
+      &lt;/class&gt; &lt;!-- dailyTesting_911.invoices --&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- Products --&gt;
+  &lt;/test&gt; &lt;!-- 911 --&gt;
 &lt;/suite&gt; &lt;!-- Suite --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -168,7 +194,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Products (1 class)</span>
+                <span class="test-name">911 (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -196,9 +222,9 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'TierPricing')
-data.setCell(0, 2, 'Modules.Products')
-data.setCell(0, 3, 57728);
+data.setCell(0, 1, 'FullPayment_Operations')
+data.setCell(0, 2, 'dailyTesting_911.invoices')
+data.setCell(0, 3, 60123);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
@@ -218,27 +244,29 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">8 ignored methods</span>
+            <span class="header-content">9 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">Modules.Products</span>
+              <span class="ignored-class-name">dailyTesting_911.invoices</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">SubscriptionProduct_Weekly</span>
+                <span class="ignored-method-name">SplitPayment_WithoutDualPrice</span>
                 <br/>
-                <span class="ignored-method-name">NonInv_SubscriptionPurchase</span>
+                <span class="ignored-method-name">SplitPayment_WithDualPrice</span>
                 <br/>
-                <span class="ignored-method-name">SubscriptionProduct_Quarterly</span>
+                <span class="ignored-method-name">Full_SplitPayment_Refund</span>
                 <br/>
-                <span class="ignored-method-name">SubscriptionProduct_Monthly</span>
+                <span class="ignored-method-name">Filter_Invoice</span>
                 <br/>
-                <span class="ignored-method-name">Create_NewProduct</span>
+                <span class="ignored-method-name">FullPayment_WithoutDualPrice</span>
                 <br/>
-                <span class="ignored-method-name">Inv_SubscriptionPurchase</span>
+                <span class="ignored-method-name">SplitPayment_Operations</span>
                 <br/>
-                <span class="ignored-method-name">Product_OneTimePurchase</span>
+                <span class="ignored-method-name">FullPayment_WithDualprice</span>
                 <br/>
-                <span class="ignored-method-name">SubscriptionProduct_Yearly</span>
+                <span class="ignored-method-name">Bulk_Operations</span>
+                <br/>
+                <span class="ignored-method-name">Createtemplate</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -250,14 +278,16 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">Modules.Products</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">dailyTesting_911.invoices</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
-                <span class="method-name">invokebrowser(chrome, rishikesh.sakharekar@gmail.com, Djismylige@1998, Admin)</span>
+                <span class="method-name">invokebrowser(chrome, sandeeppawar1010@sharklasers.com, Sushant@0808, Admin)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-class before -->
               <div class="test-method">
-                <span class="method-name">TierPricing</span>
-                <span class="method-start">13000 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">FullPayment_Operations</span>
+                <span class="method-start">12458 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

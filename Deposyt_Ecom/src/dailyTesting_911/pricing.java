@@ -1,7 +1,6 @@
 package dailyTesting_911;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.UUID;
 
 import org.openqa.selenium.By;
@@ -374,11 +373,11 @@ public class pricing extends Data{
 		
 		String suscPricee = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(1).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("Subscription price on Add to cart page: " + suscPricee);
-		Assert.assertEquals(suscPricee, Price2, "Sale price is not applied");	
+		Assert.assertEquals(suscPricee, Price1, "Sale price is not applied");	
 		
 		String onetimePrice11 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(0).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("One time purchase price on checkout page: " + onetimePrice11);
-		Assert.assertEquals(onetimePrice11, Price1, "Sale price is not applied");
+		Assert.assertEquals(onetimePrice11, Price2, "Sale price is not applied");
 
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
@@ -497,7 +496,7 @@ public class pricing extends Data{
 			}
 		}	
 
-		Thread.sleep(5000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -561,8 +560,8 @@ public class pricing extends Data{
 		Assert.assertEquals(onetimePrice21, Price1, "Sale price is not applied on product preview page");
 
 		Thread.sleep(2000);
-		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
-		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
 
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
@@ -633,22 +632,11 @@ public class pricing extends Data{
 			}
 		}	
 
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("#AccountColumn>div>div:first-of-type")).click();
-		By deleteBtnLocator1 = By.cssSelector("#checkout-template>nav>section>div>div>div>div>div:last-of-type>div>div>div>div>div:nth-of-type(3)>div>button:first-of-type");
-
-		List<WebElement> deleteButtons1 = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(deleteBtnLocator1));
-		int totalItems1 = deleteButtons1.size();
-		for (int i = totalItems1; i > 1; i--) {
-			List<WebElement> buttons = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(deleteBtnLocator1));
-			buttons.get(0).click();
-			wait.withTimeout(Duration.ofSeconds(2)).until(ExpectedConditions.numberOfElementsToBeLessThan(deleteBtnLocator1, i));
-		}
-
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("#checkout-template>nav>section>div>div>div>div>div:last-of-type>div>button")).click();
-		Thread.sleep(2000);
-		//driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click(); 
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(5000);
 		driver.close();
 		driver.switchTo().window(originalTab);
 

@@ -365,6 +365,7 @@ public class orders extends Data {
         driver.get(checkoutUrl);
         
         Thread.sleep(5000);
+        driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
         Thread.sleep(2000);
@@ -892,16 +893,6 @@ public class orders extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
-		
-		WebElement unlockCourseButton = driver.findElement(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button//span"));
-		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", unlockCourseButton);
-		Thread.sleep(500);
-		jse.executeScript("arguments[0].click();", unlockCourseButton);
-
-		WebElement unlockservicesButton = driver.findElement(By.xpath("//p[text() = 'Link Product to Services']//following-sibling::button//span"));
-		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", unlockservicesButton);
-		Thread.sleep(500);
-		jse.executeScript("arguments[0].click();", unlockservicesButton);
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);

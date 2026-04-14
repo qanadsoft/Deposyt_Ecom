@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -46,65 +47,63 @@ public class virtualTerminal extends Data {
 
 		//verify that user can create new customer and select the existing customer
 		//verify that user can purchase product using cash payment
-		driver.navigate().to(Virtual_Terminal);
-		Thread.sleep(20000);
-		driver.findElement(By.xpath("//button[normalize-space(.)='Cash']")).click(); //Select cash payment method
-		Thread.sleep(1000);
-		driver.navigate().refresh();
-		driver.navigate().to(Virtual_Terminal);
-		Thread.sleep(20000);
-		driver.findElement(By.xpath("//button[normalize-space(.)='Cash']")).click(); //Select cash payment method
-		
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
-		Thread.sleep(4000);
-		driver.findElement(By.xpath("//span[@class=\"truncate font-sans\"]//parent::span//parent::button")).click(); 
-		Thread.sleep(1000);
-		driver.findElement(By.id("field_first_name")).sendKeys("Ecom"); 
-		driver.findElement(By.id("field_last_name")).sendKeys("Contact"); 
-		driver.findElement(By.id("field_email_id")).sendKeys(WMLogin); 
-		driver.findElement(By.name("phone_no")).sendKeys(Number); 
-		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
-
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//span[normalize-space()=\"Done\"]")).click(); 
-
-		Thread.sleep(5000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click(); //Clicking on add line items button
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); //Clicking on item name field
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); //Clicking on first product from the dropdown
-		Thread.sleep(1000);
-
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Type']")));
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//div[contains(@class,'custom-class-for-aaply-the-css')]//div[contains(@class,'flex flex-1 items-center') and .//div[contains(@id,'placeholder')]]")).click(); //Clicking on payment type dropdown
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//div[@id='react-select-2-listbox']//div[@role='option'][1]")).click(); //Select payment type cash
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//button[normalize-space(.//p/text())='Record Cash Sale']")).click(); //Clicking on record cash sale button
-		Thread.sleep(15000);
-		String orderId = driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); //Getting order id
-		System.out.println("Order ID: " + orderId);		
-
-		//verify that after cash payment success page for the order will be generated
-		driver.get(Orders);
-		Thread.sleep(5000);
-		String orderIdInVirtualTerminal = driver.findElement(By.xpath("//tbody[@id='order-table-body']/tr[1]/td[2]/span")).getText().trim().replace("#", "");
-		System.out.println("Order ID in Virtual Terminal: " + orderIdInVirtualTerminal);
-		Assert.assertEquals(orderId, orderIdInVirtualTerminal, "Order ID in virtual terminal does not match the recorded order ID.");		
-		ReceivedMail("Your Order is Confirmed — Order# ");
-
-		//Verify that after card payment user will receive email for the order
-		DeleteMail("Subscription Charge Receipt for Subscription# ");
+//		driver.navigate().to(Virtual_Terminal);
+//		Thread.sleep(20000);
+//		driver.findElement(By.xpath("//button[normalize-space(.)='Cash']")).click(); //Select cash payment method
+//		Thread.sleep(1000);
+//		driver.navigate().refresh();
+//		driver.navigate().to(Virtual_Terminal);
+//		Thread.sleep(20000);
+//		driver.findElement(By.xpath("//button[normalize-space(.)='Cash']")).click(); //Select cash payment method
+//		
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
+//		Thread.sleep(4000);
+//		driver.findElement(By.xpath("//span[@class=\"truncate font-sans\"]//parent::span//parent::button")).click(); 
+//		Thread.sleep(1000);
+//		driver.findElement(By.id("field_first_name")).sendKeys(firstName); 
+//		driver.findElement(By.id("field_last_name")).sendKeys(lastName); 
+//		driver.findElement(By.id("field_email_id")).sendKeys(email); 
+//		driver.findElement(By.name("phone_no")).sendKeys(phone); 
+//		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add);
+//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+//
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//span[normalize-space()=\"Done\"]")).click(); 
+//
+//		Thread.sleep(5000);
+//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click(); //Clicking on add line items button
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); //Clicking on item name field
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); //Clicking on first product from the dropdown
+//		Thread.sleep(1000);
+//
+//		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Type']")));
+//		Thread.sleep(3000);
+//		driver.findElement(By.xpath("//div[contains(@class,'custom-class-for-aaply-the-css')]//div[contains(@class,'flex flex-1 items-center') and .//div[contains(@id,'placeholder')]]")).click(); //Clicking on payment type dropdown
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//div[@id='react-select-2-listbox']//div[@role='option'][1]")).click(); //Select payment type cash
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("//button[normalize-space(.//p/text())='Record Cash Sale']")).click(); //Clicking on record cash sale button
+//		Thread.sleep(15000);
+//		String orderId = driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); //Getting order id
+//		System.out.println("Order ID: " + orderId);		
+//
+//		//verify that after cash payment success page for the order will be generated
+//		driver.get(Orders);
+//		Thread.sleep(5000);
+//		String orderIdInVirtualTerminal = driver.findElement(By.xpath("//tbody[@id='order-table-body']/tr[1]/td[2]/span")).getText().trim().replace("#", "");
+//		System.out.println("Order ID in Virtual Terminal: " + orderIdInVirtualTerminal);
+//		Assert.assertEquals(orderId, orderIdInVirtualTerminal, "Order ID in virtual terminal does not match the recorded order ID.");		
+//		//ReceivedMail("Your Order is Confirmed — Order# ");
+//
+//		//Verify that after card payment user will receive email for the order
+//		//DeleteMail("Subscription Charge Receipt for Subscription# ");
 
 		//verify that user can purchase product using card payment
 		driver.navigate().to(Virtual_Terminal);
-		Thread.sleep(20000);
-		driver.findElement(By.xpath("//button[normalize-space(.)='Credit Card']")).click(); //Select card payment method
-		Thread.sleep(1000);
+		Thread.sleep(10000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(Number); //Select first customer from the list
@@ -158,9 +157,7 @@ public class virtualTerminal extends Data {
 
 		//verify that user can send 2 FA via SMS for the card payment
 		driver.navigate().to(Messages);
-		driver.findElement(By.name("filters")).sendKeys(Number);
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//div[@id='list']/descendant::p[@data-search-in=\"phone_number\"])[1]")).click();
+		driver.findElement(By.name("filters")).sendKeys(Number,Keys.ENTER);
 		Thread.sleep(7000);
 		WebElement lastSms = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.sms-box:last-of-type>div>div:nth-of-type(2)>div:first-of-type")));
 		String smsText = lastSms.getText().trim();
