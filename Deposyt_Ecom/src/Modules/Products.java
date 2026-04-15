@@ -3359,10 +3359,16 @@ public class Products extends Data {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		
-		String Product_Name = "Tier Product " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Tier1 = "First Tier Installment";
+		String Product_Name = "Tier Product " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Tier1 = "First Tier Installment",
+		DiscriptionTier1 = 	"Description for first tier installment", TitleTier1 = "First Tier Installment", Tier1Feature1 = "Tier one Feature First";
+		
+		//Verify clicking “Cancel” closes the product creation modal.
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div>button")).click();	
 		
 		//Verify user can create a new product with valid tiered pricing details.
-		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
@@ -3532,6 +3538,129 @@ public class Products extends Data {
 		WebElement freeoption = driver.findElement(By.xpath("//p[text()='Free']"));
 		Assert.assertEquals(freeoption.getText().trim(), "Free", "Free option text is not correct");
 		System.out.println("Free option is displayed just below the tier name successfully.\n");
+		
+		//Check that user can see price option just below the tier name 
+		driver.findElement(By.cssSelector("#tier-item-1>div>div>div>button")).click();//click on price
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
+		Thread.sleep(2000);
+		
+		WebElement taxRate = driver.findElement(By.xpath("(//input[@name='productDetails.variants.0.prices[0].amount'])[1]"));
+		Thread.sleep(3000);
+		taxRate.click();
+		taxRate.sendKeys(Keys.CONTROL, "a");
+		taxRate.sendKeys(Keys.DELETE);
+		taxRate.sendKeys("-3");
+		Thread.sleep(1000);
+		
+		//Verify negative values are not allowed in pricing fields.
+		WebElement warningMessagees = driver.findElement(By.xpath("//p[text()='Price must be greater than 0']"));
+		String actualMessagese = warningMessagees.getText().trim();
+		String expectedMessagese = "Price must be greater than 0";
+		Assert.assertEquals(actualMessagese, expectedMessagese, "Warning message Price must be greater than 0 not Displays");
+			
+		driver.findElement(By.cssSelector("#tier-item-1>div>div>div>button")).click();//click on price
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
+		WebElement taxRate1 = driver.findElement(By.xpath("(//input[@name='productDetails.variants.0.prices[0].amount'])[1]"));
+		Thread.sleep(3000);
+		taxRate1.click();
+		taxRate1.sendKeys(Keys.CONTROL, "a");
+		taxRate1.sendKeys(Keys.DELETE);
+		taxRate1.sendKeys("3");
+		Thread.sleep(1000);	
+		driver.findElement(By.cssSelector("div.wrapdescription")).click();
+		
+		WebElement confirmSaveBtnn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtnn);
+		
+		//Verify that if user not enter anything in description then it should show warning msg 
+		WebElement warningMessagee = driver.findElement(By.xpath("//div[text()='Product Description is required']"));
+		String actualMessagee = warningMessagee.getText().trim();
+		String expectedMessagee = "Product Description is required";
+		Assert.assertEquals(actualMessagee, expectedMessagee, "Warning message Product Description is required not Displays");
+		
+		//Check that there is option for description and bullet points 
+		driver.findElement(By.xpath("(//textarea[contains(@name,'productDetails.variants.0.product_tier_description')])[1]")).sendKeys(DiscriptionTier1);
+		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
+		driver.findElement(By.xpath("//input[contains(@placeholder,\"Add Title\")]")).sendKeys(TitleTier1);
+		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(0).click();
+		driver.findElement(By.xpath("//input[contains(@placeholder,\"Enter Feature\")]")).sendKeys(Tier1Feature1);
+		
+		//Check that user can delet the feature as well 
+		/*WebElement uploadImage1 = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage1);	
+		Thread.sleep(3000);
+		String[] files11 = {Media_Path + File8};
+		String allFiles11 = String.join("\n", files11);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();*/
+		
+		//Verify product is created successfully on clicking “Create Product” with valid data.
+		WebElement confirmSaveButn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveButn);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+		
+		//Verify user cannot create duplicate tier names if restricted.
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+
+		WebElement uploadImage1 = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage1);
+		
+		Thread.sleep(3000);
+		String[] files11 = {Media_Path + Fileone};
+
+		String allFiles11 = String.join("\n", files11);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
+		Thread.sleep(1000);
+		WebElement confirmSaveBtn11 = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn11);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+		
+		Thread.sleep(2000);
+		WebElement warningMessagee1 = driver.findElement(By.xpath("(//span[text()='Error'])[1]"));
+		String actualMessagee1 = warningMessagee1.getText().trim();
+		String expectedMessagee1 = "Error";
+		Assert.assertEquals(actualMessagee1, expectedMessagee1, "Warning message Tier already exists in this store not Displays");
+			
+		//Verify correct product type (tiered) is shown in product list.
+		driver.navigate().to(Products);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		Thread.sleep(4000);
+
+		//Verify user can edit an existing tier name successfully.
+		WebElement prodname =driver.findElement(By.name("productDetails.productName"));
+		Thread.sleep(3000);
+		prodname.click();
+		prodname.sendKeys(Keys.CONTROL, "a");
+		prodname.sendKeys(Keys.DELETE);
+		prodname.sendKeys(Product_Name + " Updated");
+		
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);
+		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
+		Thread.sleep(4000);
+		String ProdName = driver.findElement(By.name("productDetails.productName")).getText();
+		Assert.assertEquals(ProdName, Product_Name + " Updated", "Product name is not updated successfully");
+		System.out.println("Product name is updated successfully.\n");
+		
+		
+		
+		
 		
 		
 		
