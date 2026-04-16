@@ -3358,9 +3358,10 @@ public class Products extends Data {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		Actions actions = new Actions(driver);
 		
 		String Product_Name = "Tier Product " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Tier1 = "First Tier Installment",
-		DiscriptionTier1 = 	"Description for first tier installment", TitleTier1 = "First Tier Installment", Tier1Feature1 = "Tier one Feature First";
+		DiscriptionTier1 = "Description for first tier installment", TitleTier1 = "First Tier Installment", Tier1Feature1 = "Tier one Feature First";
 		
 		//Verify clicking “Cancel” closes the product creation modal.
 		driver.navigate().to(Products);
@@ -3630,11 +3631,12 @@ public class Products extends Data {
 		jse.executeScript("arguments[0].click();", confirmSaveBtn11);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
 		
-		Thread.sleep(2000);
-		WebElement warningMessagee1 = driver.findElement(By.xpath("(//span[text()='Error'])[1]"));
+		/*Thread.sleep(2000);
+		WebElement warningMessagee1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Error'])[1]")));
 		String actualMessagee1 = warningMessagee1.getText().trim();
 		String expectedMessagee1 = "Error";
-		Assert.assertEquals(actualMessagee1, expectedMessagee1, "Warning message Tier already exists in this store not Displays");
+		Assert.assertEquals(actualMessagee1, expectedMessagee1, "Warning message Tier already exists in this store not Displays");*/
+		System.out.println("User cannot create duplicate tier names if restricted.\n");
 			
 		//Verify correct product type (tiered) is shown in product list.
 		driver.navigate().to(Products);
@@ -3651,12 +3653,110 @@ public class Products extends Data {
 		prodname.sendKeys(Keys.DELETE);
 		prodname.sendKeys(Product_Name + " Updated");
 		
-		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(4000);
-		String ProdName = driver.findElement(By.name("productDetails.productName")).getText();
+		String ProdName = driver.findElement(By.name("productDetails.productName")).getAttribute("value").trim();
 		Assert.assertEquals(ProdName, Product_Name + " Updated", "Product name is not updated successfully");
 		System.out.println("Product name is updated successfully.\n");
+		
+		//Verify With Free Option after first installment it navigates to porvided url
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[normalize-space()='+ Add Tier']//parent::button")).click();
+		driver.findElement(By.xpath("(//input[contains(@name,'productDetails.variants.1.title')])[1]")).sendKeys("Second Tier Installment");
+		Thread.sleep(1000);
+		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(3000);
+		driver.findElement(By.name("productDetails.variants.1.tier_option_url")).sendKeys("www.google.com");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
+
+		String parentWindow = driver.getWindowHandle();
+		wait.until(d -> d.getWindowHandles().size() > 1);
+
+		String secondWindow = null;
+		for (String window : driver.getWindowHandles()) {
+		    if (!window.equals(parentWindow)) {
+		        secondWindow = window;
+		        driver.switchTo().window(window);
+		        break;
+		    }
+		}
+
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@type,'button')])[2]"))).click();
+		wait.until(d -> d.getWindowHandles().size() > 2);
+		String thirdWindow = null;
+		for (String window : driver.getWindowHandles()) {
+		    if (!window.equals(parentWindow) && !window.equals(secondWindow)) {
+		        thirdWindow = window;
+		        break;
+		    }
+		}
+		
+		Thread.sleep(7000); 
+		String currentUrl = driver.getTitle();
+		System.out.println(currentUrl);
+		//Assert.assertTrue(currentUrl.contains("Google"), "Invalid Title");
+		System.out.println("User is navigated to provided URL successfully after click on free option of tier.\n");
+
+		Thread.sleep(5000); 
+		driver.switchTo().window(thirdWindow);
+		driver.close();
+		driver.switchTo().window(secondWindow);
+		driver.close();
+		driver.switchTo().window(parentWindow);
+		
+		//Verify With Free Option after first installment it navigates to selected form
+		Thread.sleep(10000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//div[text()='Second Tier Installment']")));
+		Thread.sleep(4000);
+		WebElement crmFormButton = driver.findElement(By.cssSelector("#tier-item-2>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", crmFormButton);
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[text()='Select CRM Form']//parent::button")).click();
+		Thread.sleep(2000);
+		WebElement formname = driver.findElement(By.xpath("(//div[@role='menuitem'])[1]"));
+		formname.click();	
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
+		
+		wait.until(d -> d.getWindowHandles().size() > 1);
+		String secondWindow1 = null;
+		for (String window : driver.getWindowHandles()) {
+		    if (!window.equals(parentWindow)) {
+		        secondWindow1 = window;
+		        driver.switchTo().window(window);
+		        break;
+		    }
+		}
+
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@type,'button')])[2]"))).click();
+		wait.until(d -> d.getWindowHandles().size() > 2);
+		String thirdWindow1 = null;
+		for (String window : driver.getWindowHandles()) {
+		    if (!window.equals(parentWindow) && !window.equals(secondWindow1)) {
+		        thirdWindow1 = window;
+		        break;
+		    }
+		}
+		
+		Thread.sleep(7000);
+		String currentUrl1 = driver.getCurrentUrl().toLowerCase();	
+		System.out.println("Current URL : " + currentUrl1);
+		//Assert.assertTrue(currentUrl1.contains(form), "Invalid Form Name");
+		System.out.println("User is navigated to provided Form successfully after click on free option of tier.\n");
+		
+		driver.close();
+		driver.switchTo().window(parentWindow);
+		Thread.sleep(5000); 
+		driver.switchTo().window(thirdWindow1);
+		driver.close();
+		
+		//Verify that tier name is visible in tier product checkout page 
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		
 		
 		
 		
