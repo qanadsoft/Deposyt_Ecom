@@ -7,13 +7,19 @@
     <parameter name = "loginTypeMainAccess"     value = "user"/>
 
     <test name="911">
-       <parameter name = "uname" value = "sandeeppawar1010@sharklasers.com"/>
-	   <parameter name = "pass"  value = "Sushant@0808"/>
-
+     <!-- <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com"/>
+	 	  <parameter name = "pass"  value = "Djismylige@1998"/>!-->
+	 	  
+	 <!-- <parameter name = "uname" value = "vishwa.ink757@gmail.com"/>
+	 	  <parameter name = "pass"  value = "Rohan@030698"/>!-->
+	 	  
+	 	  <parameter name = "uname" value = "atul15oct@pokemail.net"/>
+	 	  <parameter name = "pass"  value = "Atulgite@2208"/>
+	 	  
         <classes>
-            <class name="dailyTesting_911.invoices">
+            <class name="dailyTesting_911.orders">
                 <methods>
-                    <include name="FullPayment_Operations"/>
+                    <include name="Product_Actions"/>
                 </methods>
             </class>
         </classes>

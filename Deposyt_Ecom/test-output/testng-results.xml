@@ -2,12 +2,12 @@
 <testng-results ignored="8" total="9" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-16T20:48:29 IST" name="Suite" finished-at="2026-04-16T20:52:12 IST" duration-ms="222546">
+  <suite started-at="2026-04-21T20:27:28 IST" name="Suite" finished-at="2026-04-21T20:31:37 IST" duration-ms="248980">
     <groups>
     </groups>
-    <test started-at="2026-04-16T20:48:29 IST" name="Products" finished-at="2026-04-16T20:52:12 IST" duration-ms="222546">
+    <test started-at="2026-04-21T20:27:28 IST" name="Products" finished-at="2026-04-21T20:31:37 IST" duration-ms="248980">
       <class name="Modules.Products">
-        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:Modules.Products@60297f36]" started-at="2026-04-16T20:48:29 IST" name="invokebrowser" finished-at="2026-04-16T20:48:41 IST" duration-ms="12207" status="PASS">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:Modules.Products@60297f36]" started-at="2026-04-21T20:27:28 IST" name="invokebrowser" finished-at="2026-04-21T20:27:44 IST" duration-ms="16467" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -33,7 +33,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- invokebrowser -->
-        <test-method signature="TierPricing()[pri:8, instance:Modules.Products@60297f36]" started-at="2026-04-16T20:48:41 IST" name="TierPricing" finished-at="2026-04-16T20:52:12 IST" duration-ms="210247" status="PASS">
+        <test-method signature="TierPricing()[pri:8, instance:Modules.Products@60297f36]" started-at="2026-04-21T20:27:44 IST" name="TierPricing" finished-at="2026-04-21T20:31:37 IST" duration-ms="232425" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TierPricing -->

@@ -38,7 +38,7 @@ public class gift_cards extends Data {
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		Actions actions = new Actions(driver);
 		
-		String GiftCard = "10";
+		String GiftCard = "100";
 		String giftCardName = "GiftCard " + UUID.randomUUID().toString().substring(0, 6).toUpperCase(),
 		Product_Name1 = "Tier Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 		DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
@@ -90,7 +90,7 @@ public class gift_cards extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
-		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("100");
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("10");
 		Thread.sleep(1000);
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
