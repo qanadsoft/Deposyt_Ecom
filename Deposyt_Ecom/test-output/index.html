@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Suite" class="navigator-link ">
-                    <span>Modules.xml</span>
+                    <span>911.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -103,7 +103,7 @@
                     <div class="method-list-content passed suite-Suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="Modules.Products" class="method navigator-link" hash-for-method="TierPricing">TierPricing</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Suite" title="dailyTesting_911.products" class="method navigator-link" hash-for-method="Inventory_TierProducts">Inventory_TierProducts</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Suite -->
@@ -121,14 +121,14 @@
           <div class="suite-Suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">Modules.Products</span>
+              <span class="class-name">dailyTesting_911.products</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="TierPricing">
-                  </a> <!-- TierPricing -->
-                  <span class="method-name">TierPricing</span>
+                  <a name="Inventory_TierProducts">
+                  </a> <!-- Inventory_TierProducts -->
+                  <span class="method-name">Inventory_TierProducts</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -136,27 +136,27 @@
         </div> <!-- panel Suite -->
         <div panel-name="test-xml-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/home/nadsoft/Deposyt_Ecom/Deposyt_Ecom/src/Modules/Modules.xml</span>
+            <span class="header-content">/home/nadsoft/Deposyt_Ecom/Deposyt_Ecom/911.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
-&lt;suite thread-count=&quot;1&quot; parallel=&quot;tests&quot; name=&quot;Suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
+&lt;suite thread-count=&quot;2&quot; parallel=&quot;tests&quot; name=&quot;Suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;parameter name=&quot;role&quot; value=&quot;Admin&quot;/&gt;
   &lt;parameter name=&quot;bname&quot; value=&quot;chrome&quot;/&gt;
   &lt;parameter name=&quot;loginTypeMainAccess&quot; value=&quot;user&quot;/&gt;
-  &lt;test thread-count=&quot;1&quot; parallel=&quot;tests&quot; name=&quot;Products&quot;&gt;
-    &lt;parameter name=&quot;uname&quot; value=&quot;rishikesh.sakharekar@gmail.com&quot;/&gt;
-    &lt;parameter name=&quot;pass&quot; value=&quot;Djismylige@1998&quot;/&gt;
+  &lt;test thread-count=&quot;2&quot; parallel=&quot;tests&quot; name=&quot;911&quot;&gt;
+    &lt;parameter name=&quot;uname&quot; value=&quot;prashantkashid1511@gmail.com&quot;/&gt;
+    &lt;parameter name=&quot;pass&quot; value=&quot;Prashant@1234&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Modules.Products&quot;&gt;
+      &lt;class name=&quot;dailyTesting_911.products&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;TierPricing&quot;/&gt;
+          &lt;include name=&quot;Inventory_TierProducts&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- Modules.Products --&gt;
+      &lt;/class&gt; &lt;!-- dailyTesting_911.products --&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- Products --&gt;
+  &lt;/test&gt; &lt;!-- 911 --&gt;
 &lt;/suite&gt; &lt;!-- Suite --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -168,7 +168,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Products (1 class)</span>
+                <span class="test-name">911 (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -196,14 +196,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'TierPricing')
-data.setCell(0, 2, 'Modules.Products')
-data.setCell(0, 3, 232425);
+data.setCell(0, 1, 'Inventory_TierProducts')
+data.setCell(0, 2, 'dailyTesting_911.products')
+data.setCell(0, 3, 143006);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 4 minutes</span>
+              <span class="suite-total-time">Total running time: 2 minutes</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -218,27 +218,15 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">8 ignored methods</span>
+            <span class="header-content">2 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">Modules.Products</span>
+              <span class="ignored-class-name">dailyTesting_911.products</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">SubscriptionProduct_Monthly</span>
+                <span class="ignored-method-name">NonInventory_OneTimeProducts</span>
                 <br/>
-                <span class="ignored-method-name">NonInv_SubscriptionPurchase</span>
-                <br/>
-                <span class="ignored-method-name">SubscriptionProduct_Quarterly</span>
-                <br/>
-                <span class="ignored-method-name">SubscriptionProduct_Yearly</span>
-                <br/>
-                <span class="ignored-method-name">Inv_SubscriptionPurchase</span>
-                <br/>
-                <span class="ignored-method-name">Create_NewProduct</span>
-                <br/>
-                <span class="ignored-method-name">Product_OneTimePurchase</span>
-                <br/>
-                <span class="ignored-method-name">SubscriptionProduct_Weekly</span>
+                <span class="ignored-method-name">Inventory_SuscriptionProducts</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -250,14 +238,14 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">Modules.Products</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">dailyTesting_911.products</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
-                <span class="method-name">invokebrowser(chrome, rishikesh.sakharekar@gmail.com, Djismylige@1998, Admin)</span>
+                <span class="method-name">invokebrowser(chrome, prashantkashid1511@gmail.com, Prashant@1234, Admin)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-class before -->
               <div class="test-method">
-                <span class="method-name">TierPricing</span>
-                <span class="method-start">16505 ms</span>
+                <span class="method-name">Inventory_TierProducts</span>
+                <span class="method-start">11974 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

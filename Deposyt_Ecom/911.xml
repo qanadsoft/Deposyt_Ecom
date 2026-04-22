@@ -13,13 +13,19 @@
 	 <!-- <parameter name = "uname" value = "vishwa.ink757@gmail.com"/>
 	 	  <parameter name = "pass"  value = "Rohan@030698"/>!-->
 	 	  
-	 	  <parameter name = "uname" value = "atul15oct@pokemail.net"/>
-	 	  <parameter name = "pass"  value = "Atulgite@2208"/>
+	 <!-- <parameter name = "uname" value = "atul15oct@pokemail.net"/>
+	 	  <parameter name = "pass"  value = "Atulgite@2208"/>!-->
+	 	  
+	 <!-- <parameter name = "uname" value = "atul15oct@pokemail.net"/>
+	 	  <parameter name = "pass"  value = "Atulgite@2208"/>!-->
+	 	  
+	  <parameter name = "uname" value = "prashantkashid1511@gmail.com"/>
+	  <parameter name = "pass"  value = "Prashant@1234"/>	  
 	 	  
         <classes>
-            <class name="dailyTesting_911.orders">
+            <class name="dailyTesting_911.products">
                 <methods>
-                    <include name="Product_Actions"/>
+                    <include name="Inventory_TierProducts"/>
                 </methods>
             </class>
         </classes>

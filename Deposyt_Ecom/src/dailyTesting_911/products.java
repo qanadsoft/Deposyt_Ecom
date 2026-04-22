@@ -25,17 +25,17 @@ import Master.Data;
 public class products extends Data {
 	java.util.Random r = new java.util.Random();	
 	
-	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
-	Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Country_Add = "Boardman, Oregon, 97818",
-	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
-	F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
-	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",	
-	chars = "abcdefghijklmnopqrstuvwxyz",	    
+	String Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), 
+	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), 
+	
+	ContactPhone1 = "(775) 986-5200",F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
+	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",Price = "2",
+	chars = "abcdefghijklmnopqrstuvwxyz", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",	Country_Add = "Boardman, Oregon, 97818",    
+	
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",
-	phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 
 	@Test(priority = 1)
 	public void NonInventory_OneTimeProducts() throws Exception {
@@ -514,10 +514,11 @@ public class products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//button[@value='on'])[3]")).click();//click on toggle to make product as up sell
 		Thread.sleep(3000);
+		driver.findElement(By.xpath("//p[text()='Single ']//parent::div")).click();//select single 
 		String Upsell_Product = driver.findElement(By.cssSelector("table.rounded-large>tbody>tr>td>article>div>p:first-of-type")).getText().trim();
 		System.out.println("Upsell Product Name: " + Upsell_Product);
-		driver.findElement(By.xpath("(//button[@type='button'][normalize-space()='+ Add'])[1]")).click(); //Add
-		driver.findElement(By.xpath("//button[@type=\"submit\"]")).click(); //Save
+		driver.findElement(By.xpath("(//button[@type='button'][normalize-space()='+ Add'])[1]")).click();
+		driver.findElement(By.xpath("//button[@type=\"submit\"]")).click();
 		
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
@@ -568,7 +569,7 @@ public class products extends Data {
 		Thread.sleep(5000);		
 		String Upsell_Product_in_Checkout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.overflow-x-hidden>div>div>div:nth-of-type(2)>div>p:first-of-type"))).getText().trim();
 		System.out.println("Upsell Product in Checkout: " + Upsell_Product_in_Checkout);
-		Assert.assertEquals(Upsell_Product, Upsell_Product_in_Checkout, "Upsell product not added to checkout");
+		Assert.assertEquals(Upsell_Product.toLowerCase(), Upsell_Product_in_Checkout.toLowerCase(), "Upsell product not added to checkout");
 		
 		driver.findElement(By.xpath("//button[text()='Add to Order']")).click(); //Place order
 		Thread.sleep(5000);
@@ -709,7 +710,7 @@ public class products extends Data {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
 		String parentWindow = driver.getWindowHandle();

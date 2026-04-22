@@ -20,17 +20,17 @@ import Master.Data;
 public class customer_hub extends Data {
 	java.util.Random r = new java.util.Random();
 
-	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
-			Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-			SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Country_Add = "Boardman, Oregon, 97818",
-			Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
-			F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
-			Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
-			chars = "abcdefghijklmnopqrstuvwxyz",
-			firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-			lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",
-			phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+	String Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(),
+	
+	ContactPhone1 = "(775) 986-5200",F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
+	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
+	chars = "abcdefghijklmnopqrstuvwxyz",Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",Country_Add = "Boardman, Oregon, 97818",
+			
+	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 	
 	@Test(priority = 1)
 	public void Customer_Hub() throws InterruptedException {
@@ -42,6 +42,7 @@ public class customer_hub extends Data {
 		String Password = java.util.UUID.randomUUID().toString().replaceAll("-", "").substring(0,10) + "A1@",
 		Product_Name1 = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 		Product_Name2 = "Tier Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+		
 		DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
 		TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one";
 		
@@ -57,8 +58,7 @@ public class customer_hub extends Data {
 			feeOption.click();
 			Thread.sleep(2000);	
 			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();	
-		}
-		catch(Exception e) {
+		} catch(Exception e) {
 			System.out.println("ACH_Payment is already enabled for the store");
 		}
 		
@@ -82,7 +82,7 @@ public class customer_hub extends Data {
 			driver.findElement(By.name("password")).sendKeys(Password);
 			driver.findElement(By.xpath("//button[normalize-space()=\"Join\"]")).click();	
 			System.out.println("Customer is already login in customer hub");
-		}catch(Exception e) {
+		} catch(Exception e) {
 			driver.navigate().to(Customer_Hub);
 			Thread.sleep(5000);
 			driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
@@ -376,7 +376,7 @@ public class customer_hub extends Data {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name2);
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
 		String parentWindow = driver.getWindowHandle();
@@ -474,7 +474,6 @@ public class customer_hub extends Data {
 		String preouct2s = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@class,'grid') and contains(@class,'grid-cols-1')]/div[2]/div/div[2]/div/div/article/div/div/div[2]/span[1])[2]"))).getText().trim();
 		List<WebElement> products1 = driver.findElements(By.xpath("(//div[contains(@class,'grid') and contains(@class,'grid-cols-1')]/div[2]/div/div[2]/div/div/article/div/div/div[2]/span[1])"));
 		boolean product2Found = false;
-
 		for (WebElement product : products1) {
 		    String productName = product.getText().trim();
 		    if (productName.equalsIgnoreCase(preouct2s)) {
@@ -488,7 +487,6 @@ public class customer_hub extends Data {
 		String preouct3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@class,'grid') and contains(@class,'grid-cols-1')]/div[2]/div/div[2]/div/div/article/div/div/div[2]/span[1])[3]"))).getText().trim();
 		List<WebElement> products11 = driver.findElements(By.xpath("(//div[contains(@class,'grid') and contains(@class,'grid-cols-1')]/div[2]/div/div[2]/div/div/article/div/div/div[2]/span[1])"));
 		boolean product2Found1 = false;
-
 		for (WebElement product : products11) {
 		    String productName = product.getText().trim();
 		    if (productName.equalsIgnoreCase(preouct3)) {
@@ -659,7 +657,7 @@ public class customer_hub extends Data {
 			driver.findElement(By.name("password")).sendKeys(Password);
 			driver.findElement(By.xpath("//button[normalize-space()=\"Join\"]")).click();	
 			System.out.println("Customer is already login in customer hub");
-		}catch(Exception e) {
+		} catch(Exception e) {
 			driver.navigate().to(Customer_Hub);
 			driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
 			Thread.sleep(1000);

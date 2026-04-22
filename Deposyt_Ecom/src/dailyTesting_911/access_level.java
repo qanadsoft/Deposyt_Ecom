@@ -27,14 +27,16 @@ public class access_level extends Data {
 	
 	String it, username, adminID, userLoginNavigation, userID, secoundUserID, personalAccessPage,
 	Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Country_Add = "Boardman, Oregon, 97818",
-	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
-	Fileone = "file1.jpg", chars = "abcdefghijklmnopqrstuvwxyz", Value = "1", ContactPhone2 = "(539) 321-3502",GiftCard = "0.20",
+	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(),
+	
+	ContactPhone1 = "(775) 986-5200",Fileone = "file1.jpg", chars = "abcdefghijklmnopqrstuvwxyz", Value = "1", ContactPhone2 = "(539) 321-3502",GiftCard = "0.20",
+	Card_No = "4242424242424242",F_Name = "NineEleven", L_Name = "Contact", Street_Add = "Allen Court", country = "United States",Discounts_Price = "1",Country_Add = "Boardman, Oregon, 97818",
+	
+	giftCardName = "GiftCard" + UUID.randomUUID().toString().substring(0, 6).toUpperCase(),
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000)), EXP = "12/44", CVV = "123", 
-	Card_No = "4242424242424242",F_Name = "NineEleven", L_Name = "Contact", Street_Add = "Allen Court", country = "United States",Discounts_Price = "1",		
-	giftCardName = "GiftCard" + UUID.randomUUID().toString().substring(0, 6).toUpperCase();					
+	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000)), EXP = "12/44", CVV = "123";				
 					
 	@BeforeMethod
 	@Parameters("loginTypeMainAccess")

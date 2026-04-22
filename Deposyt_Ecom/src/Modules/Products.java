@@ -3826,7 +3826,28 @@ public class Products extends Data {
 		System.out.println("Price tier is visible on edit option of preview section of product details page successfully.\n");
 	}
 
-
+	@Test(priority = 9)
+	public void TierUpsell() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		Actions actions = new Actions(driver);
+		
+		//Verify that if user select 0% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 
 
 

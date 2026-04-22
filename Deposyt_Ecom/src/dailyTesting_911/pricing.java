@@ -17,30 +17,29 @@ import Master.Data;
 public class pricing extends Data{
 	java.util.Random r = new java.util.Random();
 
-	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
+	String Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+			SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+			Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(),
 
-			Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-			SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Country_Add = "Boardman, Oregon, 97818",
-			Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), ContactPhone1 = "(775) 986-5200",
-			F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
+			ContactPhone1 = "(775) 986-5200",F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
 			Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
-			chars = "abcdefghijklmnopqrstuvwxyz",	    
+			chars = "abcdefghijklmnopqrstuvwxyz",Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",Country_Add = "Boardman, Oregon, 97818",
+
 			firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 			lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",
-			phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 
 	@Test(priority = 1)
 	public void Pricing () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
-		
+
 		String firstName1 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-		lastName1 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-		email1 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone1 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+			lastName1 ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+			email1 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone1 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 		String Product_Name1 = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-		Product_Name2 = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Price1 = "5", Price2 = "25";
+			Product_Name2 = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Price1 = "5", Price2 = "25";
 
 		try {
 			driver.navigate().to(Products);
@@ -56,7 +55,7 @@ public class pricing extends Data{
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		} catch (Exception e) {
 		}
-		
+
 		try {
 			driver.navigate().to(dual_Pricing);
 			Thread.sleep(5000);
@@ -156,7 +155,6 @@ public class pricing extends Data{
 
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>div:first-of-type")).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:first-of-type>div:first-of-type")).click();
-
 		driver.findElement(By.xpath("//span[normalize-space()=\"Save\"]")).click();
 
 		driver.findElements(By.cssSelector("div[data-orientation=\"vertical\"] > div:nth-of-type(4) button")).get(0).click(); 
@@ -335,7 +333,7 @@ public class pricing extends Data{
 		System.out.println("Placed Order ID: " + PlacedOrderID111);
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);	
 		Thread.sleep(4000);
@@ -385,11 +383,11 @@ public class pricing extends Data{
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
 		Thread.sleep(5000);
-		
+
 		String suscPricee = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(1).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("Subscription price on Add to cart page: " + suscPricee);
 		//Assert.assertEquals(suscPricee, Price1, "Sale price is not applied");	
-		
+
 		String onetimePrice11 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(0).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("One time purchase price on checkout page: " + onetimePrice11);
 		//Assert.assertEquals(onetimePrice11, Price2, "Sale price is not applied");
@@ -679,11 +677,11 @@ public class pricing extends Data{
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
 		Thread.sleep(5000);
-		
+
 		String suscPricee1 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(1).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("Subscription price on Add to cart page: " + suscPricee1);
 		Assert.assertEquals(suscPricee1, Price2, "Sale price is not applied");	
-		
+
 		String onetimePrice111 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(0).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("One time purchase price on checkout page: " + onetimePrice111);
 		Assert.assertEquals(onetimePrice111, Price1, "Sale price is not applied");
