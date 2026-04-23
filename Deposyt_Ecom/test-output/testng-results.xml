@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="2" total="3" passed="1" failed="0" skipped="0">
+<testng-results ignored="9" total="10" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-22T13:47:44 IST" name="Suite" finished-at="2026-04-22T13:50:19 IST" duration-ms="155045">
+  <suite started-at="2026-04-23T17:08:25 IST" name="Suite" finished-at="2026-04-23T17:11:10 IST" duration-ms="165799">
     <groups>
     </groups>
-    <test started-at="2026-04-22T13:47:44 IST" name="911" finished-at="2026-04-22T13:50:19 IST" duration-ms="155045">
-      <class name="dailyTesting_911.products">
-        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:dailyTesting_911.products@47747fb9]" started-at="2026-04-22T13:47:44 IST" name="invokebrowser" finished-at="2026-04-22T13:47:56 IST" duration-ms="11963" status="PASS">
+    <test started-at="2026-04-23T17:08:25 IST" name="Products" finished-at="2026-04-23T17:11:10 IST" duration-ms="165799">
+      <class name="Modules.Products">
+        <test-method is-config="true" signature="invokebrowser(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:Modules.Products@df4b72]" started-at="2026-04-23T17:08:25 IST" name="invokebrowser" finished-at="2026-04-23T17:08:37 IST" duration-ms="11802" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -16,12 +16,12 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[prashantkashid1511@gmail.com]]>
+                <![CDATA[rishikesh.sakharekar@gmail.com]]>
               </value>
             </param>
             <param index="2">
               <value>
-                <![CDATA[Prashant@1234]]>
+                <![CDATA[Djismylige@1998]]>
               </value>
             </param>
             <param index="3">
@@ -33,11 +33,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- invokebrowser -->
-        <test-method signature="Inventory_TierProducts()[pri:3, instance:dailyTesting_911.products@47747fb9]" started-at="2026-04-22T13:47:56 IST" name="Inventory_TierProducts" finished-at="2026-04-22T13:50:19 IST" duration-ms="143006" status="PASS">
+        <test-method signature="TierUpsell()[pri:9, instance:Modules.Products@df4b72]" started-at="2026-04-23T17:08:37 IST" name="TierUpsell" finished-at="2026-04-23T17:11:10 IST" duration-ms="153926" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Inventory_TierProducts -->
-      </class> <!-- dailyTesting_911.products -->
-    </test> <!-- 911 -->
+        </test-method> <!-- TierUpsell -->
+      </class> <!-- Modules.Products -->
+    </test> <!-- Products -->
   </suite> <!-- Suite -->
 </testng-results>

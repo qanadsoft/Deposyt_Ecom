@@ -74,7 +74,7 @@ public class Products extends Data {
 		if (currentUrl.contains("orders")) {
 			System.out.println("User Navigates to Orders Page after clicking on All orders button");
 		} else {
-			System.out.println("The current URL does not contain 'orders'. Current URL is: " + currentUrl);
+			System.out.println("The current URL does not contain 'orders'.");
 		}
 
 		Assert.assertTrue(currentUrl.contains("orders"), "orders page did not load correctly. Current URL: " + currentUrl);
@@ -3827,29 +3827,257 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 9)
-	public void TierUpsell() {
+	public void TierUpsell() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		Actions actions = new Actions(driver);
 		
-		//Verify that if user select 0% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
+		String Product_Name = "Tier Product - " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+		DiscriptionTier1 = "Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
+		TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one";
 		
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);	
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileone};
+
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		
+		Thread.sleep(1000);
+		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("button#Physical")).click();
+		jse.executeScript("window.scrollBy(0,500)");
+
+		WebElement TierToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='tiered-pricing-option-div']//button[@role='switch'][1]")));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});",TierToggle);
+		TierToggle.click();
+		Thread.sleep(2000);
 		
+		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys("First Tier Installment");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-1>div>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
+		driver.findElement(By.xpath("(//input[@name='productDetails.variants.0.prices[0].amount'])[1]")).sendKeys("1");
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("div.wrapdescription")).click();
+		driver.findElement(By.xpath("(//textarea[contains(@name,'productDetails.variants.0.product_tier_description')])[1]")).sendKeys(DiscriptionTier1);
+		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
+		driver.findElement(By.xpath("//input[contains(@placeholder,\"Add Title\")]")).sendKeys(TitleTier1);
+		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(0).click();
+		driver.findElement(By.xpath("//input[contains(@placeholder,\"Enter Feature\")]")).sendKeys(Tier1Feature1);
 		
+		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[normalize-space()='+ Add Tier']")).click();
+		driver.findElement(By.xpath("(//input[contains(@name,'productDetails.variants.1.title')])[1]")).sendKeys("Second Tier Installment");
+		Thread.sleep(1000);
+		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-2>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
+		driver.findElement(By.xpath("(//input[@name='productDetails.variants.1.prices[0].amount'])[1]")).sendKeys("3");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//div[normalize-space()='Description + Bullet points'])[2]")).click();
+		driver.findElement(By.xpath("//textarea[@name=\"productDetails.variants.1.product_tier_description\"]")).sendKeys(DiscriptionTier2);
+		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@name=\"productDetails.variants.1.product_tier_features.0.title\"]")).sendKeys(TitleTier2);
+		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//input[contains(@name,\"productDetails.variants.1.product_tier_features.0.feature_title.0\")]")).sendKeys(Tier2Feature1);
 		
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
 		
+		//Verify that if user select 10% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[@role='switch'])[2]")).click();
+		driver.findElement(By.xpath("(//button[@role='switch'])[3]")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"10% Off\"]")).click();
+		driver.findElement(By.xpath("(//button[@role='switch'])[4]")).click();
 		
+		//Verify that if user select 10% off option then user can see it on product details page
+		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
+		Thread.sleep(4000);	
+		String offer10 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
+		Assert.assertTrue(offer10.contains("10% Off"), "10% Off text is not displayed");
+		System.out.println("10% Off is displayed successfully in Show Annual Upsell In details option.");
 		
+		//Verify that if user select 10% off option then user can see it on tier product checkout page
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
 		
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
 		
+		Thread.sleep(7000);
+		String offer10Checkout = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
+		Assert.assertTrue(offer10Checkout.contains("10%"), "10% Off text is not displayed in checkout page");
+		System.out.println("10% Off is displayed successfully in checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
 		
+		//Verify that if user select 20% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
+		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:first-of-type>button:nth-of-type(2)")).click();
+		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"20% Off\"]")).click();
 		
+		//Verify that if user select 20% off option then user can see it on product details page
+		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
+		Thread.sleep(4000);	
+		String offer20 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
+		Assert.assertTrue(offer20.contains("20% Off"), "20% Off text is not displayed");
+		System.out.println("20% Off is displayed successfully in Show Annual Upsell In details option.");
 		
+		//Verify that if user select 20% off option then user can see it on tier product checkout page
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		String offer10Checkout1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
+		Assert.assertTrue(offer10Checkout1.contains("20%"), "20% Off text is not displayed in checkout page");
+		System.out.println("20% Off is displayed successfully in checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify that if user select 30% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
+		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:first-of-type>button:nth-of-type(2)")).click();
+		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"30% Off\"]")).click();
+		
+		//Verify that if user select 30% off option then user can see it on product details page
+		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
+		Thread.sleep(4000);	
+		String offer30 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
+		Assert.assertTrue(offer30.contains("30% Off"), "30% Off text is not displayed");
+		System.out.println("30% Off is displayed successfully in Show Annual Upsell In details option.");
+		
+		//Verify that if user select 30% off option then user can see it on tier product checkout page
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		String offer10Checkout2 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
+		Assert.assertTrue(offer10Checkout2.contains("30%"), "30% Off text is not displayed in checkout page");
+		System.out.println("30% Off is displayed successfully in checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify that if user select 40% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
+		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:first-of-type>button:nth-of-type(2)")).click();
+		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"40% Off\"]")).click();
+		
+		//Verify that if user select 30% off option then user can see it on product details page
+		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
+		Thread.sleep(4000);	
+		String offer40 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
+		Assert.assertTrue(offer40.contains("40% Off"), "40% Off text is not displayed");
+		System.out.println("40% Off is displayed successfully in Show Annual Upsell In details option.");
+		
+		//Verify that if user select 30% off option then user can see it on tier product checkout page
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		String offer10Checkout3 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
+		Assert.assertTrue(offer10Checkout3.contains("40%"), "40% Off text is not displayed in checkout page");
+		System.out.println("40% Off is displayed successfully in checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify that if user select 50% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
+		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:first-of-type>button:nth-of-type(2)")).click();
+		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"50% Off\"]")).click();
+		
+		//Verify that if user select 50% off option then user can see it on product details page
+		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
+		Thread.sleep(4000);	
+		String offer50 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
+		Assert.assertTrue(offer50.contains("50% Off"), "50% Off text is not displayed");
+		System.out.println("50% Off is displayed successfully in Show Annual Upsell In details option.");
+		
+		//Verify that if user select 50% off option then user can see it on tier product checkout page
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		String offer10Checkout4 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
+		Assert.assertTrue(offer10Checkout4.contains("50%"), "50% Off text is not displayed in checkout page");
+		System.out.println("50% Off is displayed successfully in checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
 	}
 
-
+	
 
 
 
