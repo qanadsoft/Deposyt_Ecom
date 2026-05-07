@@ -2,21 +2,21 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="Suite" parallel="tests" thread-count="1">
-    <parameter name = "bname" 					value = "chrome"/>
-    <parameter name = "role"  					value = "Admin"/>
-    <parameter name = "loginTypeMainAccess"     value = "user"/>
+	<parameter name="bname" value="chrome" />
+	<parameter name="role" value="Admin" />
 
-    <test name="Products">
-       <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com"/>
-	   <parameter name = "pass"  value = "Djismylige@1998"/>
 
-        <classes>
-            <class name="Modules.Products">
-                <methods>
-                    <include name="TierUpsell"/>
-                </methods>
-            </class>
-        </classes>
+	<test name="Products">
+		<parameter name="uname" value="rishikesh.sakharekar@gmail.com" />
+		<parameter name="pass"  value="Djismylige@1998" />
 
-    </test>
+		<classes>
+			<class name="Modules.Contacts">
+				<methods>
+
+				</methods>
+			</class>
+		</classes>
+
+	</test>
 </suite>
