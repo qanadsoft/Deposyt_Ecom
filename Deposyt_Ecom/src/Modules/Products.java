@@ -22,22 +22,22 @@ public class Products extends Data {
 	String chars = "abcdefghijklmnopqrstuvwxyz";
 
 	String Product_Names = "OneTime Product @#$!/" + UUID.randomUUID().toString().replace("- ", "").substring(0, 30).toUpperCase(),
-			Product_Name = "OneTime Product " + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),
-			Private_Name = "TestProduct " + UUID.randomUUID().toString().replace("- ", "").substring(0, 8).toUpperCase(),
-			Description = "test-Nadsoft " + UUID.randomUUID().toString().replace("- ", "").substring(0, 10).toUpperCase(),
-			SKU = "SKU_No" + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(), 
+	Product_Name = "OneTime Product " + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),
+	Private_Name = "TestProduct " + UUID.randomUUID().toString().replace("- ", "").substring(0, 8).toUpperCase(),
+	Description = "test-Nadsoft " + UUID.randomUUID().toString().replace("- ", "").substring(0, 10).toUpperCase(),
+	SKU = "SKU_No" + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(), 
 
-			OneTimeProductValue = "10", OneTimePurchaseSalePrice = "5", Discountedprice = "9.50",
-			File1 = "file1.jpg", File2 = "sample.bmp", File3 = "sample.tiff", File4 = "10mb.jpg", File5 = "sample.jpe", File6 = "file3.jpeg", File7 = "file7.jpg", File8 = "file4.png", 
-			Attachment = "Jira_Guide.pdf", Fileone = "file1.jpg", Filetwo = "file2.png", Filethree = "file3.jpeg", Filefour = "file4.png", Filefive = "file5.png", Filesix = "file6.jpg", 
-			Fileseven = "file7.jpg", Fileeight = "file8.jpg", Filenine = "file9.jpg", Fileten = "sample.mp4",
+	OneTimeProductValue = "10", OneTimePurchaseSalePrice = "5", Discountedprice = "9.50",
+	File1 = "file1.jpg", File2 = "sample.bmp", File3 = "sample.tiff", File4 = "10mb.jpg", File5 = "sample.jpe", File6 = "file3.jpeg", File7 = "file7.jpg", 
+	File8 = "file4.png", Attachment = "Jira_Guide.pdf", Fileone = "file1.jpg", Filetwo = "file2.png", Filethree = "file3.jpeg", Filefour = "file4.png", 
+	Filefive = "file5.png", Filesix = "file6.jpg", Fileseven = "file7.jpg", Fileeight = "file8.jpg", Filenine = "file9.jpg", Fileten = "sample.mp4",
 
-			F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
-			Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",	
+	F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
+	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",	
 
-			firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-			lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 
 	@Test(priority = 1)
 	public void Create_NewProduct() throws InterruptedException {
@@ -892,7 +892,7 @@ public class Products extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("span[title='Select Product']")).click();
 		Thread.sleep(2000);
-		String expectedProduct = Product_Name + " | $" + OneTimeProductValue + ".00";
+		String expectedProduct = Product_Name + " | $" + Discountedprice;
 		String connectedProducts1 = driver.findElement(By.cssSelector("li.select2-results__option--selectable:nth-of-type(2)")).getText().trim();				
 		Assert.assertEquals(connectedProducts1, expectedProduct, "Saved product name is not displayed on Appointment page");
 		System.out.println("Product found in connect Appointment product listing page");
@@ -1291,7 +1291,7 @@ public class Products extends Data {
 		}
 
 		Thread.sleep(4000);
-		driver.close();
+		//driver.close();
 		driver.switchTo().window(originalTab);
 
 		//check that if user disable the show quantity picker toggle then on default product page it should not have quantity picker
@@ -1307,7 +1307,7 @@ public class Products extends Data {
 		}
 
 		Thread.sleep(4000);
-		driver.close();
+		//driver.close();
 		driver.switchTo().window(originalTab);
 
 		try { 
@@ -2211,7 +2211,7 @@ public class Products extends Data {
 		System.out.println("first payment Monthly Subscription Price on order summary page matches.");
 
 		//Verify that when Monthly option is selected then it will reflect on order summary of order module
-		WebElement frequencydetailorders = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
+		WebElement frequencydetailorders = driver.findElement(By.xpath("(//span[contains(@class,'text-black-245 capitalize truncate')])[1]"));	
 		String frequencys = frequencydetailorders.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencys.contains("monthly"),"Frequency is not displayed as monthly on order summary page");
 		System.out.println("Monthly Frequency on order summary page matches.\n"); 
@@ -2221,7 +2221,7 @@ public class Products extends Data {
 		String priceTexta11 = subscriptionPm.getText().trim();
 		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
 		int actualPricde = (int) Double.parseDouble(numericPricen);
-		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("first payment Monthly Subscription Price on order subscription summary page matches.");
 
 		//Verify that when Monthly option is selected then it will reflect on subscription summary of order module 
@@ -2561,7 +2561,7 @@ public class Products extends Data {
 		System.out.println("first payment Weekly Subscription Price on order summary page matches.");
 
 		//Verify that when weekly option is selected then it will reflect on subscription summary of order module 
-		WebElement frequencydetg = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
+		WebElement frequencydetg = driver.findElement(By.xpath("(//span[contains(@class,'text-black-245 capitalize truncate')])[1]"));	
 		String frequencyss1 = frequencydetg.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyss1.contains("weekly"),"Frequency is not displayed as Weekly on order summary page");
 		System.out.println("Weekly Frequency on order summary page matches.\n"); 
@@ -2571,7 +2571,7 @@ public class Products extends Data {
 		String priceTexta111 = subscriptionw.getText().trim();
 		String numericPricews = priceTexta111.replaceAll("[^0-9.]", "");
 		int actualPricesd = (int) Double.parseDouble(numericPricews);
-		Assert.assertEquals(String.valueOf(actualPricesd), OneTimeProductValue, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricesd), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("Weekly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters subscription price then it should reflect in  subscription summary of order module  
@@ -2579,7 +2579,7 @@ public class Products extends Data {
 		String priceTexta11 = subscriptionPm1.getText().trim();
 		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
 		int actualPricde = (int) Double.parseDouble(numericPricen);
-		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("first payment Weekly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters weekly subscription price then it should reflect in  subscription summary of order module  
@@ -2920,7 +2920,7 @@ public class Products extends Data {
 		System.out.println("first payment Quarterly Subscription Price on order summary page matches.");
 
 		//Verify that when Quarterly option is selected then it will reflect on subscription summary of order module 
-		WebElement frequencyde = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
+		WebElement frequencyde = driver.findElement(By.xpath("(//span[contains(@class,'text-black-245 capitalize truncate')])[1]"));	
 		String frequencyss1 = frequencyde.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyss1.contains("quarterly"),"Frequency is not displayed as Quarterly on order summary page");
 		System.out.println("Quarterly Frequency on order summary page matches.\n"); 
@@ -2938,7 +2938,7 @@ public class Products extends Data {
 		String priceTexta11 = subscriptionPm.getText().trim();
 		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
 		int actualPricde = (int) Double.parseDouble(numericPricen);
-		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("first payment Quarterly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters Quarterly subscription price then it should reflect in  subscription summary of order module  
@@ -3279,7 +3279,7 @@ public class Products extends Data {
 		System.out.println("first payment Yearly Subscription Price on order summary page matches.");
 
 		//Verify that when Yearly option is selected then it will reflect on subscription summary of order module 
-		WebElement frequencydet = driver.findElement(By.xpath("(//span[@class='text-black-245 capitalize'])[1]"));	
+		WebElement frequencydet = driver.findElement(By.xpath("(//span[contains(@class,'text-black-245 capitalize truncate')])[1]"));	
 		String frequencyss1 = frequencydet.getText().trim().toLowerCase();
 		Assert.assertTrue(frequencyss1.contains("yearly"),"Frequency is not displayed as yearly on order summary page");
 		System.out.println("Yearly Frequency on order summary page matches.\n"); 
@@ -3297,7 +3297,7 @@ public class Products extends Data {
 		String priceTexta11 = subscriptionPm.getText().trim();
 		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
 		int actualPricde = (int) Double.parseDouble(numericPricen);
-		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimePurchaseSalePrice, "Price mismatch");
 		System.out.println("first payment Yearly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters Yearly subscription price then it should reflect in  subscription summary of order module  
@@ -4076,25 +4076,5 @@ public class Products extends Data {
 		driver.close();
 		driver.switchTo().window(originalTab);
 	}
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

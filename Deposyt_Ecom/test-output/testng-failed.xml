@@ -3,26 +3,16 @@
 <suite thread-count="1" parallel="tests" name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
   <parameter name="role" value="Admin"/>
   <parameter name="bname" value="chrome"/>
-  <test thread-count="1" parallel="tests" name="Products(failed)">
+  <test thread-count="1" parallel="tests" name="Products Tests(failed)">
     <parameter name="uname" value="rishikesh.sakharekar@gmail.com"/>
-    <parameter name="pass" value="Djismylige@1998"/>
+    <parameter name="pass" value="Nadsoft@2202"/>
     <classes>
-      <class name="Modules.Contacts">
+      <class name="Modules.Products">
         <methods>
-          <include name="Search_Contact"/>
-          <include name="ContactsListing"/>
-          <include name="AddContact"/>
-          <include name="table_Coloumn"/>
+          <include name="TierUpsell"/>
           <include name="invokebrowser"/>
-          <include name="Bulk_Actions"/>
-          <include name="Customer_Filters"/>
-          <include name="Add_Location"/>
-          <include name="Create_NewContact"/>
-          <include name="Three_DotsMenu"/>
-          <include name="Smart_Views"/>
-          <include name="contactView_DashBoard"/>
         </methods>
-      </class> <!-- Modules.Contacts -->
+      </class> <!-- Modules.Products -->
     </classes>
-  </test> <!-- Products(failed) -->
+  </test> <!-- Products Tests(failed) -->
 </suite> <!-- Failed suite [Suite] -->
