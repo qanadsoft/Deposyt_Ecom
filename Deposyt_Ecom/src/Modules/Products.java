@@ -19,13 +19,13 @@ import Master.Data;
 
 public class Products extends Data {
 	java.util.Random r = new java.util.Random();
-	String chars = "abcdefghijklmnopqrstuvwxyz";
 
 	String Product_Names = "OneTime Product @#$!/" + UUID.randomUUID().toString().replace("- ", "").substring(0, 30).toUpperCase(),
 	Product_Name = "OneTime Product " + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),
+	SuscProduct_Name = "Suscription Product - " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 	Private_Name = "TestProduct " + UUID.randomUUID().toString().replace("- ", "").substring(0, 8).toUpperCase(),
 	Description = "test-Nadsoft " + UUID.randomUUID().toString().replace("- ", "").substring(0, 10).toUpperCase(),
-	SKU = "SKU_No" + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(), 
+	SKU = "SKU_No" + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),chars = "abcdefghijklmnopqrstuvwxyz",
 
 	OneTimeProductValue = "10", OneTimePurchaseSalePrice = "5", Discountedprice = "9.50",
 	File1 = "file1.jpg", File2 = "sample.bmp", File3 = "sample.tiff", File4 = "10mb.jpg", File5 = "sample.jpe", File6 = "file3.jpeg", File7 = "file7.jpg", 
@@ -33,7 +33,9 @@ public class Products extends Data {
 	Filefive = "file5.png", Filesix = "file6.jpg", Fileseven = "file7.jpg", Fileeight = "file8.jpg", Filenine = "file9.jpg", Fileten = "sample.mp4",
 
 	F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
-	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",	
+	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
+	DiscriptionTier1 = "Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TierOneTitle = "Second Tier Title",
+	TitleTier1 = "First Tier Installment",TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one",
 
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
@@ -1332,9 +1334,7 @@ public class Products extends Data {
 	public void NonInv_SubscriptionPurchase() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		JavascriptExecutor jse =  (JavascriptExecutor)driver;	
-
-		String Product_Name = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -1342,7 +1342,7 @@ public class Products extends Data {
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
-		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.productName")).sendKeys(SuscProduct_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
 		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
@@ -1488,7 +1488,7 @@ public class Products extends Data {
 		//Verify that user can purchase subscription product whoes product type is Non-inventory using  checkout page link 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(SuscProduct_Name);		
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
@@ -1623,15 +1623,13 @@ public class Products extends Data {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 
-		String Product_Name = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();
-
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
-		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.productName")).sendKeys(SuscProduct_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
 		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
@@ -1715,7 +1713,7 @@ public class Products extends Data {
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(SuscProduct_Name);		
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
@@ -3361,8 +3359,7 @@ public class Products extends Data {
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		Actions actions = new Actions(driver);
 
-		String Product_Name = "Tier Product " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Tier1 = "First Tier Installment",
-				DiscriptionTier1 = "Description for first tier installment", TitleTier1 = "First Tier Installment", Tier1Feature1 = "Tier one Feature First", TierOneTitle = "Second Tier Title";
+		String Product_Name = "Tier Product " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();
 
 		//Verify clicking “Cancel” closes the product creation modal.
 		driver.navigate().to(Products);
@@ -3414,7 +3411,7 @@ public class Products extends Data {
 		System.out.println("deafult state of Active Tier button disabled by deafult.\n");
 
 		//Verify error message appears for invalid URL input.
-		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys(Tier1);
+		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys(TitleTier1);
 		Thread.sleep(2000);
 
 		//Verify user can add a new tier with valid inputs.
@@ -3533,7 +3530,7 @@ public class Products extends Data {
 		//Verify that tier name will be reflected in tier name at the top of tier section 
 		String tierNameTopSection = driver.findElement(By.cssSelector("div.tier-name>h1>div")).getText().trim();
 		String actualTierName = tierNameTopSection.split("—")[1].trim();
-		Assert.assertEquals(actualTierName,Tier1,"Tier Name is not displayed on top section of product detail page");
+		Assert.assertEquals(actualTierName, TitleTier1, "Tier Name is not displayed on top section of product detail page");
 		System.out.println("Tier Name is displayed successfully on top section of product detail page.\n");
 
 		//Check that user can see free option just below the tier name 
@@ -3833,9 +3830,7 @@ public class Products extends Data {
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		Actions actions = new Actions(driver);
 		
-		String Product_Name = "Tier Product - " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-		DiscriptionTier1 = "Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
-		TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one";
+		String Product_Name = "Tier Product - " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();
 		
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -3871,7 +3866,7 @@ public class Products extends Data {
 		TierToggle.click();
 		Thread.sleep(2000);
 		
-		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys("First Tier Installment");
+		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys(TitleTier1);
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("#tier-item-1>div>div>div>button")).click();
 		Thread.sleep(1000);
@@ -3888,7 +3883,7 @@ public class Products extends Data {
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//span[normalize-space()='+ Add Tier']")).click();
-		driver.findElement(By.xpath("(//input[contains(@name,'productDetails.variants.1.title')])[1]")).sendKeys("Second Tier Installment");
+		driver.findElement(By.xpath("(//input[contains(@name,'productDetails.variants.1.title')])[1]")).sendKeys(TitleTier2);
 		Thread.sleep(1000);
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
 		Thread.sleep(2000);
