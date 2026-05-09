@@ -3,6 +3,7 @@
   <groupId>Deposyt_Ecom</groupId>
   <artifactId>Deposyt_Ecom</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -16,14 +17,15 @@
     </plugins>
   </build>
   <dependencies>
-  <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+  
+ <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
 <dependency>
     <groupId>com.opencsv</groupId>
     <artifactId>opencsv</artifactId>
     <version>5.7.1</version>
 </dependency>
 
-  <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+ <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
     <artifactId>selenium-java</artifactId>
@@ -44,7 +46,6 @@
     <artifactId>webdrivermanager</artifactId>
     <version>6.1.0</version>
 </dependency>
-
 
 <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 <dependency>
@@ -85,11 +86,10 @@
     <version>5.1.1</version>
 </dependency>
 
-
-  	<dependency>
-  		<groupId>CentzCRM</groupId>
+ <dependency>
+  	<groupId>CentzCRM</groupId>
   		<artifactId>CentzCRM</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  </dependencies>
+  			<version>0.0.1-SNAPSHOT</version>
+  		</dependency>
+ 	</dependencies>
 </project>
