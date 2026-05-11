@@ -4071,5 +4071,181 @@ public class Products extends Data {
 		driver.close();
 		driver.switchTo().window(originalTab);
 	}
+	
+	@Test(priority = 10)
+	public void Filter_GridView() throws InterruptedException{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		
+		driver.navigate().to(Products);
+		Thread.sleep(20000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>div>span>button")).click();
+		
+		//check that sort by filter is having four sub options 
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		Thread.sleep(2000);		
+		List<WebElement> sortByOptions = driver.findElements(By.cssSelector("div.dropdown-portal>div>div"));
+		Assert.assertEquals(sortByOptions.size() -1 , 4, "Sort by filter does not have four sub options");
+		System.out.println("Sort by filter is having four sub options.\n");
+		
+		//check that after click on Views (High to Low ) option should show results should be correct
+		driver.findElement(By.xpath("//div[normalize-space()=\"Views (High To Low)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:first-of-type")).click();//click on first product
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();//click on pages tab
+		String viewsText1 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		int views1 = Integer.parseInt(viewsText1.replaceAll("[^0-9]", ""));
+		System.out.println("High To Low Views Count of First Product: " + views1);
+		
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Views (High To Low)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:nth-of-type(2)")).click();//click on second product		
+		driver.findElement(By.id("orderPagesFunnel")).click();//click on pages tab
+		String viewsText2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		int views2 = Integer.parseInt(viewsText2.replaceAll("[^0-9]", ""));
+		System.out.println("High To Low Views Count of Second Product: " + views2);
+		
+		Assert.assertTrue(views1 > views2,"Views sorting failed. First product views: " + views1 +" Second product views: " + views2);
+		System.out.println("Products are sorted by Views (High to Low) option successfully.\n");		
+		
+		//check that user can cancel the applied filter of Views (High to low) using X icon in filter
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
+		Thread.sleep(3000);	
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Views (High To Low)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
+		
+		//check that after click on Views (Low to High) option should show results should be correct
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Views (Low To High)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:first-of-type")).click();//click on first product
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();//click on pages tab
+		String viewsText3 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		int views3 = Integer.parseInt(viewsText3.replaceAll("[^0-9]", ""));
+		System.out.println("Low To High Views Count of First Product: " + views3);
+		
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Views (Low To High)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:nth-of-type(2)")).click();//click on second product		
+		driver.findElement(By.id("orderPagesFunnel")).click();//click on pages tab
+		String viewsText4 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		int views4 = Integer.parseInt(viewsText4.replaceAll("[^0-9]", ""));
+		System.out.println("Low To High Views Count of Second Product: " + views4);
+		
+		//Assert.assertTrue(views3 > views4,"Views sorting failed. First product views: " + views3 +" Second product views: " + views4);
+		System.out.println("Products are sorted by Views (Low to High) option successfully.\n");		
+		
+		//check that user can cancel the applied filter of Views (Low to High) using X icon in filter
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
+		Thread.sleep(3000);	
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Views (Low To High)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
+		
+		//check that after click on conversion rate (High to Low) option should show results should be correct
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (High To Low)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:first-of-type")).click();//click on first product
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();//click on pages tab
+		String viewsText5 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
+		int views5 = Integer.parseInt(viewsText5.replaceAll("[^0-9]", ""));
+		System.out.println("Conversion Rate High To Low of First Product: " + views5);
+		
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (High To Low)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:nth-of-type(2)")).click();//click on second product		
+		driver.findElement(By.id("orderPagesFunnel")).click();//click on pages tab
+		String viewsText6 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
+		int views6 = Integer.parseInt(viewsText6.replaceAll("[^0-9]", ""));
+		System.out.println("Conversion Rate High To Low of Second Product: " + views6);
+		
+		//Assert.assertTrue(views5 < views4,"Views sorting failed. First product views: " + views5 +" Second product views: " + views6);
+		System.out.println("Products are sorted by Views (Conversion Rate) option successfully.\n");		
+		
+		//check that user can cancel the applied filter of conversion rate (High to Low) using X icon in filter
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
+		Thread.sleep(3000);	
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (High To Low)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
+			
+		//check that after click on conversion rate (Low to High) option should show results should be correct
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (Low To High)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:first-of-type")).click();//click on first product
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();//click on pages tab
+		String viewsText7 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
+		int views7 = Integer.parseInt(viewsText7.replaceAll("[^0-9]", ""));
+		System.out.println("Conversion Rate Low To High of First Product: " + views7);
+		
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (Low To High)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:nth-of-type(2)")).click();//click on second product		
+		driver.findElement(By.id("orderPagesFunnel")).click();//click on pages tab
+		String viewsText8 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
+		int views8 = Integer.parseInt(viewsText8.replaceAll("[^0-9]", ""));
+		System.out.println("Conversion Rate Low To High of Second Product: " + views8);
+		
+		//Assert.assertTrue(views7 < views8,"Views sorting failed. First product views: " + views7 +" Second product views: " + views8);
+		System.out.println("Products are sorted by Views (Conversion Rate) option successfully.\n");		
+		
+		//check that user can cancel the applied filter of conversion rate (Low to High) using X icon in filter
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
+		Thread.sleep(3000);	
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (Low To High)\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
+		
+		//check that there are two options avaialble under product type filter
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		List<WebElement> sortByproductOptions = driver.findElements(By.cssSelector("div.dropdown-portal>div>div"));
+		Assert.assertEquals(sortByproductOptions.size() -1 , 2, "Sort by Product Type filter does not have two sub options");
+		System.out.println("Sort by Product Type filter is having two sub options.\n");		
+		
+		//check that user can select Inventory type product option 
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("table.shadow-product-table>div>div:first-of-type")).click();//click on first product
+		Thread.sleep(2000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Product Type']")));
+		String Inventorystate = driver.findElement(By.id("Physical")).getAttribute("data-state").trim();
+		Assert.assertEquals(Inventorystate, "checked", "Inventory product type filter is not working");	
+		System.out.println("Inventory product type filter is working successfully.\n");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 
 }

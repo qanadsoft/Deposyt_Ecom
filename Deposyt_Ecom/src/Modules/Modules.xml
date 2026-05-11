@@ -13,7 +13,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "TierUpsell" />
+					<include name = "Filter_GridView" />
 				</methods>
 			</class>
 		</classes>
