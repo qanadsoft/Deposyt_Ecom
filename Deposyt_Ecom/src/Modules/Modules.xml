@@ -4,7 +4,7 @@
 <suite name = "Suite" parallel = "tests" thread-count = "1">
 
 	<parameter name = "bname" value = "chrome" />
-	<parameter name = "role" value = "Admin" />
+	<parameter name = "role"  value = "Admin" />
 
 	<test name = "Products Tests">
 		<parameter name = "uname" value = "rishikesh.sakharekar@gmail.com" />
@@ -13,7 +13,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "Filter_GridView" />
+					<include name = "Filter_ListView" />
 				</methods>
 			</class>
 		</classes>
