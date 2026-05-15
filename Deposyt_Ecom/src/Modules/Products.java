@@ -1432,9 +1432,10 @@ public class Products extends Data {
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(SuscProduct_Name);		
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		Thread.sleep(2000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -1560,7 +1561,7 @@ public class Products extends Data {
 		//Verify that user can purchase subscription product whoes product type is Non-inventory using default product page link 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(SuscProduct_Name);		
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
@@ -1786,7 +1787,7 @@ public class Products extends Data {
 		//Verify that user can purchase subscription product whoes product type is Non-inventory using  checkout page link 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(SuscProduct_Name);		
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
@@ -1850,7 +1851,7 @@ public class Products extends Data {
 		//Verify that user can purchase subscription product whoes product type is Non-inventory using default product page link 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(SuscProduct_Name);		
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
@@ -1924,7 +1925,7 @@ public class Products extends Data {
 		String Product_Name = "Suscription Product - Monthly " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();
 
 		driver.navigate().to(Products);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
@@ -2293,7 +2294,7 @@ public class Products extends Data {
 		String Product_Name = "Suscription Product - Weekly " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();
 
 		driver.navigate().to(Products);
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
@@ -2638,7 +2639,7 @@ public class Products extends Data {
 		//Verify that when Weekly option is selected then it will reflect on storefront side
 		WebElement frequencydetailstore = driver.findElement(By.xpath("//span[normalize-space()=\"weekly\"]"));	
 		String frequencyss = frequencydetailstore.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencyss.contains("monthly"),"Frequency is not displayed as monthly on storefront side page");
+		Assert.assertTrue(frequencyss.contains("weekly"),"Frequency is not displayed as monthly on storefront side page");
 		System.out.println("Weekly Frequency on storefront side matches.\n"); 
 	}
 
@@ -2997,7 +2998,7 @@ public class Products extends Data {
 		//Verify that when Quarterly option is selected then it will reflect on storefront side
 		WebElement frequencydetailstore = driver.findElement(By.xpath("//span[normalize-space()=\"quarterly\"]"));	
 		String frequencyss = frequencydetailstore.getText().trim().toLowerCase();
-		Assert.assertTrue(frequencyss.contains("monthly"),"Frequency is not displayed as monthly on storefront side page");
+		Assert.assertTrue(frequencyss.contains("quarterly"),"Frequency is not displayed as monthly on storefront side page");
 		System.out.println("Quarterly Frequency on storefront side matches.\n"); 
 	}
 
@@ -3694,7 +3695,7 @@ public class Products extends Data {
 
 		//Verify that free tier is visible on preview section of product details page 
 		Thread.sleep(5000);
-		String freeTierText = driver.findElement(By.cssSelector("#card-div>div>div:first-of-type>div:first-of-type>div:first-of-type")).getText().trim();	
+		String freeTierText = driver.findElement(By.cssSelector("div.sync-price-single>div:first-of-type")).getText().trim();	
 		Assert.assertEquals(freeTierText, "FREE", "Free tier is not visible on preview section of product details page");
 		System.out.println("Free tier is visible on Open preview section of product details page successfully.\n");	
 
