@@ -198,7 +198,7 @@ public class products extends Data {
 		}
 		Thread.sleep(3000); //Added Wait due to optimization
 		try{
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()='Product Currently Unavailable']")));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='This product is not available for purchase.']")));
 			System.out.println("Product is inactive");
 		} catch(TimeoutException e){
 			System.out.println("'Product Currently Unavailable' message not found." + Checkout_page);
