@@ -13,7 +13,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "ThreeDot_ListView" />
+					<include name = "Product_Settings" />
 				</methods>
 			</class>
 		</classes>

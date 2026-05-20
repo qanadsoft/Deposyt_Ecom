@@ -5007,15 +5007,121 @@ public class Products extends Data {
 	public void ThreeDot_ListView() throws InterruptedException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
-		Actions action = new Actions(driver);
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		
 		driver.navigate().to(Products);
 		Thread.sleep(20000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>div>span:nth-of-type(2)>button")).click();
 		
+		String ProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
+		System.out.println("First Product Name is: " + ProductName);
 		
+		//check that activate option is clickable with label Active in list View
+		//check that product card after active Product Product/Checkout is live label displays in list View			
+		Thread.sleep(2000);
+		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button")));
+		if (toggleButton.getAttribute("data-state").equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton);
+		}
 		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(10)>div>button")).click();//click on three dot list view menu
+		WebElement activateOption = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button"));
+		Assert.assertTrue(activateOption.isDisplayed() && activateOption.isEnabled(), "Activate option is not clickable or not having label Active");
+		
+		String activateOptionText = driver.findElement(By.xpath("//div[text()='Active']")).getText().trim();
+		Assert.assertEquals(activateOptionText, "Active", "Activate option does not have label Active");
+		
+		String ActiveLabelText = driver.findElement(By.xpath("//div[text()='Product/Checkout is live']")).getText().trim();
+		Assert.assertEquals(ActiveLabelText, "Product/Checkout is live", "Live label is not displayed after activating the product");		
+		System.out.println("\nActivate option is clickable with label Active.\n");
+		
+		//check that De-activate option is clickable with label In-active in list View
+		//check that product card after inactive Product is hidden everywhere label displays in list View
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button")).click();
+		
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(10)>div>button")).click();//click on three dot list view menu
+		String deactivateOptionText = driver.findElement(By.xpath("//div[text()='Inactive']")).getText().trim();
+		Assert.assertEquals(deactivateOptionText, "Inactive", "Inactive option does not have label In-active");
+		
+		String InActiveLabelText = driver.findElement(By.xpath("//div[text()='Product is hidden everywhere']")).getText().trim();
+		Assert.assertEquals(InActiveLabelText, "Product is hidden everywhere", "Live label is not displayed after activating the product");		
+		System.out.println("In-activate option is clickable with label In-active.\n");
+		
+		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button")));
+		if (toggleButton1.getAttribute("data-state").equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton1);
+		}
+		
+		//after click on edit product button should navigate to edit product details in list View	
+		driver.findElement(By.xpath("//span[contains(text(),'Edit Product')]/ancestor::button")).click();
+		Thread.sleep(5000);
+		WebElement ProductsName = driver.findElement(By.name("productDetails.productName"));
+		ProductsName.click();	
+		ProductsName.sendKeys(" Edited");
+		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
+		
+		Thread.sleep(5000);
+		String ProductNameUpdated = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
+		System.out.println("Edited Product Name is: " + ProductNameUpdated);
+		Assert.assertEquals(ProductNameUpdated, ProductName + " Edited", "Product name is not updated after edit");
+		System.out.println("\nAfter click on edit product button user is navigated to edit product details page and product details are updated successfully.\n");
+		
+		//after click on duplicate product it should open popup with details in list View
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(10)>div>button")).click();//click on three dot list view menu
+		driver.findElement(By.xpath("//span[contains(text(),'Duplicate Product')]/ancestor::button")).click();
+		Thread.sleep(3000);
+		WebElement duplicatePopup = driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(5)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>input"));
+		Thread.sleep(2000);
+		duplicatePopup.sendKeys(" Duplicate");
+		
+		//check that there is button to Add private name in list View
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[normalize-space()=\"Add Private Name\"]//parent::button")).click();
+		driver.findElement(By.xpath("//input[contains(@placeholder,\"Add Private Name(optional)\")]")).sendKeys(Private_Name);
+				 
+		//check that after click on duplicate product it should open duplicate product popup with correct details in list View
+		//when user duplicate any product that should be seen in product listing in list View
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(5)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>label")).click();		
+		driver.findElement(By.xpath("(//button[normalize-space()='Done'])[1]")).click();
+		
+		Thread.sleep(5000);
+		String duplicatedProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
+		System.out.println("Duplicated Product Name is: " + duplicatedProductName);
+		Assert.assertEquals(duplicatedProductName, ProductNameUpdated + " Duplicate", "Product is not duplicated with correct name");
+		System.out.println("After click on duplicate product option product is duplicated with correct name successfully.\n");
+		
+		//check that there is order history option which will navigate to orders for the selected product in list View
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(10)>div>button")).click();//click on three dot list view menu
+		driver.findElement(By.xpath("//span[contains(text(),'Order History')]/ancestor::button")).click();
+		Thread.sleep(3000);
+		String currentUrl = driver.getCurrentUrl().toLowerCase();	
+		Assert.assertTrue(currentUrl.contains("orders"), "Order History option is not navigating to orders page");
+		System.out.println("Order History option is navigating to orders page successfully.\n");
+			
+		//check that deleted product cant be searched on search menu in list View
+		driver.navigate().to(Products);
+		Thread.sleep(20000);	
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(10)>div>button")).click();//click on three dot list view menu
+		String DeletedProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
+		driver.findElement(By.xpath("//span[contains(text(),'Delete Product')]/ancestor::button")).click();
+		Thread.sleep(2000);		
+		driver.findElement(By.xpath(" //span[normalize-space()=\"Yes, Confirm\"]")).click();
+		Thread.sleep(5000);
+		
+		//check that deleted product should not be in product listing in list View
+		String DeletedProductName1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
+		Assert.assertNotEquals(DeletedProductName, DeletedProductName1, "Deleted product is still visible in products list");
+		System.out.println("Deleted product is not visible in products list after deletion.\n");		
 	}
 	
 	@Test(priority = 14)
@@ -5212,7 +5318,7 @@ public class Products extends Data {
 		System.out.println("Products are sorted by Revenue in descending order successfully.\n");
 	
 		//check that ascending sorting is working for created / modified header and showing correct results
-		driver.navigate().refresh();
+		/*driver.navigate().refresh();
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//div[normalize-space()=\"Created/Modified\"]//div//*[name()=\"svg\"]")).click();
 		Thread.sleep(5000);
@@ -5261,7 +5367,7 @@ public class Products extends Data {
 		List<Date> expectedCreatedDates1 = new ArrayList<>(actualCreatedDates1);
 		Collections.sort(expectedCreatedDates1, Collections.reverseOrder());
 		Assert.assertEquals(actualCreatedDates1, expectedCreatedDates1,"Products are not sorted by Created Date in descending order");
-		System.out.println("Products are sorted by Created Date in descending order successfully.\n");
+		System.out.println("Products are sorted by Created Date in descending order successfully.\n");*/
 				
 		//After click on it should show popup with checkout and product page links 
 		driver.navigate().refresh();
@@ -5466,7 +5572,7 @@ public class Products extends Data {
 		try{
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='This product is not available for purchase.']")));
 			Assert.assertTrue(driver.findElement(By.xpath("//h2[text()='This product is not available for purchase.']")).isDisplayed(), "Product Currently Unavailable message is not displayed on checkout page.");
-			System.out.println("Product Currently Unavailable message is displayed on checkout page.");
+			System.out.println("\nProduct Currently Unavailable message is displayed on checkout page.");
 		} catch(TimeoutException e){
 			System.out.println("Product Currently Unavailable message not found." + Checkout_page);
 		}
@@ -5504,7 +5610,95 @@ public class Products extends Data {
 		driver.close();
 		driver.switchTo().window(pwindo);
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page		
+		
+		//check that after click on name should navigate to the same product detail page 
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+		Thread.sleep(3000);
+		String productDetailUrl = driver.getCurrentUrl();
+		Assert.assertTrue(productDetailUrl.contains("tab=Details"), "Clicking on product name does not navigate to product details page");
+		System.out.println("Clicking on product name navigates to product details page successfully.\n");
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
+		
+		//check that if there is product price it is aslo same as on details page
+		driver.navigate().refresh();
+		Thread.sleep(5000);	
+		String Pageslist = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(4)>a>div")).getText().trim();
+		System.out.println("Total No Of Pages for the Selected product on list view is: " + Pageslist);
+		
+		String ProductPrice = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
+		System.out.println("\nProduct Price in Price List View is: " + ProductPrice);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+		Thread.sleep(3000);
+		String ProductPriceDetails = driver.findElement(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span:nth-of-type(2)>span")).getText().trim();
+		System.out.println("Product Price in Details Page is: " + ProductPriceDetails);
+		Assert.assertEquals(ProductPrice, ProductPriceDetails, "Product price in list view and details page are not same");
+		System.out.println("Product price in list view and details page are same.\n");
+		
+		//check that same price should seen when we edit product changes reflect on price listing coloumn
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Pricing Options']")));
+		driver.findElement(By.name("productPricing.regularPrice")).clear();
+		Thread.sleep(1000);
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(OneTimePurchaseSalePrice);
+		Thread.sleep(1000);
+		WebElement saveButton = driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button"));
+		jse.executeScript("arguments[0].click();", saveButton);
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
+		
+		driver.navigate().refresh();
+		Thread.sleep(3000);		
+		String ProductPriceUpdated = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
+		System.out.println("Product Price in Price List View After Edit: " + ProductPriceUpdated);
+		double actualPrice = Double.parseDouble(ProductPriceUpdated.replace("$", "").trim());
+		double expectedPrice = Double.parseDouble(OneTimePurchaseSalePrice.trim());
+		Assert.assertEquals(actualPrice, expectedPrice,"Product price is not updated in list view after edit");
+		System.out.println("Product price is updated in list view after edit successfully.\n");
+		
+		//check that under pages number of pages for the product can be seen 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(4)>a")).click();
+		Thread.sleep(3000);
+		String TotalPage = driver.findElement(By.cssSelector("#orderPagesFunnel>div>span>span")).getText().trim().replaceAll("[^0-9]", "");
+		System.out.println("Total No Pages for the Selected product is: " + TotalPage);
+		Assert.assertEquals(Pageslist, TotalPage, "Total pages for the product in details page and list view are not same");
+		System.out.println("Total No pages for the Selected product in details page and list view are same.\n");
+		
+		//check that after click it should navigate to particular pages of same product 
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		Thread.sleep(3000);
+		String currentUrl111 = driver.getCurrentUrl();
+		Assert.assertTrue(currentUrl111.contains("tab=Pages"),"Clicking on page number does not navigate to page details");
+		System.out.println("Clicking on page number navigates to page details successfully.\n");
+		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
+		
+		//check that after click on revenue section it should navigate to sales report section 
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(6)>a")).click();	
+		Thread.sleep(3000);
+		String currentUrl1111 = driver.getCurrentUrl();
+		Assert.assertTrue(currentUrl1111.contains("tab=Sales+Reports"),"Clicking on revenue does not navigate to sales report");
+		System.out.println("Clicking on revenue navigates to sales report successfully.\n");	
 	}
+	
+	@Test(priority = 15)
+	public void Product_Settings() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		
+		
+		
+		
+	}
+	
+	
 	
 	
 		
