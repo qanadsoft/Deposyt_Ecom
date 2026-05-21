@@ -5141,8 +5141,7 @@ public class Products extends Data {
 		List<String> actualTitles = new ArrayList<>();
 		for (WebElement title : productTitles) {
 			actualTitles.add(title.getText().trim());
-			System.out.println("Product Title # : " + title.getText().trim());
-			
+			System.out.println("Product Title # : " + title.getText().trim());		
 		}
 		
 		List<String> expectedTitles = new ArrayList<>(actualTitles);
@@ -5271,7 +5270,7 @@ public class Products extends Data {
 			if (!orderText.isEmpty()) {
 				actualOrders1.add(Integer.parseInt(orderText));
 				System.out.println("Product Orders # : " + order.getText().trim());
-				}
+			}
 		}
 		
 		List<Integer> expectedOrders1 = new ArrayList<>(actualOrders1);
@@ -5556,8 +5555,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
-		Thread.sleep(3000);
-		
+		Thread.sleep(3000);	
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
 		
@@ -5687,16 +5685,273 @@ public class Products extends Data {
 	public void Product_Settings() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		
 		driver.navigate().to(Products);
 		Thread.sleep(5000);		
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
 		
+		//check that product setting button is clickable and after click navigate to settings page
+		String Settingslabel = driver.findElement(By.xpath("//p[text()='Products Settings']")).getText().trim();
+		Assert.assertEquals(Settingslabel, "Products Settings", "Clicking on product settings does not navigate to product settings page");
+		System.out.println("Clicking on product settings navigate to product settings page successfully.\n");
+			
+		//check that on initial level cancel and save buttons are in disabled mode 
+		WebElement saveButton = driver.findElement(By.cssSelector("div.custom-setting-region-tab>div>header>div:nth-of-type(2)>button"));
+		String classValue = saveButton.getAttribute("class");
+		Assert.assertTrue(classValue.contains("disabled"),"Save button is not disabled");
+		System.out.println("Save & Cancel button is in disabled mode successfully.\n");
 		
+		//check that there is X icon to cancel and close product setting
+		driver.findElement(By.cssSelector("div.custom-setting-region-tab>div>header>div:nth-of-type(2)>button:last-of-type")).click();
+		Thread.sleep(2000);
+		Assert.assertTrue(driver.findElement(By.xpath("//header[text()='Recent Products']")).isDisplayed(),"Clicking on X icon does not close product settings");
+		System.out.println("Clicking on X icon close product settings successfully.\n");
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
 		
+		//check that the connect payment label text displays correctly
+		String paymentlabel = driver.findElement(By.xpath("//p[text()='Products Settings']")).getText().trim();
+		Assert.assertEquals(paymentlabel, "Products Settings", "Products Settings label text is not displayed correctly");
+		System.out.println("Products Settings label text is displayed correctly.\n");
 		
+		//check that the connect payment label text 'Connect your payment gateway. Also found in Settings > Payments.' displays correctly
+		String paymentlabel1 = driver.findElement(By.xpath("//p[text()='Connect your payment gateway. Also found in Settings > Payments.']")).getText().trim();
+		Assert.assertEquals(paymentlabel1, "Connect your payment gateway. Also found in Settings > Payments.", "Products Settings description text is not displayed correctly");
+		System.out.println("Products Settings description text is displayed correctly.\n");
 		
+		//check that autorize payment , NMI payment , Stripe payment options can be seen
+		List<WebElement> paymentOptions = driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div"));	
+		Assert.assertEquals(paymentOptions.size(), 3, "Not all payment options are displayed in product settings");
+		System.out.println("All payment options i.e Authoarize , NMI , Stripe are displayed in product settings successfully.\n");
+		
+		//When we select Authorize option from payment it should have green tickmark
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div:first-of-type")).click();
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(5000);
+		WebElement selectIcon = driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div:nth-of-type(1)>svg"));
+		String classValue1 = selectIcon.getAttribute("class");
+		Assert.assertFalse(classValue1.contains("hidden"),"Option is not selected");
+		System.out.println("Authorize option is selected successfully.\n");
+		
+		//Check that when Authorize payment option is active from settings changes must reflect for product settings payment option also
+		driver.navigate().to(settings);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Payments']/parent::div/parent::button"))).click(); //Click on Payments button
+		Thread.sleep(2000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h3[text()='General Payment Settings']")));
+		WebElement selectIcons = driver.findElement(By.cssSelector("article div section div div:nth-of-type(3) div span:first-of-type"));
+		String classValue1s = selectIcons.getText().trim();
+		Assert.assertTrue(classValue1s.contains("Active"),"Option is not selected");
+		System.out.println("The selected Changes for Authorize payment option in settings also selected successfully.\n");
+		
+		//check that after selecting autorize option user can do checkout from checkout page
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
+		Thread.sleep(4000);
+		
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}		
+
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);				
+		WebElement CardName = driver.findElement(By.id("cardHolderName"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", CardName);
+		Thread.sleep(1000);
+		CardName.sendKeys(F_Name+" "+L_Name);
+		driver.findElement(By.id("cardNumber")).sendKeys(Card_No);
+		driver.findElement(By.id("cardCVV")).sendKeys(CVV);
+		driver.findElement(By.xpath("//button[contains(@aria-controls,\"monthDropdown\")]")).click();
+		driver.findElement(By.cssSelector("#monthDropdown>button:nth-of-type(12)")).click();
+		driver.findElement(By.xpath("//button[contains(@aria-controls,\"yearDropdown\")]")).click();
+		driver.findElement(By.cssSelector("#yearDropdown>button:first-of-type")).click();
+		
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
+		String PlacedOrderIDs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		System.out.println("Placed Order ID: " + PlacedOrderIDs);		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//When we select NMI option from payment it should have green tickmark
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div:nth-of-type(2)")).click();
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(5000);
+		WebElement selectIcon1 = driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div:nth-of-type(2)>svg"));
+		String classValue11 = selectIcon1.getAttribute("class");
+		Assert.assertFalse(classValue11.contains("hidden"),"Option is not selected");
+		System.out.println("NMI option is selected successfully.\n");
+		
+		//Check that when NMI payment option is active from settings changes must reflect for product settings payment option also 
+		driver.navigate().to(settings);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Payments']/parent::div/parent::button"))).click(); //Click on Payments button
+		Thread.sleep(2000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h3[text()='General Payment Settings']")));
+		WebElement selectIcons1 = driver.findElement(By.cssSelector("article:nth-of-type(2) div section div div:nth-of-type(3) div span:first-of-type"));
+		String classValue1s1 = selectIcons1.getText().trim();
+		Assert.assertTrue(classValue1s1.contains("Active"),"Option is not selected");
+		System.out.println("The selected Changes for NMI payment option in settings also selected successfully.\n");
+		
+		//check that after selecting NMI option user can do checkout from checkout page  
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
+		Thread.sleep(4000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}		
+
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);	
+		WebElement CardName1 = driver.findElement(By.id("cardHolderName"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", CardName1);
+		Thread.sleep(1000);
+		CardName1.sendKeys(F_Name+" "+L_Name);
+		driver.switchTo().frame("CollectJSInlineccnumber");
+		driver.findElement(By.id("ccnumber")).sendKeys("5411111111111115");
+		
+		driver.switchTo().defaultContent();
+		driver.switchTo().frame("CollectJSInlinecvv");
+		driver.findElement(By.id("cvv")).sendKeys(CVV);
+		
+		driver.switchTo().defaultContent();
+		driver.switchTo().frame("CollectJSInlineccexp");
+		driver.findElement(By.id("ccexp")).sendKeys("12/44");;
+		driver.switchTo().defaultContent();
+		
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
+		//String PlacedOrderIDs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		//System.out.println("Placed Order ID: " + PlacedOrderIDs1);		
+		driver.close();
+		driver.switchTo().window(originalTab);		
+		
+		//When we select Stripe option from payment it should have green tickmark 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div:nth-of-type(3)")).click();
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(5000);
+		WebElement selectIconn = driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div:nth-of-type(3)>svg"));
+		String classValue1n = selectIconn.getAttribute("class");
+		Assert.assertFalse(classValue1n.contains("hidden"),"Option is not selected");
+		System.out.println("Stripe option is selected successfully.\n");
+		
+		//Check that when Stripe payment option is active from settings changes must reflect for product settings payment option also
+		driver.navigate().to(settings);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Payments']/parent::div/parent::button"))).click(); //Click on Payments button
+		Thread.sleep(2000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h3[text()='General Payment Settings']")));
+		WebElement selectIcons11 = driver.findElement(By.cssSelector("article:nth-of-type(3) div section div div:nth-of-type(3) div span:first-of-type"));
+		String classValue1s11 = selectIcons11.getText().trim();
+		Assert.assertTrue(classValue1s11.contains("Active"),"Option is not selected");
+		System.out.println("The selected Changes for Stripe payment option in settings also selected successfully.\n");
+		
+		//check that after selecting Stripe option user can do checkout from checkout page 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
+		Thread.sleep(4000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}		
+
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);	
+		
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		System.out.println("Placed Order ID: " + PlacedOrderID11);
+		driver.close();
+		driver.switchTo().window(originalTab);	
 	}
+	
+	
 	
 	
 	
