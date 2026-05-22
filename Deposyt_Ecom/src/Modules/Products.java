@@ -5962,7 +5962,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
 		
 		//check that domain / url is under default domain title 
-		/*String Settingslabel = driver.findElement(By.xpath("//p[text()='Default domain']")).getText().trim();
+		String Settingslabel = driver.findElement(By.xpath("//p[text()='Default domain']")).getText().trim();
 		Assert.assertEquals(Settingslabel, "Default domain", "Default domain label is not displayed in product settings page");
 		System.out.println("Default domain label is displayed in product settings page successfully.\n");		
 		
@@ -6010,7 +6010,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
 		String DomainUrl = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@rel='noopener noreferrer']"))).getText().trim();
 		Assert.assertEquals(DomainUrl.replaceAll("/$", ""),StoreUrl.replaceAll("/$", ""));
-		System.out.println("Domain URL in product settings page is updated according to the changes from store details page successfully.\n");*/
+		System.out.println("Domain URL in product settings page is updated according to the changes from store details page successfully.\n");
 		
 		//check that there is a subheading Collect Sales & VAT Taxes 
 		String SubHeading = driver.findElement(By.xpath("//p[text()='Collect Sales & VAT Taxes']")).getText().trim();
