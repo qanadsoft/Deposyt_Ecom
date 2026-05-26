@@ -5952,13 +5952,13 @@ public class Products extends Data {
 	}
 	
 	@Test(priority = 16)
-	public void Product_SettingsPage() throws InterruptedException {
+	public void Product_SettingsPage_TaxInventory() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		
 		driver.navigate().to(Products);
-		Thread.sleep(5000);		
+		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
 		
 		//check that domain / url is under default domain title 
@@ -5979,7 +5979,6 @@ public class Products extends Data {
 		}
 		
 		String currentUrl = driver.getCurrentUrl();
-		System.out.println("Domain URL: " + currentUrl);
 		Assert.assertTrue(currentUrl.contains("store"),"Domain URL is not valid");
 		System.out.println("Domain URL is valid and navigates successfully.\n");
 		driver.close();
@@ -5990,8 +5989,14 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Domain']")));	
 		WebElement storeName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("base_url")));
+		storeName.click();
+		Thread.sleep(2000);
+
+		storeName.sendKeys(Keys.CONTROL + "a");
+		storeName.sendKeys(Keys.DELETE);
+		Thread.sleep(2000);
+
 		storeName.sendKeys("store" + (char)('A' + new java.util.Random().nextInt(26)));
-		Thread.sleep(2000);	
 		WebElement publishBtn = driver.findElement(By.xpath("//span[normalize-space()='Publish']//parent::button"));
 		jse.executeScript("arguments[0].click();", publishBtn);
 		
@@ -6003,7 +6008,6 @@ public class Products extends Data {
 		
 		Thread.sleep(5000);
 		String StoreUrl = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@rel='noopener noreferrer'])[1]"))).getAttribute("href").trim();		
-		System.out.println("Store URL: " + StoreUrl);
 		
 		driver.navigate().to(Products);
 		Thread.sleep(5000);		
@@ -6108,7 +6112,8 @@ public class Products extends Data {
 
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		
 		String Tax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
@@ -6168,11 +6173,766 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
+		
+		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
+		taxRate.click();
+		String TotalTax = taxRate.getText();
 			
 		//after saving enable toggle setting for the inventory product then toaster msg will be visible 
 		WebElement ToasterMsgs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsgs.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
+		
+		//If inventory tax toggle is enable then on default checkout page tax should show as tax 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table	>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
+		Thread.sleep(4000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(5000);
+		String Taxx = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:nth-of-type(2)")).getText().trim();
+		Assert.assertNotEquals(Taxx, TotalTax, "After enabling inventory product tax toggle tax is not showing on checkout page");
+		System.out.println("After enabling inventory product tax toggle tax is showing on checkout page successfully.\n");
+		
+		//If inventory tax toggle is enable  for default checkout page then on success page tax should show as tax
+		try {
+			driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+			driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+			driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+			Thread.sleep(2000);
+			driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+			driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+			driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+			driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+			driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
+			Thread.sleep(5000);
+		} catch (Exception e) {
+			driver.findElement(By.xpath("//button[text()='Use same as my Billing Address']")).click();
+		}
+				
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolders = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolders.clear();
+		cardHolders.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
+		Thread.sleep(5000);	
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		String Taxs1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
+		Assert.assertNotEquals(Taxs1, TotalTax, "After enabling inventory product tax toggle	tax is not showing on success page");
+		System.out.println("After enabling inventory product tax toggle tax is showing on success page successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If inventory tax toggle is enable  for default checkout page then order placed then in order summary tax should show as tax 
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);
+		
+		String Taxs2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
+		Assert.assertNotEquals(Taxs2, TotalTax, "After enabling inventory product tax toggle	tax is not showing in order summary");
+		System.out.println("After enabling inventory product tax toggle tax is showing in order summary successfully.\n");
+		
+		//If inventory tax toggle is enable  for default checkout page then order placed then in customer hub tax should show as tax 
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
+		Assert.assertNotEquals(Taxs3, TotalTax, "After enabling inventory product tax toggle	tax is not showing in customer hub");
+		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
+		
+		//User can disable the inventory product tax toggle from settings for checkout page
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+		WebElement toggleButton2 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:first-of-type>button")));
+		String toggleState2 = toggleButton2.getAttribute("data-state");
+		if (toggleState2.equals("checked")) {
+			jse.executeScript("arguments[0].click();", toggleButton2);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState2.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButton2);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton2);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+		
+		//After saving disable toggle setting for the inventory product then toaster message should be visible
+		WebElement ToasterMsg1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
+		Assert.assertTrue(ToasterMsg1.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
+		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
+		
+		//If inventory tax toggle is disabled for checkout page then on checkout page tax should show as $0.00
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table	>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(2).click();
+		Thread.sleep(4000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(5000);
+		String Tasx = driver.findElement(By.cssSelector("#no-tailwindcss-base>div>div>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Tasx, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on checkout page");
+		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on checkout page successfully.\n");
+		
+		//If inventory tax toggle is disabled for checkout page then on success page tax should show as $0.00 
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHoldesr = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHoldesr.clear();
+		cardHoldesr.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		String Taxr1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
+		Assert.assertEquals(Taxr1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
+		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on success page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If inventory tax toggle is disabled for checkout page then order placed then in order summary tax should show as $0.00 
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);		
+		
+		String Taxr2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
+		Assert.assertEquals(Taxr2, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in order summary");
+		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in order summary successfully.\n");	
+		
+		//If inventory tax toggle is disabled for checkout page then order placed then in customer hub tax should show as $0.00 
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+				
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		String Taxr3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
+		Assert.assertEquals(Taxr3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
+		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//User can enable the inventory product tax toggle from settings for checkout page 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+		WebElement toggleButtonn1 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:first-of-type>button")));
+		String toggleStates1 = toggleButtonn1.getAttribute("data-state");
+		if (toggleStates1.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButtonn1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleStates1.equals("checked");
+			jse.executeScript("arguments[0].click();", toggleButtonn1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButtonn1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+		
+		WebElement taxRatee = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
+		taxRatee.click();
+		String TotalTax1 = taxRatee.getText();
+		
+		//After saving enable toggle setting for the inventory product then toaster message should be visible 
+		WebElement ToasterMsgs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
+		Assert.assertTrue(ToasterMsgs1.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
+		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
+		
+		//If inventory tax toggle is enabled for checkout page then on checkout page tax should show as tax 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table	>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
+		Thread.sleep(4000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(5000);
+		String Taxs = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:nth-of-type(2)")).getText().trim();
+		Assert.assertNotEquals(Taxs, TotalTax1, "After enabling inventory product tax toggle tax is not showing on checkout page");
+		System.out.println("After enabling inventory product tax toggle tax is showing on checkout page successfully.\n");
+		
+		//If inventory tax toggle is enabled for checkout page then on success page tax should show as tax 
+		try {
+			driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+			driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+			driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+			Thread.sleep(2000);
+			driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+			driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+			driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+			driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+			driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
+			Thread.sleep(5000);
+		} catch (Exception e) {
+			driver.findElement(By.xpath("//button[text()='Use same as my Billing Address']")).click();
+		}
+				
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolders1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolders1.clear();
+		cardHolders1.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		String Taxs11 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
+		Assert.assertNotEquals(Taxs11, TotalTax1, "After enabling inventory product tax toggle tax is not showing on success page");
+		System.out.println("After enabling inventory product tax toggle tax is showing on success page successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If inventory tax toggle is enabled for checkout page then order placed then in order summary tax should show as tax
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);
+		
+		String Taxs21 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
+		Assert.assertNotEquals(Taxs21, TotalTax1, "After enabling inventory product tax toggle tax is not showing in order summary");
+		System.out.println("After enabling inventory product tax toggle tax is showing in order summary successfully.\n");
+		
+		//If inventory tax toggle is enabled for checkout page then order placed then in customer hub tax should show as tax 
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		String Taxs31 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
+		Assert.assertNotEquals(Taxs31, TotalTax1, "After enabling inventory product tax toggle tax is not showing in customer hub");
+		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//User can disable the inventory product tax toggle from settings for default product page 
+		/*driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+		WebElement toggleButtonn11 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:first-of-type>button")));
+		String toggleState11 = toggleButtonn11.getAttribute("data-state");
+		if (toggleState11.equals("checked")) {
+			jse.executeScript("arguments[0].click();", toggleButtonn11);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState11.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButtonn11);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButtonn11);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+		
+		//After saving disable toggle setting for the inventory product then toaster message should be visible 
+		WebElement ToasterMsgg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
+		Assert.assertTrue(ToasterMsgg.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
+		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
+		
+		//If inventory tax toggle is disabled for default product page then on default product page tax should show as $0.00
+		driver.navigate().to(Products);
+		Thread.sleep(7000);	
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(1).click();
+		Thread.sleep(4000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}		
+
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
+		Thread.sleep(2000);
+		
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(5000);
+		String Taxa = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Taxa, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on checkout page");
+		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on default product page successfully.\n");
+		
+		//If inventory tax toggle is disabled for default product page then on success page tax should show as $0.00 
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHoldder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHoldder.clear();
+		cardHoldder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		String Taxa1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
+		Assert.assertEquals(Taxa1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
+		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on default product page success page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If inventory tax toggle is disabled for default product page then order placed then in order summary tax should show as $0.00 
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);		
+		
+		String Taxa2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
+		Assert.assertEquals(Taxa2, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in order summary");
+		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in default product page order summary successfully.\n");	
+		
+		//If inventory tax toggle is disabled for default product page then order placed then in customer hub tax should show as $0.00 
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		String Taxa3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
+		Assert.assertEquals(Taxa3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
+		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//User can enable the inventory product tax toggle from settings for default product page 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+		WebElement toggleButton11 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:first-of-type>button")));
+		String toggleState111 = toggleButton11.getAttribute("data-state");
+		if (toggleState111.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton11);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState111.equals("checked");
+			jse.executeScript("arguments[0].click();", toggleButton11);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton11);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+		
+		WebElement taxRatee1 = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
+		taxRatee1.click();
+		String TotalTaax11 = taxRatee1.getText();
+		
+		//After saving enable toggle setting for the inventory product then toaster message should be visible
+		WebElement ToasterMsggs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
+		Assert.assertTrue(ToasterMsggs.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
+		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
+		
+		//If inventory tax toggle is enabled for default product page then on default product page tax should show as tax 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table	>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(1).click();
+		Thread.sleep(4000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
+		Thread.sleep(2000);	
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		
+		Thread.sleep(5000);
+		String Taxn = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:nth-of-type(2)")).getText().trim();
+		Assert.assertNotEquals(Taxn, TotalTaax11, "After enabling inventory product tax toggle tax is not showing on checkout page");
+		System.out.println("After enabling inventory product tax toggle tax is showing on default product checkout page successfully.\n");
+		
+		//If inventory tax toggle is enabled for default product page then on success page tax should show as tax 
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHoldesr1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHoldesr1.clear();
+		cardHoldesr1.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		String Taxx1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
+		Assert.assertNotEquals(Taxx1, TotalTaax11, "After enabling inventory product tax toggle tax is not showing on success page");
+		System.out.println("After enabling inventory product tax toggle tax is showing on default product success page successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If inventory tax toggle is enabled for default product page then order placed then in order summary tax should show as tax 
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);
+		
+		String Taxx2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
+		Assert.assertNotEquals(Taxx2, TotalTaax11, "After enabling inventory product tax toggle tax is not showing in order summary");
+		System.out.println("After enabling inventory product tax toggle tax is showing in default product order summary successfully.\n");
+		
+		//If inventory tax toggle is enabled for default product page then order placed then in customer hub tax should show as tax 
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		String Taxx3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
+		Assert.assertNotEquals(Taxx3, TotalTaax11, "After enabling inventory product tax toggle tax is not showing in customer hub");
+		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");	*/
+	}
+	
+	@Test(priority = 17)
+	public void Product_SettingsPage_TaxNonInventory() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		
+		//user can disable the Non-inventory product tax toggle from settings 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:nth-of-type(2)>button")));
+		String toggleState = toggleButton.getAttribute("data-state");
+		if (toggleState.equals("checked")) {
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+		
+		//after saving disable toggle setting for the Non-inventory product then toaster msg will be visible 
+		WebElement ToasterMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
+		Assert.assertTrue(ToasterMsg.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
+		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
+		
+		//If Non-inventory tax toggle is disabled  for default checkout page  then on default checkout page tax should show as $0.00 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);	
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
+		Thread.sleep(4000);
+		
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}		
+
+		Thread.sleep(5000);
+		String Tax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Tax, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% on checkout page");
+		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% on checkout page successfully.\n");
+		
+		//If Non-inventory tax toggle is disabled  for default checkout page  then on success page tax should show as $0.00 
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		String Tax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
+		Assert.assertEquals(Tax1, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% on success page");
+		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% on success page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If Non-inventory tax toggle is disabled  for default checkout page  then order placed then in order summary tax should show as $0.00 
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);		
+		
+		String Tax2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
+		Assert.assertEquals(Tax2, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% in order summary");
+		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% in order summary successfully.\n");	
+		
+		//If Non-inventory tax toggle is disabled  for default checkout page then order placed then in customer hub tax should show as $0.00 
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		String Tax3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
+		Assert.assertEquals(Tax3, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% in customer hub");
+		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -6188,6 +6948,8 @@ public class Products extends Data {
 		
 		
 	}
+	
+	
 	
 	
 	

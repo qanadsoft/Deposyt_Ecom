@@ -13,7 +13,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "Product_SettingsPage" />
+					<include name = "Product_SettingsPage_TaxNonInventory" />
 				</methods>
 			</class>
 		</classes>
