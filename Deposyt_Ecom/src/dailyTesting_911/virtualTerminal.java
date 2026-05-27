@@ -77,7 +77,7 @@ public class virtualTerminal extends Data {
 		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); //Clicking on first product from the dropdown
 		Thread.sleep(1000);
 
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Type']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Cash Payment Method']")));
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//div[contains(@class,'custom-class-for-aaply-the-css')]//div[contains(@class,'flex flex-1 items-center') and .//div[contains(@id,'placeholder')]]")).click(); //Clicking on payment type dropdown
 		Thread.sleep(2000);
@@ -155,6 +155,7 @@ public class virtualTerminal extends Data {
 
 		//verify that user can send 2 FA via SMS for the card payment
 		driver.navigate().to(Messages);
+		Thread.sleep(3000);
 		driver.findElement(By.name("filters")).sendKeys(Number,Keys.ENTER);
 		Thread.sleep(7000);
 		WebElement lastSms = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.sms-box:last-of-type>div>div:nth-of-type(2)>div:first-of-type")));
@@ -247,9 +248,7 @@ public class virtualTerminal extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(Price);
 		Thread.sleep(1000);
 

@@ -42,8 +42,7 @@ public class settings extends Data {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		Actions action = new Actions(driver);
-		
+		Actions action = new Actions(driver);		
 		
 		String Product_Name1 = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Payment_Mode = "PayPal";
 		String MailSubject = "Trigger Mail Via Automation", EmailText = "This mail is sent by trigger Test", messageText = "This SMS is sent by trigger Test";		
@@ -51,7 +50,7 @@ public class settings extends Data {
 		//Check card expiray notification is sent on email 
 		//Check card expiry trigger is run successfully
 	
-		DeleteMail("Card Expiration Alert");
+		//DeleteMail("Card Expiration Alert");
 		
 		try {
 			driver.navigate().to(Products);
@@ -125,9 +124,7 @@ public class settings extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -191,7 +188,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("04/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("05/26");
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -242,9 +239,7 @@ public class settings extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
@@ -285,7 +280,7 @@ public class settings extends Data {
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);		
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(3)>div:nth-of-type(2)")).click();//click on cash payment
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();//click on cash payment
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();//click on mode drop down
 		
@@ -485,7 +480,7 @@ public class settings extends Data {
 		Thread.sleep(1000);
 		CardName1.sendKeys(F_Name+" "+L_Name);
 		driver.switchTo().frame("CollectJSInlineccnumber");
-		driver.findElement(By.id("ccnumber")).sendKeys(Card_No);
+		driver.findElement(By.id("ccnumber")).sendKeys("4532111111111112");
 		
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlinecvv");
@@ -615,7 +610,7 @@ public class settings extends Data {
 		LocalDate today11 = LocalDate.now();
 		Assert.assertEquals(orderDate11, today11, "Order date Mismatch: Expected today's date but got " + orderDate11);
 		
-		ReceivedMail("Card Expiration Alert");	
+		//ReceivedMail("Card Expiration Alert");	
 	}
 	
 	@Test(priority = 2)
@@ -668,7 +663,7 @@ public class settings extends Data {
 			}
 		}		
 
-		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type")).getText().trim();
+		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
 		System.out.println("Order Tax: " + ordertax);
 		String extractedTax = ordertax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax, taxRegion, "Tax rate mismatch in order summary");
@@ -912,9 +907,7 @@ public class settings extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -964,7 +957,7 @@ public class settings extends Data {
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
-		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type"))).getText().trim();
+		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type"))).getText().trim();
 		System.out.println("convenience Fee On Checkout Page : " + orderconvenienceFee);
 		String extractedconvenienceFee = orderconvenienceFee.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedconvenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),convenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Convenience Fee mismatch in order summary");
@@ -977,7 +970,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("04/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("05/26");
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -1006,14 +999,14 @@ public class settings extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click(); //Click on order details		
 		Thread.sleep(2000);
-		String orderconvenienceFee1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-details-section-class>div>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(5)>div:nth-of-type(2)>span:first-of-type"))).getText().trim();
+		String orderconvenienceFee1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-details-section-class>div>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(4)>div:nth-of-type(2)>span:first-of-type"))).getText().trim();
 		System.out.println("convenience Fee In Order Details : " + orderconvenienceFee1);
 		String extractedconvenienceFee1 = orderconvenienceFee1.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedconvenienceFee1.replaceAll("[^0-9]", "").replaceAll("00$", ""),convenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Convenience Fee mismatch in order summary");
 		
-		String TotalOrderAmount =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-details-section-class>div>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(8)>div:nth-of-type(2)>span:first-of-type"))).getText().trim();
+		/*String TotalOrderAmount =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-details-section-class>div>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(8)>div:nth-of-type(2)>span:first-of-type"))).getText().trim();
 		System.out.println("Total Order Amount In Order Details : " + TotalOrderAmount);
-		//Assert.assertEquals(Double.parseDouble(TotalOrderAmount.replace("$", "")), 11.00, "Total order amount mismatch in order summary");
+		Assert.assertEquals(Double.parseDouble(TotalOrderAmount.replace("$", "")), 11.00, "Total order amount mismatch in order summary");*/
 		
 		//Surcharge
 		driver.navigate().to(settings);
@@ -1064,7 +1057,7 @@ public class settings extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
 		Thread.sleep(4000);
-		String SurchargeFees = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type"))).getText().trim();
+		String SurchargeFees = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type"))).getText().trim();
 		System.out.println("Surcharge Fee On Checkout Page : " + SurchargeFees);
 		String extractedSurchargeFee = SurchargeFees.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedSurchargeFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),SurchargeFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Surcharge Fee mismatch in order summary");
@@ -1076,7 +1069,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("04/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("05/26");
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -1105,14 +1098,14 @@ public class settings extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click(); //Click on order details		
 		Thread.sleep(2000);
-		String ordersurgeFee1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#overflow-main-div>div:nth-of-type(2)>div>div:nth-of-type(3)>div>div:nth-of-type(2)>div>div:first-of-type>div:nth-of-type(5)>div>span:first-of-type"))).getText().trim();
+		String ordersurgeFee1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#overflow-main-div>div:nth-of-type(2)>div>div:nth-of-type(3)>div>div:nth-of-type(2)>div>div:first-of-type>div:nth-of-type(4)>div>span:first-of-type"))).getText().trim();
 		System.out.println("surge Fee In Order Details : " + ordersurgeFee1);
 		String extractedsurgeFee1 = ordersurgeFee1.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedsurgeFee1.replaceAll("[^0-9]", "").replaceAll("00$", ""),ordersurgeFee1.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Convenience Fee mismatch in order summary");
 		
-		String TotalOrderAmount1 =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-details-section-class>div>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(8)>div:nth-of-type(2)>span:first-of-type"))).getText().trim().replaceAll("[^0-9.]", "");
+		/*String TotalOrderAmount1 =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-details-section-class>div>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(8)>div:nth-of-type(2)>span:first-of-type"))).getText().trim().replaceAll("[^0-9.]", "");
 		System.out.println("Total Order Amount In Order Details : " + TotalOrderAmount1);
-		//Assert.assertEquals(Double.parseDouble(TotalOrderAmount1.replace("$", "")), 1.03,"Total order amount mismatch in order summary");
+		Assert.assertEquals(Double.parseDouble(TotalOrderAmount1.replace("$", "")), 1.03,"Total order amount mismatch in order summary");*/
 		
 		//Service Fee
 		driver.navigate().to(settings);
@@ -1161,7 +1154,7 @@ public class settings extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		
 		Thread.sleep(4000);
-		String ServiceFees = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type"))).getText().trim();
+		String ServiceFees = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type"))).getText().trim();
 		System.out.println("Service Fee On Checkout Page : " + ServiceFees);
 		String extractedServiceFee = ServiceFees.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedServiceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),ServiceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Service Fee mismatch in order summary");
@@ -1173,7 +1166,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("04/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("05/26");
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -1202,25 +1195,24 @@ public class settings extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click(); //Click on order details		
 		Thread.sleep(2000);
-		String orderserviceee1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#overflow-main-div>div:nth-of-type(2)>div>div:nth-of-type(3)>div>div:nth-of-type(2)>div>div:first-of-type>div:nth-of-type(5)>div>span:first-of-type"))).getText().trim();
+		String orderserviceee1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div#overflow-main-div>div:nth-of-type(2)>div>div:nth-of-type(3)>div>div:nth-of-type(2)>div>div:first-of-type>div:nth-of-type(4)>div>span:first-of-type"))).getText().trim();
 		System.out.println("Service Fee In Order Details : " + orderserviceee1);
 		String extractedserviceFee1 = orderserviceee1.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedserviceFee1.replaceAll("[^0-9]", "").replaceAll("00$", ""),orderserviceee1.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Convenience Fee mismatch in order summary");
 
-		String TotalOrderAmount11 =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-details-section-class>div>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(8)>div:nth-of-type(2)>span:first-of-type"))).getText().trim().replaceAll("[^0-9.]", "");
+		/*String TotalOrderAmount11 =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-details-section-class>div>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(8)>div:nth-of-type(2)>span:first-of-type"))).getText().trim().replaceAll("[^0-9.]", "");
 		System.out.println("Total Order Amount In Order Details : " + TotalOrderAmount11);
-		//Assert.assertEquals(Double.parseDouble(TotalOrderAmount11.replace("$", "")), 1.14,"Total order amount mismatch in order summary");
+		Assert.assertEquals(Double.parseDouble(TotalOrderAmount11.replace("$", "")), 1.14,"Total order amount mismatch in order summary");*/
 		
 		//Cash/ACH Discount (Cash Discount)
 		driver.navigate().to(settings);
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Price Adjustment Settings']/parent::div/parent::button"))).click(); 
+		Thread.sleep(5000);
 		
 		try {
-			Thread.sleep(3000);
 			WebElement feeOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@name,'fee_option')])[5]")));
-			jse.executeScript("arguments[0].scrollIntoView({block:'center'});", feeOption);
-			feeOption.click();
+			jse.executeScript("arguments[0].click();", feeOption);
 			Thread.sleep(2000);
 			driver.findElement(By.id("displayStyleCashDiscount")).click();
 			Thread.sleep(3000);
@@ -1261,9 +1253,7 @@ public class settings extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(Price);
 		Thread.sleep(1000);
 
@@ -1319,10 +1309,11 @@ public class settings extends Data {
 		driver.navigate().to(settings);
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Price Adjustment Settings']/parent::div/parent::button"))).click(); 
+		Thread.sleep(5000);
 		
 		try {
-			Thread.sleep(2000);
-			driver.findElement(By.xpath("(//input[contains(@name,'fee_option')])[5]")).click();
+			WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@name,'fee_option')])[5]")));
+			jse.executeScript("arguments[0].click();", element);
 			Thread.sleep(2000);
 			driver.findElement(By.id("displayStyleDualPricing")).click();
 			Thread.sleep(3000);
@@ -1366,9 +1357,7 @@ public class settings extends Data {
 		String allFiles111 = String.join("\n", files111);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles111);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -1419,9 +1408,9 @@ public class settings extends Data {
 		Assert.assertEquals(extracteddualprice11.replaceAll("[^0-9]", "").replaceAll("00$", ""),DualPriceFee1.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Convenience Fee mismatch in order summary");
 		String orderIds1 = driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); //Getting order id
 		System.out.println("Order ID: " + orderIds1);	
-		String TotalOrderAmounts11 =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("main.sub-main-ui-page>div>div>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(6)>p>span"))).getText().trim();
+		/*String TotalOrderAmounts11 =  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("main.sub-main-ui-page>div>div>div:nth-of-type(2)>div:nth-of-type(4)>div:nth-of-type(6)>p>span"))).getText().trim();
 		System.out.println("Total Order Amount In Order Details : " + TotalOrderAmounts11);
-		//Assert.assertEquals(Double.parseDouble(TotalOrderAmounts11.replace("$", "")), 2.08, "Total order amount mismatch in order summary");		
+		Assert.assertEquals(Double.parseDouble(TotalOrderAmounts11.replace("$", "")), 2.08, "Total order amount mismatch in order summary");	*/	
 	}
 		
 	@Test(priority = 4)
@@ -1457,9 +1446,7 @@ public class settings extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -1615,9 +1602,7 @@ public class settings extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");

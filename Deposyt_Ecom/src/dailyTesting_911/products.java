@@ -97,9 +97,8 @@ public class products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		// Entering One Time Purchase Product price
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(Price);
@@ -239,7 +238,7 @@ public class products extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		Thread.sleep(2000);
 		
-		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type")).getText().trim();
+		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
 		System.out.println("Order Tax: " + ordertax);
 		String extractedTax = ordertax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax, Tax_Rate, "Tax rate mismatch in order summary");
@@ -321,7 +320,8 @@ public class products extends Data {
 	public void Inventory_SuscriptionProducts() throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		Actions action = new Actions(driver);
 		
 		String Product_Name = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();			
 		//DeleteMail("Your Order is Confirmed — Order# ");
@@ -378,9 +378,7 @@ public class products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		// Upload product attachment
 		/*WebElement uploadAttachment = driver.findElement(By.xpath("//p[normalize-space()='Upload File']/parent::div/parent::div/parent::label"));
@@ -411,10 +409,13 @@ public class products extends Data {
 		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 		suscprise.clear();
 		suscprise.sendKeys(susbcriptionPrice);
-		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
-
+		action.sendKeys(Keys.PAGE_DOWN).perform();
+		/*WebElement toggle = driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")); //Limited subscription toggle button
+		jse.executeScript("arguments[0].click();", toggle);
+		Thread.sleep(3000);
+		action.sendKeys(Keys.PAGE_DOWN).perform();
+		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]"));*/ //plus button to add subscription limit
+		
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
@@ -597,7 +598,7 @@ public class products extends Data {
 		System.out.println("Order ID in Order Details: " + OrderIDinDetails);
 		Assert.assertEquals(OrderIDinDetails, OrderIDGenerated, "Order ID mismatch in order");	
 		
-		String Upsell_Tag = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#overflow-main-div span > div > span"))).getText().trim();
+		String Upsell_Tag = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Upsell'])[1]"))).getText().trim();
 		Assert.assertEquals(Upsell_Tag, "Upsell", "Upsell tag not found in order details");
 		
 		driver.navigate().to(Orders);
@@ -652,9 +653,7 @@ public class products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -762,7 +761,7 @@ public class products extends Data {
 		}
 		
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 
 		//Validate order Summary - Customer details
 		String Order_Name = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text() = 'Customer']//following-sibling::div//span"))).getText().trim();

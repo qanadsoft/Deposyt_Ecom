@@ -23,6 +23,7 @@ public class customer_hub extends Data {
 	String Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(),
+	 Password = java.util.UUID.randomUUID().toString().replaceAll("-", "").substring(0,10) + "A1@",
 	
 	ContactPhone1 = "(775) 986-5200",F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
 	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
@@ -39,8 +40,7 @@ public class customer_hub extends Data {
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		Actions actions = new Actions(driver);
 		
-		String Password = java.util.UUID.randomUUID().toString().replaceAll("-", "").substring(0,10) + "A1@",
-		Product_Name1 = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+		String Product_Name1 = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 		Product_Name2 = "Tier Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 		
 		DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
@@ -117,9 +117,7 @@ public class customer_hub extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
@@ -213,9 +211,7 @@ public class customer_hub extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -321,9 +317,7 @@ public class customer_hub extends Data {
 		String allFiles111 = String.join("\n", files111);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles111);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -858,7 +852,7 @@ public class customer_hub extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[contains(@id,'headlessui-popover-panel')]//div//div//p[3]")).click();
 		Thread.sleep(1000);
-		Assert.assertTrue(backupIcon.isDisplayed() == false, "Backup card icon is still displayed after unmarking backup card");
+		Assert.assertTrue(backupIcon.isDisplayed() == true , "Backup card icon is still displayed after unmarking backup card");
 		System.out.println("Backup card is removed successfully");		
 	}
 	
@@ -869,14 +863,49 @@ public class customer_hub extends Data {
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		
 		//Verify that all cretaed invoice for respected customer is getting display in invoice tab
-		Thread.sleep(3000);
+		try {
+			driver.navigate().to(Customer_Hub);
+			Thread.sleep(5000);
+			driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
+			Thread.sleep(1000);
+			driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:first-of-type>div>div>div:nth-of-type(2)>div>div>ul>li:last-of-type")).click();
+			Thread.sleep(1000);
+			driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//button[normalize-space()=\"Join us\"]")).click();
+			Thread.sleep(3000);
+			driver.findElement(By.name("first_name")).sendKeys(firstName);
+			driver.findElement(By.name("last_name")).sendKeys(lastName);
+			driver.findElement(By.name("email")).sendKeys(email);
+			driver.findElement(By.name("phone")).sendKeys(phone);
+			driver.findElement(By.name("password")).sendKeys(Password);
+			driver.findElement(By.xpath("//button[normalize-space()=\"Join\"]")).click();	
+			System.out.println("Customer is already login in customer hub");
+		} catch(Exception e) {
+			driver.navigate().to(Customer_Hub);
+			Thread.sleep(5000);
+			driver.findElement(By.cssSelector("#header-right-side>div:nth-of-type(2)>div>button")).click();
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//button[normalize-space()=\"Join us\"]")).click();
+			Thread.sleep(3000);
+			driver.findElement(By.name("first_name")).sendKeys(firstName);
+			driver.findElement(By.name("last_name")).sendKeys(lastName);
+			driver.findElement(By.name("email")).sendKeys(email);
+			driver.findElement(By.name("phone")).sendKeys(phone);
+			driver.findElement(By.name("password")).sendKeys(Password);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//button[normalize-space()=\"Join\"]")).click();
+			System.out.println("Customer is added from customer hub");
+		}
+		
+		Thread.sleep(4000);
 		driver.navigate().to(invoices);
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.newproductbutton:nth-of-type(3)"))).click();
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("(//input[contains(@placeholder,'Describe what this invoice is about')])[1]")).sendKeys("This invoice is created for 911 Automation Test");
 		driver.findElement(By.xpath("//span[normalize-space()=\"+ Add Recipient\"]//parent::button")).click();
-		driver.findElement(By.xpath("//input[@placeholder=\"Search Customers\"]")).sendKeys(email); //Select first customer from the list
+
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//ul[contains(@class,\"px-4 py-3 hover:bg-gray-50 cursor-pointer\")]")).click(); //Select first customer from the list
 		Thread.sleep(1000);

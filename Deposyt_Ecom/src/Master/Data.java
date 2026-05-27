@@ -276,5 +276,4 @@ public class Data extends Public_Strings {
 		String Storeurl = Store.getAttribute("href");
 		driver.get(Storeurl);
 	}
-
 }

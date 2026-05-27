@@ -115,9 +115,7 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
 		Thread.sleep(1000);
@@ -240,7 +238,7 @@ public class orders extends Data {
 		//check that default checkout , checkout and default product page created and links are working
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages	
-		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(1).click();//Click on default product page
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>div>p")).get(0).click();//Click on default product page
 		
 		String pwindo1 = driver.getWindowHandle();
 		String Checkout_page1 = null;
@@ -259,7 +257,7 @@ public class orders extends Data {
 		driver.close();
 		driver.switchTo().window(pwindo1);
 		
-		driver.findElements(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).get(2).click();//Click on default product page	
+		driver.findElements(By.cssSelector("td.tracking-tighter>div>div>p")).get(1).click();//Click on default product page	
 		String pwindo11 = driver.getWindowHandle();
 		String Checkout_page11 = null;
 		for(String Tab: driver.getWindowHandles()){
@@ -425,7 +423,7 @@ public class orders extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); //Clicking on first product from the dropdown
 		Thread.sleep(1000);
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Type']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Cash Payment Method']")));
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//div[contains(@class,'custom-class-for-aaply-the-css')]//div[contains(@class,'flex flex-1 items-center') and .//div[contains(@id,'placeholder')]]")).click(); //Clicking on payment type dropdown
 		Thread.sleep(2000);
@@ -457,8 +455,8 @@ public class orders extends Data {
 		
 		//Verify services orders are visible
 		driver.navigate().to(Services);
-		Thread.sleep(3000);
-		driver.findElement(By.xpath(" (//div[@class='mr-4 fb-setting-icon-wrapper'])[2]")).click(); //Click on service setting
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.fb-setting-icon-wrapper>a:first-of-type")).click(); //Click on service setting
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.assign-payment-type-dropdownsetting")).click(); //Click on assign payment type dropdown
 		Thread.sleep(1000);
@@ -647,6 +645,7 @@ public class orders extends Data {
 		driver.findElement(By.cssSelector("div.list-form-img>div>div")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.edit-course-sidebar>div>div>div>nav>div:nth-of-type(4)>div>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
 		driver.findElement(By.id("paidCourseTab")).click();
 		driver.findElement(By.id("connect-product")).click();
 		Thread.sleep(3000);
@@ -785,7 +784,7 @@ public class orders extends Data {
 		Thread.sleep(3000);
 		//driver.findElement(By.xpath("(//span[normalize-space()='Copy Confirmation-Request Link'])[1]")).click();
 
-		jse.executeScript("window.__copiedText = '';" +"navigator.clipboard.writeText = function(text) {" +"   window.__copiedText = text;" +"};");
+		jse.executeScript("window.__copiedText = '';" +"navigator.clipboard.writeText = function(text) {" +"   window.__copiedText = text;" +"};");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[normalize-space()='Copy Confirmation-Request Link'])[1]"))).click();
 
 		String copiedUrl = (String) jse.executeScript("return window.__copiedText;");
@@ -868,9 +867,7 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -1060,9 +1057,7 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("100");
 		Thread.sleep(1000);

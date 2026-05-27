@@ -62,7 +62,7 @@ public class Public_Strings {
 	dual_Pricing	 = Ecom_url + "settings/dual-pricing",
 	//Customer_Hub	 = "https://smartstoremyhub.deposyt.store/";
 	//Customer_Hub	 = "https://automationqa.release.deposyt.store/store";
-	Customer_Hub	 = "https://gitefactory.release.deposyt.store/";
+	Customer_Hub	 = "https://ecomstore.release.deposyt.store/";
 
 	//CRM Logins
 	protected String Test02Login = "nadsoft.test02@gmail.com";

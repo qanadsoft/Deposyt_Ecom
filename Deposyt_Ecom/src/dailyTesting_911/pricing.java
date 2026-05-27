@@ -66,7 +66,6 @@ public class pricing extends Data{
 			System.out.println("None pricing already enabled");
 		}
 
-
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
@@ -85,9 +84,7 @@ public class pricing extends Data{
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		// Entering One Time Purchase Product price
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("25");
@@ -115,9 +112,7 @@ public class pricing extends Data{
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -191,16 +186,21 @@ public class pricing extends Data{
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
 
 		Thread.sleep(5000);
-		WebElement salePriceElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar span > span:last-child")));
+		WebElement salePriceElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='text-[#7A7A7A] line-through mr-1']/parent::span")));
 		String rawText = salePriceElement.getText();
-		String suscPrice1 = rawText.replaceAll(".*?(\\d+\\.\\d+).*", "$1");
-		int actualPrice = (int) Double.parseDouble(suscPrice1);
+		String suscPrice1 = rawText.replaceAll(".*?(\\$\\d+\\.\\d+\\s*/\\s*[Mm]onthly).*", "$1");
+
+		suscPrice1 = suscPrice1.replace("/ Monthly", "").replace("/ monthly", "").trim();
+		System.out.println(suscPrice1);
+
+		int actualPrice = (int) Double.parseDouble(suscPrice1.replace("$", ""));
 		int expectedPrice = Integer.parseInt(Price2);
 		Assert.assertEquals(actualPrice, expectedPrice, "Sale price is not applied on product details page");
-
-		String suscPrice2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p>span:last-of-type"))).getText().replaceAll("[^0-9.]", "");
+		
+		String suscPrice2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p>span:last-of-type"))).getText();
 		System.out.println("price on preview page: " + suscPrice2);
-		//Assert.assertEquals(suscPrice2, Price2, "Sale price is not applied on product preview page");
+		String actualPrice1 = suscPrice2.replace("$", "").replace(".00", "").trim();
+		Assert.assertEquals(actualPrice1, Price2,"Sale price is not applied on product preview page");
 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -227,7 +227,7 @@ public class pricing extends Data{
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		Thread.sleep(2000);
 
-		String suscPurchasePrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>div>span:first-of-type")).getText()
+		String suscPurchasePrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:nth-of-type(2)>div>div>span:first-of-type")).getText()
 				.replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");   
 		Assert.assertEquals(suscPurchasePrice, Price2, "Sale price is not applied");
 
@@ -269,13 +269,14 @@ public class pricing extends Data{
 		WebElement salePriceElement1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar span > span:last-child")));
 		String rawText1 = salePriceElement1.getText();
 		String suscPrice11 = rawText1.replaceAll(".*?(\\d+\\.\\d+).*", "$1");
-		int actualPrice1 = (int) Double.parseDouble(suscPrice11);
+		int actualPrice11 = (int) Double.parseDouble(suscPrice11);
 		int expectedPrice1 = Integer.parseInt(Price1);
-		Assert.assertEquals(actualPrice1, expectedPrice1, "Sale price is not applied on product details page");
-
-		String onetimePrice2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p>span:last-of-type"))).getText().replaceAll("[^0-9.]", "");
-		System.out.println("price on preview page: " + onetimePrice2);
-		//Assert.assertEquals(onetimePrice2, Price1, "Sale price is not applied on product preview page");
+		Assert.assertEquals(actualPrice11, expectedPrice1, "Sale price is not applied on product details page");
+		
+		String suscPrice21 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p>span:last-of-type"))).getText();
+		System.out.println("price on preview page: " + suscPrice21);
+		String actualPrice111 = suscPrice21.replace("$", "").replace(".00", "").trim();
+		Assert.assertEquals(actualPrice111, Price1 ,"Sale price is not applied on product preview page");
 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -301,9 +302,9 @@ public class pricing extends Data{
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		Thread.sleep(2000);
 
-		String OnetimePrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>span")).getText()
+		String OnetimePrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:nth-of-type(2)>span")).getText()
 				.replaceAll("[^0-9.]", "").replaceAll("\\.00$", ""); 
-		Assert.assertEquals(OnetimePrice,Price1,"Sale price is not applied");
+		Assert.assertEquals(OnetimePrice, Price1,"Sale price is not applied");
 
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
@@ -342,7 +343,7 @@ public class pricing extends Data{
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>a")).click();
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div:nth-of-type(2)>div>p")).click();
 		Thread.sleep(2000);
 
 		for (String handle : driver.getWindowHandles()) {
@@ -367,7 +368,7 @@ public class pricing extends Data{
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>a")).click();
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div:nth-of-type(2)>div>p")).click();
 		Thread.sleep(2000);
 
 		for (String handle : driver.getWindowHandles()) {
@@ -490,13 +491,13 @@ public class pricing extends Data{
 		WebElement salePriceElement11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar span > span:last-child")));
 		String rawText11 = salePriceElement11.getText();
 		String suscPrice111 = rawText11.replaceAll(".*?(\\d+\\.\\d+).*", "$1");
-		int actualPrice11 = (int) Double.parseDouble(suscPrice111);
+		int actualPrice1111 = (int) Double.parseDouble(suscPrice111);
 		int expectedPrice11 = Integer.parseInt(Price2);
-		Assert.assertEquals(actualPrice11, expectedPrice11, "Sale price is not applied on product details page");
+		Assert.assertEquals(actualPrice1111, expectedPrice11, "Sale price is not applied on product details page");
 
-		String suscPrice21 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p:last-of-type"))).getText().replaceAll("[^0-9.]", "");
-		System.out.println("price on preview page: " + suscPrice21);
-		Assert.assertEquals(suscPrice21, Price2, "Sale price is not applied on product preview page");
+		String suscPrice211 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p:last-of-type"))).getText().replaceAll("[^0-9.]", "");
+		System.out.println("price on preview page: " + suscPrice211);
+		Assert.assertEquals(suscPrice211, Price2, "Sale price is not applied on product preview page");
 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -564,9 +565,9 @@ public class pricing extends Data{
 		WebElement salePriceElement111 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar span > span:last-child")));
 		String rawText111 = salePriceElement111.getText();
 		String suscPrice1111 = rawText111.replaceAll(".*?(\\d+\\.\\d+).*", "$1");
-		int actualPrice111 = (int) Double.parseDouble(suscPrice1111);
+		int actualPrice11111 = (int) Double.parseDouble(suscPrice1111);
 		int expectedPrice111 = Integer.parseInt(Price1);
-		Assert.assertEquals(actualPrice111, expectedPrice111, "Sale price is not applied on product details page");
+		Assert.assertEquals(actualPrice11111, expectedPrice111, "Sale price is not applied on product details page");
 
 		String onetimePrice21 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>p>span:last-of-type"))).getText().replaceAll("[^0-9.]", "");
 		System.out.println("price on preview page: " + onetimePrice21);

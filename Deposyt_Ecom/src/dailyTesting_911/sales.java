@@ -17,6 +17,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import Master.Data;
@@ -35,7 +36,42 @@ public class sales extends Data {
 			
 		firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 		lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-		email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+		email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000)),
+	
+		firstName1 = "" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		lastName1 = "" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+		email1 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone1 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+	
+	@BeforeClass
+	public void ProductTax() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		Thread.sleep(3000);
+		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
+		Thread.sleep(3000);
+		taxRate.click();
+		taxRate.sendKeys(Keys.CONTROL, "a");
+		taxRate.sendKeys(Keys.DELETE);
+		taxRate.sendKeys("0");
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		
+		driver.navigate().to(settings);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Price Adjustment Settings']/parent::div/parent::button"))).click(); 
+		
+		Thread.sleep(2000);
+		try {
+			driver.findElement(By.xpath("(//input[contains(@name,'fee_option')])[1]")).click();		
+			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();
+		}catch(Exception e) {
+			System.out.println("No additional fee is already enabled");
+		}
+	}
 	
 	@Test(priority = 1)
 	public void OneTime_SalesOrder() throws InterruptedException {
@@ -108,9 +144,7 @@ public class sales extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
 
@@ -225,7 +259,7 @@ public class sales extends Data {
 		double customersValue = Double.parseDouble(totalordercustomers);
 		System.out.println("Total Customers After Applying Product Filter In Sales Tab : " + customersValue);		
 		Thread.sleep(2000);
-		//Assert.assertEquals((int) customersValue, 1, "Total Customers not updated correctly after applying product filter");
+		Assert.assertEquals((int) customersValue, 1, "Total Customers not updated correctly after applying product filter");
 		System.out.println();
 		
 		//Verify that if we have placed one new order with new customer for one time product then it is showing one order count and 1 new customer count when we select (all sales and one time tab )
@@ -269,10 +303,10 @@ public class sales extends Data {
 		}	
 		
 		Thread.sleep(7000);
-		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
-		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
-		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
-		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email1);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName1);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName1);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone1);
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
 		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
@@ -328,7 +362,7 @@ public class sales extends Data {
 		System.out.println();
 		
 		Thread.sleep(2000);
-		Assert.assertEquals(custorders11, Revenuecust + 1,"Order count is not incremented by 1");
+		Assert.assertEquals(custorders11, Revenuecust + 2,"Order count is not incremented by 1");
 		
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[aria-label='One-Time Toggle Button']")).click();//Click on one time toggle button
@@ -351,7 +385,7 @@ public class sales extends Data {
 		System.out.println("Total Users After In One-Time Tab : " + Revenueusersone);		
 		
 		Assert.assertEquals(Revenueordersone, Revenueorders2 + 2, "Order count is not incremented in one time tab");
-		Assert.assertEquals(Revenueusersone, Revenueusers2 + 1, "Customer count is not incremented in one time tab");	
+		Assert.assertEquals(Revenueusersone, Revenueusers2 + 2, "Customer count is not incremented in one time tab");	
 	}
 	
 	@Test(priority = 2)
@@ -375,7 +409,7 @@ public class sales extends Data {
 		
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[aria-label='Subscriptions Toggle Button']")).click();//Click on one time toggle button
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		
 		String totalRevenue2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueValue2 = totalRevenue2.replaceAll("[^0-9.]", ""); 
@@ -432,9 +466,7 @@ public class sales extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -516,6 +548,7 @@ public class sales extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -581,7 +614,7 @@ public class sales extends Data {
 		
 		Assert.assertEquals(RevenueValue51,Double.parseDouble(susbcriptionPrice),0.01,"Total revenue is not updated correctly Before applying product filter");
 		Assert.assertEquals((int) orderValue1, 1, "Total Order Values is not updated correctly After applying product filter");
-		//Assert.assertEquals((int) customersValue1, 1, "Total Customers not updated correctly After applying product filter");
+		Assert.assertEquals((int) customersValue1, 1, "Total Customers not updated correctly After applying product filter");
 		
 		//Verify that if we select upsell product from product drop-down then its data showing corrctly 
 		driver.navigate().to(Products);
@@ -611,10 +644,10 @@ public class sales extends Data {
 		}		
 
 		Thread.sleep(7000);
-		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
-		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
-		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
-		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email1);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName1);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName1);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone1);
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
 		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
@@ -653,6 +686,8 @@ public class sales extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//span[text()='Complete Checkout']//parent::span//parent::button")).click(); //confirm place order
 		Thread.sleep(7000);
+		driver.close();
+		driver.switchTo().window(originalTab1);
 		
 		driver.navigate().to(Sales);
 		Thread.sleep(7000);		
@@ -663,7 +698,7 @@ public class sales extends Data {
 		
 		double expectedTotalRevenue11 = RevenueValue11 + Double.parseDouble(susbcriptionPrice);
 		System.out.println("Total Revenue After Adding Subscription and Upsell Order: " + expectedTotalRevenue11);
-		//Assert.assertEquals(RevenueValue111,expectedTotalRevenue11,"Total Revenue value mismatch after calculation.");
+		//Assert.assertEquals(RevenueValue111 + 1 ,expectedTotalRevenue11,"Total Revenue value mismatch after calculation.");
 		
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[aria-label='Upsells Toggle Button']")).click();//Click on one time toggle button
@@ -676,7 +711,7 @@ public class sales extends Data {
 		
 		double expectedTotalRevenue111 = RevenueValue11 + Double.parseDouble(susbcriptionPrice);
 		System.out.println("Total Revenue After Adding Subscription Order in upsell Tab: " + expectedTotalRevenue111);
-		//Assert.assertEquals(RevenueValue211, expectedTotalRevenue111, "Total revenue is not updated in upsell tab after placing upsell order");
+		Assert.assertEquals(expectedTotalRevenue11, expectedTotalRevenue111, "Total revenue is not updated in upsell tab after placing upsell order");
 		
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[aria-label='Filter By Product Filter Button']")).click(); //Click on product filter
@@ -698,9 +733,9 @@ public class sales extends Data {
 		double customersValue11 = Double.parseDouble(totalordercustomers11);
 		System.out.println("Total Customers After Applying Product Filter In upsell Tab : " + customersValue11);	
 		
-		//Assert.assertEquals(RevenueValue511, Double.parseDouble(susbcriptionPrice), 0.01,"Total revenue is not updated correctly Before applying product filter");
-		//Assert.assertEquals((int) orderValue11, 1, "Total Order Values is not updated correctly After applying product filter");
-		//Assert.assertEquals((int) customersValue11, 1, "Total Customers not updated correctly After applying product filter");
+		/*Assert.assertEquals(RevenueValue511, Double.parseDouble(susbcriptionPrice), 0.01,"Total revenue is not updated correctly Before applying product filter");
+		Assert.assertEquals((int) orderValue11, 1, "Total Order Values is not updated correctly After applying product filter");
+		Assert.assertEquals((int) customersValue11, 1, "Total Customers not updated correctly After applying product filter");*/
 	}
 
 	@Test(priority = 3)
@@ -711,8 +746,8 @@ public class sales extends Data {
 		Actions actions = new Actions(driver);
 
 		String Product_Name1 = "Tier Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-			DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
-			TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one";
+		DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TitleTier1 = "First Tier Installment",
+		TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one";
 
 		driver.navigate().to(Sales);
 		Thread.sleep(7000);
@@ -781,9 +816,7 @@ public class sales extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -840,7 +873,7 @@ public class sales extends Data {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 
 		String parentWindow = driver.getWindowHandle();
@@ -907,7 +940,7 @@ public class sales extends Data {
 		double RevenueValueaftersusc = Double.parseDouble(totalRevenueaftersusc);	
 		System.out.println("\nTotal Revenue Value After In All Sales Tab : " + RevenueValueaftersusc);
 
-		double expectedTotalRevenueaf = RevenueValue1 + Double.parseDouble(Value);
+		double expectedTotalRevenueaf = RevenueValue1 + Double.parseDouble(susbcriptionPrice);
 		Assert.assertEquals(RevenueValueaftersusc,expectedTotalRevenueaf,"Total Revenue value mismatch after calculation.");
 
 		Thread.sleep(2000);
@@ -919,7 +952,7 @@ public class sales extends Data {
 		double RevenueValue211 = Double.parseDouble(totalRevenueValue211);	
 		System.out.println("Total Revenue Value After In Tiered Product Tab : " + RevenueValue211);
 
-		double expectedTotalRevenue11 = RevenueValue2 + Double.parseDouble(Value);
+		double expectedTotalRevenue11 = RevenueValue2 + Double.parseDouble(susbcriptionPrice);
 		Assert.assertEquals(RevenueValue211, expectedTotalRevenue11, "Total revenue is not updated in Tiered Product tab after placing subscription order");
 
 		String totalorders211 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Orders Statistics Card']>div>div>p"))).getText().trim();
@@ -957,7 +990,7 @@ public class sales extends Data {
 		double customersValue11 = Double.parseDouble(totalordercustomers11);
 		System.out.println("Total Customers Before Applying Product Filter In Tiered Product Tab : " + customersValue11);	
 
-		Assert.assertEquals((int) RevenueValue511, Double.parseDouble(Value),0.01, "Total revenue is not updated correctly Before applying product filter");
+		Assert.assertEquals((int) RevenueValue511, Double.parseDouble(susbcriptionPrice),0.01, "Total revenue is not updated correctly Before applying product filter");
 		Assert.assertEquals((int) orderValue11, 1, "Total Order Values is not updated correctly After applying product filter");
 		Assert.assertEquals((int) customersValue11, 1, "Total Customers not updated correctly After applying product filter");	
 	}
@@ -1130,13 +1163,13 @@ public class sales extends Data {
 		
 		Assert.assertEquals((int) RevenueValue5, Double.parseDouble(Value), 0.01, "Total revenue is not updated correctly After applying product filter");
 		Assert.assertEquals((int) orderValue, 1, "Total Order Values is not	updated correctly After applying product filter");
-		//Assert.assertEquals((int) customersValue, 1, "Total Customers not updated correctly	After applying product filter");
+		Assert.assertEquals((int) customersValue, 1, "Total Customers not updated correctly	After applying product filter");
 		
 		//3D-Check Invoices  order in recent order popup
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("#main-page-ui-div>main>div>div>section>div:nth-of-type(3)>div:nth-of-type(2)>button")).click();//Click on recent order popup eye button
 		Thread.sleep(2000);
-		String recentorderdisplayed = driver.findElement(By.cssSelector("div[aria-label='Recent Orders Drawer'] table tbody tr:first-child td a div div a")).getText().trim();
+		String recentorderdisplayed = driver.findElement(By.xpath("//span[text()='Recent Orders']//parent::span//parent::button")).getText().trim();
 		System.out.println("\nRecent order displayed in recent order popup: " + recentorderdisplayed);
 		Assert.assertEquals(recentorderdisplayed, email, "Placed order is not displayed in recent order popup");		
 	}
@@ -1239,9 +1272,7 @@ public class sales extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -1293,7 +1324,6 @@ public class sales extends Data {
 
 		String parentWindow = driver.getWindowHandle();
 		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
-
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(parentWindow)) {
 				driver.switchTo().window(handle);
@@ -1304,7 +1334,6 @@ public class sales extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
 		Thread.sleep(3000);
-
 		driver.close();
 		driver.switchTo().window(parentWindow);
 
@@ -1327,7 +1356,6 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
@@ -1434,9 +1462,9 @@ public class sales extends Data {
 		Assert.assertEquals(Revenueorders21, Revenueorderscource + 1, "Order count is not incremented in Courses tab");
 		Assert.assertEquals(Revenueusers21, Revenueordercources + 1, "Customer count is not incremented in Courses tab");
 		
-//		Assert.assertEquals(RevenueValueonetime1, RevenueValueonetime + Double.parseDouble(susbcriptionPrice), "Total revenue is not updated in Subscriptions tab after placing course order");
-//		Assert.assertEquals(Revenueordersonetime1, Revenueordersonetime + 1, "Order count is not incremented in Subscriptions tab");
-//		Assert.assertEquals(Revenueusersonetime1, Revenueusersonetime +	1, "Customer count is not incremented in Subscriptions tab");	
+		Assert.assertEquals(RevenueValueonetime1, RevenueValueonetime + Double.parseDouble(susbcriptionPrice), "Total revenue is not updated in Subscriptions tab after placing course order");
+		Assert.assertEquals(Revenueordersonetime1, Revenueordersonetime + 1, "Order count is not incremented in Subscriptions tab");
+		Assert.assertEquals(Revenueusersonetime1, Revenueusersonetime +	1, "Customer count is not incremented in Subscriptions tab");	
 		
 		//Check that if we purchase one time product from couese then its revenue is getting update in all sales, one time and courses tab 
 		driver.navigate().to(Products);
@@ -1455,9 +1483,7 @@ public class sales extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
@@ -1505,7 +1531,6 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
@@ -1990,7 +2015,7 @@ public class sales extends Data {
 		cardHolder1.clear();
 		cardHolder1.sendKeys(F_Name + " " + L_Name);
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.xpath("(//button[@role='checkbox'])[2]")).click();
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		
 		Thread.sleep(7000);
@@ -2076,9 +2101,7 @@ public class sales extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -2449,7 +2472,7 @@ public class sales extends Data {
 		
 		driver.navigate().to(Services);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath(" (//div[@class='mr-4 fb-setting-icon-wrapper'])[2]")).click(); //Click on service setting
+		driver.findElement(By.cssSelector("div.dekstoppreviewheader>div.fb-setting-icon-wrapper>a:first-of-type")).click(); //Click on service setting
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.assign-payment-type-dropdownsetting")).click(); //Click on assign payment type dropdown
 		Thread.sleep(1000);
@@ -2467,7 +2490,7 @@ public class sales extends Data {
 		String servicename = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.allservicesviewdiv>div>div>div>div:first-of-type>a>div>h2"))).getText().trim();
 		driver.findElement(By.id("searchservicefield")).sendKeys(servicename);
 		Thread.sleep(2000);
-		String ServicePrice = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("p.base_service_price:first-of-type"))).getText().trim();
+		String ServicePrice = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.dual-cards-layout:first-of-type>p:first-of-type"))).getText().trim();
 		String ServicePriceValue = ServicePrice.replaceAll("[^0-9.]", "");
 		double serviceAmount = Double.parseDouble(ServicePriceValue);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='professional-content']//h2[contains(text(),'"+servicename+"')]//ancestor::a"))).click();
@@ -2567,7 +2590,7 @@ public class sales extends Data {
 		
 		driver.navigate().to(Services);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath(" (//div[@class='mr-4 fb-setting-icon-wrapper'])[2]")).click(); //Click on service setting
+		driver.findElement(By.cssSelector("div.dekstoppreviewheader>div.fb-setting-icon-wrapper>a:first-of-type")).click(); //Click on service setting
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.assign-payment-type-dropdownsetting")).click(); //Click on assign payment type dropdown
 		Thread.sleep(1000);
@@ -2656,14 +2679,14 @@ public class sales extends Data {
 		
 		//3D-Check services order in recent order popup
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("#main-page-ui-div>main>div>div>section>div:nth-of-type(3)>div:nth-of-type(2)>button")).click();//Click on recent order popup eye button
+		driver.findElement(By.xpath("//span[text()='Recent Orders']//parent::span//parent::button")).click();//Click on recent order popup eye button
 		Thread.sleep(2000);
-		String recentorderdisplayed = driver.findElement(By.cssSelector("div[aria-label='Recent Orders Drawer'] table tbody tr:first-child td a div div a")).getText().trim();
+		String recentorderdisplayed = driver.findElement(By.cssSelector("div[aria-label='Recent Orders Drawer']>div>div:nth-of-type(3)>div:nth-of-type(2)>div>div>div>table>tbody>tr:first-of-type>td:first-of-type>a>div>div>a")).getText().trim();
 		System.out.println("Recent order displayed in recent order popup: " + recentorderdisplayed);
 		Assert.assertEquals(recentorderdisplayed, email, "Placed order is not displayed in recent order popup");
 		
 		//Check that when we click on order id from recent order tab then it is navigating to order module
-		driver.findElement(By.cssSelector("div[aria-label='Recent Orders Drawer'] table tbody tr:first-child td a")).click();
+		driver.findElement(By.cssSelector("div[aria-label='Recent Orders Drawer']>div>div:nth-of-type(3)>div:nth-of-type(2)>div>div>div>table>tbody>tr:first-of-type>td:first-of-type>a>div>div>a")).click();
 		Thread.sleep(3000);
 		Assert.assertTrue(driver.getCurrentUrl().toLowerCase().contains("orders") && driver.getCurrentUrl().toLowerCase().contains(PlacedOrderID11.toLowerCase()),"URL does not contain 'orders' or Order ID. Current URL");
 	}

@@ -216,7 +216,7 @@ public class discounts extends Data {
 		String discountappliedvt = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.discount-item-total-class > div"))).getText().replaceAll(".*?(\\d+)(?:\\.\\d+)?", "$1");
 		System.out.println("Discount applied in VT : " + discountappliedvt);
 		Assert.assertEquals(discountappliedvt, DiscountAmount);
-		System.out.println("Discount is applied successfully in VT");
+		System.out.println("Discount is applied successfully in VT\n");
 		
 		try {
 			driver.navigate().to(settings);

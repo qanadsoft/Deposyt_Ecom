@@ -598,10 +598,12 @@ public class store_Front extends Data {
 		Thread.sleep(7000);
 		String PlacedOrderID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID);
+		driver.close();
+		driver.switchTo().window(parentWindow);
 		
 		driver.navigate().to(Sales);
 		Thread.sleep(7000);
-		driver.findElement(By.cssSelector("#main-page-ui-div>main>div>div>section>div:nth-of-type(3)>div:nth-of-type(2)>button")).click();//Click on recent order popup eye button
+		driver.findElement(By.xpath("//span[text()='Recent Orders']//parent::span//parent::button")).click();//Click on recent order popup eye button
 		Thread.sleep(2000);
 		String recentorderdisplayed = driver.findElement(By.cssSelector("div[aria-label='Recent Orders Drawer'] table tbody tr:first-child td a div div a")).getText().trim();
 		System.out.println("Recent order displayed in recent order popup: " + recentorderdisplayed);

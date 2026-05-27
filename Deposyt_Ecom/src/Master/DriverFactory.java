@@ -12,7 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverFactory extends Data{
-	
+
 	private static ThreadLocal <WebDriver> driver = new ThreadLocal <>();
 
 	public static void setDriver(String browser) {
