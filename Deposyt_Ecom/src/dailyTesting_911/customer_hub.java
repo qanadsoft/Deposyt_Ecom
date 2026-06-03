@@ -130,7 +130,7 @@ public class customer_hub extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();		
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
@@ -143,7 +143,7 @@ public class customer_hub extends Data {
 			}
 		}	
 		
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -236,7 +236,7 @@ public class customer_hub extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -257,12 +257,22 @@ public class customer_hub extends Data {
 		    }
 		} catch (TimeoutException e) {
 			System.out.println("Billing and Shipping information is already filled or no error message appeared.");
+			driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+			driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+			driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+			driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+			Thread.sleep(2000);
+			driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+			driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+			driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+			driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+			driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		}
 		
 		//driver.findElement(By.name("shippingOption")).click();
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
+		//driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
@@ -369,7 +379,7 @@ public class customer_hub extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name2);
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
@@ -397,12 +407,23 @@ public class customer_hub extends Data {
 		    }
 		} catch (TimeoutException e) {
 			System.out.println("Billing and Shipping information is already filled or no error message appeared.");
+			Thread.sleep(7000);
+			driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+			driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+			driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+			driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+			Thread.sleep(2000);
+			driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+			driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+			driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+			driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+			driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
 		}
 		
 		//driver.findElement(By.name("shippingOption")).click();
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
+		//driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);

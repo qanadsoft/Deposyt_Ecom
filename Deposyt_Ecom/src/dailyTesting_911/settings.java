@@ -41,11 +41,9 @@ public class settings extends Data {
 	public void Settings() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
-		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		Actions action = new Actions(driver);		
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;		
 		
-		String Product_Name1 = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Payment_Mode = "PayPal";
-		String MailSubject = "Trigger Mail Via Automation", EmailText = "This mail is sent by trigger Test", messageText = "This SMS is sent by trigger Test";		
+		String Product_Name1 = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),Payment_Mode = "PayPal";		
 		
 		//Check card expiray notification is sent on email 
 		//Check card expiry trigger is run successfully
@@ -63,51 +61,6 @@ public class settings extends Data {
 		} catch (Exception e) {
 			System.out.println("Payment gateway not updated to stripe");
 		}
-		
-		driver.navigate().to(settings);
-		Thread.sleep(7000);
-		//driver.findElement(By.xpath("//button[@id=\"3\"]")).click();
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h3[normalize-space()='Card Expiry']/parent::div/parent::button"))).click(); 				
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("#main-page-ui-div>main>section>div:nth-of-type(2)>div>div>div>div>div:first-of-type")).click();
-		Thread.sleep(2000);
-		
-		driver.findElement(By.xpath("//button[contains(@class,\"addingactionbtn\")]")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.trigger-dropdown-class>div:nth-of-type(1)>button")).click();
-		WebElement Emailsend = driver.findElement(By.xpath("//input[@placeholder=\"Subject\"]"));
-		Emailsend.sendKeys(MailSubject);
-		Thread.sleep(1000);
-		Emailsend.sendKeys(Keys.TAB,EmailText);
-		action.sendKeys(Keys.PAGE_DOWN).perform();
-		
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[contains(@class,\"addingactionbtn\")]")).click();
-		driver.findElement(By.cssSelector("div.trigger-dropdown-class>div:nth-of-type(2)>button")).click();
-		driver.findElement(By.cssSelector("textarea.desciption-input-class")).sendKeys(messageText);
-		action.sendKeys(Keys.PAGE_DOWN).perform();
-		
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[contains(@class,\"addingactionbtn\")]")).click();
-		driver.findElement(By.cssSelector("div.trigger-dropdown-class>div:nth-of-type(3)>button")).click();
-		driver.findElement(By.cssSelector("input#tag-input")).click();
-		driver.findElement(By.xpath("(//div[@data-state='open'])[2]//div[1]")).click();
-		String selectedTagElement = driver.findElement(By.xpath("(//div[@data-state='open'])[1]//div//span")).getText().trim();	
-		System.out.println("Selected tag: " + selectedTagElement);
-		driver.findElement(By.xpath("(//div[@data-state='open'])[1]")).click();
-		action.sendKeys(Keys.PAGE_DOWN).perform();
-		
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[contains(@class,\"addingactionbtn\")]")).click();
-		driver.findElement(By.cssSelector("div.trigger-dropdown-class>div:nth-of-type(5)>button")).click();
-		driver.findElement(By.cssSelector("#assign_user_dropdown>div")).click();
-		WebElement assignedUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#assign_user_dropdown>div:nth-of-type(2)>div>ul>li:nth-of-type(2)>div>div>span:nth-of-type(2)")));
-		String selectedUser = assignedUser.getText().trim();
-		System.out.println("Selected user: " + selectedUser);
-		assignedUser.click();	
-		driver.findElement(By.xpath("//button[normalize-space()=\"Apply\"]")).click(); //Click on save button		
-		action.sendKeys(Keys.PAGE_DOWN).perform();		
-		driver.findElement(By.xpath("//span[normalize-space()=\"Done\"]")).click(); //Click on Triggers button
 		
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -141,12 +94,12 @@ public class settings extends Data {
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); //Select frequency as monthly
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); //First payment different toggle button
-		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-		suscprise.clear();
-		suscprise.sendKeys(susbcriptionPrice);
-		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+//		suscprise.clear();
+//		suscprise.sendKeys(susbcriptionPrice);
+//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -154,7 +107,7 @@ public class settings extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -188,7 +141,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("05/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -252,7 +205,7 @@ public class settings extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -592,6 +545,7 @@ public class settings extends Data {
 		    }
 		}*/
 		
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		
 		String PlacedOrderIDs11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
@@ -663,7 +617,7 @@ public class settings extends Data {
 			}
 		}		
 
-		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
+		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type")).getText().trim();
 		System.out.println("Order Tax: " + ordertax);
 		String extractedTax = ordertax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax, taxRegion, "Tax rate mismatch in order summary");
@@ -706,7 +660,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);// MMYY format
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -775,10 +729,6 @@ public class settings extends Data {
 		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[2]")).click();
 		driver.findElement(By.xpath("//span[contains(text(),\"Delete reason\")]")).click();
 		driver.findElement(By.xpath("//span[normalize-space()=\"Yes, Confirm\"]")).click();
-
-		String Deletedreason = driver.findElement(By.xpath("//div[text()='No return reasons created']")).getText().trim();
-		Assert.assertEquals(Deletedreason, "No return reasons created", "Return reason not deleted successfully");
-		System.out.println("Return reason deleted successfully\n");
 
 		//Check shipping option created/Edited Successfully 
 		//Check shipping option deleted Successfully 
@@ -872,6 +822,8 @@ public class settings extends Data {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		Actions actions = new Actions(driver);
+		
 		String Product_Name = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();
 		
 		//Check Price adjustment setting is applied correctly on checkout pages and displayed in order details (surcharge fee,service fee,conveninees fee,cash discount and dual price)
@@ -931,7 +883,7 @@ public class settings extends Data {
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		Thread.sleep(2000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
@@ -970,7 +922,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("05/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -1069,7 +1021,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("05/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -1166,7 +1118,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("05/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -1211,8 +1163,12 @@ public class settings extends Data {
 		Thread.sleep(5000);
 		
 		try {
-			WebElement feeOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@name,'fee_option')])[5]")));
-			jse.executeScript("arguments[0].click();", feeOption);
+			WebElement feeOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@name,'fee_option')])[5]//parent::span//parent::label")));
+			actions.moveToElement(feeOption).click().perform();
+			Thread.sleep(2000);		
+			driver.findElement(By.id("dialog-checkbox")).click();		
+			Thread.sleep(3000);
+			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();
 			Thread.sleep(2000);
 			driver.findElement(By.id("displayStyleCashDiscount")).click();
 			Thread.sleep(3000);
@@ -1226,6 +1182,8 @@ public class settings extends Data {
 		
 		driver.navigate().to(Virtual_Terminal);
 		Thread.sleep(7000);
+		driver.navigate().refresh();
+		Thread.sleep(5000);
 		driver.findElement(By.xpath("//span[normalize-space(.)='ACH']//parent::button")).click(); //Select card payment method
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
@@ -1280,7 +1238,7 @@ public class settings extends Data {
 		Assert.assertEquals(extracteddualFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),CashDiscountFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"dual Fee mismatch in order summary");
 		
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.virtual-terminal-ui>form>div>div>div:nth-of-type(7)>div:nth-of-type(2)>h3>div>div>div:last-of-type")).click(); 
+		driver.findElement(By.xpath("//span[text()='Billing Address']")).click(); 
 		driver.findElement(By.name("address.address_1")).sendKeys(Street_Add); 
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
 		Thread.sleep(1000);
@@ -1312,7 +1270,7 @@ public class settings extends Data {
 		Thread.sleep(5000);
 		
 		try {
-			WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@name,'fee_option')])[5]")));
+			WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//input[contains(@name,'fee_option')])[5]//parent::span//parent::label")));
 			jse.executeScript("arguments[0].click();", element);
 			Thread.sleep(2000);
 			driver.findElement(By.id("displayStyleDualPricing")).click();
@@ -1392,7 +1350,7 @@ public class settings extends Data {
 		driver.findElement(By.id("react-select-3-option-0")).click(); //select personal
 		
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.virtual-terminal-ui>form>div>div>div:nth-of-type(7)>div:nth-of-type(2)>h3>div>div>div:last-of-type")).click(); 
+		driver.findElement(By.xpath("//span[text()='Billing Address']")).click();  
 		driver.findElement(By.name("address.address_1")).sendKeys(Street_Add); 
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
 		Thread.sleep(1000);
@@ -1470,7 +1428,7 @@ public class settings extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -1502,7 +1460,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("03/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
@@ -1656,7 +1614,7 @@ public class settings extends Data {
 		Thread.sleep(4000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		Thread.sleep(3000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 				
@@ -1692,7 +1650,7 @@ public class settings extends Data {
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys("03/26");
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
 
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));

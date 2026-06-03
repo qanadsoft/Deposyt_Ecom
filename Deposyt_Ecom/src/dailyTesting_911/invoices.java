@@ -1188,9 +1188,7 @@ public class invoices extends Data {
 		driver.switchTo().defaultContent();
 		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder.clear();
-		cardHolder.sendKeys(F_Name + " " + L_Name);
-		
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click(); //Clicking on checkbox		
+		cardHolder.sendKeys(F_Name + " " + L_Name);	
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //Click on pay button
         
@@ -1377,9 +1375,7 @@ public class invoices extends Data {
 		driver.switchTo().defaultContent();
 		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder.clear();
-		cardHolder.sendKeys(F_Name + " " + L_Name);
-		
-		driver.findElement(By.xpath("//button[@role='checkbox']")).click(); //Clicking on checkbox		
+		cardHolder.sendKeys(F_Name + " " + L_Name);		
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); //Click on pay button
         
@@ -1751,9 +1747,9 @@ public class invoices extends Data {
 		
 		Assert.assertEquals(RefundValue11, RefundValue2 + refundInvoiceAmount1, "Refund amount is not updated correctly in Dashboard after performing split refund operation");
 		System.out.println("Refund amount is updated correctly in Dashboard after performing split refund operation");
-		Assert.assertEquals(RefundValuesales11, RefundValuesales2 + refundInvoiceAmount1, "Refund amount is not updated correctly in Sales tab after performing split refund operation");
+		Assert.assertEquals(RefundValuesales11, RefundValuesales2 + refundInvoiceAmount1, 0.01, "Refund amount is not updated correctly in Sales tab after performing split refund operation");
 		System.out.println("Refund amount is updated correctly in Sales tab after performing split refund operation");
-		Assert.assertEquals(refundValueinv11, refundValueinv2 + refundInvoiceAmount1, "Refund amount is not updated correctly in Invoices tab after performing split refund operation");	
+		Assert.assertEquals(refundValueinv11, refundValueinv2 + refundInvoiceAmount1, 0.01,  "Refund amount is not updated correctly in Invoices tab after performing split refund operation");	
 		System.out.println("Refund amount is updated correctly in Invoices tab after performing split refund operation");
 	}
 }

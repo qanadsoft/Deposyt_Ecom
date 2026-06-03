@@ -79,7 +79,6 @@ public class Data extends Public_Strings {
 	}
 
 	public void AddContact(String Name,String lastName, String Number, String Mail) throws Exception {
-		WebDriver driver = DriverFactory.getDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -102,7 +101,6 @@ public class Data extends Public_Strings {
 	}
 
 	public void DeleteContact(String Number, String Mail) throws InterruptedException{
-		WebDriver driver = DriverFactory.getDriver();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));	
 
 		driver.navigate().to(Contacts);  
@@ -117,6 +115,7 @@ public class Data extends Public_Strings {
 
 			int SearchedContacts = driver.findElements(By.cssSelector(".contacttablebody tr.admintable_row")).size();
 			if(SearchedContacts>0){
+				Thread.sleep(1000);
 				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();
@@ -139,6 +138,7 @@ public class Data extends Public_Strings {
 			int SearchedContacts = driver.findElements(By.cssSelector(".contacttablebody tr.admintable_row")).size();
 
 			if(SearchedContacts>0){
+				Thread.sleep(1000);
 				driver.findElement(By.cssSelector("#at0-cell-actions_col-30>div>a")).click();
 				driver.findElement(By.xpath("//*[@id=\"at0-cell-actions_col-30\"]/div/div/a[6]")).click();
 				driver.findElement(By.xpath("//*[@id=\"formdeleteactionmodaldiv\"]/div/button")).click();

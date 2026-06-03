@@ -351,6 +351,7 @@ public class store_Front extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();//click on mode drop down
 		driver.findElement(By.id("CashPaymentMethodDropdown")).click();//select cash 
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
 		String PlacedOrderID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();

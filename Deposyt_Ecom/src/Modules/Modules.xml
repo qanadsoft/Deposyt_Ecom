@@ -7,13 +7,14 @@
 	<parameter name = "role"  value = "Admin" />
 
 	<test name = "Products Tests">
+	
 		<parameter name = "uname" value = "rishikesh.sakharekar@gmail.com" />
 		<parameter name = "pass"  value = "Nadsoft@2202" />
 
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "Product_SettingsPage_TaxNonInventory" />
+					<include name = "Product_SettingsPage_TaxInventory" />
 				</methods>
 			</class>
 		</classes>

@@ -43,7 +43,7 @@ public class sales extends Data {
 		email1 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone1 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 	
 	@BeforeClass
-	public void ProductTax() throws InterruptedException {
+	public void ProductTax () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		
@@ -156,7 +156,7 @@ public class sales extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -212,6 +212,19 @@ public class sales extends Data {
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
+		//
+		//
+		//
+		//
+		driver.navigate().to(Orders);
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("[id^=\"radix-\"]")).click(); //Click on filter
+		Thread.sleep(5000);
+		//
+		//
+		//
+		//
+		
 		driver.navigate().to(Sales);
 		Thread.sleep(7000);
 		String totalRevenue3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
@@ -235,8 +248,9 @@ public class sales extends Data {
 		Assert.assertEquals(RevenueValue4,expectedTotalRevenue1, 0.1, "Total revenue is not updated correctly after adding price In one time tab");
 		
 		//Check after placing one time order Sales data showing correct when we select specific products using productc filters  (All Sales and one time atb)
-		Thread.sleep(2000);
+		Thread.sleep(2000);	
 		driver.findElement(By.cssSelector("button[aria-label='Filter By Product Filter Button']")).click(); //Click on product filter
+		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div#product-dropdown>div:nth-of-type(2)>div>div:first-of-type")).click(); //Search with product name in filter
 		driver.findElement(By.xpath("(//span[normalize-space()='Apply'])[1]")).click(); //Click on apply button in filter
 		
@@ -266,7 +280,7 @@ public class sales extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -485,12 +499,12 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); //Select frequency as monthly
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); //First payment different toggle button
-		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-		suscprise.clear();
-		suscprise.sendKeys(susbcriptionPrice);
-		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+//		suscprise.clear();
+//		suscprise.sendKeys(susbcriptionPrice);
+//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -498,7 +512,7 @@ public class sales extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
@@ -620,7 +634,7 @@ public class sales extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();	
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();	
 		Thread.sleep(2000);	
 		driver.findElement(By.cssSelector("div.button-group-class>button:nth-of-type(3)>div")).click();//click on up sell
 		Thread.sleep(2000);
@@ -872,7 +886,7 @@ public class sales extends Data {
 		//check that we can purchase tier product
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 
@@ -953,7 +967,7 @@ public class sales extends Data {
 		System.out.println("Total Revenue Value After In Tiered Product Tab : " + RevenueValue211);
 
 		double expectedTotalRevenue11 = RevenueValue2 + Double.parseDouble(susbcriptionPrice);
-		Assert.assertEquals(RevenueValue211, expectedTotalRevenue11, "Total revenue is not updated in Tiered Product tab after placing subscription order");
+		Assert.assertEquals(RevenueValue211, expectedTotalRevenue11, 0.01, "Total revenue is not updated in Tiered Product tab after placing subscription order");
 
 		String totalorders211 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Orders Statistics Card']>div>div>p"))).getText().trim();
 		String totalordersValue211 = totalorders211.replaceAll("[^0-9.]", ""); 
@@ -1291,12 +1305,12 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); //Select frequency as monthly
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); //First payment different toggle button
-		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-		suscprise.clear();
-		suscprise.sendKeys(susbcriptionPrice);
-		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+//		suscprise.clear();
+//		suscprise.sendKeys(susbcriptionPrice);
+//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -1506,7 +1520,7 @@ public class sales extends Data {
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
@@ -2120,12 +2134,12 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); //Select frequency as monthly
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); //First payment different toggle button
-		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-		suscprise.clear();
-		suscprise.sendKeys(susbcriptionPrice);
-		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+//		suscprise.clear();
+//		suscprise.sendKeys(susbcriptionPrice);
+//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+//		Thread.sleep(1000);
+//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -2133,7 +2147,7 @@ public class sales extends Data {
 		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);

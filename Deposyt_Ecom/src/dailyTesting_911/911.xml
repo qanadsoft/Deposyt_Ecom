@@ -7,8 +7,33 @@
     <parameter name = "loginTypeMainAccess"     value = "user"/>
 
     <test name="911">
-      <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com"/>
-	  <parameter name = "pass"  value = "Nadsoft@2202"/>
+    
+    <!--  Store front Module sandeep live !-->
+    <!--  <parameter name = "uname" value = "taronegerton@sharklasers.com"/>
+	      <parameter name = "pass"  value = "Pass701e23a5@@"/>!-->
+	      
+    <!--  Invoices & Settings Module Atul live !-->
+    <!--  <parameter name = "uname" value = "atul@pokemail.net"/>
+	      <parameter name = "pass"  value = "Asng@chiku123"/>!-->
+	      
+    <!--  Discount & Orders Module Pratiksha live !-->
+    <!--  <parameter name = "uname" value = "mohwkcwifjlzlmqezg@hthlm.com"/>
+	      <parameter name = "pass"  value = "Nadsoft@123456"/>!-->
+	     
+    <!--  Giftcard & Pricing Module Athrava live !-->
+    <!--  <parameter name = "uname" value = "tigerking@grr.la"/>
+	      <parameter name = "pass"  value = "Live@12345678"/>!-->
+    
+    <!--  Access Level Module Tejas live !-->
+    <!--  <parameter name = "uname" value = "maxtesting98@gmail.com"/>
+	      <parameter name = "pass"  value = "Nadsoft@12345"/>!-->
+    
+    <!--  Product & Virtual terminal Module Prashant live !-->
+    <!--  <parameter name = "uname" value = "belosas375@pacfut.com"/>
+	      <parameter name = "pass"  value = "Prashant0808"/>!-->
+	      
+          <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com"/>
+	      <parameter name = "pass"  value = "Nadsoft@2202"/>
 	 	  
 	 <!-- <parameter name = "uname" value = "vishwa.ink757@gmail.com"/>
 	 	  <parameter name = "pass"  value = "Rohan@030698"/>!-->
@@ -23,9 +48,9 @@
 	      <parameter name = "pass"  value = "Prashant@1234"/> !-->  
 	 	  
         <classes>
-            <class name="dailyTesting_911.sales">
+            <class name="dailyTesting_911.invoices">
                 <methods>
-                    <include name="Services_SalesOrder"/>
+                    <include name="Full_SplitPayment_Refund"/>
                 </methods>
             </class>
         </classes>

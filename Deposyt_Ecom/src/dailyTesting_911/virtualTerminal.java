@@ -35,7 +35,7 @@ public class virtualTerminal extends Data {
 			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com",phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 
 	@Test(priority = 1)
-	public void VT () throws Exception {
+	public void Virtual_Terminal () throws Exception {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
