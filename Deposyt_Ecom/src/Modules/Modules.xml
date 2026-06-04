@@ -14,7 +14,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "Product_SettingsPage_TaxInventory" />
+					<include name = "Flat_Ratetax" />
 				</methods>
 			</class>
 		</classes>
