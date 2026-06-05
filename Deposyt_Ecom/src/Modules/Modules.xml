@@ -14,7 +14,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "Flat_Ratetax" />
+					<include name = "GiftCard_CheckoutSettings" />
 				</methods>
 			</class>
 		</classes>

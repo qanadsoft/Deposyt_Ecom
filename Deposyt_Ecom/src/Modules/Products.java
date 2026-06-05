@@ -7599,346 +7599,346 @@ public class Products extends Data {
 		
 		//check that link should be valid and when open it should show different state tax rates 
 		String originalTab = driver.getWindowHandle();
-//		taxLink.click();
-//		Thread.sleep(2000);
-//		
-//		for (String handle : driver.getWindowHandles()) {
-//			if (!handle.equals(originalTab)) {
-//				driver.switchTo().window(handle);
-//					break;
-//			}
-//		}
-//		
-//		String currentUrl = driver.getCurrentUrl();
-//		Assert.assertEquals(currentUrl, "https://taxfoundation.org/data/all/state/sales-tax-rates/", "After clicking on find your state tax rate here link it is not navigating to correct page");
-//		System.out.println("After clicking on find your state tax rate here link it is navigating to correct page successfully.\n");
-//		driver.close();
-//		driver.switchTo().window(originalTab);
-//		
-//		//check that if user enters tax rate it should apply for products on default checkout page 
-//		driver.navigate().to(Products);
-//		Thread.sleep(7000);	
-//		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
-//		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
-//		Thread.sleep(3000);			
-//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
-//		Thread.sleep(2000);
-//		driver.findElement(By.id("orderPagesFunnel")).click();
-//		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-//		
-//		Thread.sleep(4000);
-//		for (String handle : driver.getWindowHandles()) {
-//			if (!handle.equals(originalTab)) {
-//				driver.switchTo().window(handle);
-//				break;
-//			}
-//		}
-//		
-//		Thread.sleep(5000);
-//		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
-//		System.out.println("Order Checkout Page Tax: " + ordertax);
-//		String extractedTax = ordertax.replaceAll("[^0-9]", "");
-//		Assert.assertEquals(extractedTax, Tax_Rate, "Tax rate mismatch in order summary");
-//		
-//		Thread.sleep(7000);
-//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
-//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
-//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
-//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
-//		Thread.sleep(2000);
-//		driver.findElement(By.cssSelector("button#country")).click(); 
-//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
-//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
-//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
-//		
-//		Thread.sleep(5000);
-//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
-//		Thread.sleep(2000);
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
-//		driver.switchTo().defaultContent();
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
-//		driver.switchTo().defaultContent();
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
-//		driver.switchTo().defaultContent();
-//
-//		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
-//		cardHolder.clear();
-//		cardHolder.sendKeys(F_Name + " " + L_Name);
-//
-//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
-//		Thread.sleep(2000);
-//		driver.findElement(By.cssSelector("button[type='submit']")).click();
-//		Thread.sleep(7000);
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-//		
-//		//check that if user enters tax rate it should apply for products on order success page
-//		String successPageTax = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
-//		System.out.println("default checkout Order Success Page Tax: " + successPageTax);
-//		String extractedSuccessPageTax = successPageTax.replaceAll("[^0-9]", "");
-//		//Assert.assertEquals(extractedSuccessPageTax, Tax_Rate, "Tax rate mismatch on success page");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax on default checkout success page successfully.\n");
-//		driver.close();
-//		driver.switchTo().window(originalTab);
-//		
-//		//check that if user enters tax rate it should apply for products on order summary
-//		driver.findElement(By.id("orderHistoryToggleID")).click();
-//		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
-//		Thread.sleep(2000);
-//		String orderSummaryTax = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
-//		System.out.println("default checkout Order Summary Tax: " + orderSummaryTax);
-//		String extractedOrderSummaryTax = orderSummaryTax.replaceAll("[^0-9]", "");
-//		//Assert.assertEquals(extractedOrderSummaryTax, Tax_Rate, "Tax rate mismatch in order summary");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax in default checkout order summary successfully.\n");
-//		
-//		//check that if user enters tax rate it should apply for products on default product page 
-//		driver.navigate().to(Products);
-//		Thread.sleep(7000);	
-//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
-//		Thread.sleep(2000);
-//		driver.findElement(By.id("orderPagesFunnel")).click();
-//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
-//		
-//		Thread.sleep(4000);
-//		for (String handle : driver.getWindowHandles()) {
-//			if (!handle.equals(originalTab)) {
-//				driver.switchTo().window(handle);
-//				break;
-//			}
-//		}
-//		
-//		Thread.sleep(5000);
-//		String ordertax1 = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
-//		System.out.println("default product Order Checkout Page Tax: " + ordertax1);
-//		String extractedTax1 = ordertax1.replaceAll("[^0-9]", "");
-//		Assert.assertEquals(extractedTax1, Tax_Rate, "Tax rate mismatch in order summary");
-//		
-//		Thread.sleep(7000);
-//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
-//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
-//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
-//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
-//		Thread.sleep(2000);
-//		driver.findElement(By.cssSelector("button#country")).click(); 
-//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); 
-//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
-//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
-//		
-//		Thread.sleep(5000);
-//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
-//		Thread.sleep(2000);
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
-//		driver.switchTo().defaultContent();
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
-//		driver.switchTo().defaultContent();
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
-//		driver.switchTo().defaultContent();
-//
-//		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
-//		cardHolder1.clear();
-//		cardHolder1.sendKeys(F_Name + " " + L_Name);
-//
-//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
-//		Thread.sleep(2000);
-//		driver.findElement(By.cssSelector("button[type='submit']")).click();
-//		Thread.sleep(7000);
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-//		
-//		//check that if user enters tax rate it should apply for products on default product Success page
-//		Thread.sleep(2000);
-//		String successPageTax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]")).getText().trim();
-//		System.out.println("default product Order Success Page Tax: " + successPageTax1);
-//		String extractedSuccessPageTax1 = successPageTax1.replaceAll("[^0-9]", "");
-//		Assert.assertEquals(extractedSuccessPageTax1, Tax_Rate, "Tax rate mismatch on success page");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax on default product Success page successfully.\n");
-//		driver.close();
-//		driver.switchTo().window(originalTab);
-//		
-//		//check that if user enters tax rate it should apply for products on default product Summary Order page 
-//		driver.findElement(By.id("orderHistoryToggleID")).click();
-//		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
-//		Thread.sleep(4000);
-//		String orderSummaryTax1 = driver.findElement(By.xpath("(//span[@class='text-black-225 text-sm font-bold'])[2]")).getText().trim();
-//		System.out.println("default product Order Summary Tax: " + orderSummaryTax1);
-//		String extractedOrderSummaryTax1 = orderSummaryTax1.replaceAll("[^0-9]", "");
-//		//Assert.assertEquals(extractedOrderSummaryTax1, Tax_Rate, "Tax rate mismatch in order summary");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax in default product order summary successfully.\n");
-//		
-//		//check that if user enters tax rate it should apply for products on  checkout page 
-//		driver.navigate().to(Products);
-//		Thread.sleep(7000);	
-//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
-//		Thread.sleep(2000);
-//		driver.findElement(By.id("orderPagesFunnel")).click();
-//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
-//		Thread.sleep(4000);
-//
-//		for (String handle : driver.getWindowHandles()) {
-//			if (!handle.equals(originalTab)) {
-//				driver.switchTo().window(handle);
-//				break;
-//			}
-//		}		
-//
-//		Thread.sleep(7000);	
-//		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
-//		Thread.sleep(2000);	
-//		String ordertax11 = driver.findElement(By.xpath("(//p[text()='Taxes']/following-sibling::p)[1]")).getText().trim();
-//		System.out.println("default Checkout Page Tax: " + ordertax11);
-//		String extractedTax11 = ordertax11.replaceAll("[^0-9]", "");
-//		//Assert.assertEquals(extractedTax11, Tax_Rate, "Tax rate mismatch in order summary");		
-//		Thread.sleep(5000);
-//		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();	
-//		Thread.sleep(3000);
-//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
-//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
-//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
-//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
-//		Thread.sleep(2000);
-//		driver.findElement(By.cssSelector("button#country")).click(); 
-//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
-//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
-//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
-//
-//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
-//		Thread.sleep(2000);
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
-//		driver.switchTo().defaultContent();
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
-//		driver.switchTo().defaultContent();
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
-//		driver.switchTo().defaultContent();
-//
-//		WebElement cardHolder11 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
-//		cardHolder11.clear();
-//		cardHolder11.sendKeys(F_Name + " " + L_Name);
-//
-//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
-//		Thread.sleep(2000);
-//		driver.findElement(By.cssSelector("button[type='submit']")).click();
-//		Thread.sleep(7000);
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-//		
-//		//check that if user enters tax rate it should apply for products on  checkout Success page
-//		Thread.sleep(2000);
-//		String successPageTax11 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]")).getText().trim();
-//		System.out.println("default product Order Success Page Tax: " + successPageTax11);
-//		String extractedSuccessPageTax11 = successPageTax11.replaceAll("[^0-9]", "");
-//		Assert.assertEquals(extractedSuccessPageTax11, Tax_Rate, "Tax rate mismatch on success page");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax on checkout product Success page successfully.\n");
-//		driver.close();
-//		driver.switchTo().window(originalTab);
-//		
-//		//check that if user enters tax rate it should apply for products on  checkout Summary Order page 
-//		driver.findElement(By.id("orderHistoryToggleID")).click();
-//		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
-//		Thread.sleep(4000);
-//		String orderSummaryTax11 = driver.findElement(By.xpath("(//span[@class='text-black-225 text-sm font-bold'])[2]")).getText().trim();
-//		System.out.println("checkout page Order Summary Tax: " + orderSummaryTax11);
-//		String extractedOrderSummaryTax11 = orderSummaryTax11.replaceAll("[^0-9]", "");
-//		//Assert.assertEquals(extractedOrderSummaryTax11, Tax_Rate, "Tax rate mismatch in order summary");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax in checkout product order summary successfully.\n");
-//		
-//		//check that if user enters tax rate it should apply for products and can be seen in VT transaction summary
-//		driver.navigate().to(Virtual_Terminal);
-//		Thread.sleep(20000);
-//		driver.findElement(By.xpath("//span[normalize-space(.)='ACH']//parent::button")).click(); 
-//		Thread.sleep(1000);
-//		String VTtax = driver.findElement(By.cssSelector("div.Transaction-summary-inside-class>div:nth-of-type(2)>div>div:nth-of-type(2)>span:first-of-type")).getText().trim();
-//		System.out.println("Virtual Terminal Tax: " + VTtax);
-//		String extractedVTtax = VTtax.replaceAll("[^0-9]", "");
-//		Assert.assertEquals(extractedVTtax, Tax_Rate, "Tax rate mismatch in VT item section");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax in VT item section successfully.\n");
-//		
-//		//check that if user enters tax rate it should apply for products and can be seen in VT order success page
-//		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); 
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(Number); 
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("//div[contains(@class,'overflow-y-auto')]/div[contains(@class,'mb-[5px]')][1]")).click(); 
-//		Thread.sleep(1000);
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click(); 
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); 
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); 
-//		Thread.sleep(1000);
-//
-//		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Bank Account Details']")));
-//		Thread.sleep(3000);
-//		driver.findElement(By.name("creditCard.achAccountHolderName")).sendKeys(Account_Holder_Name);
-//		driver.findElement(By.name("creditCard.achRoutingNumber")).sendKeys(Routing_Number);
-//		driver.findElement(By.name("creditCard.achAccountNumber")).sendKeys(Account_Number);
-//		driver.findElement(By.id("creditCard.achAccType")).click();
-//		driver.findElement(By.id("react-select-2-option-0")).click();
-//		driver.findElement(By.id("creditCard.achAccountCategory")).click();
-//		driver.findElement(By.id("react-select-3-option-0")).click(); 
-//
-//		Thread.sleep(3000);
-//		driver.findElement(By.cssSelector("div.virtual-terminal-ui>form>div>div>div:nth-of-type(7)>div:nth-of-type(2)>h3>div>div>div:last-of-type")).click(); 
-//		driver.findElement(By.name("address.address_1")).sendKeys(Street_Add); 
-//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
-//		Thread.sleep(1000);
-//		driver.findElement(By.name("address.address_2")).sendKeys(Street_Add); 
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//button[normalize-space(.//p/text())='ACH Payment']")).click(); 
-//		Thread.sleep(15000);
-//		driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); 
-//		
-//		//check that if user enters tax rate it should apply for products and can be seen in order summary of order
-//		String orderSummaryTaxvt = driver.findElement(By.xpath("//p[contains(text(),'Tax')]")).getText().trim();
-//		System.out.println("checkout page Order Summary Tax: " + orderSummaryTaxvt);
-//		String extractedOrderSummaryTaxvt = orderSummaryTaxvt.replaceAll("[^0-9]", "");
-//		Assert.assertEquals(extractedOrderSummaryTaxvt, Tax_Rate, "Tax rate mismatch in Virtual terminal order success page");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax in Virtual terminal order Success page successfully.\n");
-//		
-//		//check that if user enters tax rate it should apply for products and can be seen in VT order of order module
-//		driver.get(Orders);
-//		Thread.sleep(5000);
-//		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click();
-//		Thread.sleep(2000);
-//		String orderSummaryTax11 = driver.findElement(By.xpath("(//span[@class='text-black-225 text-sm font-bold'])[2]")).getText().trim();
-//		System.out.println("checkout page Order Summary Tax: " + orderSummaryTax11);
-//		String extractedOrderSummaryTaxvto = orderSummaryTax11.replaceAll("[^0-9]", "");
-//		//Assert.assertEquals(extractedOrderSummaryTaxvto, Tax_Rate, "Tax rate mismatch in Virtual terminal order summary page");
-//		System.out.println("After entering tax rate in tax field it is showing correct tax in Virtual terminal order summary successfully.\n");
-//		
-//		//When we apply flat tax rate for Inventory product it should reflect on custome hub in orders section
-//		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
-//		Thread.sleep(5000);
-//		
-//		for (String handle : driver.getWindowHandles()) {
-//			if (!handle.equals(originalTab)) {
-//				driver.switchTo().window(handle);
-//					break;
-//			}
-//		}
-//		
-//		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
-//		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
-//		Assert.assertNotEquals(Taxs3, Tax_Rate, "After entering tax rate in tax field it is not showing in customer hub");
-//		System.out.println("After entering tax rate in tax field it is showing in customer hub successfully.\n");
+		taxLink.click();
+		Thread.sleep(2000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		String currentUrl = driver.getCurrentUrl();
+		Assert.assertEquals(currentUrl, "https://taxfoundation.org/data/all/state/sales-tax-rates/", "After clicking on find your state tax rate here link it is not navigating to correct page");
+		System.out.println("After clicking on find your state tax rate here link it is navigating to correct page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that if user enters tax rate it should apply for products on default checkout page 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);	
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+		Thread.sleep(3000);			
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(5000);
+		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
+		System.out.println("Order Checkout Page Tax: " + ordertax);
+		String extractedTax = ordertax.replaceAll("[^0-9]", "");
+		Assert.assertEquals(extractedTax, Tax_Rate, "Tax rate mismatch in order summary");
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		//check that if user enters tax rate it should apply for products on order success page
+		String successPageTax = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
+		System.out.println("default checkout Order Success Page Tax: " + successPageTax);
+		String extractedSuccessPageTax = successPageTax.replaceAll("[^0-9]", "");
+		//Assert.assertEquals(extractedSuccessPageTax, Tax_Rate, "Tax rate mismatch on success page");
+		System.out.println("After entering tax rate in tax field it is showing correct tax on default checkout success page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that if user enters tax rate it should apply for products on order summary
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);
+		String orderSummaryTax = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
+		System.out.println("default checkout Order Summary Tax: " + orderSummaryTax);
+		String extractedOrderSummaryTax = orderSummaryTax.replaceAll("[^0-9]", "");
+		//Assert.assertEquals(extractedOrderSummaryTax, Tax_Rate, "Tax rate mismatch in order summary");
+		System.out.println("After entering tax rate in tax field it is showing correct tax in default checkout order summary successfully.\n");
+		
+		//check that if user enters tax rate it should apply for products on default product page 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);	
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(5000);
+		String ordertax1 = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
+		System.out.println("default product Order Checkout Page Tax: " + ordertax1);
+		String extractedTax1 = ordertax1.replaceAll("[^0-9]", "");
+		Assert.assertEquals(extractedTax1, Tax_Rate, "Tax rate mismatch in order summary");
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); 
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder1.clear();
+		cardHolder1.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		//check that if user enters tax rate it should apply for products on default product Success page
+		Thread.sleep(2000);
+		String successPageTax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]")).getText().trim();
+		System.out.println("default product Order Success Page Tax: " + successPageTax1);
+		String extractedSuccessPageTax1 = successPageTax1.replaceAll("[^0-9]", "");
+		Assert.assertEquals(extractedSuccessPageTax1, Tax_Rate, "Tax rate mismatch on success page");
+		System.out.println("After entering tax rate in tax field it is showing correct tax on default product Success page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that if user enters tax rate it should apply for products on default product Summary Order page 
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(4000);
+		String orderSummaryTax1 = driver.findElement(By.xpath("(//span[@class='text-black-225 text-sm font-bold'])[2]")).getText().trim();
+		System.out.println("default product Order Summary Tax: " + orderSummaryTax1);
+		String extractedOrderSummaryTax1 = orderSummaryTax1.replaceAll("[^0-9]", "");
+		//Assert.assertEquals(extractedOrderSummaryTax1, Tax_Rate, "Tax rate mismatch in order summary");
+		System.out.println("After entering tax rate in tax field it is showing correct tax in default product order summary successfully.\n");
+		
+		//check that if user enters tax rate it should apply for products on  checkout page 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);	
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(4000);
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}		
+
+		Thread.sleep(7000);	
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(2000);	
+		String ordertax11 = driver.findElement(By.xpath("(//p[text()='Taxes']/following-sibling::p)[1]")).getText().trim();
+		System.out.println("default Checkout Page Tax: " + ordertax11);
+		String extractedTax11 = ordertax11.replaceAll("[^0-9]", "");
+		//Assert.assertEquals(extractedTax11, Tax_Rate, "Tax rate mismatch in order summary");		
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();	
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder11 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder11.clear();
+		cardHolder11.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		//check that if user enters tax rate it should apply for products on  checkout Success page
+		Thread.sleep(2000);
+		String successPageTax11 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]")).getText().trim();
+		System.out.println("default product Order Success Page Tax: " + successPageTax11);
+		String extractedSuccessPageTax11 = successPageTax11.replaceAll("[^0-9]", "");
+		Assert.assertEquals(extractedSuccessPageTax11, Tax_Rate, "Tax rate mismatch on success page");
+		System.out.println("After entering tax rate in tax field it is showing correct tax on checkout product Success page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that if user enters tax rate it should apply for products on  checkout Summary Order page 
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(4000);
+		String orderSummaryTax11 = driver.findElement(By.xpath("(//span[@class='text-black-225 text-sm font-bold'])[2]")).getText().trim();
+		System.out.println("checkout page Order Summary Tax: " + orderSummaryTax11);
+		String extractedOrderSummaryTax11 = orderSummaryTax11.replaceAll("[^0-9]", "");
+		//Assert.assertEquals(extractedOrderSummaryTax11, Tax_Rate, "Tax rate mismatch in order summary");
+		System.out.println("After entering tax rate in tax field it is showing correct tax in checkout product order summary successfully.\n");
+		
+		//check that if user enters tax rate it should apply for products and can be seen in VT transaction summary
+		driver.navigate().to(Virtual_Terminal);
+		Thread.sleep(20000);
+		driver.findElement(By.xpath("//span[normalize-space(.)='ACH']//parent::button")).click(); 
+		Thread.sleep(1000);
+		String VTtax = driver.findElement(By.cssSelector("div.Transaction-summary-inside-class>div:nth-of-type(2)>div>div:nth-of-type(2)>span:first-of-type")).getText().trim();
+		System.out.println("Virtual Terminal Tax: " + VTtax);
+		String extractedVTtax = VTtax.replaceAll("[^0-9]", "");
+		Assert.assertEquals(extractedVTtax, Tax_Rate, "Tax rate mismatch in VT item section");
+		System.out.println("After entering tax rate in tax field it is showing correct tax in VT item section successfully.\n");
+		
+		//check that if user enters tax rate it should apply for products and can be seen in VT order success page
+		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(Number); 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[contains(@class,'overflow-y-auto')]/div[contains(@class,'mb-[5px]')][1]")).click(); 
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click(); 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); 
+		Thread.sleep(1000);
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Bank Account Details']")));
+		Thread.sleep(3000);
+		driver.findElement(By.name("creditCard.achAccountHolderName")).sendKeys(Account_Holder_Name);
+		driver.findElement(By.name("creditCard.achRoutingNumber")).sendKeys(Routing_Number);
+		driver.findElement(By.name("creditCard.achAccountNumber")).sendKeys(Account_Number);
+		driver.findElement(By.id("creditCard.achAccType")).click();
+		driver.findElement(By.id("react-select-2-option-0")).click();
+		driver.findElement(By.id("creditCard.achAccountCategory")).click();
+		driver.findElement(By.id("react-select-3-option-0")).click(); 
+
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.virtual-terminal-ui>form>div>div>div:nth-of-type(7)>div:nth-of-type(2)>h3>div>div>div:last-of-type")).click(); 
+		driver.findElement(By.name("address.address_1")).sendKeys(Street_Add); 
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
+		Thread.sleep(1000);
+		driver.findElement(By.name("address.address_2")).sendKeys(Street_Add); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[normalize-space(.//p/text())='ACH Payment']")).click(); 
+		Thread.sleep(15000);
+		driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); 
+		
+		//check that if user enters tax rate it should apply for products and can be seen in order summary of order
+		String orderSummaryTaxvt = driver.findElement(By.xpath("//p[contains(text(),'Tax')]")).getText().trim();
+		System.out.println("checkout page Order Summary Tax: " + orderSummaryTaxvt);
+		String extractedOrderSummaryTaxvt = orderSummaryTaxvt.replaceAll("[^0-9]", "");
+		Assert.assertEquals(extractedOrderSummaryTaxvt, Tax_Rate, "Tax rate mismatch in Virtual terminal order success page");
+		System.out.println("After entering tax rate in tax field it is showing correct tax in Virtual terminal order Success page successfully.\n");
+		
+		//check that if user enters tax rate it should apply for products and can be seen in VT order of order module
+		driver.get(Orders);
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		String orderSummaryTax111 = driver.findElement(By.xpath("(//span[@class='text-black-225 text-sm font-bold'])[2]")).getText().trim();
+		System.out.println("checkout page Order Summary Tax: " + orderSummaryTax111);
+		String extractedOrderSummaryTaxvto = orderSummaryTax111.replaceAll("[^0-9]", "");
+		//Assert.assertEquals(extractedOrderSummaryTaxvto, Tax_Rate, "Tax rate mismatch in Virtual terminal order summary page");
+		System.out.println("After entering tax rate in tax field it is showing correct tax in Virtual terminal order summary successfully.\n");
+		
+		//When we apply flat tax rate for Inventory product it should reflect on custome hub in orders section
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
+		Assert.assertNotEquals(Taxs3, Tax_Rate, "After entering tax rate in tax field it is not showing in customer hub");
+		System.out.println("After entering tax rate in tax field it is showing in customer hub successfully.\n");
 		
 		//check that given flat tax rate should be apply and can be seen in invoices transaction summary
 		driver.navigate().to(invoices);
@@ -8023,9 +8023,9 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
 		driver.switchTo().defaultContent();
-		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
-		cardHolder1.clear();
-		cardHolder1.sendKeys(F_Name + " " + L_Name);	
+		WebElement cardHolder111 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder111.clear();
+		cardHolder111.sendKeys(F_Name + " " + L_Name);	
 		Thread.sleep(2000);
         driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); 
         Thread.sleep(7000);
@@ -8043,9 +8043,9 @@ public class Products extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click();
 		Thread.sleep(2000);
-		String orderSummaryTax11 = driver.findElement(By.xpath("(//span[@class='text-black-225 text-sm font-bold'])[2]")).getText().trim();
-		System.out.println("checkout page Order Summary Tax: " + orderSummaryTax11);
-		String extractedOrderSummaryTaxiN = orderSummaryTax11.replaceAll("[^0-9]", "");
+		String orderSummaryTax1111 = driver.findElement(By.xpath("(//span[@class='text-black-225 text-sm font-bold'])[2]")).getText().trim();
+		System.out.println("checkout page Order Summary Tax: " + orderSummaryTax1111);
+		String extractedOrderSummaryTaxiN = orderSummaryTax1111.replaceAll("[^0-9]", "");
 		//Assert.assertEquals(extractedOrderSummaryTaxiN, Tax_Rate, "Tax rate mismatch in Virtual terminal order summary page");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in Invoices order summary successfully.\n");
 		
@@ -8063,14 +8063,329 @@ public class Products extends Data {
 		}
 		
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
-		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
-		Assert.assertNotEquals(Taxs3, Tax_Rate, "After entering tax rate in tax field it is not showing in customer hub");
+		String Taxs31 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
+		Assert.assertNotEquals(Taxs31, Tax_Rate, "After entering tax rate in tax field it is not showing in customer hub");
 		System.out.println("After entering tax rate in tax field it is showing in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
 	}
 	
-	
+	@Test(priority = 19)
+	public void GiftCard_CheckoutSettings() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		
+		String GiftCard = "100";
+		
+		driver.navigate().to(Sales);
+		Thread.sleep(10000);
+		String totalRevenue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
+		String totalRevenueValue = totalRevenue.replaceAll("[^0-9.]", ""); 
+		double RevenueValue = Double.parseDouble(totalRevenueValue);	
+		
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.sales-list-section>div>div:first-of-type")).click();		
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[@aria-label='Gift Cards Toggle Button']")).click(); 
+		
+		String totalRevenuebeforegifttab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
+		String totalRevenuebeforegifttabs = totalRevenuebeforegifttab.replaceAll("[^0-9.]", ""); 
+		double RevenueValuebeforegifttab = Double.parseDouble(totalRevenuebeforegifttabs);	
+		
+		driver.navigate().to(Gift_Cards);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='New Gift Card'])[3]"))).click(); 
+		driver.findElement(By.xpath("(//div[@id='region.region_id'])[1]")).click();
+		driver.findElement(By.id("react-select-2-option-0")).click(); 
+		driver.findElement(By.xpath("(//input[@placeholder='-'])[1]")).sendKeys(GiftCard);
+		driver.findElement(By.name("receiver.email")).sendKeys(WMLogin);
+		driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click();
+		Thread.sleep(5000);
+		String GiftCardID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.customer-table-second-class>table>tbody>tr>td>p:first-of-type"))).getText().trim();
+		
+		//Check that section with title Checkout Settings
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		WebElement checkoutsetting = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Checkout Settings']")));
+		String taxFieldText = checkoutsetting.getText().trim();
+		Assert.assertEquals(taxFieldText, "Checkout Settings", "Checkout Settings section is not present in product settings page");
+		System.out.println("\nCheckout Settings section is present in product settings page successfully.\n");
+		
+		//check that Checkout Settings section with Gift card toggle
+		WebElement giftCardToggle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]")));
+		Assert.assertTrue(giftCardToggle.isDisplayed(), "Gift Card toggle is not present in Checkout Settings section");
+		System.out.println("Gift Card toggle is present in Checkout Settings section successfully.\n");
+		
+		//check that user can enable and disable Gift Card toggle button
+		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]")));
+		String toggleState = toggleButton.getAttribute("data-state");
+		if (toggleState.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+		
+		//check that when gift card is ON from product then on checkout page gift card field is visible
+		driver.navigate().to(Products);
+		Thread.sleep(7000);			
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		Thread.sleep(4000);
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		//check that valid gift card can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder = driver.findElement(By.id("Giftcardcode"));
+		Inputplaceholder.sendKeys("DJISMYLIFE1998"); 
+		String actualPlaceholder = Inputplaceholder.getAttribute("placeholder"); 	        
+		String expectedPlaceholder = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder, "Gift Card Code placeholder text mismatch");
+		
+		//check that on checkout page there is a Apply button for gift card
+		WebElement applybutton = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybutton.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Apply button is displayed after entering gift card code successfully on default checkout page.\n");
+		applybutton.click(); 
+		
+		//check that if invalid gift card is applied it will be show warning 
+		WebElement errorwarning = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift card not found.']")));
+		String errormsgtext = errorwarning.getText().trim();
+		Assert.assertEquals(errormsgtext, "Gift card not found.", "Gift card not found message is not present.");
+		System.out.println("Gift card not found message is present on default checkout page.\n");
+		
+		//check that gift card number can be entered in the gift card field with success message 
+		driver.findElement(By.id("Giftcardcode")).clear();
+		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID); 
+		driver.findElement(By.id("applyGiftCard")).click(); 
+		WebElement successmsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift card applied successfully!']")));
+		String successmsgtext = successmsg.getText().trim();
+		Assert.assertEquals(successmsgtext, "Gift card applied successfully!", "Gift card applied successfully message is not present.");
+		System.out.println("Gift card applied successfully message is present on default checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that when gift card is ON from product then on default checkout page  gift card field is visible
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		//check that valid gift card can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder1 = driver.findElement(By.id("Giftcardcode"));
+		Inputplaceholder1.sendKeys("DJISMYLIFE1998"); 
+		String actualPlaceholder1 = Inputplaceholder1.getAttribute("placeholder"); 	        
+		String expectedPlaceholder1 = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholder1, expectedPlaceholder1, "Gift Card Code placeholder text mismatch");
+
+		//check that on checkout page there is a Apply button for gift card
+		WebElement applybutton1 = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybutton1.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Apply button is displayed after entering gift card code successfully on checkout page.\n");
+		applybutton1.click(); 
+
+		//check that if invalid gift card is applied it will be show warning 
+		WebElement errorwarning1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift card not found.']")));
+		String errormsgtext1 = errorwarning1.getText().trim();
+		Assert.assertEquals(errormsgtext1, "Gift card not found.", "Gift card not found message is not present in product settings page");
+		System.out.println("Gift card not found error message is present on checkout page.\n");
+
+		//check that gift card number can be entered in the gift card field with success message 
+		driver.findElement(By.id("Giftcardcode")).clear();
+		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID); 
+		driver.findElement(By.id("applyGiftCard")).click(); 
+		WebElement successmsg1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift card applied successfully!']")));
+		String successmsgtext1 = successmsg1.getText().trim();
+		Assert.assertEquals(successmsgtext1, "Gift card applied successfully!", "Gift card applied successfully message is not present.");
+		System.out.println("Gift card applied successfully message is present on checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		 
+		//check that when gift card is ON from product then on default product page  gift card field is visible
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();	
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();	
+		Thread.sleep(1000);
+		
+		//check that valid gift card can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder11 = driver.findElement(By.id("Giftcardcode"));
+		Inputplaceholder11.sendKeys("DJISMYLIFE1998"); 
+		String actualPlaceholder11 = Inputplaceholder11.getAttribute("placeholder"); 	        
+		String expectedPlaceholder11 = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholder11, expectedPlaceholder11, "Gift Card Code placeholder text mismatch");
+
+		//check that on checkout page there is a Apply button for gift card
+		WebElement applybutton11 = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybutton11.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Apply button is displayed after entering gift card code successfully on default product page.\n");
+		applybutton11.click(); 
+
+		//check that if invalid gift card is applied it will be show warning 
+		WebElement errorwarning11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift card not found.']")));
+		String errormsgtext11 = errorwarning11.getText().trim();
+		Assert.assertEquals(errormsgtext11, "Gift card not found.", "Gift card not found message is not present in product settings page");
+		System.out.println("Gift card not applied error message is present on default product page.\n");
+
+		//check that gift card number can be entered in the gift card field with success message 
+		driver.findElement(By.id("Giftcardcode")).clear();
+		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID); 
+		driver.findElement(By.id("applyGiftCard")).click(); 
+		WebElement successmsg11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift card applied successfully!']")));
+		String successmsgtext11 = successmsg11.getText().trim();
+		Assert.assertEquals(successmsgtext11, "Gift card applied successfully!", "Gift card applied successfully message is not present.");
+		System.out.println("Gift card applied successfully message is present on default product page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that when gift card is ON and order placed from checkout page link then gift card details can be seen on order success page 
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID); 
+		driver.findElement(By.id("applyGiftCard")).click(); 
+				
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
+		Thread.sleep(2000);		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		//check that when gift card is ON and order placed from default checkout page link then gift card details can be seen on order success page
+		String GiftCardIDSuccessPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift Card']"))).getText().trim();
+		Assert.assertEquals(GiftCardIDSuccessPage, "Gift Card", "Gift card details are not showing on order success page after applying gift card in checkout page");
+		System.out.println("Gift card details are showing on order success page after applying gift card in checkout page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that when gift card is ON and order placed from checkout page link then gift card details can be seen on order summary
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);
+		String GiftCardIDOrderSummary = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'badge badge-default')]"))).getText().trim();
+		Assert.assertEquals(GiftCardIDOrderSummary, GiftCardID, "Gift card details are not showing in order summary after applying gift card in checkout page");
+		System.out.println("Gift card details are showing in order summary after applying gift card in default checkout page successfully.\n");
+		
+		//check that gift card is On and apply for order then it will reflect in customer hub 
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		String giftcardcustomerhub = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Gift Card']"))).getText().trim();
+		Assert.assertEquals(giftcardcustomerhub, "Gift Card", "Gift card details not showing in customer hub");
+		System.out.println("Gift card details are showing in customer hub successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that when gift card is ON and order placed using default product page link then in revenue it should not include all sales revenue tab
+		driver.navigate().to(Sales);
+		Thread.sleep(10000);
+		String totalRevenueafter = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
+		String totalRevenueValueafter = totalRevenueafter.replaceAll("[^0-9.]", ""); 
+		double RevenueValueafter = Double.parseDouble(totalRevenueValueafter);			
+		Assert.assertEquals(RevenueValue ,RevenueValueafter, "Total revenue value is not increased after applying gift card in default checkout page\n");
+		System.out.println("Total revenue value is not increased after applying gift card in default checkout page successfully.\n");
+		
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.sales-list-section>div>div:first-of-type")).click();		
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[@aria-label='Gift Cards Toggle Button']")).click(); 
+		
+		//check that when gift card is ON and order placed using default checkout page link then in revenue it should not include gift card amount revenue tab	
+		String totalRevenueaftergifttab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
+		String totalRevenueaftergifttabs = totalRevenueaftergifttab.replaceAll("[^0-9.]", ""); 
+		double RevenueValueaftergifttab = Double.parseDouble(totalRevenueaftergifttabs);	
+		Assert.assertEquals(RevenueValuebeforegifttab ,RevenueValueaftergifttab, "Total revenue value is not increased after applying gift card in default checkout page\n");
+		System.out.println("Total revenue value is not increased after applying gift card in gift card tab successfully.\n");
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	
