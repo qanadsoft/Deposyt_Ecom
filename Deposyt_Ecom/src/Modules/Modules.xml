@@ -14,7 +14,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "GiftCard_CheckoutSettings" />
+					<include name = "Discount_CheckoutSettings" />
 				</methods>
 			</class>
 		</classes>

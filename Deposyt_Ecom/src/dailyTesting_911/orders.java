@@ -43,7 +43,7 @@ public class orders extends Data {
 		Actions actions = new Actions(driver);
 		
 		StringBuilder giftCard = new StringBuilder();
-		String giftCardName = "GiftCard" + UUID.randomUUID().toString().substring(0, 6).toUpperCase(),		
+		String DiscountName = "GiftCard" + UUID.randomUUID().toString().substring(0, 6).toUpperCase(),		
 		Product_Name = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),GiftCard = "0.20", Discounts_Price = "1";		
 
 		for (int i = 0; i < 10; i++) {
@@ -89,7 +89,7 @@ public class orders extends Data {
 		driver.findElement(By.id("react-select-2-option-0")).click(); //Select Default as region
 		Thread.sleep(2000);
 		driver.findElement(By.name("rule.description")).sendKeys("This discount is created for 911 Automation Test");
-		driver.findElement(By.name("code")).sendKeys(giftCardName); //input code
+		driver.findElement(By.name("code")).sendKeys(DiscountName); //input code
 		driver.findElement(By.name("rule.value")).sendKeys(Discounts_Price); //input discount value		
 		Thread.sleep(3000);
 		WebElement publishButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-setting-region-tab > div > button:nth-of-type(2)")));
@@ -178,7 +178,7 @@ public class orders extends Data {
 		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID); //Input discount code in cart
 		driver.findElement(By.id("applyGiftCard")).click(); //Click on apply button for discount code
 		Thread.sleep(2000);
-		driver.findElement(By.id("couponCode1")).sendKeys(giftCardName); //Input gift card code in cart
+		driver.findElement(By.id("couponCode1")).sendKeys(DiscountName); //Input gift card code in cart
 		driver.findElement(By.id("applyDiscountCoupon")).click(); //Click on apply button for
 				
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  

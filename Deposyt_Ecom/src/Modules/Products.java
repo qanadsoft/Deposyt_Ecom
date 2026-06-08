@@ -58,10 +58,10 @@ public class Products extends Data {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		/*wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
 		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
@@ -69,7 +69,7 @@ public class Products extends Data {
 
 		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
-		
+
 		Thread.sleep(3000);
 		String[] files1 = {Media_Path + Fileone};
 		String allFiles1 = String.join("\n", files1);
@@ -82,17 +82,71 @@ public class Products extends Data {
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
-		Thread.sleep(3000);
-		
+		Thread.sleep(3000);*/
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]")));
+		String toggleState = toggleButton.getAttribute("data-state");
+		if (toggleState.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		Thread.sleep(2000);
+		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Discount Coupon']/following::button[@role='switch'][1]")));
+		String toggleState1 = toggleButton1.getAttribute("data-state");
+		if (toggleState1.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState1.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		Thread.sleep(2000);
+		WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Tip Amount']/following::button[@role='switch'][1]")));
+		String toggleStatee = toggleButtonn.getAttribute("data-state");
+		if (toggleStatee.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButtonn);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleStatee.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButtonn);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButtonn);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
 		/*driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
-		
+
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
-		
+
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
@@ -100,7 +154,7 @@ public class Products extends Data {
 					break;
 			}
 		}	
-		
+
 		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -112,7 +166,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		
+
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
@@ -142,7 +196,7 @@ public class Products extends Data {
 		driver.close();
 		driver.switchTo().window(originalTab);*/
 	}
-	
+
 	@Test(priority = 1)
 	public void Create_NewProduct() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
@@ -837,7 +891,7 @@ public class Products extends Data {
 		ProductName.sendKeys(Keys.DELETE);
 		ProductName.sendKeys(Product_Name);
 		Thread.sleep(3000);
-		
+
 		WebElement salePriceCheckbox1 = driver.findElement(By.xpath("(//input[@type=\"checkbox\"])[1]"));
 		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", salePriceCheckbox1);
 		Thread.sleep(1000);
@@ -1251,7 +1305,7 @@ public class Products extends Data {
 		String actualProductNameOndefCheckout1 = productNameOndefCheckout1.getText().trim();
 		double actualPriced1 = Double.parseDouble(actualProductNameOndefCheckout1.replaceAll("[^0-9.]", ""));
 		double expectedPriced1 = Double.parseDouble(Discountedprice);
-//		Assert.assertEquals(actualPriced1, expectedPriced1,"Product sale price is not displayed correctly on Default checkout page");
+		//		Assert.assertEquals(actualPriced1, expectedPriced1,"Product sale price is not displayed correctly on Default checkout page");
 		System.out.println("product sale price is displayed successfully on Default checkout page");
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -1491,10 +1545,10 @@ public class Products extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click();
 		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
-//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-//		suscprise.clear();
-//		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
+		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+		//		suscprise.clear();
+		//		suscprise.sendKeys(OneTimePurchaseSalePrice);
 
 		//check that user can see + sign to increase the number of cycle for the subscription
 		//check that user can see - sign to decrease the number of cycle for the subscription
@@ -1776,11 +1830,11 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("div.frequency-select-container")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click();
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click();
-//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-//		suscprise.clear();
-//		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		//		Thread.sleep(1000);
+		//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click();
+		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+		//		suscprise.clear();
+		//		suscprise.sendKeys(OneTimePurchaseSalePrice);
 
 		//check that user can see + sign to increase the number of cycle for the subscription
 		//check that user can see - sign to decrease the number of cycle for the subscription
@@ -2029,10 +2083,10 @@ public class Products extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); 
 		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
-//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-//		suscprise.clear();
-//		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
+		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+		//		suscprise.clear();
+		//		suscprise.sendKeys(OneTimePurchaseSalePrice);
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click();
@@ -3766,12 +3820,12 @@ public class Products extends Data {
 		String titleText = driver.findElement(By.xpath("(//div[@id='card-div'])[2]//div//div[@id='key-feature-section']//div//div//div//div//h3")).getText().trim();
 		Assert.assertEquals(titleText, TierOneTitle, "Title is not visible on open option of product details page");
 		System.out.println("Title is visible on open option of product details page successfully.\n");
-		
+
 		//Verify that popular tag will be visible on open option of product details page 
 		String popularText = driver.findElement(By.xpath("//div[text()='Most Popular']")).getText().trim();
 		Assert.assertEquals(popularText, "Most Popular", "Most Popular tag is not visible	on open option of product details page");
 		System.out.println("Most Popular tag is visible on open option of product details page successfully.\n");
-		
+
 		//Verify that month field price can be seen on open option of product detail page 
 		String priceTierText1 = driver.findElement(By.xpath("((//div[@id='card-div'])[2]//div//div//div//div//div//span)[1]")).getText().trim();
 		double value1 = Double.parseDouble(priceTierText1.replaceAll("[^0-9.]", ""));
@@ -3814,12 +3868,12 @@ public class Products extends Data {
 		String titleText1 = driver.findElement(By.xpath("(//div[@id ='key-feature-section'])[2]//div//div//div[1]//div//h3")).getText().trim();
 		Assert.assertEquals(titleText1, TierOneTitle, "Title is not visible on edit option of product details page");
 		System.out.println("Title is visible on edit option of product details page successfully.\n");
-		
+
 		//Verify that popular tag will be visible on edit option of product details page 
 		String popularText1 = driver.findElement(By.xpath("(//div[text()='Most Popular'])[2]")).getText().trim();
 		Assert.assertEquals(popularText1, "Most Popular", "Most Popular tag is not visible on edit option of product details page");
 		System.out.println("Most Popular tag is visible on edit option of product details page successfully.\n");
-		
+
 		//Verify that month field price can be seen on edit option of product detail page 
 		String priceTierText11 = driver.findElement(By.xpath("(//span[text()='$3.00'])[2]")).getText().trim();
 		double value11 = Double.parseDouble(priceTierText11.replaceAll("[^0-9.]", ""));
@@ -3901,9 +3955,9 @@ public class Products extends Data {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		Actions actions = new Actions(driver);
-		
+
 		String Product_Name = "Tier Product - " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase();
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
@@ -3924,7 +3978,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
-		
+
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
@@ -3935,7 +3989,7 @@ public class Products extends Data {
 		jse.executeScript("arguments[0].scrollIntoView({block:'center'});",TierToggle);
 		TierToggle.click();
 		Thread.sleep(2000);
-		
+
 		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys(TitleTier1);
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("#tier-item-1>div>div>div>button")).click();
@@ -3949,7 +4003,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//input[contains(@placeholder,\"Add Title\")]")).sendKeys(TitleTier1);
 		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(0).click();
 		driver.findElement(By.xpath("//input[contains(@placeholder,\"Enter Feature\")]")).sendKeys(Tier1Feature1);
-		
+
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//span[normalize-space()='+ Add Tier']")).click();
@@ -3968,11 +4022,11 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//input[@name=\"productDetails.variants.1.product_tier_features.0.title\"]")).sendKeys(TitleTier2);
 		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(1).click();
 		driver.findElement(By.xpath("//input[contains(@name,\"productDetails.variants.1.product_tier_features.0.feature_title.0\")]")).sendKeys(Tier2Feature1);
-		
+
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
-		
+
 		//Verify that if user select 10% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
 		Thread.sleep(4000);
@@ -3986,154 +4040,154 @@ public class Products extends Data {
 		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"10% Off\"]")).click();
 		driver.findElement(By.xpath("(//button[@role='switch'])[4]")).click();
-		
+
 		//Verify that if user select 10% off option then user can see it on product details page
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(4000);	
 		String offer10 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
 		Assert.assertTrue(offer10.contains("10% Off"), "10% Off text is not displayed");
 		System.out.println("10% Off is displayed successfully in Show Annual Upsell In details option.");
-		
+
 		//Verify that if user select 10% off option then user can see it on tier product checkout page
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-		
+
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}	
-		
+
 		Thread.sleep(7000);
 		String offer10Checkout = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
 		Assert.assertTrue(offer10Checkout.contains("10%"), "10% Off text is not displayed in checkout page");
 		System.out.println("10% Off is displayed successfully in checkout page.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//Verify that if user select 20% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
 		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:first-of-type>button:nth-of-type(2)")).click();
 		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"20% Off\"]")).click();
-		
+
 		//Verify that if user select 20% off option then user can see it on product details page
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(4000);	
 		String offer20 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
 		Assert.assertTrue(offer20.contains("20% Off"), "20% Off text is not displayed");
 		System.out.println("20% Off is displayed successfully in Show Annual Upsell In details option.");
-		
+
 		//Verify that if user select 20% off option then user can see it on tier product checkout page
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}	
-		
+
 		Thread.sleep(7000);
 		String offer10Checkout1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
 		Assert.assertTrue(offer10Checkout1.contains("20%"), "20% Off text is not displayed in checkout page");
 		System.out.println("20% Off is displayed successfully in checkout page.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//Verify that if user select 30% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
 		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:first-of-type>button:nth-of-type(2)")).click();
 		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"30% Off\"]")).click();
-		
+
 		//Verify that if user select 30% off option then user can see it on product details page
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(4000);	
 		String offer30 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
 		Assert.assertTrue(offer30.contains("30% Off"), "30% Off text is not displayed");
 		System.out.println("30% Off is displayed successfully in Show Annual Upsell In details option.");
-		
+
 		//Verify that if user select 30% off option then user can see it on tier product checkout page
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}	
-		
+
 		Thread.sleep(7000);
 		String offer10Checkout2 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
 		Assert.assertTrue(offer10Checkout2.contains("30%"), "30% Off text is not displayed in checkout page");
 		System.out.println("30% Off is displayed successfully in checkout page.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//Verify that if user select 40% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
 		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:first-of-type>button:nth-of-type(2)")).click();
 		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"40% Off\"]")).click();
-		
+
 		//Verify that if user select 30% off option then user can see it on product details page
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(4000);	
 		String offer40 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
 		Assert.assertTrue(offer40.contains("40% Off"), "40% Off text is not displayed");
 		System.out.println("40% Off is displayed successfully in Show Annual Upsell In details option.");
-		
+
 		//Verify that if user select 30% off option then user can see it on tier product checkout page
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}	
-		
+
 		Thread.sleep(7000);
 		String offer10Checkout3 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
 		Assert.assertTrue(offer10Checkout3.contains("40%"), "40% Off text is not displayed in checkout page");
 		System.out.println("40% Off is displayed successfully in checkout page.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//Verify that if user select 50% off option then user can see it in upsell ( In Checkout )Show Annual Upsell In Checkout option yearly discount
 		driver.findElement(By.cssSelector("div.product-list-section>button:nth-of-type(3)")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:first-of-type>button:nth-of-type(2)")).click();
 		driver.findElement(By.xpath("(//button[@aria-haspopup='menu'])[3]")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"50% Off\"]")).click();
-		
+
 		//Verify that if user select 50% off option then user can see it on product details page
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(4000);	
 		String offer50 = driver.findElement(By.cssSelector("div.product-details-page-ui>main>section>div:nth-of-type(2)>div:nth-of-type(3)>div>p:nth-of-type(2)>span")).getText().trim();
 		Assert.assertTrue(offer50.contains("50% Off"), "50% Off text is not displayed");
 		System.out.println("50% Off is displayed successfully in Show Annual Upsell In details option.");
-		
+
 		//Verify that if user select 50% off option then user can see it on tier product checkout page
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}	
-		
+
 		Thread.sleep(7000);
 		String offer10Checkout4 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)")).getText().trim();
 		Assert.assertTrue(offer10Checkout4.contains("50%"), "50% Off text is not displayed in checkout page");
@@ -4141,17 +4195,17 @@ public class Products extends Data {
 		driver.close();
 		driver.switchTo().window(originalTab);
 	}
-	
+
 	@Test(priority = 10)
 	public void Filter_GridView() throws InterruptedException, ParseException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(20000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>div>span>button")).click();
-		
+
 		//check that sort by filter is having four sub options 
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4159,7 +4213,7 @@ public class Products extends Data {
 		List<WebElement> sortByOptions = driver.findElements(By.cssSelector("div.dropdown-portal>div>div"));
 		Assert.assertEquals(sortByOptions.size() -1 , 4, "Sort by filter does not have four sub options");
 		System.out.println("Sort by filter is having four sub options.\n");
-		
+
 		//check that after click on Views (High to Low ) option should show results should be correct
 		driver.findElement(By.xpath("//div[normalize-space()=\"Views (High To Low)\"]")).click();
 		Thread.sleep(5000);
@@ -4169,7 +4223,7 @@ public class Products extends Data {
 		String viewsText1 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
 		int views1 = Integer.parseInt(viewsText1.replaceAll("[^0-9]", ""));
 		System.out.println("High To Low Views Count of First Product: " + views1);
-		
+
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4180,10 +4234,10 @@ public class Products extends Data {
 		String viewsText2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
 		int views2 = Integer.parseInt(viewsText2.replaceAll("[^0-9]", ""));
 		System.out.println("High To Low Views Count of Second Product: " + views2);
-		
+
 		Assert.assertTrue(views1 > views2,"Views sorting failed. First product views: " + views1 +" Second product views: " + views2);
 		System.out.println("Products are sorted by Views (High to Low) option successfully.\n");		
-		
+
 		//check that user can cancel the applied filter of Views (High to low) using X icon in filter
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(3000);	
@@ -4191,7 +4245,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Views (High To Low)\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after click on Views (Low to High) option should show results should be correct
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"Views (Low To High)\"]")).click();
@@ -4202,7 +4256,7 @@ public class Products extends Data {
 		String viewsText3 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
 		int views3 = Integer.parseInt(viewsText3.replaceAll("[^0-9]", ""));
 		System.out.println("Low To High Views Count of First Product: " + views3);
-		
+
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4213,10 +4267,10 @@ public class Products extends Data {
 		String viewsText4 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
 		int views4 = Integer.parseInt(viewsText4.replaceAll("[^0-9]", ""));
 		System.out.println("Low To High Views Count of Second Product: " + views4);
-		
+
 		//Assert.assertTrue(views3 > views4,"Views sorting failed. First product views: " + views3 +" Second product views: " + views4);
 		System.out.println("Products are sorted by Views (Low to High) option successfully.\n");		
-		
+
 		//check that user can cancel the applied filter of Views (Low to High) using X icon in filter
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(3000);	
@@ -4224,7 +4278,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Views (Low To High)\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after click on conversion rate (High to Low) option should show results should be correct
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (High To Low)\"]")).click();
@@ -4235,7 +4289,7 @@ public class Products extends Data {
 		String viewsText5 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
 		int views5 = Integer.parseInt(viewsText5.replaceAll("[^0-9]", ""));
 		System.out.println("Conversion Rate High To Low of First Product: " + views5);
-		
+
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4246,10 +4300,10 @@ public class Products extends Data {
 		String viewsText6 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
 		int views6 = Integer.parseInt(viewsText6.replaceAll("[^0-9]", ""));
 		System.out.println("Conversion Rate High To Low of Second Product: " + views6);
-		
+
 		//Assert.assertTrue(views5 < views4,"Views sorting failed. First product views: " + views5 +" Second product views: " + views6);
 		System.out.println("Products are sorted by Views (Conversion Rate) option successfully.\n");		
-		
+
 		//check that user can cancel the applied filter of conversion rate (High to Low) using X icon in filter
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(3000);	
@@ -4257,7 +4311,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (High To Low)\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
-			
+
 		//check that after click on conversion rate (Low to High) option should show results should be correct
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (Low To High)\"]")).click();
@@ -4268,7 +4322,7 @@ public class Products extends Data {
 		String viewsText7 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
 		int views7 = Integer.parseInt(viewsText7.replaceAll("[^0-9]", ""));
 		System.out.println("Conversion Rate Low To High of First Product: " + views7);
-		
+
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4279,10 +4333,10 @@ public class Products extends Data {
 		String viewsText8 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
 		int views8 = Integer.parseInt(viewsText8.replaceAll("[^0-9]", ""));
 		System.out.println("Conversion Rate Low To High of Second Product: " + views8);
-		
+
 		//Assert.assertTrue(views7 < views8,"Views sorting failed. First product views: " + views7 +" Second product views: " + views8);
 		System.out.println("Products are sorted by Views (Conversion Rate) option successfully.\n");		
-		
+
 		//check that user can cancel the applied filter of conversion rate (Low to High) using X icon in filter
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(3000);	
@@ -4290,24 +4344,24 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (Low To High)\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that there are two options avaialble under product type filter
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
 		List<WebElement> sortByproductOptions = driver.findElements(By.cssSelector("div.dropdown-portal>div>div"));
 		Assert.assertEquals(sortByproductOptions.size() -1 , 2, "Sort by Product Type filter does not have two sub options");
 		System.out.println("Sort by Product Type filter is having two sub options.\n");		
-		
+
 		//check that user can select Inventory type product option 
 		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a")).click();//click on first product
 		Thread.sleep(2000);
-		
+
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Product Type']")));
 		String Inventorystate = driver.findElement(By.id("Physical")).getAttribute("data-state").trim();
 		Assert.assertEquals(Inventorystate, "checked", "Inventory product type filter is not working");	
 		System.out.println("Inventory product type filter is working successfully.\n");
-		
+
 		//check that after selecting Inventory type filter user can click on cross icon to remove filter 
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
 		Thread.sleep(1000);
@@ -4316,19 +4370,19 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(2)>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after selection of Non-Inventory should show matching and correct results for the filter
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
 		driver.findElement(By.xpath("//div[normalize-space()='Non-Inventory']")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a")).click();//click on first product
 		Thread.sleep(2000);
-		
+
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Product Type']")));
 		String NonInventorystate = driver.findElement(By.id("Digital")).getAttribute("data-state").trim();
 		Assert.assertEquals(NonInventorystate, "checked", "Non Inventory product type filter is not working");	
 		System.out.println("Non Inventory product type filter is working successfully.\n");
-			
+
 		//check that after selecting Non-Inventory filter user can click on cross icon to remove filter 
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
 		Thread.sleep(1000);
@@ -4337,13 +4391,13 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()='Non-Inventory']")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(2)>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that there are two options avaialble under created date filter
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(2).click();
 		List<WebElement> sortBycreatedDateOptions = driver.findElements(By.cssSelector("div.dropdown-portal>div>div:nth-of-type(2)>div"));
 		Assert.assertEquals(sortBycreatedDateOptions.size() , 2, "Sort by Created Date filter does not have two sub options");
 		System.out.println("Sort by Created Date filter is having two sub options.\n");		
-		
+
 		//check that after selection of Newest should show matching and correct results for the filter
 		driver.findElement(By.xpath("((//span[normalize-space()='Newest'])[1]//parent::div)[1]")).click();
 		Thread.sleep(3000);
@@ -4353,74 +4407,74 @@ public class Products extends Data {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
 
 		for (WebElement product : products) {
-		    String fullText = product.getText().trim();
-		    Pattern pattern = Pattern.compile("\\d{2}/\\d{2}/\\d{2}");
-		    Matcher matcher = pattern.matcher(fullText);
+			String fullText = product.getText().trim();
+			Pattern pattern = Pattern.compile("\\d{2}/\\d{2}/\\d{2}");
+			Matcher matcher = pattern.matcher(fullText);
 
-		    if (matcher.find()) {
-		        String dateText = matcher.group();
-		        System.out.println("Extracted Date : " + dateText);
-		        actualDateList.add(sdf.parse(dateText));
-		    }
+			if (matcher.find()) {
+				String dateText = matcher.group();
+				System.out.println("Extracted Date : " + dateText);
+				actualDateList.add(sdf.parse(dateText));
+			}
 		}
 
 		List<Date> expectedDateList = new ArrayList<>(actualDateList);
 		expectedDateList.sort(Collections.reverseOrder());
 		Assert.assertEquals(actualDateList, expectedDateList,"Products are not sorted by Newest First");
 		System.out.println("Products are sorted by Newest First option successfully.\n");
-		
+
 		//check that after selecting newest filter user can click on cross icon to remove filter 
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(2).click();
 		driver.findElement(By.xpath("((//span[normalize-space()='Newest'])[1]//parent::div)[1]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(3)>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after selection of Oldest should show matching and correct results for the filter
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(2).click();
 		driver.findElement(By.xpath("((//span[normalize-space()='Oldest'])[1]//parent::div)[1]")).click();
 		Thread.sleep(3000);
-		
+
 		List<WebElement> products1 = driver.findElements(By.cssSelector("div.custom-class-table>table>div>div>div>a>div:nth-of-type(2)>div:nth-of-type(2)"));
 		List<Date> actualDateList1 = new ArrayList<>();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yy");
 		for (WebElement product : products1) {
-		    String fullText = product.getText().trim();
-		    Pattern pattern = Pattern.compile("\\d{2}/\\d{2}/\\d{2}");
-		    Matcher matcher = pattern.matcher(fullText);
-		    if (matcher.find()) {
-		        String dateText = matcher.group();
-		        System.out.println("Extracted Date : " + dateText);
-		        actualDateList1.add(sdf1.parse(dateText));
-		    }
+			String fullText = product.getText().trim();
+			Pattern pattern = Pattern.compile("\\d{2}/\\d{2}/\\d{2}");
+			Matcher matcher = pattern.matcher(fullText);
+			if (matcher.find()) {
+				String dateText = matcher.group();
+				System.out.println("Extracted Date : " + dateText);
+				actualDateList1.add(sdf1.parse(dateText));
+			}
 		}
 
 		List<Date> expectedDateList1 = new ArrayList<>(actualDateList1);
 		Collections.sort(expectedDateList1);
 		Assert.assertEquals(actualDateList1, expectedDateList1,"Products are not sorted by Oldest First");
 		System.out.println("Products are sorted by Oldest First option successfully.\n");
-		
+
 		//check that after selecting Oldest filter user can click on cross icon to remove filter 
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(2).click();
 		driver.findElement(By.xpath("((//span[normalize-space()='Oldest'])[1]//parent::div)[1]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(3)>button>div>div>svg")).click();//click on clear button of applied filter
-			
+
 		//check that there are three options available under pricing filter
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
 		List<WebElement> sortBycreatedDateOptions1 = driver.findElements(By.cssSelector("div.dropdown-portal>div>div:nth-of-type(2)>div"));
 		Assert.assertEquals(sortBycreatedDateOptions1.size() , 3, "Sort by pricing filter does not have three sub options");
 		System.out.println("Sort by pricing filter is having three sub options.\n");	
-		
+
 		//check that after selection of one time purchase  should show matching and correct results for the filter
 		driver.findElement(By.xpath("//span[normalize-space()=\"One-Time Purchase\"]//parent::div")).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a")).click();//click on first product
 		Thread.sleep(2000);
-		
+
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Pricing Options']")));
 		String OmeTimestate = driver.findElement(By.xpath("//div[@id='one-time-purchase-div']/descendant::button[@role=\"switch\"][1]")).getAttribute("data-state").trim();
 		Assert.assertEquals(OmeTimestate, "checked", "One Time product type filter is not working");	
 		System.out.println("One Time product filter is working successfully.\n");
-			
+
 		//check that after selecting one time purchase  filter user can click on cross icon to remove filter 
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
 		Thread.sleep(1000);
@@ -4429,19 +4483,19 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()=\"One-Time Purchase\"]//parent::div")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(4)>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after selection of subscription should show matching and correct results for the filter
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
 		driver.findElement(By.xpath("//span[normalize-space()=\"Subscription\"]//parent::div")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a")).click();//click on first product
 		Thread.sleep(2000);
-		
+
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Pricing Options']")));
 		String Suscriptionstate = driver.findElement(By.xpath("//div[@id='subscription-option-div']//button[@role='switch'][1]")).getAttribute("data-state").trim();
 		Assert.assertEquals(Suscriptionstate, "checked", "subscription product type filter is not working");	
 		System.out.println("subscription product filter is working successfully.\n");
-		
+
 		//check that after selecting subscription filter user can click on cross icon to remove filter 
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
 		Thread.sleep(1000);
@@ -4450,19 +4504,19 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()=\"Subscription\"]//parent::div")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(4)>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after selection of Tier Product should show matching and correct results for the filter
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
 		driver.findElement(By.xpath("//span[normalize-space()=\"Tiered Product\"]//parent::div")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a")).click();//click on first product
 		Thread.sleep(2000);
-		
+
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Pricing Options']")));
 		String Tierstate = driver.findElement(By.xpath("//div[@id='tiered-pricing-option-div']//button[@role='switch'][1]")).getAttribute("data-state").trim();
 		Assert.assertEquals(Tierstate, "checked", "Tier Product product type filter is not working");	
 		System.out.println("Tier Product product filter is working successfully.\n");
-		
+
 		//check that after selecting Tier Product filter user can click on cross icon to remove filter 
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
 		Thread.sleep(1000);
@@ -4471,7 +4525,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()=\"Tiered Product\"]//parent::div")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(4)>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after selection of Created By should show matching and correct results for the filter
 		driver.findElement(By.xpath("//span[normalize-space()=\"Created By\"]//parent::div")).click();
 		driver.findElement(By.xpath("((//div[@data-orientation='vertical']//div[3])[1]//div//div//div[2])[1]//div[1]")).click();
@@ -4489,24 +4543,24 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(5)>div>div>svg")).click();//click on clear button of applied filter	
 	}
-	
+
 	@Test(priority = 11)
 	public void Filter_ListView() throws InterruptedException, ParseException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(20000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>div>span:nth-of-type(2)>button")).click();
-		
+
 		//check that sort by filter is having four sub options In List View
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
 		Thread.sleep(2000);		
 		List<WebElement> sortByOptions = driver.findElements(By.cssSelector("div.dropdown-portal>div>div"));
 		Assert.assertEquals(sortByOptions.size() -1 , 4, "Sort by filter in List View does not have four sub options");
 		System.out.println("Sort by filter List View is having four sub options.\n");
-		
+
 		//check that after click on Views (High to Low ) option should show results should be correct In List View
 		driver.findElement(By.xpath("//div[normalize-space()=\"Views (High To Low)\"]")).click();
 		Thread.sleep(3000);
@@ -4516,7 +4570,7 @@ public class Products extends Data {
 		String viewsText1 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
 		int views1 = Integer.parseInt(viewsText1.replaceAll("[^0-9]", ""));
 		System.out.println("High To Low Views Count of First Product In List View: " + views1);
-		
+
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4527,10 +4581,10 @@ public class Products extends Data {
 		String viewsText2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
 		int views2 = Integer.parseInt(viewsText2.replaceAll("[^0-9]", ""));
 		System.out.println("High To Low Views Count of Second Product In List View: " + views2);
-		
+
 		Assert.assertTrue(views1 > views2,"Views sorting failed. First product views: " + views1 +" Second product views: " + views2);
 		System.out.println("Products are sorted by Views (High to Low) option successfully In List View.\n");
-		
+
 		//check that user can cancel the applied filter of Views (High to low) using X icon in filter In List View
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(3000);	
@@ -4538,7 +4592,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Views (High To Low)\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after selecting Views (Low to High) option it should reflect in filters as well In List View
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"Views (Low To High)\"]")).click();
@@ -4549,7 +4603,7 @@ public class Products extends Data {
 		String viewsText3 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
 		int views3 = Integer.parseInt(viewsText3.replaceAll("[^0-9]", ""));
 		System.out.println("Low To High Views Count of First Product in List View: " + views3);
-		
+
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4560,10 +4614,10 @@ public class Products extends Data {
 		String viewsText4 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
 		int views4 = Integer.parseInt(viewsText4.replaceAll("[^0-9]", ""));
 		System.out.println("Low To High Views Count of Second Product In List View: " + views4);
-		
+
 		//Assert.assertTrue(views3 > views4,"Views sorting failed. First product views: " + views3 +" Second product views: " + views4);
 		System.out.println("Products are sorted by Views (Low To High) option successfully in List View.\n");
-		
+
 		//check that user can cancel the applied filter of Views (Low to High) using X icon in filter In List View
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(3000);	
@@ -4571,7 +4625,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Views (Low To High)\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after selecting conversion rate (High to Low) option it should reflect in filters as well In List View
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (High To Low)\"]")).click();
@@ -4582,7 +4636,7 @@ public class Products extends Data {
 		String viewsText5 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
 		int views5 = Integer.parseInt(viewsText5.replaceAll("[^0-9]", ""));
 		System.out.println("Conversion Rate High To Low of First Product in List view : " + views5);
-		
+
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4593,10 +4647,10 @@ public class Products extends Data {
 		String viewsText6 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
 		int views6 = Integer.parseInt(viewsText6.replaceAll("[^0-9]", ""));
 		System.out.println("Conversion Rate High To Low of Second Product in list View : " + views6);
-		
+
 		//Assert.assertTrue(views5 < views4,"Views sorting failed. First product views: " + views5 +" Second product views: " + views6);
 		System.out.println("Products are sorted by Views (Conversion Rate) option successfully in List View.\n");
-		
+
 		//check that user can cancel the applied filter of conversion rate (High to Low) using X icon in filter In List View
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(3000);	
@@ -4604,7 +4658,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (High To Low)\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
-		
+
 		//check that after selecting conversion rate (Low to High) option it should reflect in filters as well In List View
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (Low To High)\"]")).click();
@@ -4615,7 +4669,7 @@ public class Products extends Data {
 		String viewsText7 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
 		int views7 = Integer.parseInt(viewsText7.replaceAll("[^0-9]", ""));
 		System.out.println("Conversion Rate Low To High of First Product In List View: " + views7);
-		
+
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).click();
@@ -4626,10 +4680,10 @@ public class Products extends Data {
 		String viewsText8 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
 		int views8 = Integer.parseInt(viewsText8.replaceAll("[^0-9]", ""));
 		System.out.println("Conversion Rate Low To High of Second Product In List View: " + views8);
-		
+
 		//Assert.assertTrue(views7 < views8,"Views sorting failed. First product views: " + views7 +" Second product views: " + views8);
 		System.out.println("Products are sorted by Views (Conversion Rate) option successfully in List View.\n");
-			
+
 		//check that user can cancel the applied filter of conversion rate (Low to High) using X icon in filter In List View
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
 		Thread.sleep(3000);	
@@ -4637,24 +4691,24 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[normalize-space()=\"Conversion Rate (Low To High)\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:first-of-type>div>button>div>div>svg")).click();//click on clear button of applied filter
-				
+
 		//check that there are two options avaialble under product type filter In List View
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
 		List<WebElement> sortByproductOptions = driver.findElements(By.cssSelector("div.dropdown-portal>div>div"));
 		Assert.assertEquals(sortByproductOptions.size() -1 , 2, "Sort by Product Type filter does not have two sub options");
 		System.out.println("Sort by Product Type filter is having two sub options In List View.\n");
-		
+
 		//check that after selection of physical type should show matching and correct results for the filter In List View
 		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();//click on first product
 		Thread.sleep(2000);
-		
+
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Product Type']")));
 		String Inventorystate = driver.findElement(By.id("Physical")).getAttribute("data-state").trim();
 		Assert.assertEquals(Inventorystate, "checked", "Inventory product type filter is not working");	
 		System.out.println("Inventory product type filter is working successfully.\n");
-			
+
 		//check that after selecting Inventory type filter user can click on cross icon to remove filter In List View
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
 		Thread.sleep(1000);
@@ -4834,43 +4888,43 @@ public class Products extends Data {
 		//check that after selecting Created By filter user can click on cross icon to remove filter In List View
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div>div:first-of-type>div:nth-of-type(1)>div:nth-of-type(5)>div>div>svg")).click();//click on clear button of applied filter	
 	}
-	
+
 	@Test(priority = 12)
 	public void ThreeDot_GridView() throws InterruptedException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		Actions action = new Actions(driver);
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(20000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>div>span>button")).click();
-		
+
 		String ProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a>div>div>p")).getText().trim();
 		System.out.println("First Product Name is: " + ProductName);
-		
+
 		//check that activate option is clickable with label Active
 		//check that product card after active Product Product/Checkout is live label displays
 		WebElement productElement = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>button"));		
 		action.moveToElement(productElement).click().perform();
-				
+
 		Thread.sleep(2000);
 		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>div>div>div>div>button:first-of-type")));
 		if (toggleButton.getAttribute("data-state").equals("unchecked")) {
 			jse.executeScript("arguments[0].click();", toggleButton);
 		}
-		
+
 		Thread.sleep(5000);
 		WebElement activateOption = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>div>div>div>div>button:first-of-type"));
 		Assert.assertTrue(activateOption.isDisplayed() && activateOption.isEnabled(), "Activate option is not clickable or not having label Active");
-		
+
 		String activateOptionText = driver.findElement(By.xpath("//div[text()='Active']")).getText().trim();
 		Assert.assertEquals(activateOptionText, "Active", "Activate option does not have label Active");
-		
+
 		String ActiveLabelText = driver.findElement(By.xpath("//div[text()='Product/Checkout is live']")).getText().trim();
 		Assert.assertEquals(ActiveLabelText, "Product/Checkout is live", "Live label is not displayed after activating the product");		
 		System.out.println("\nActivate option is clickable with label Active.\n");
-		
+
 		//check that De-activate option is clickable with label In-active
 		//check that product card after inactive Product is hidden everywhere label displays
 		driver.navigate().refresh();
@@ -4879,19 +4933,19 @@ public class Products extends Data {
 		action.moveToElement(productElement1).click().perform();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>div>div>div>div>button")).click();
-		
+
 		String deactivateOptionText = driver.findElement(By.xpath("//div[text()='Inactive']")).getText().trim();
 		Assert.assertEquals(deactivateOptionText, "Inactive", "Inactive option does not have label In-active");
-		
+
 		String InActiveLabelText = driver.findElement(By.xpath("//div[text()='Product is hidden everywhere']")).getText().trim();
 		Assert.assertEquals(InActiveLabelText, "Product is hidden everywhere", "Live label is not displayed after activating the product");		
 		System.out.println("In-activate option is clickable with label In-active.\n");
-		
+
 		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>div>div>div>div>button:first-of-type")));
 		if (toggleButton1.getAttribute("data-state").equals("unchecked")) {
 			jse.executeScript("arguments[0].click();", toggleButton1);
 		}
-		
+
 		//after click on edit product button should navigate to edit product details		
 		driver.findElement(By.xpath("//span[contains(text(),'Edit Product')]/ancestor::button")).click();
 		Thread.sleep(5000);
@@ -4901,60 +4955,60 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
-		
+
 		Thread.sleep(5000);
 		String ProductNameUpdated = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a>div>div>p")).getText().trim();
 		System.out.println("Edited Product Name is: " + ProductNameUpdated);
 		Assert.assertEquals(ProductNameUpdated, ProductName + " Edited", "Product name is not updated after edit");
 		System.out.println("\nAfter click on edit product button user is navigated to edit product details page and product details are updated successfully.\n");
-		
+
 		//after click on duplicate product it should open popup with details 
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		WebElement productElement2 = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>button"));
 		action.moveToElement(productElement2).click().perform();
-		
+
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//span[contains(text(),'Duplicate Product')]/ancestor::button")).click();
 		Thread.sleep(3000);
 		WebElement duplicatePopup = driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(5)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>input"));
 		Thread.sleep(2000);
 		duplicatePopup.sendKeys(" Duplicate");
-		
+
 		//check that there is button to Add private name 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()=\"Add Private Name\"]//parent::button")).click();
 		driver.findElement(By.xpath("//input[contains(@placeholder,\"Add Private Name(optional)\")]")).sendKeys(Private_Name);
-				 
+
 		//check that after click on duplicate product it should open duplicate product popup with correct details 
 		//when user duplicate any product that should be seen in product listing 
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(5)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>label")).click();		
 		driver.findElement(By.xpath("(//button[normalize-space()='Done'])[1]")).click();
-		
+
 		Thread.sleep(5000);
 		String duplicatedProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a>div>div>p")).getText().trim();
 		System.out.println("Duplicated Product Name is: " + duplicatedProductName);
 		Assert.assertEquals(duplicatedProductName, ProductNameUpdated + " Duplicate", "Product is not duplicated with correct name");
 		System.out.println("\nAfter click on duplicate product option product is duplicated with correct name successfully.\n");
-		
+
 		//check that there is order history option which will navigate to orders for the selected product
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		WebElement productElement3 = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>button"));
 		action.moveToElement(productElement3).click().perform();
-		
+
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//span[contains(text(),'Order History')]/ancestor::button")).click();
 		Thread.sleep(3000);
 		String currentUrl = driver.getCurrentUrl().toLowerCase();	
 		Assert.assertTrue(currentUrl.contains("orders"), "Order History option is not navigating to orders page");
 		System.out.println("Order History option is navigating to orders page successfully.\n");
-			
+
 		//check that deleted product cant be searched on search menu 
 		driver.navigate().to(Products);
 		Thread.sleep(20000);	
 		String DeletedProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a>div>div>p")).getText().trim();
-		
+
 		WebElement productElement4 = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>button"));
 		action.moveToElement(productElement4).click().perform();		
 		Thread.sleep(2000);
@@ -4962,26 +5016,26 @@ public class Products extends Data {
 		Thread.sleep(2000);		
 		driver.findElement(By.xpath(" //span[normalize-space()=\"Yes, Confirm\"]")).click();
 		Thread.sleep(5000);
-		
+
 		//check that deleted product should not be in product listing 
 		String DeletedProductName1 = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a>div>div>p")).getText().trim();
 		Assert.assertNotEquals(DeletedProductName, DeletedProductName1, "Deleted product is still visible in products list");
 		System.out.println("Deleted product is not visible in products list after deletion.\n");	
 	}
-	
+
 	@Test(priority = 13)
 	public void ThreeDot_ListView() throws InterruptedException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(20000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>div>span:nth-of-type(2)>button")).click();
-		
+
 		String ProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
 		System.out.println("First Product Name is: " + ProductName);
-		
+
 		//check that activate option is clickable with label Active in list View
 		//check that product card after active Product Product/Checkout is live label displays in list View			
 		Thread.sleep(2000);
@@ -4989,39 +5043,39 @@ public class Products extends Data {
 		if (toggleButton.getAttribute("data-state").equals("unchecked")) {
 			jse.executeScript("arguments[0].click();", toggleButton);
 		}
-		
+
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(10)>div>button")).click();//click on three dot list view menu
 		WebElement activateOption = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button"));
 		Assert.assertTrue(activateOption.isDisplayed() && activateOption.isEnabled(), "Activate option is not clickable or not having label Active");
-		
+
 		String activateOptionText = driver.findElement(By.xpath("//div[text()='Active']")).getText().trim();
 		Assert.assertEquals(activateOptionText, "Active", "Activate option does not have label Active");
-		
+
 		String ActiveLabelText = driver.findElement(By.xpath("//div[text()='Product/Checkout is live']")).getText().trim();
 		Assert.assertEquals(ActiveLabelText, "Product/Checkout is live", "Live label is not displayed after activating the product");		
 		System.out.println("\nActivate option is clickable with label Active.\n");
-		
+
 		//check that De-activate option is clickable with label In-active in list View
 		//check that product card after inactive Product is hidden everywhere label displays in list View
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button")).click();
-		
+
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(10)>div>button")).click();//click on three dot list view menu
 		String deactivateOptionText = driver.findElement(By.xpath("//div[text()='Inactive']")).getText().trim();
 		Assert.assertEquals(deactivateOptionText, "Inactive", "Inactive option does not have label In-active");
-		
+
 		String InActiveLabelText = driver.findElement(By.xpath("//div[text()='Product is hidden everywhere']")).getText().trim();
 		Assert.assertEquals(InActiveLabelText, "Product is hidden everywhere", "Live label is not displayed after activating the product");		
 		System.out.println("In-activate option is clickable with label In-active.\n");
-		
+
 		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button")));
 		if (toggleButton1.getAttribute("data-state").equals("unchecked")) {
 			jse.executeScript("arguments[0].click();", toggleButton1);
 		}
-		
+
 		//after click on edit product button should navigate to edit product details in list View	
 		driver.findElement(By.xpath("//span[contains(text(),'Edit Product')]/ancestor::button")).click();
 		Thread.sleep(5000);
@@ -5031,13 +5085,13 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
-		
+
 		Thread.sleep(5000);
 		String ProductNameUpdated = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
 		System.out.println("Edited Product Name is: " + ProductNameUpdated);
 		Assert.assertEquals(ProductNameUpdated, ProductName + " Edited", "Product name is not updated after edit");
 		System.out.println("\nAfter click on edit product button user is navigated to edit product details page and product details are updated successfully.\n");
-		
+
 		//after click on duplicate product it should open popup with details in list View
 		driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5047,23 +5101,23 @@ public class Products extends Data {
 		WebElement duplicatePopup = driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(5)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>input"));
 		Thread.sleep(2000);
 		duplicatePopup.sendKeys(" Duplicate");
-		
+
 		//check that there is button to Add private name in list View
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()=\"Add Private Name\"]//parent::button")).click();
 		driver.findElement(By.xpath("//input[contains(@placeholder,\"Add Private Name(optional)\")]")).sendKeys(Private_Name);
-				 
+
 		//check that after click on duplicate product it should open duplicate product popup with correct details in list View
 		//when user duplicate any product that should be seen in product listing in list View
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(5)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>label")).click();		
 		driver.findElement(By.xpath("(//button[normalize-space()='Done'])[1]")).click();
-		
+
 		Thread.sleep(5000);
 		String duplicatedProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
 		System.out.println("Duplicated Product Name is: " + duplicatedProductName);
 		Assert.assertEquals(duplicatedProductName, ProductNameUpdated + " Duplicate", "Product is not duplicated with correct name");
 		System.out.println("After click on duplicate product option product is duplicated with correct name successfully.\n");
-		
+
 		//check that there is order history option which will navigate to orders for the selected product in list View
 		driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5073,7 +5127,7 @@ public class Products extends Data {
 		String currentUrl = driver.getCurrentUrl().toLowerCase();	
 		Assert.assertTrue(currentUrl.contains("orders"), "Order History option is not navigating to orders page");
 		System.out.println("Order History option is navigating to orders page successfully.\n");
-			
+
 		//check that deleted product cant be searched on search menu in list View
 		driver.navigate().to(Products);
 		Thread.sleep(20000);	
@@ -5083,23 +5137,23 @@ public class Products extends Data {
 		Thread.sleep(2000);		
 		driver.findElement(By.xpath(" //span[normalize-space()=\"Yes, Confirm\"]")).click();
 		Thread.sleep(5000);
-		
+
 		//check that deleted product should not be in product listing in list View
 		String DeletedProductName1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).getText().trim();
 		Assert.assertNotEquals(DeletedProductName, DeletedProductName1, "Deleted product is still visible in products list");
 		System.out.println("Deleted product is not visible in products list after deletion.\n");		
 	}
-	
+
 	@Test(priority = 14)
 	public void Sort_ListView() throws InterruptedException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(20000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>div>span:nth-of-type(2)>button")).click();
-		
+
 		//check that ascending sorting is working for title header and showing correct results
 		driver.findElement(By.xpath("//div[normalize-space()=\"Title\"]//span//*[name()=\"svg\"]")).click();
 		Thread.sleep(5000);
@@ -5109,12 +5163,12 @@ public class Products extends Data {
 			actualTitles.add(title.getText().trim());
 			System.out.println("Product Title # : " + title.getText().trim());		
 		}
-		
+
 		List<String> expectedTitles = new ArrayList<>(actualTitles);
 		Collections.sort(expectedTitles);
 		//Assert.assertEquals(actualTitles, expectedTitles,"Products are not sorted by Title in ascending order");
 		System.out.println("Products are sorted by Title in ascending order successfully.\n");
-		
+
 		//check that descending sorting is working for title header and showing correct results
 		driver.findElement(By.xpath("//div[normalize-space()=\"Title\"]//span//*[name()=\"svg\"]")).click();
 		Thread.sleep(5000);
@@ -5124,12 +5178,12 @@ public class Products extends Data {
 			actualTitles1.add(title.getText().trim());
 			System.out.println("Product Title # : " + title.getText().trim());
 		}
-		
+
 		List<String> expectedTitles1 = new ArrayList<>(actualTitles1);
 		Collections.sort(expectedTitles1, Collections.reverseOrder());
 		Assert.assertEquals(actualTitles1, expectedTitles1,"Products are not sorted by Title in	descending order");
 		System.out.println("Products are sorted by Title in descending order successfully.\n");
-			
+
 		//check that ascending sorting is working for price header and showing correct results
 		/*driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5144,12 +5198,12 @@ public class Products extends Data {
 				System.out.println("Product Price # : " + price.getText().trim());
 			}
 		}
-		
+
 		List<Double> expectedPrices = new ArrayList<>(actualPrices);
 		Collections.sort(expectedPrices);
 		Assert.assertEquals(actualPrices, expectedPrices,"Products are not sorted by Price in ascending order	");
 		System.out.println("Products are sorted by Price in ascending order successfully.\n");
-			
+
 		//check that descending sorting is working for price header and showing correct results
 		driver.findElement(By.xpath("//div[normalize-space()=\"Price\"]//span//*[name()=\"svg\"]")).click();
 		Thread.sleep(5000);
@@ -5162,7 +5216,7 @@ public class Products extends Data {
 				System.out.println("Product Price # : " + price.getText().trim());
 			}
 		}
-		
+
 		List<Double> expectedPrices1 = new ArrayList<>(actualPrices1);
 		Collections.sort(expectedPrices1, Collections.reverseOrder());
 		Assert.assertEquals(actualPrices1, expectedPrices1,"Products are not sorted by Price in	descending order");
@@ -5182,12 +5236,12 @@ public class Products extends Data {
 				System.out.println("Product Pages # : " + page.getText().trim());
 			}
 		}
-		
+
 		List<Integer> expectedPages = new ArrayList<>(actualPages);
 		Collections.sort(expectedPages);
 		Assert.assertEquals(actualPages, expectedPages,"Products are not sorted by Pages in ascending order	");
 		System.out.println("Products are sorted by Pages in ascending order successfully.\n");
-		
+
 		//check that descending sorting is working for pages header and showing correct results
 		driver.findElement(By.xpath("//div[normalize-space()=\"Pages\"]//div//*[name()=\"svg\"]")).click();
 		Thread.sleep(5000);
@@ -5200,7 +5254,7 @@ public class Products extends Data {
 				System.out.println("Product Pages # : " + page.getText().trim());
 			}
 		}
-		
+
 		List<Integer> expectedPages1 = new ArrayList<>(actualPages1);
 		Collections.sort(expectedPages1, Collections.reverseOrder());
 		Assert.assertEquals(actualPages1, expectedPages1,"Products are not sorted by Pages in	descending order");
@@ -5220,12 +5274,12 @@ public class Products extends Data {
 				System.out.println("Product Orders # : " + order.getText().trim());
 			}
 		}
-		
+
 		List<Integer> expectedOrders = new ArrayList<>(actualOrders);
 		Collections.sort(expectedOrders);
 		Assert.assertEquals(actualOrders, expectedOrders,"Products are not sorted by Orders in ascending order");
 		System.out.println("Products are sorted by Orders in ascending order successfully.\n");	
-		
+
 		//check that descending sorting is working for orders header and showing correct results
 		driver.findElement(By.xpath("//div[normalize-space()=\"orders\"]//div//*[name()=\"svg\"]")).click();
 		Thread.sleep(5000);
@@ -5238,12 +5292,12 @@ public class Products extends Data {
 				System.out.println("Product Orders # : " + order.getText().trim());
 			}
 		}
-		
+
 		List<Integer> expectedOrders1 = new ArrayList<>(actualOrders1);
 		Collections.sort(expectedOrders1, Collections.reverseOrder());
 		Assert.assertEquals(actualOrders1, expectedOrders1,"Products are not sorted by Orders in descending order");
 		System.out.println("Products are sorted by Orders in descending order successfully.\n");
-			
+
 		//check that ascending sorting is working for revenue header and showing correct results
 		driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5258,12 +5312,12 @@ public class Products extends Data {
 				System.out.println("Product Revenue # : " + revenue.getText().trim());
 			}
 		}
-		
+
 		List<Double> expectedRevenue = new ArrayList<>(actualRevenue);
 		Collections.sort(expectedRevenue);
 		Assert.assertEquals(actualRevenue, expectedRevenue,"Products are not sorted by Revenue in ascending order");
 		System.out.println("Products are sorted by Revenue in ascending order successfully.\n");
-		
+
 		//check that descending sorting is working for revenue header and showing correct results
 		driver.findElement(By.xpath("//div[normalize-space()=\"Revenue\"]//div//*[name()=\"svg\"]")).click();
 		Thread.sleep(5000);
@@ -5276,12 +5330,12 @@ public class Products extends Data {
 				System.out.println("Product Revenue # : " + revenue.getText().trim());
 			}
 		}
-		
+
 		List<Double> expectedRevenue1 = new ArrayList<>(actualRevenue1);
 		Collections.sort(expectedRevenue1, Collections.reverseOrder());
 		Assert.assertEquals(actualRevenue1, expectedRevenue1,"Products are not sorted by Revenue in	descending order");
 		System.out.println("Products are sorted by Revenue in descending order successfully.\n");
-	
+
 		//check that ascending sorting is working for created / modified header and showing correct results
 		/*driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5308,7 +5362,7 @@ public class Products extends Data {
 		Collections.sort(expectedCreatedDates);
 		Assert.assertEquals(actualCreatedDates, expectedCreatedDates,"Products are not sorted by Created Date in ascending order");
 		System.out.println("Products are sorted by Created Date in ascending order successfully.\n");
-			
+
 		//check that descending sorting is working for created / modified header and showing correct results
 		driver.findElement(By.xpath("//div[normalize-space()=\"Created/Modified\"]//div//*[name()=\"svg\"]")).click();
 		Thread.sleep(5000);
@@ -5333,7 +5387,7 @@ public class Products extends Data {
 		Collections.sort(expectedCreatedDates1, Collections.reverseOrder());
 		Assert.assertEquals(actualCreatedDates1, expectedCreatedDates1,"Products are not sorted by Created Date in descending order");
 		System.out.println("Products are sorted by Created Date in descending order successfully.\n");*/
-				
+
 		//After click on it should show popup with checkout and product page links 
 		driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5348,10 +5402,10 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		Set<String> allWindows = driver.getWindowHandles();
 		for (String window : allWindows) {
-		    if (!window.equals(parentWindow)) {
-		        driver.switchTo().window(window);
-		        break;
-		    }
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				break;
+			}
 		}
 
 		String currentUrl = driver.getCurrentUrl();
@@ -5360,7 +5414,7 @@ public class Products extends Data {
 		System.out.println("Verified product Page that URL contains On Preview Page : " + popupText);
 		driver.close();
 		driver.switchTo().window(parentWindow);
-		
+
 		//check that both the links are valid and navigate to respective pages
 		WebElement popup1 = driver.findElement(By.xpath("((//div[contains(@class,'group cursor-pointer hover:bg-grey-55 px-2.5 rounded-xl')])[2]//div)[10]"));
 		String popupText1 = popup1.getText().trim();
@@ -5369,10 +5423,10 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		Set<String> allWindows1 = driver.getWindowHandles();
 		for (String window : allWindows1) {
-		    if (!window.equals(parentWindow)) {
-		        driver.switchTo().window(window);
-		        break;
-		    }
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				break;
+			}
 		}
 
 		String currentUrl1 = driver.getCurrentUrl();
@@ -5381,18 +5435,18 @@ public class Products extends Data {
 		System.out.println("Verified Checkout Page that URL contains On Chekout page : " + popupText1);
 		driver.close();
 		driver.switchTo().window(parentWindow);
-		
+
 		//check that Product Page link is avaiable on share link popup
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(8)>div>div>div:nth-of-type(2)>span>span>div")).click();
 		Thread.sleep(2000);
-		
+
 		//share button popup should have links , embeded and QR code section
 		List<WebElement> popupSections = driver.findElements(By.xpath("//tbody/tr[@color=\"inherit\"]/td/div/div/div/div/div[@data-side=\"top\"]/div/section/div/div[@role=\"group\"]/button"));		
 		Assert.assertEquals(popupSections.size(), 3, "Share popup does not have all three sections: Links, Embedded, and QR code");
 		System.out.println("\nShare button popup have all three sections: Links, Embedded, and QR code.");
-		
+
 		WebElement popup11 = driver.findElement(By.xpath("//tbody/tr[contains(@color,\"inherit\")]/td/div/div/div/div/div[contains(@data-side,\"top\")]/div/div/div[1]/div[1]//div//div[2]//div//a"));
 		String popupText11 = popup11.getText().trim();
 		popup11.click();
@@ -5400,10 +5454,10 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		Set<String> allWindows11 = driver.getWindowHandles();
 		for (String window : allWindows11) {
-		    if (!window.equals(parentWindow)) {
-		        driver.switchTo().window(window);
-		        break;
-		    }
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				break;
+			}
 		}
 
 		String currentUrl11 = driver.getCurrentUrl();
@@ -5412,7 +5466,7 @@ public class Products extends Data {
 		System.out.println("Verified product Page that URL contains On Share Product Page : " + popupText11);
 		driver.close();
 		driver.switchTo().window(parentWindow);
-		
+
 		//check that Checkout Page link is avaiable on share link popup
 		WebElement popup11s = driver.findElement(By.xpath("//tbody/tr[contains(@color,\"inherit\")]/td/div/div/div/div/div[contains(@data-side,\"top\")]/div/div/div[2]/div[1]//div//div[2]//div//a"));
 		String popupText11s = popup11s.getText().trim();
@@ -5421,10 +5475,10 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		Set<String> allWindows11s = driver.getWindowHandles();
 		for (String window : allWindows11s) {
-		    if (!window.equals(parentWindow)) {
-		        driver.switchTo().window(window);
-		        break;
-		    }
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				break;
+			}
 		}
 
 		String currentUrl11s = driver.getCurrentUrl();
@@ -5433,7 +5487,7 @@ public class Products extends Data {
 		System.out.println("Verified product Page that URL contains On Share Checkout Page : " + popupText11s);
 		driver.close();
 		driver.switchTo().window(parentWindow);
-				
+
 		//check that Quick Checkout Page link is avaiable on share link popup
 		WebElement popup11s1 = driver.findElement(By.xpath("//tbody/tr[contains(@color,\"inherit\")]/td/div/div/div/div/div[contains(@data-side,\"top\")]/div/div/div[3]/div[1]//div//div[2]//div//a"));
 		String popupText11s1 = popup11s1.getText().trim();
@@ -5442,10 +5496,10 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		Set<String> allWindows11s1 = driver.getWindowHandles();
 		for (String window : allWindows11s1) {
-		    if (!window.equals(parentWindow)) {
-		        driver.switchTo().window(window);
-		        break;
-		    }
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				break;
+			}
 		}
 
 		String currentUrl11s1 = driver.getCurrentUrl();
@@ -5454,20 +5508,20 @@ public class Products extends Data {
 		System.out.println("Verified product Page that URL contains On Share Quick Checkout Page : " + popupText11s1);
 		driver.close();
 		driver.switchTo().window(parentWindow);	
-		
+
 		//check that there is embed option having embed code for product , checkout and default checkout page
 		driver.findElement(By.xpath("//tbody/tr[@color=\"inherit\"]/td/div/div/div/div/div[@data-side=\"top\"]/div/section/div/div[@role=\"group\"]/button[2]")).click();
 		List<WebElement> embedOptions = driver.findElements(By.cssSelector("span.text-lg.capitalize"));
 		Assert.assertEquals(embedOptions.size(), 3, "Embed section does not have all three options: Product, Checkout, and Default Checkout");
 		System.out.println("\nEmbed section have all three options: Product, Checkout, and Default Checkout.");
-		
+
 		//check that there is a test mode button which should be clickable 
 		//after click on it user can see default checkout and product page links 
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(8)>div>div>div:nth-of-type(3)>span>span>div")).click();
 		Thread.sleep(2000);
-		
+
 		WebElement popup11s11 = driver.findElement(By.xpath("(//div[@data-align='left']//div[2]//div//div//div[2]//div)[3]"));
 		String popupText11s11 = popup11s11.getText().trim();
 		popup11s11.click();
@@ -5475,10 +5529,10 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		Set<String> allWindows11s11 = driver.getWindowHandles();
 		for (String window : allWindows11s11) {
-		    if (!window.equals(parentWindow)) {
-		        driver.switchTo().window(window);
-		        break;
-		    }
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				break;
+			}
 		}
 
 		String currentUrl11s11 = driver.getCurrentUrl();
@@ -5487,7 +5541,7 @@ public class Products extends Data {
 		System.out.println("Verified Default Page that URL contains On Test Mode : " + popupText11s11);
 		driver.close();
 		driver.switchTo().window(parentWindow);			
-		
+
 		//check that after click on all links should navigate to correct pages 
 		WebElement popup11s11s = driver.findElement(By.xpath("(//div[@data-align='left']//div[2]//div[2]//div//div[2]//div)[3]"));
 		String popupText11s11s = popup11s11s.getText().trim();
@@ -5496,10 +5550,10 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		Set<String> allWindows11s11s = driver.getWindowHandles();
 		for (String window : allWindows11s11s) {
-		    if (!window.equals(parentWindow)) {
-		        driver.switchTo().window(window);
-		        break;
-		    }
+			if (!window.equals(parentWindow)) {
+				driver.switchTo().window(window);
+				break;
+			}
 		}
 
 		String currentUrl11s11s = driver.getCurrentUrl();
@@ -5508,7 +5562,7 @@ public class Products extends Data {
 		System.out.println("Verified Product Page that URL contains On Test Mode : " + popupText11s11s);
 		driver.close();
 		driver.switchTo().window(parentWindow);	
-		
+
 		//check that there is active button at the end to active the product 
 		driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5516,7 +5570,7 @@ public class Products extends Data {
 		if (toggleButton.getAttribute("data-state").equals("unchecked")) {
 			jse.executeScript("arguments[0].click();", toggleButton);
 		}
-		
+
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(9)>div>button")).click();
 		Thread.sleep(2000);
@@ -5524,14 +5578,14 @@ public class Products extends Data {
 		Thread.sleep(3000);	
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
-		
+
 		String pwindo = driver.getWindowHandle();
 		String Checkout_page = null;
 		for(String Tab: driver.getWindowHandles()){
 			driver.switchTo().window(Tab);
 			Checkout_page = Tab;
 		}
-		
+
 		Thread.sleep(10000);
 		try{
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='This product is not available for purchase.']")));
@@ -5540,10 +5594,10 @@ public class Products extends Data {
 		} catch(TimeoutException e){
 			System.out.println("Product Currently Unavailable message not found." + Checkout_page);
 		}
-		
+
 		driver.close();
 		driver.switchTo().window(pwindo);
-		
+
 		//check that there is In-active button at the end to In-active the product 
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page	
@@ -5554,15 +5608,15 @@ public class Products extends Data {
 		Thread.sleep(3000);	
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
-		
+
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}	
-		
+
 		Thread.sleep(7000);
 		try{
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[text()='This product is not available for purchase.']")));
@@ -5570,11 +5624,11 @@ public class Products extends Data {
 		} catch(TimeoutException e){	
 			System.out.println("Product Currently available on checkout page.\n");
 		}
-		
+
 		driver.close();
 		driver.switchTo().window(pwindo);
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page		
-		
+
 		//check that after click on name should navigate to the same product detail page 
 		driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5584,13 +5638,13 @@ public class Products extends Data {
 		Assert.assertTrue(productDetailUrl.contains("tab=Details"), "Clicking on product name does not navigate to product details page");
 		System.out.println("Clicking on product name navigates to product details page successfully.\n");
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
-		
+
 		//check that if there is product price it is aslo same as on details page
 		driver.navigate().refresh();
 		Thread.sleep(5000);	
 		String Pageslist = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(4)>a>div")).getText().trim();
 		System.out.println("Total No Of Pages for the Selected product on list view is: " + Pageslist);
-		
+
 		String ProductPrice = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
 		System.out.println("\nProduct Price in Price List View is: " + ProductPrice);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
@@ -5599,7 +5653,7 @@ public class Products extends Data {
 		System.out.println("Product Price in Details Page is: " + ProductPriceDetails);
 		Assert.assertEquals(ProductPrice, ProductPriceDetails, "Product price in list view and details page are not same");
 		System.out.println("Product price in list view and details page are same.\n");
-		
+
 		//check that same price should seen when we edit product changes reflect on price listing coloumn
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Pricing Options']")));
 		driver.findElement(By.name("productPricing.regularPrice")).clear();
@@ -5608,10 +5662,10 @@ public class Products extends Data {
 		Thread.sleep(1000);
 		WebElement saveButton = driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button"));
 		jse.executeScript("arguments[0].click();", saveButton);
-		
+
 		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
-		
+
 		driver.navigate().refresh();
 		Thread.sleep(3000);		
 		String ProductPriceUpdated = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
@@ -5620,7 +5674,7 @@ public class Products extends Data {
 		double expectedPrice = Double.parseDouble(OneTimePurchaseSalePrice.trim());
 		Assert.assertEquals(actualPrice, expectedPrice,"Product price is not updated in list view after edit");
 		System.out.println("Product price is updated in list view after edit successfully.\n");
-		
+
 		//check that under pages number of pages for the product can be seen 
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(4)>a")).click();
 		Thread.sleep(3000);
@@ -5628,7 +5682,7 @@ public class Products extends Data {
 		System.out.println("Total No Pages for the Selected product is: " + TotalPage);
 		Assert.assertEquals(Pageslist, TotalPage, "Total pages for the product in details page and list view are not same");
 		System.out.println("Total No pages for the Selected product in details page and list view are same.\n");
-		
+
 		//check that after click it should navigate to particular pages of same product 
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
 		Thread.sleep(3000);
@@ -5636,7 +5690,7 @@ public class Products extends Data {
 		Assert.assertTrue(currentUrl111.contains("tab=Pages"),"Clicking on page number does not navigate to page details");
 		System.out.println("Clicking on page number navigates to page details successfully.\n");
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
-		
+
 		//check that after click on revenue section it should navigate to sales report section 
 		driver.navigate().refresh();
 		Thread.sleep(5000);
@@ -5646,50 +5700,50 @@ public class Products extends Data {
 		Assert.assertTrue(currentUrl1111.contains("tab=Sales+Reports"),"Clicking on revenue does not navigate to sales report");
 		System.out.println("Clicking on revenue navigates to sales report successfully.\n");	
 	}
-	
+
 	@Test(priority = 15)
 	public void Product_Settings() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(5000);		
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
-		
+
 		//check that product setting button is clickable and after click navigate to settings page
 		String Settingslabel = driver.findElement(By.xpath("//p[text()='Products Settings']")).getText().trim();
 		Assert.assertEquals(Settingslabel, "Products Settings", "Clicking on product settings does not navigate to product settings page");
 		System.out.println("Clicking on product settings navigate to product settings page successfully.\n");
-			
+
 		//check that on initial level cancel and save buttons are in disabled mode 
 		WebElement saveButton = driver.findElement(By.cssSelector("div.custom-setting-region-tab>div>header>div:nth-of-type(2)>button"));
 		String classValue = saveButton.getAttribute("class");
 		Assert.assertTrue(classValue.contains("disabled"),"Save button is not disabled");
 		System.out.println("Save & Cancel button is in disabled mode successfully.\n");
-		
+
 		//check that there is X icon to cancel and close product setting
 		driver.findElement(By.cssSelector("div.custom-setting-region-tab>div>header>div:nth-of-type(2)>button:last-of-type")).click();
 		Thread.sleep(2000);
 		Assert.assertTrue(driver.findElement(By.xpath("//header[text()='Recent Products']")).isDisplayed(),"Clicking on X icon does not close product settings");
 		System.out.println("Clicking on X icon close product settings successfully.\n");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
-		
+
 		//check that the connect payment label text displays correctly
 		String paymentlabel = driver.findElement(By.xpath("//p[text()='Products Settings']")).getText().trim();
 		Assert.assertEquals(paymentlabel, "Products Settings", "Products Settings label text is not displayed correctly");
 		System.out.println("Products Settings label text is displayed correctly.\n");
-		
+
 		//check that the connect payment label text 'Connect your payment gateway. Also found in Settings > Payments.' displays correctly
 		String paymentlabel1 = driver.findElement(By.xpath("//p[text()='Connect your payment gateway. Also found in Settings > Payments.']")).getText().trim();
 		Assert.assertEquals(paymentlabel1, "Connect your payment gateway. Also found in Settings > Payments.", "Products Settings description text is not displayed correctly");
 		System.out.println("Products Settings description text is displayed correctly.\n");
-		
+
 		//check that autorize payment , NMI payment , Stripe payment options can be seen
 		List<WebElement> paymentOptions = driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div"));	
 		Assert.assertEquals(paymentOptions.size(), 3, "Not all payment options are displayed in product settings");
 		System.out.println("All payment options i.e Authoarize , NMI , Stripe are displayed in product settings successfully.\n");
-		
+
 		//When we select Authorize option from payment it should have green tickmark
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section>div>div:nth-of-type(1)>div:first-of-type")).click();
 		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
@@ -5698,7 +5752,7 @@ public class Products extends Data {
 		String classValue1 = selectIcon.getAttribute("class");
 		Assert.assertFalse(classValue1.contains("hidden"),"Option is not selected");
 		System.out.println("Authorize option is selected successfully.\n");
-		
+
 		//Check that when Authorize payment option is active from settings changes must reflect for product settings payment option also
 		driver.navigate().to(settings);
 		Thread.sleep(5000);
@@ -5709,7 +5763,7 @@ public class Products extends Data {
 		String classValue1s = selectIcons.getText().trim();
 		Assert.assertTrue(classValue1s.contains("Active"),"Option is not selected");
 		System.out.println("The selected Changes for Authorize payment option in settings also selected successfully.\n");
-		
+
 		//check that after selecting autorize option user can do checkout from checkout page
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -5717,7 +5771,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
@@ -5737,7 +5791,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		
+
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);				
@@ -5751,7 +5805,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("#monthDropdown>button:nth-of-type(12)")).click();
 		driver.findElement(By.xpath("//button[contains(@aria-controls,\"yearDropdown\")]")).click();
 		driver.findElement(By.cssSelector("#yearDropdown>button:first-of-type")).click();
-		
+
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
@@ -5759,7 +5813,7 @@ public class Products extends Data {
 		System.out.println("Placed Order ID: " + PlacedOrderIDs);		
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//When we select NMI option from payment it should have green tickmark
 		driver.navigate().to(Products);
 		Thread.sleep(5000);		
@@ -5772,7 +5826,7 @@ public class Products extends Data {
 		String classValue11 = selectIcon1.getAttribute("class");
 		Assert.assertFalse(classValue11.contains("hidden"),"Option is not selected");
 		System.out.println("NMI option is selected successfully.\n");
-		
+
 		//Check that when NMI payment option is active from settings changes must reflect for product settings payment option also 
 		driver.navigate().to(settings);
 		Thread.sleep(5000);
@@ -5783,7 +5837,7 @@ public class Products extends Data {
 		String classValue1s1 = selectIcons1.getText().trim();
 		Assert.assertTrue(classValue1s1.contains("Active"),"Option is not selected");
 		System.out.println("The selected Changes for NMI payment option in settings also selected successfully.\n");
-		
+
 		//check that after selecting NMI option user can do checkout from checkout page  
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -5791,7 +5845,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
@@ -5810,7 +5864,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		
+
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);	
@@ -5820,23 +5874,23 @@ public class Products extends Data {
 		CardName1.sendKeys(F_Name+" "+L_Name);
 		driver.switchTo().frame("CollectJSInlineccnumber");
 		driver.findElement(By.id("ccnumber")).sendKeys("5411111111111115");
-		
+
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlinecvv");
 		driver.findElement(By.id("cvv")).sendKeys(CVV);
-		
+
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("CollectJSInlineccexp");
 		driver.findElement(By.id("ccexp")).sendKeys("12/44");;
 		driver.switchTo().defaultContent();
-		
+
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
 		//String PlacedOrderIDs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		//System.out.println("Placed Order ID: " + PlacedOrderIDs1);		
 		driver.close();
 		driver.switchTo().window(originalTab);		
-		
+
 		//When we select Stripe option from payment it should have green tickmark 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);		
@@ -5849,7 +5903,7 @@ public class Products extends Data {
 		String classValue1n = selectIconn.getAttribute("class");
 		Assert.assertFalse(classValue1n.contains("hidden"),"Option is not selected");
 		System.out.println("Stripe option is selected successfully.\n");
-		
+
 		//Check that when Stripe payment option is active from settings changes must reflect for product settings payment option also
 		driver.navigate().to(settings);
 		Thread.sleep(5000);
@@ -5860,7 +5914,7 @@ public class Products extends Data {
 		String classValue1s11 = selectIcons11.getText().trim();
 		Assert.assertTrue(classValue1s11.contains("Active"),"Option is not selected");
 		System.out.println("The selected Changes for Stripe payment option in settings also selected successfully.\n");
-		
+
 		//check that after selecting Stripe option user can do checkout from checkout page 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -5868,7 +5922,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
@@ -5887,11 +5941,11 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		
+
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);	
-		
+
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
 		driver.switchTo().defaultContent();
@@ -5916,22 +5970,22 @@ public class Products extends Data {
 		driver.close();
 		driver.switchTo().window(originalTab);	
 	}
-	
+
 	@Test(priority = 16)
 	public void Product_SettingsPage_TaxInventory() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
-		
+
 		//check that domain / url is under default domain title 
 		String Settingslabel = driver.findElement(By.xpath("//p[text()='Default domain']")).getText().trim();
 		Assert.assertEquals(Settingslabel, "Default domain", "Default domain label is not displayed in product settings page");
 		System.out.println("Default domain label is displayed in product settings page successfully.\n");		
-		
+
 		//check that domain url should be valid and user can open it navigates 
 		driver.findElement(By.xpath("//a[@rel='noopener noreferrer']")).click();//click on domain URL
 		Thread.sleep(3000);
@@ -5940,16 +5994,16 @@ public class Products extends Data {
 		for (String window : allWindows) {
 			if (!window.equals(parentWindow)) {
 				driver.switchTo().window(window);
-					break;
+				break;
 			}
 		}
-		
+
 		String currentUrl = driver.getCurrentUrl();
 		Assert.assertTrue(currentUrl.contains("store"),"Domain URL is not valid");
 		System.out.println("Domain URL is valid and navigates successfully.\n");
 		driver.close();
 		driver.switchTo().window(parentWindow);
-			
+
 		//check that if user changes url from store details it should change in domain / URL of product setting 
 		driver.navigate().to(settings + "/details");
 		Thread.sleep(2000);
@@ -5965,38 +6019,38 @@ public class Products extends Data {
 		storeName.sendKeys("store" + (char)('A' + new java.util.Random().nextInt(26)));
 		WebElement publishBtn = driver.findElement(By.xpath("//span[normalize-space()='Publish']//parent::button"));
 		jse.executeScript("arguments[0].click();", publishBtn);
-		
+
 		//check that  after publish store url and save changes sucess message displays
 		WebElement SuccessMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Successfully updated store']")));
 		boolean Success = SuccessMsg.isDisplayed();
 		Assert.assertTrue(Success, "Store details changes success message is not displayed after publish");
 		System.out.println("Store URL changes success message display after publish successfully.\n");		
-		
+
 		Thread.sleep(5000);
 		String StoreUrl = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@rel='noopener noreferrer'])[1]"))).getAttribute("href").trim();		
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(5000);		
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
 		String DomainUrl = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@rel='noopener noreferrer']"))).getText().trim();
 		Assert.assertEquals(DomainUrl.replaceAll("/$", ""),StoreUrl.replaceAll("/$", ""));
 		System.out.println("Domain URL in product settings page is updated according to the changes from store details page successfully.\n");
-		
+
 		//check that there is a subheading Collect Sales & VAT Taxes 
 		String SubHeading = driver.findElement(By.xpath("//p[text()='Collect Sales & VAT Taxes']")).getText().trim();
 		Assert.assertEquals(SubHeading, "Collect Sales & VAT Taxes", "Collect Sales & VAT Taxes subheading is not displayed in product settings page");
 		System.out.println("Collect Sales & VAT Taxes subheading is displayed in product settings page successfully	.\n");
-			
+
 		//check that there is a description for Collect Sales & VAT Taxes 
 		String Description = driver.findElement(By.xpath("//p[text()='This will automatically calculate the taxes based on your customers location.']")).getText().trim();
 		Assert.assertEquals(Description, "This will automatically calculate the taxes based on your customers location.", "Description is not displayed in product settings page");
 		System.out.println("Description for Collect Sales & VAT Taxes is displayed in product settings page successfully.\n");
-		
+
 		//check that Taxes section contains toggle for Collect Tax on Inventory Products (Inventory products)
 		WebElement taxToggle = driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:first-of-type>button"));
 		Assert.assertTrue(taxToggle.isDisplayed(), "Toggle for Collect Tax on Inventory Products is	 not displayed in product settings page");
 		System.out.println("Toggle for Collect Tax on Inventory Products is displayed in product settings page successfully.\n");
-		
+
 		//user can disable the inventory product tax toggle from settings
 		Thread.sleep(2000);
 		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:first-of-type>button")));
@@ -6015,12 +6069,12 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		//after saving disable toggle setting for the inventory product then toaster msg will be visible 
 		WebElement ToasterMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsg.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If inventory tax toggle is disabled  for default checkout page  then on default checkout page tax should show as $0.00
 		driver.navigate().to(Products);
 		Thread.sleep(7000);	
@@ -6031,7 +6085,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
@@ -6044,7 +6098,7 @@ public class Products extends Data {
 		String Tax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertEquals(Tax, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on checkout page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on checkout page successfully.\n");
-		
+
 		//If inventory tax toggle is disabled  for default checkout page  then on success page tax should show as $0.00 
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -6081,43 +6135,43 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Tax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Tax1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If inventory tax toggle is disabled  for default checkout page  then order placed then in order summary tax should show as $0.00 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);		
-		
+
 		String Tax2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertEquals(Tax2, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in order summary");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in order summary successfully.\n");	
-		
+
 		//If inventory tax toggle is disabled  for default checkout page then order placed then in customer hub tax should show as $0.00
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}	
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Tax3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Tax3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//user can enable the inventory product tax toggle from settings 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -6139,16 +6193,16 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		taxRate.click();
 		String TotalTax = taxRate.getText();
-			
+
 		//after saving enable toggle setting for the inventory product then toaster msg will be visible 
 		WebElement ToasterMsgs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsgs.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If inventory tax toggle is enable then on default checkout page tax should show as tax 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -6159,19 +6213,19 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		String Taxx = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertNotEquals(Taxx, TotalTax, "After enabling inventory product tax toggle tax is not showing on checkout page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on checkout page successfully.\n");
-		
+
 		//If inventory tax toggle is enable  for default checkout page then on success page tax should show as tax
 		try {
 			driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -6187,7 +6241,7 @@ public class Products extends Data {
 		} catch (Exception e) {
 			driver.findElement(By.xpath("//button[text()='Use same as my Billing Address']")).click();
 		}
-				
+
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
 		Thread.sleep(2000);
@@ -6211,41 +6265,41 @@ public class Products extends Data {
 		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
 		Thread.sleep(5000);	
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxs1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxs1, TotalTax, "After enabling inventory product tax toggle	tax is not showing on success page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on success page successfully.\n");		
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If inventory tax toggle is enable  for default checkout page then order placed then in order summary tax should show as tax 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);
-		
+
 		String Taxs2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertNotEquals(Taxs2, TotalTax, "After enabling inventory product tax toggle	tax is not showing in order summary");
 		System.out.println("After enabling inventory product tax toggle tax is showing in order summary successfully.\n");
-		
+
 		//If inventory tax toggle is enable  for default checkout page then order placed then in customer hub tax should show as tax 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs3, TotalTax, "After enabling inventory product tax toggle	tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
-		
+
 		//User can disable the inventory product tax toggle from settings for checkout page
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -6267,12 +6321,12 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		//After saving disable toggle setting for the inventory product then toaster message should be visible
 		WebElement ToasterMsg1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsg1.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If inventory tax toggle is disabled for checkout page then on checkout page tax should show as $0.00
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -6283,19 +6337,19 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		String Tasx = driver.findElement(By.cssSelector("#no-tailwindcss-base>div>div>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertEquals(Tasx, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on checkout page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on checkout page successfully.\n");
-		
+
 		//If inventory tax toggle is disabled for checkout page then on success page tax should show as $0.00 
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -6331,43 +6385,43 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxr1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Taxr1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If inventory tax toggle is disabled for checkout page then order placed then in order summary tax should show as $0.00 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);		
-		
+
 		String Taxr2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertEquals(Taxr2, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in order summary");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in order summary successfully.\n");	
-		
+
 		//If inventory tax toggle is disabled for checkout page then order placed then in customer hub tax should show as $0.00 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-				
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxr3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Taxr3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//User can enable the inventory product tax toggle from settings for checkout page 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -6389,16 +6443,16 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		WebElement taxRatee = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		taxRatee.click();
 		String TotalTax1 = taxRatee.getText();
-		
+
 		//After saving enable toggle setting for the inventory product then toaster message should be visible 
 		WebElement ToasterMsgs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsgs1.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If inventory tax toggle is enabled for checkout page then on checkout page tax should show as tax 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -6409,19 +6463,19 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		String Taxs = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertNotEquals(Taxs, TotalTax1, "After enabling inventory product tax toggle tax is not showing on checkout page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on checkout page successfully.\n");
-		
+
 		//If inventory tax toggle is enabled for checkout page then on success page tax should show as tax 
 		try {
 			driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -6437,7 +6491,7 @@ public class Products extends Data {
 		} catch (Exception e) {
 			driver.findElement(By.xpath("//button[text()='Use same as my Billing Address']")).click();
 		}
-				
+
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
 		Thread.sleep(2000);
@@ -6461,43 +6515,43 @@ public class Products extends Data {
 		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxs11 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxs11, TotalTax1, "After enabling inventory product tax toggle tax is not showing on success page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on success page successfully.\n");		
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If inventory tax toggle is enabled for checkout page then order placed then in order summary tax should show as tax
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);
-		
+
 		String Taxs21 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertNotEquals(Taxs21, TotalTax1, "After enabling inventory product tax toggle tax is not showing in order summary");
 		System.out.println("After enabling inventory product tax toggle tax is showing in order summary successfully.\n");
-		
+
 		//If inventory tax toggle is enabled for checkout page then order placed then in customer hub tax should show as tax 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxs31 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs31, TotalTax1, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//User can disable the inventory product tax toggle from settings for default product page 
 		/*driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -6519,12 +6573,12 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		//After saving disable toggle setting for the inventory product then toaster message should be visible 
 		WebElement ToasterMsgg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsgg.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If inventory tax toggle is disabled for default product page then on default product page tax should show as $0.00
 		driver.navigate().to(Products);
 		Thread.sleep(7000);	
@@ -6535,7 +6589,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
@@ -6546,13 +6600,13 @@ public class Products extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
 		Thread.sleep(2000);
-		
+
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
 		Thread.sleep(5000);
 		String Taxa = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertEquals(Taxa, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on checkout page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on default product page successfully.\n");
-		
+
 		//If inventory tax toggle is disabled for default product page then on success page tax should show as $0.00 
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -6588,43 +6642,43 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxa1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Taxa1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on default product page success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If inventory tax toggle is disabled for default product page then order placed then in order summary tax should show as $0.00 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);		
-		
+
 		String Taxa2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertEquals(Taxa2, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in order summary");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in default product page order summary successfully.\n");	
-		
+
 		//If inventory tax toggle is disabled for default product page then order placed then in customer hub tax should show as $0.00 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 					break;
 			}
 		}	
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxa3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Taxa3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//User can enable the inventory product tax toggle from settings for default product page 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -6646,16 +6700,16 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		WebElement taxRatee1 = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		taxRatee1.click();
 		String TotalTaax11 = taxRatee1.getText();
-		
+
 		//After saving enable toggle setting for the inventory product then toaster message should be visible
 		WebElement ToasterMsggs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsggs.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If inventory tax toggle is enabled for default product page then on default product page tax should show as tax 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -6666,24 +6720,24 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
 		Thread.sleep(2000);	
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
-		
+
 		Thread.sleep(5000);
 		String Taxn = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertNotEquals(Taxn, TotalTaax11, "After enabling inventory product tax toggle tax is not showing on checkout page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on default product checkout page successfully.\n");
-		
+
 		//If inventory tax toggle is enabled for default product page then on success page tax should show as tax 
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -6719,53 +6773,53 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxx1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxx1, TotalTaax11, "After enabling inventory product tax toggle tax is not showing on success page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on default product success page successfully.\n");		
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If inventory tax toggle is enabled for default product page then order placed then in order summary tax should show as tax 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);
-		
+
 		String Taxx2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertNotEquals(Taxx2, TotalTaax11, "After enabling inventory product tax toggle tax is not showing in order summary");
 		System.out.println("After enabling inventory product tax toggle tax is showing in default product order summary successfully.\n");
-		
+
 		//If inventory tax toggle is enabled for default product page then order placed then in customer hub tax should show as tax 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 					break;
 			}
 		}
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxx3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxx3, TotalTaax11, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");	*/
 	}
-	
+
 	@Test(priority = 17)
 	public void Product_SettingsPage_TaxNonInventory() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		
+
 		//user can disable the Non-inventory product tax toggle from settings 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
-		
+
 		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:nth-of-type(2)>button")));
 		String toggleState = toggleButton.getAttribute("data-state");
 		if (toggleState.equals("checked")) {
@@ -6782,12 +6836,12 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		//after saving disable toggle setting for the Non-inventory product then toaster msg will be visible 
 		WebElement ToasterMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsg.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If Non-inventory tax toggle is disabled  for default checkout page  then on default checkout page tax should show as $0.00 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);	
@@ -6798,7 +6852,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter > div > a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
@@ -6811,7 +6865,7 @@ public class Products extends Data {
 		String Tax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertEquals(Tax, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% on checkout page");
 		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% on checkout page successfully.\n");
-		
+
 		//If Non-inventory tax toggle is disabled  for default checkout page  then on success page tax should show as $0.00 
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -6848,43 +6902,43 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Tax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Tax1, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% on success page");
 		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% on success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If Non-inventory tax toggle is disabled  for default checkout page  then order placed then in order summary tax should show as $0.00 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);		
-		
+
 		String Tax2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertEquals(Tax2, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% in order summary");
 		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% in order summary successfully.\n");	
-		
+
 		//If Non-inventory tax toggle is disabled  for default checkout page then order placed then in customer hub tax should show as $0.00 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}	
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Tax3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Tax3, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//user can enable the inventory product tax toggle from settings 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -6906,16 +6960,16 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		taxRate.click();
 		String TotalTax = taxRate.getText();
-		
+
 		//after saving enable toggle setting for the inventory product then toaster msg will be visible 
 		WebElement ToasterMsgs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsgs.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enable then on default checkout page tax should show as tax 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -6926,19 +6980,19 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		String Taxx = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertNotEquals(Taxx, TotalTax, "After enabling inventory product tax toggle tax is not showing on checkout page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on checkout page successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enable  for default checkout page then on success page tax should show as tax 
 		try {
 			driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -6954,7 +7008,7 @@ public class Products extends Data {
 		} catch (Exception e) {
 			//driver.findElement(By.xpath("//button[text()='Use same as my Billing Address']")).click();
 		}
-				
+
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
 		Thread.sleep(2000);
@@ -6978,41 +7032,41 @@ public class Products extends Data {
 		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
 		Thread.sleep(5000);	
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxs1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxs1, TotalTax, "After enabling inventory product tax toggle	tax is not showing on success page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on success page successfully.\n");		
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If Non-inventory tax toggle is enable  for default checkout page then order placed then in order summary tax should show as tax 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);
-		
+
 		String Taxs2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertNotEquals(Taxs2, TotalTax, "After enabling inventory product tax toggle tax is not showing in order summary");
 		System.out.println("After enabling inventory product tax toggle tax is showing in order summary successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enable  for default checkout page then order placed then in customer hub tax should show as tax 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs3, TotalTax, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
-		
+
 		//User can disable the inventory product tax toggle from settings for default product page 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -7034,12 +7088,12 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		//After saving disable toggle setting for the inventory product then toaster message should be visible 
 		WebElement ToasterMsg1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsg1.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If Non-inventory tax toggle is disabled for default product page then on default product page tax should show as $0.00 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -7050,19 +7104,19 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div:nth-of-type(2)>div>p")).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		String Tasx = driver.findElement(By.cssSelector("#no-tailwindcss-base>div>div>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertEquals(Tasx, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on checkout page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on checkout page successfully.\n");
-		
+
 		//If Non-inventory tax toggle is disabled for default product page then on success page tax should show as $0.00 
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -7098,43 +7152,43 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxr1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Taxr1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If Non-inventory tax toggle is disabled for default product page then order placed then in order summary tax should show as $0.00 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);		
-		
+
 		String Taxr2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertEquals(Taxr2, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in order summary");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in order summary successfully.\n");	
-		
+
 		//If Non-inventory tax toggle is disabled for default product page then order placed then in customer hub tax should show as $0.00 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-				
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxr3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Taxr3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//User can enable the inventory product tax toggle from settings for default product page 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -7156,16 +7210,16 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		WebElement taxRatee = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		taxRatee.click();
 		String TotalTax1 = taxRatee.getText();
-		
+
 		//After saving enable toggle setting for the inventory product then toaster message should be visible 
 		WebElement ToasterMsgs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsgs1.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enabled for default product page then on default product page tax should show as tax 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -7176,19 +7230,19 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		String Taxs = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertNotEquals(Taxs, TotalTax1, "After enabling inventory product tax toggle tax is not showing on checkout page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on checkout page successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enabled for default product page then on success page tax should show as tax 
 		try {
 			driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -7204,7 +7258,7 @@ public class Products extends Data {
 		} catch (Exception e) {
 			driver.findElement(By.xpath("//button[text()='Use same as my Billing Address']")).click();
 		}
-				
+
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		driver.findElement(By.xpath("//span[text()='Add Card Details']//parent::button")).click();
 		Thread.sleep(2000);
@@ -7228,43 +7282,43 @@ public class Products extends Data {
 		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxs11 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxs11, TotalTax1, "After enabling inventory product tax toggle tax is not showing on success page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on success page successfully.\n");		
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If Non-inventory tax toggle is enabled for default product page then order placed then in order summary tax should show as tax 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);
-		
+
 		String Taxs21 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertNotEquals(Taxs21, TotalTax1, "After enabling inventory product tax toggle tax is not showing in order summary");
 		System.out.println("After enabling inventory product tax toggle tax is showing in order summary successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enabled for default product page then order placed then in customer hub tax should show as tax 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxs31 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs31, TotalTax1, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//User can disable the Non-inventory product tax toggle from settings for checkout page 
 		/*driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -7286,17 +7340,17 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		//After saving disable toggle setting for the inventory product then toaster message should be visible 
 		WebElement ToasterMsgg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsgg.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//After saving disable toggle setting for the inventory product then toaster message should be visible 
 		WebElement ToasterMsgg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsgg.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If Non-inventory tax toggle is disabled for checkout page then on checkout page tax should show as $0.00 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);	
@@ -7307,7 +7361,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
@@ -7318,13 +7372,13 @@ public class Products extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
 		Thread.sleep(2000);
-		
+
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
 		Thread.sleep(5000);
 		String Taxa = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertEquals(Taxa, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on checkout page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on default product page successfully.\n");
-		
+
 		//If Non-inventory tax toggle is disabled for checkout page then on success page tax should show as $0.00 
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -7360,43 +7414,43 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxa1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Taxa1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% on default product page success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If Non-inventory tax toggle is disabled for checkout page then order placed then in order summary tax should show as $0.00 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);		
-		
+
 		String Taxa2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertEquals(Taxa2, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in order summary");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in default product page order summary successfully.\n");	
-		
+
 		//If Non-inventory tax toggle is disabled for checkout page then order placed then in customer hub tax should show as $0.00 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 					break;
 			}
 		}	
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxa3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Taxa3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//User can enable the inventory product tax toggle from settings for checkout page 
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
@@ -7418,16 +7472,16 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		WebElement taxRatee1 = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		taxRatee1.click();
 		String TotalTaax11 = taxRatee1.getText();
-		
+
 		//After saving enable toggle setting for the inventory product then toaster message should be visible
 		WebElement ToasterMsggs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
 		Assert.assertTrue(ToasterMsggs.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enabled for checkout page then on checkout page tax should show as tax 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -7438,24 +7492,24 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
 		Thread.sleep(4000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//div[text()='Add to Cart']//parent::button")).click();
 		Thread.sleep(2000);	
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
-		
+
 		Thread.sleep(5000);
 		String Taxn = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertNotEquals(Taxn, TotalTaax11, "After enabling inventory product tax toggle tax is not showing on checkout page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on default product checkout page successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enabled for checkout page then on success page tax should show as tax 
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -7491,56 +7545,56 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		String Taxx1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxx1, TotalTaax11, "After enabling inventory product tax toggle tax is not showing on success page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on default product success page successfully.\n");		
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//If Non-inventory tax toggle is enabled for checkout page then order placed then in order summary tax should show as tax 
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
 		Thread.sleep(2000);
-		
+
 		String Taxx2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
 		Assert.assertNotEquals(Taxx2, TotalTaax11, "After enabling inventory product tax toggle tax is not showing in order summary");
 		System.out.println("After enabling inventory product tax toggle tax is showing in default product order summary successfully.\n");
-		
+
 		//If Non-inventory tax toggle is enabled for checkout page then order placed then in customer hub tax should show as tax 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
 					break;
 			}
 		}
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxx3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxx3, TotalTaax11, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
 		 */		
 	}
-	
+
 	@Test(priority = 18)
 	public void Flat_Ratetax() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		Random random = new Random();
-		
+
 		String Tax_Rate = String.valueOf(random.nextInt(9) + 1);
-		
+
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
-		
+
 		/*WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.product-page-ui>div:nth-of-type(4)>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div>section:nth-of-type(2)>section>div>div:first-of-type>button")));
 		String toggleState = toggleButton.getAttribute("data-state");
 		if (toggleState.equals("unchecked")) {
@@ -7557,18 +7611,18 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}*/
-		
+
 		//check that taxes section have tax field with % header label text 
 		WebElement taxField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Flat Rate Tax %']")));
 		String taxFieldText = taxField.getText().trim();
 		Assert.assertEquals(taxFieldText, "Flat Rate Tax %", "Flat Tax Rate % field is not visible in taxes section");
 		System.out.println("Flat Tax Rate % field is visible in taxes section successfully.\n");	
-		
+
 		//check that there is a link just below the tax rate field box 
 		WebElement taxLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Find your state tax rate here']")));
 		Assert.assertTrue(taxLink.isDisplayed(), "Find your state tax rate here is not visible below the tax rate field box");
 		System.out.println("Find your state tax rate here link is visible below the tax rate field box successfully.\n");
-		
+
 		//check that user can enter % tax in the tax field 
 		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		Thread.sleep(3000);
@@ -7577,13 +7631,13 @@ public class Products extends Data {
 		taxRate.sendKeys(Keys.DELETE);
 		taxRate.sendKeys("35");
 		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-		
+
 		//check that warning msg is like " Flat rate tax must be less than or equal to 30 "
 		WebElement WarningMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Flat rate tax must be less than or equal to 30')]")));
 		String WarningMsgText = WarningMsg.getText().trim();
 		Assert.assertEquals(WarningMsgText, "Flat rate tax must be less than or equal to 30.", "After entering more than 30% in tax field warning message is not displayed");
 		System.out.println("After entering more than 30% in tax field warning message is displayed successfully.\n");
-		
+
 		//check that after saving tax rate system should show success msg on right side 
 		WebElement taxRate1 = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
 		Thread.sleep(3000);
@@ -7596,25 +7650,25 @@ public class Products extends Data {
 		String ToasterMsgText = ToasterMsg.getText().trim();
 		Assert.assertEquals(ToasterMsgText, "Successfully updated general settings", "After entering tax field warning message is not displayed");
 		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
-		
+
 		//check that link should be valid and when open it should show different state tax rates 
 		String originalTab = driver.getWindowHandle();
 		taxLink.click();
 		Thread.sleep(2000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-		
+
 		String currentUrl = driver.getCurrentUrl();
 		Assert.assertEquals(currentUrl, "https://taxfoundation.org/data/all/state/sales-tax-rates/", "After clicking on find your state tax rate here link it is not navigating to correct page");
 		System.out.println("After clicking on find your state tax rate here link it is navigating to correct page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//check that if user enters tax rate it should apply for products on default checkout page 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);	
@@ -7625,7 +7679,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-		
+
 		Thread.sleep(4000);
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
@@ -7633,13 +7687,13 @@ public class Products extends Data {
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
 		System.out.println("Order Checkout Page Tax: " + ordertax);
 		String extractedTax = ordertax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax, Tax_Rate, "Tax rate mismatch in order summary");
-		
+
 		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -7651,7 +7705,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
-		
+
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
@@ -7677,7 +7731,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		//check that if user enters tax rate it should apply for products on order success page
 		String successPageTax = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		System.out.println("default checkout Order Success Page Tax: " + successPageTax);
@@ -7686,7 +7740,7 @@ public class Products extends Data {
 		System.out.println("After entering tax rate in tax field it is showing correct tax on default checkout success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//check that if user enters tax rate it should apply for products on order summary
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
@@ -7696,7 +7750,7 @@ public class Products extends Data {
 		String extractedOrderSummaryTax = orderSummaryTax.replaceAll("[^0-9]", "");
 		//Assert.assertEquals(extractedOrderSummaryTax, Tax_Rate, "Tax rate mismatch in order summary");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in default checkout order summary successfully.\n");
-		
+
 		//check that if user enters tax rate it should apply for products on default product page 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);	
@@ -7704,7 +7758,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
-		
+
 		Thread.sleep(4000);
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
@@ -7712,13 +7766,13 @@ public class Products extends Data {
 				break;
 			}
 		}
-		
+
 		Thread.sleep(5000);
 		String ordertax1 = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
 		System.out.println("default product Order Checkout Page Tax: " + ordertax1);
 		String extractedTax1 = ordertax1.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax1, Tax_Rate, "Tax rate mismatch in order summary");
-		
+
 		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
@@ -7730,7 +7784,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
-		
+
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
@@ -7756,7 +7810,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		//check that if user enters tax rate it should apply for products on default product Success page
 		Thread.sleep(2000);
 		String successPageTax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]")).getText().trim();
@@ -7766,7 +7820,7 @@ public class Products extends Data {
 		System.out.println("After entering tax rate in tax field it is showing correct tax on default product Success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//check that if user enters tax rate it should apply for products on default product Summary Order page 
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
@@ -7776,7 +7830,7 @@ public class Products extends Data {
 		String extractedOrderSummaryTax1 = orderSummaryTax1.replaceAll("[^0-9]", "");
 		//Assert.assertEquals(extractedOrderSummaryTax1, Tax_Rate, "Tax rate mismatch in order summary");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in default product order summary successfully.\n");
-		
+
 		//check that if user enters tax rate it should apply for products on  checkout page 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);	
@@ -7837,7 +7891,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		//check that if user enters tax rate it should apply for products on  checkout Success page
 		Thread.sleep(2000);
 		String successPageTax11 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]")).getText().trim();
@@ -7847,7 +7901,7 @@ public class Products extends Data {
 		System.out.println("After entering tax rate in tax field it is showing correct tax on checkout product Success page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//check that if user enters tax rate it should apply for products on  checkout Summary Order page 
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
@@ -7857,7 +7911,7 @@ public class Products extends Data {
 		String extractedOrderSummaryTax11 = orderSummaryTax11.replaceAll("[^0-9]", "");
 		//Assert.assertEquals(extractedOrderSummaryTax11, Tax_Rate, "Tax rate mismatch in order summary");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in checkout product order summary successfully.\n");
-		
+
 		//check that if user enters tax rate it should apply for products and can be seen in VT transaction summary
 		driver.navigate().to(Virtual_Terminal);
 		Thread.sleep(20000);
@@ -7868,7 +7922,7 @@ public class Products extends Data {
 		String extractedVTtax = VTtax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedVTtax, Tax_Rate, "Tax rate mismatch in VT item section");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in VT item section successfully.\n");
-		
+
 		//check that if user enters tax rate it should apply for products and can be seen in VT order success page
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); 
 		Thread.sleep(1000);
@@ -7903,14 +7957,14 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[normalize-space(.//p/text())='ACH Payment']")).click(); 
 		Thread.sleep(15000);
 		driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); 
-		
+
 		//check that if user enters tax rate it should apply for products and can be seen in order summary of order
 		String orderSummaryTaxvt = driver.findElement(By.xpath("//p[contains(text(),'Tax')]")).getText().trim();
 		System.out.println("checkout page Order Summary Tax: " + orderSummaryTaxvt);
 		String extractedOrderSummaryTaxvt = orderSummaryTaxvt.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedOrderSummaryTaxvt, Tax_Rate, "Tax rate mismatch in Virtual terminal order success page");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in Virtual terminal order Success page successfully.\n");
-		
+
 		//check that if user enters tax rate it should apply for products and can be seen in VT order of order module
 		driver.get(Orders);
 		Thread.sleep(5000);
@@ -7921,37 +7975,37 @@ public class Products extends Data {
 		String extractedOrderSummaryTaxvto = orderSummaryTax111.replaceAll("[^0-9]", "");
 		//Assert.assertEquals(extractedOrderSummaryTaxvto, Tax_Rate, "Tax rate mismatch in Virtual terminal order summary page");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in Virtual terminal order summary successfully.\n");
-		
+
 		//When we apply flat tax rate for Inventory product it should reflect on custome hub in orders section
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs3, Tax_Rate, "After entering tax rate in tax field it is not showing in customer hub");
 		System.out.println("After entering tax rate in tax field it is showing in customer hub successfully.\n");
-		
+
 		//check that given flat tax rate should be apply and can be seen in invoices transaction summary
 		driver.navigate().to(invoices);
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='+ New Invoice'])[2]"))).click(); //Click on new invoice button		
 		Thread.sleep(3000);
-		
+
 		String INVtax = driver.findElement(By.xpath("//p[contains(text(),'Tax')]")).getText().trim();
 		System.out.println("Invoices transaction summary Tax: " + INVtax);
 		String extractedINVtax = INVtax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedINVtax, Tax_Rate, "Tax rate mismatch in VT item section");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in invoices transaction summary section successfully.\n");
-		
+
 		//check that given flat tax rate should be apply and can be seen in invoices order success page
 		driver.findElement(By.xpath("(//input[contains(@placeholder,'Describe what this invoice is about')])[1]")).sendKeys("This invoice is created for 911 Automation Test");
 		driver.findElement(By.xpath("//span[normalize-space()='+ Add Recipient']")).click(); //Click on add recipient button
@@ -7965,7 +8019,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); 
-		
+
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//span[normalize-space()='+ Add Line Items']")).click(); //Click on add item button
 		driver.findElement(By.xpath("//div[contains(@class,'truncate flex justify-start')]")).click(); //Click on select product drop down		
@@ -7974,14 +8028,14 @@ public class Products extends Data {
 		driver.findElement(By.id("unit-price")).sendKeys("2"); //input value in unit price field
 		driver.findElement(By.xpath("//textarea[@placeholder=\"Custom line item description\"]")).sendKeys("Add New Product Discription"); 
 		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); //Click on save button to save line item
-		
+
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h1[normalize-space()='Payment Terms']")));
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("(//span[text()='Save And Send'])[1]//parent::span//parent::button")).click(); //Click on send invoice button
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.vf-code-frame > div:nth-of-type(3) > div > button:first-of-type")); //Click on send now button in pop up
 		Thread.sleep(2000);
-		
+
 		WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[role='dialog'] > div > div:nth-of-type(3) > div > button:first-of-type")));
 		jse.executeScript("arguments[0].click();", button);	
 		Thread.sleep(5000);
@@ -7990,18 +8044,18 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//*[text()='Share Link']")).click(); 
 		Thread.sleep(2000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#order-table-body > tr:first-of-type > td:last-of-type > button"))).click();
-        WebElement quickCheckoutLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Share Link']")));
+		WebElement quickCheckoutLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Share Link']")));
 
-        jse.executeScript("navigator.clipboard.writeText = function(text) { window.copiedLink = text; }");
-        quickCheckoutLink.click();
-        String checkoutUrl = (String) jse.executeScript("return window.copiedLink;");
-        driver.get(checkoutUrl);
-        
-        Thread.sleep(5000);
-        driver.findElement(By.xpath("//button[@role='checkbox']")).click();
-        driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
-        driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-        Thread.sleep(2000);
+		jse.executeScript("navigator.clipboard.writeText = function(text) { window.copiedLink = text; }");
+		quickCheckoutLink.click();
+		String checkoutUrl = (String) jse.executeScript("return window.copiedLink;");
+		driver.get(checkoutUrl);
+
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
+		driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
+		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
 		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
@@ -8009,8 +8063,8 @@ public class Products extends Data {
 		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down          
-		
-        jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
 		Thread.sleep(2000);
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
@@ -8027,17 +8081,17 @@ public class Products extends Data {
 		cardHolder111.clear();
 		cardHolder111.sendKeys(F_Name + " " + L_Name);	
 		Thread.sleep(2000);
-        driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); 
-        Thread.sleep(7000);
+		driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); 
+		Thread.sleep(7000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		//check that given flat tax rate should be apply and can be seen in invoices order success page
 		String orderSummaryTaxInv = driver.findElement(By.xpath("//span[contains(text(),'Tax')]")).getText().trim();
 		System.out.println("checkout page Order Summary Tax: " + orderSummaryTaxInv);
 		String extractedOrderSummaryTaxInV = orderSummaryTaxInv.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedOrderSummaryTaxInV, Tax_Rate, "Tax rate mismatch in Virtual terminal order success page");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in Invoices order Success page successfully.\n");
-		
+
 		//check that given flat tax rate should be apply and can be seen in invoices order summary of order 
 		driver.get(Orders);
 		Thread.sleep(5000);
@@ -8048,20 +8102,20 @@ public class Products extends Data {
 		String extractedOrderSummaryTaxiN = orderSummaryTax1111.replaceAll("[^0-9]", "");
 		//Assert.assertEquals(extractedOrderSummaryTaxiN, Tax_Rate, "Tax rate mismatch in Virtual terminal order summary page");
 		System.out.println("After entering tax rate in tax field it is showing correct tax in Invoices order summary successfully.\n");
-		
+
 		//check that given flat tax rate should be apply and can be seen in invoices customer hub in orders section
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-		
+
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String Taxs31 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs31, Tax_Rate, "After entering tax rate in tax field it is not showing in customer hub");
@@ -8069,30 +8123,30 @@ public class Products extends Data {
 		driver.close();
 		driver.switchTo().window(originalTab);
 	}
-	
+
 	@Test(priority = 19)
 	public void GiftCard_CheckoutSettings() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
-		
+
 		String GiftCard = "100";
-		
+
 		driver.navigate().to(Sales);
 		Thread.sleep(10000);
 		String totalRevenue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueValue = totalRevenue.replaceAll("[^0-9.]", ""); 
 		double RevenueValue = Double.parseDouble(totalRevenueValue);	
-		
+
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.sales-list-section>div>div:first-of-type")).click();		
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//button[@aria-label='Gift Cards Toggle Button']")).click(); 
-		
+
 		String totalRevenuebeforegifttab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenuebeforegifttabs = totalRevenuebeforegifttab.replaceAll("[^0-9.]", ""); 
 		double RevenueValuebeforegifttab = Double.parseDouble(totalRevenuebeforegifttabs);	
-		
+
 		driver.navigate().to(Gift_Cards);
 		Thread.sleep(5000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='New Gift Card'])[3]"))).click(); 
@@ -8103,22 +8157,22 @@ public class Products extends Data {
 		driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click();
 		Thread.sleep(5000);
 		String GiftCardID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.customer-table-second-class>table>tbody>tr>td>p:first-of-type"))).getText().trim();
-		
+
 		//Check that section with title Checkout Settings
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
-		
+
 		WebElement checkoutsetting = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Checkout Settings']")));
 		String taxFieldText = checkoutsetting.getText().trim();
 		Assert.assertEquals(taxFieldText, "Checkout Settings", "Checkout Settings section is not present in product settings page");
 		System.out.println("\nCheckout Settings section is present in product settings page successfully.\n");
-		
+
 		//check that Checkout Settings section with Gift card toggle
 		WebElement giftCardToggle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]")));
 		Assert.assertTrue(giftCardToggle.isDisplayed(), "Gift Card toggle is not present in Checkout Settings section");
 		System.out.println("Gift Card toggle is present in Checkout Settings section successfully.\n");
-		
+
 		//check that user can enable and disable Gift Card toggle button
 		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]")));
 		String toggleState = toggleButton.getAttribute("data-state");
@@ -8136,7 +8190,7 @@ public class Products extends Data {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
-		
+
 		//check that when gift card is ON from product then on checkout page gift card field is visible
 		driver.navigate().to(Products);
 		Thread.sleep(7000);			
@@ -8144,7 +8198,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-		
+
 		Thread.sleep(4000);
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
@@ -8153,7 +8207,7 @@ public class Products extends Data {
 				break;
 			}
 		}
-		
+
 		//check that valid gift card can be seen with placeholder text	
 		Thread.sleep(7000);	
 		WebElement Inputplaceholder = driver.findElement(By.id("Giftcardcode"));
@@ -8161,19 +8215,19 @@ public class Products extends Data {
 		String actualPlaceholder = Inputplaceholder.getAttribute("placeholder"); 	        
 		String expectedPlaceholder = "Gift Card Code"; 
 		Assert.assertEquals(actualPlaceholder, expectedPlaceholder, "Gift Card Code placeholder text mismatch");
-		
+
 		//check that on checkout page there is a Apply button for gift card
 		WebElement applybutton = driver.findElement(By.id("applyGiftCard"));
 		Assert.assertTrue(applybutton.isDisplayed(), "Apply button is not enabled after entering gift card code");
 		System.out.println("Apply button is displayed after entering gift card code successfully on default checkout page.\n");
 		applybutton.click(); 
-		
+
 		//check that if invalid gift card is applied it will be show warning 
 		WebElement errorwarning = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift card not found.']")));
 		String errormsgtext = errorwarning.getText().trim();
 		Assert.assertEquals(errormsgtext, "Gift card not found.", "Gift card not found message is not present.");
 		System.out.println("Gift card not found message is present on default checkout page.\n");
-		
+
 		//check that gift card number can be entered in the gift card field with success message 
 		driver.findElement(By.id("Giftcardcode")).clear();
 		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID); 
@@ -8184,7 +8238,7 @@ public class Products extends Data {
 		System.out.println("Gift card applied successfully message is present on default checkout page.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//check that when gift card is ON from product then on default checkout page  gift card field is visible
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
 		Thread.sleep(4000);
@@ -8194,7 +8248,7 @@ public class Products extends Data {
 				break;
 			}
 		}
-		
+
 		//check that valid gift card can be seen with placeholder text	
 		Thread.sleep(7000);	
 		WebElement Inputplaceholder1 = driver.findElement(By.id("Giftcardcode"));
@@ -8225,7 +8279,7 @@ public class Products extends Data {
 		System.out.println("Gift card applied successfully message is present on checkout page.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		 
+
 		//check that when gift card is ON from product then on default product page  gift card field is visible
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
 		Thread.sleep(5000);
@@ -8235,12 +8289,12 @@ public class Products extends Data {
 				break;
 			}
 		}
-		
+
 		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();	
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();	
 		Thread.sleep(1000);
-		
+
 		//check that valid gift card can be seen with placeholder text	
 		Thread.sleep(7000);	
 		WebElement Inputplaceholder11 = driver.findElement(By.id("Giftcardcode"));
@@ -8271,7 +8325,7 @@ public class Products extends Data {
 		System.out.println("Gift card applied successfully message is present on default product page.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//check that when gift card is ON and order placed from checkout page link then gift card details can be seen on order success page 
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();		
 		Thread.sleep(4000);
@@ -8281,11 +8335,11 @@ public class Products extends Data {
 				break;
 			}
 		}
-		
+
 		Thread.sleep(7000);
 		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID); 
 		driver.findElement(By.id("applyGiftCard")).click(); 
-				
+
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -8321,14 +8375,14 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		
+
 		//check that when gift card is ON and order placed from default checkout page link then gift card details can be seen on order success page
 		String GiftCardIDSuccessPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift Card']"))).getText().trim();
 		Assert.assertEquals(GiftCardIDSuccessPage, "Gift Card", "Gift card details are not showing on order success page after applying gift card in checkout page");
 		System.out.println("Gift card details are showing on order success page after applying gift card in checkout page successfully.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//check that when gift card is ON and order placed from checkout page link then gift card details can be seen on order summary
 		driver.findElement(By.id("orderHistoryToggleID")).click();
 		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
@@ -8336,20 +8390,20 @@ public class Products extends Data {
 		String GiftCardIDOrderSummary = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'badge badge-default')]"))).getText().trim();
 		Assert.assertEquals(GiftCardIDOrderSummary, GiftCardID, "Gift card details are not showing in order summary after applying gift card in checkout page");
 		System.out.println("Gift card details are showing in order summary after applying gift card in default checkout page successfully.\n");
-		
+
 		//check that gift card is On and apply for order then it will reflect in customer hub 
 		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
 		Thread.sleep(5000);
-		
+
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
 				driver.switchTo().window(handle);
-					break;
+				break;
 			}
 		}
-		
+
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
 		String giftcardcustomerhub = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Gift Card']"))).getText().trim();
@@ -8357,7 +8411,7 @@ public class Products extends Data {
 		System.out.println("Gift card details are showing in customer hub successfully.\n");		
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
+
 		//check that when gift card is ON and order placed using default product page link then in revenue it should not include all sales revenue tab
 		driver.navigate().to(Sales);
 		Thread.sleep(10000);
@@ -8366,37 +8420,579 @@ public class Products extends Data {
 		double RevenueValueafter = Double.parseDouble(totalRevenueValueafter);			
 		Assert.assertEquals(RevenueValue ,RevenueValueafter, "Total revenue value is not increased after applying gift card in default checkout page\n");
 		System.out.println("Total revenue value is not increased after applying gift card in default checkout page successfully.\n");
-		
+
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.sales-list-section>div>div:first-of-type")).click();		
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//button[@aria-label='Gift Cards Toggle Button']")).click(); 
-		
+
 		//check that when gift card is ON and order placed using default checkout page link then in revenue it should not include gift card amount revenue tab	
 		String totalRevenueaftergifttab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
 		String totalRevenueaftergifttabs = totalRevenueaftergifttab.replaceAll("[^0-9.]", ""); 
 		double RevenueValueaftergifttab = Double.parseDouble(totalRevenueaftergifttabs);	
 		Assert.assertEquals(RevenueValuebeforegifttab ,RevenueValueaftergifttab, "Total revenue value is not increased after applying gift card in default checkout page\n");
 		System.out.println("Total revenue value is not increased after applying gift card in gift card tab successfully.\n");
-		
-		
-		
-		
-		
-		
+
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+
+		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]")));
+		String toggleState1 = toggleButton1.getAttribute("data-state");
+		if (toggleState1.equals("checked")) {
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState1.equals("checked");
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		//check that if gift card is OFF on checkout page link user cant see gift card option
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardField = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardField.isEmpty(), "Gift Card field is displayed even when Gift Card toggle is OFF");
+		System.out.println("Gift Card field is not visible on checkout page when gift card toggle is OFF in product settings successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that if gift card is OFF on default product page link user cant see gift card option
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(1000);
+		List<WebElement> giftCardField1 = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardField1.isEmpty(), "Gift Card field is displayed on default product page even when Gift Card toggle is OFF");
+		System.out.println("Gift Card field is not visible on default product page when gift card toggle is OFF in product settings successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that if gift card is OFF on default checkout page link user can't see gift card option
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardField2 = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardField2.isEmpty(), "Gift Card field is displayed on checkout page even when Gift Card toggle is OFF");
+		System.out.println("Gift Card field is not visible on checkout page when gift card toggle is OFF in product settings successfully.\n");	
+		driver.close();
+		driver.switchTo().window(originalTab);
+	}
+
+	@Test(priority = 20)
+	public void Discount_CheckoutSettings() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+
+		String DiscountName = "Discount" + UUID.randomUUID().toString().substring(0, 6).toUpperCase(), Discounts_Price = "1";	
+
+		driver.navigate().to(Discounts);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='+ Add Discount']"))).click(); // click on new discount button
+		driver.findElement(By.cssSelector("div[data-orientation=\"vertical\"]:nth-of-type(2)>h3>div:first-of-type")).click();
+
+		driver.findElement(By.cssSelector("#regions>div")).click();//click on region drop down
+		driver.findElement(By.id("react-select-2-option-0")).click(); //Select Default as region
+		Thread.sleep(2000);
+		driver.findElement(By.name("rule.description")).sendKeys("This discount is created for 911 Automation Test");
+		driver.findElement(By.name("code")).sendKeys(DiscountName); //input code
+		driver.findElement(By.name("rule.value")).sendKeys(Discounts_Price); //input discount value		
+		Thread.sleep(3000);
+		WebElement publishButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-setting-region-tab > div > button:nth-of-type(2)")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", publishButton);
+		wait.until(ExpectedConditions.elementToBeClickable(publishButton));
+		jse.executeScript("arguments[0].click();", publishButton);
+		Thread.sleep(3000);
+
+		//Check that section with title Checkout Settings
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		WebElement checkoutsetting = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Checkout Settings']")));
+		String taxFieldText = checkoutsetting.getText().trim();
+		Assert.assertEquals(taxFieldText, "Checkout Settings", "Checkout Settings section is not present in product settings page");
+		System.out.println("\nCheckout Settings section is present in product settings page successfully.\n");
+
+		//check that Checkout Settings section with Discount toggle
+		WebElement discountToggle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Discount Coupon']/following::button[@role='switch'][1]")));
+		Assert.assertTrue(discountToggle.isDisplayed(), "Discount toggle is not present in Checkout Settings section");
+		System.out.println("Discount toggle is present in Checkout Settings section successfully.\n");
+
+		//check that user can enable and disable Gift Card toggle button
+		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Discount Coupon']/following::button[@role='switch'][1]")));
+		String toggleState = toggleButton.getAttribute("data-state");
+		if (toggleState.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		//check that when Discount ON from product then on checkout page Discount field is visible
+		driver.navigate().to(Products);
+		Thread.sleep(7000);			
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+
+		Thread.sleep(4000);
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		//check that valid discount can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder = driver.findElement(By.id("couponCode1"));
+		Inputplaceholder.sendKeys("DJISMYLIFE1998"); 
+		String actualPlaceholder = Inputplaceholder.getAttribute("placeholder"); 	        
+		String expectedPlaceholder = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder, "Discount Code placeholder text mismatch");
+
+		//check that on checkout page there is a Apply button for discount
+		WebElement applybutton = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybutton.isDisplayed(), "Apply button is not enabled after entering discount code");
+		System.out.println("Apply button is displayed after entering discount code successfully on default checkout page.\n");
+		applybutton.click(); 
+
+		//check that if invalid discount is applied it will be show warning 
+		WebElement errorwarning = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Discount not found.']")));
+		String errormsgtext = errorwarning.getText().trim();
+		Assert.assertEquals(errormsgtext, "Discount not found.", "discount not found message is not present.");
+		System.out.println("discount not found message is present on default checkout page.\n");
+
+		//check that discount number can be entered in the gift card field with success message 
+		driver.findElement(By.id("couponCode1")).clear();
+		driver.findElement(By.id("couponCode1")).sendKeys(DiscountName); 
+		driver.findElement(By.id("applyDiscountCoupon")).click(); 
+		WebElement successmsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Discount applied successfully!']")));
+		String successmsgtext = successmsg.getText().trim();
+		Assert.assertEquals(successmsgtext, "Discount applied successfully!", "discount applied successfully message is not present.");
+		System.out.println("discount applied successfully message is present on default checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that when discount is ON from product then on default checkout page discount field is visible
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		//check that valid discount can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder1 = driver.findElement(By.id("couponCode1"));
+		Inputplaceholder1.sendKeys("DJISMYLIFE1998"); 
+		String actualPlaceholder1 = Inputplaceholder1.getAttribute("placeholder"); 	        
+		String expectedPlaceholder1 = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholder1, expectedPlaceholder1, "discount Code placeholder text mismatch");
+
+		//check that on checkout page there is a Apply button for discount
+		WebElement applybutton1 = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybutton1.isDisplayed(), "Apply button is not enabled after entering discount code");
+		System.out.println("Apply button is displayed after entering discount code successfully on checkout page.\n");
+		applybutton1.click(); 
+
+		//check that if invalid discount is applied it will be show warning 
+		WebElement errorwarning1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Discount not found.']")));
+		String errormsgtext1 = errorwarning1.getText().trim();
+		Assert.assertEquals(errormsgtext1, "Discount not found.", "discount not found message is not present in product settings page");
+		System.out.println("discount not found error message is present on checkout page.\n");
+
+		//check that discount number can be entered in the discount field with success message 
+		driver.findElement(By.id("couponCode1")).clear();
+		driver.findElement(By.id("couponCode1")).sendKeys(DiscountName); 
+		driver.findElement(By.id("applyDiscountCoupon")).click(); 
+		WebElement successmsg1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Discount applied successfully!']")));
+		String successmsgtext1 = successmsg1.getText().trim();
+		Assert.assertEquals(successmsgtext1, "Discount applied successfully!", "discount applied successfully message is not present.");
+		System.out.println("discount applied successfully message is present on checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that when gift card is ON from product then on default product page discount field is visible
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();	
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();	
+		Thread.sleep(1000);
+
+		//check that valid discount can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder11 = driver.findElement(By.id("couponCode1"));
+		Inputplaceholder11.sendKeys("DJISMYLIFE1998"); 
+		String actualPlaceholder11 = Inputplaceholder11.getAttribute("placeholder"); 	        
+		String expectedPlaceholder11 = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholder11, expectedPlaceholder11, "discount Code placeholder text mismatch");
+
+		//check that on checkout page there is a Apply button for discount
+		WebElement applybutton11 = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybutton11.isDisplayed(), "Apply button is not enabled after entering discount code");
+		System.out.println("Apply button is displayed after entering discount code successfully on default product page.\n");
+		applybutton11.click(); 
+
+		//check that if invalid discount is applied it will be show warning 
+		WebElement errorwarning11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Discount not found.']")));
+		String errormsgtext11 = errorwarning11.getText().trim();
+		Assert.assertEquals(errormsgtext11, "Discount not found.", "discount not found message is not present in product settings page");
+		System.out.println("discount not applied error message is present on default product page.\n");
+
+		//check that discount number can be entered in the gift card field with success message 
+		driver.findElement(By.id("couponCode1")).clear();
+		driver.findElement(By.id("couponCode1")).sendKeys(DiscountName); 
+		driver.findElement(By.id("applyDiscountCoupon")).click(); 
+		WebElement successmsg11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Discount applied successfully!']")));
+		String successmsgtext11 = successmsg11.getText().trim();
+		Assert.assertEquals(successmsgtext11, "Discount applied successfully!", "discount applied successfully message is not present.");
+		System.out.println("discount applied successfully message is present on default product page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that when discount is ON and order placed from checkout page link then discount details can be seen on order success page 
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.id("couponCode1")).sendKeys(DiscountName); 
+		driver.findElement(By.id("applyDiscountCoupon")).click(); 
+
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
+		Thread.sleep(2000);		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+
+		//check that when discount is ON and order placed from default checkout page link then discount details can be seen on order success page
+		String GiftCardIDSuccessPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Discount')]"))).getText().trim();
+		Assert.assertTrue(GiftCardIDSuccessPage.contains("Discount"),"Discount details are not showing on order success page after applying discount.");
+		System.out.println("discount details are showing on order success page after applying discount in checkout page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that when discount is ON and order placed from checkout page link then discount details can be seen on order summary
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);
+		String discountorderSummary = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'badge badge-default')]"))).getText().trim();
+		System.out.println("discount order Summary: " + discountorderSummary);
+		//Assert.assertTrue(discountorderSummary.contains(DiscountName), "discount details are not showing in order summary after applying discount in checkout page");
+		System.out.println("discount details are showing in order summary after applying discount in default checkout page successfully.\n");
+
+		//check that discount is On and apply for order then it will reflect in customer hub 
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		String giftcardcustomerhub = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Discount')]"))).getText().trim();
+		Assert.assertTrue(giftcardcustomerhub.contains("Discount"), "discount details not showing in customer hub");
+		System.out.println("discount details are showing in customer hub successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		driver.navigate().to(Virtual_Terminal);
+		Thread.sleep(20000);
+		driver.findElement(By.xpath("//span[normalize-space(.)='ACH']//parent::button")).click(); 
+		Thread.sleep(1000);
+
+		//check that if user enters tax rate it should apply for products and can be seen in VT order success page
+		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(Number); 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[contains(@class,'overflow-y-auto')]/div[contains(@class,'mb-[5px]')][1]")).click(); 
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click(); 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); 
+		Thread.sleep(1000);
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Bank Account Details']")));
+		Thread.sleep(3000);
+		driver.findElement(By.name("creditCard.achAccountHolderName")).sendKeys(Account_Holder_Name);
+		driver.findElement(By.name("creditCard.achRoutingNumber")).sendKeys(Routing_Number);
+		driver.findElement(By.name("creditCard.achAccountNumber")).sendKeys(Account_Number);
+		driver.findElement(By.id("creditCard.achAccType")).click();
+		driver.findElement(By.id("react-select-2-option-0")).click();
+		driver.findElement(By.id("creditCard.achAccountCategory")).click();
+		driver.findElement(By.id("react-select-3-option-0")).click(); 
+
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.virtual-terminal-ui>form>div>div>div:nth-of-type(7)>div:nth-of-type(2)>h3>div>div>div:last-of-type")).click(); 
+		driver.findElement(By.name("address.address_1")).sendKeys(Street_Add); 
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
+		Thread.sleep(1000);
+		driver.findElement(By.name("address.address_2")).sendKeys(Street_Add); 
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Discounts']")));
+		driver.findElement(By.xpath("//span[text()='Discounts']")).click();
+		driver.findElement(By.xpath("//p[contains(text(),'Add Discount')]//parent::span//parent::button")).click();
+		driver.findElement(By.id("discounts.0.code")).click();
+		driver.findElement(By.cssSelector("div.vt-tax-dropdown-iphone.setting-iphone-second-margin-class>div>div:first-of-type")).click();	
+
+		String VTtax = driver.findElement(By.cssSelector("div.Transaction-summary-inside-class>div:nth-of-type(2)>div>div:nth-of-type(2)>span:first-of-type")).getText().trim();
+		Assert.assertEquals(VTtax, "Discount", "Discount mismatch in VT item section");
+		System.out.println("After entering Discount it is showing correct tax in VT item section successfully.\n");		
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[normalize-space(.//p/text())='ACH Payment']")).click(); 
+		Thread.sleep(15000);
+		driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); 
+
+		//check that if user enters tax rate it should apply for products and can be seen in order summary of order
+		String orderSummaryvt = driver.findElement(By.xpath("(//p[contains(text(),'Discount')])[2]")).getText().trim();
+		Assert.assertEquals(orderSummaryvt, "Discount", "Discount mismatch in Virtual terminal order success page");
+		System.out.println("After entering Discount it is showing correct in Virtual terminal order Success page successfully.\n");
+
+		//check that if user enters tax rate it should apply for products and can be seen in VT order of order module
+		driver.navigate().to(Orders);
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("#order-table-body>tr>td:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		String discountorderSummary1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'badge badge-default')]"))).getText().trim();
+		System.out.println("discount order Summary: " + discountorderSummary1);
+		//Assert.assertTrue(discountorderSummary.contains(DiscountName), "discount details are not showing in order summary after applying discount in checkout page");
+		System.out.println("After entering tax rate in tax field it is showing correct tax in order summary successfully.\n");
+
+		//When we apply flat tax rate for Inventory product it should reflect on custome hub in orders section
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		String discountcustomerhub = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Discount')]"))).getText().trim();
+		Assert.assertTrue(discountcustomerhub.contains("Discount"), "discount details not showing in customer hub");
+		System.out.println("After entering tax rate in tax field it is showing in customer hub successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+
+		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Discount Coupon']/following::button[@role='switch'][1]")));
+		String toggleState1 = toggleButton1.getAttribute("data-state");
+		if (toggleState1.equals("checked")) {
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState1.equals("checked");
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		//check that if gift card is OFF on checkout page link user cant see gift card option
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardField = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardField.isEmpty(), "Gift Card field is displayed even when discount toggle is OFF");
+		System.out.println("discount field is not visible on checkout page when discount toggle is OFF in product settings successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that if gift card is OFF on default product page link user cant see gift card option
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(1000);
+		List<WebElement> giftCardField1 = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardField1.isEmpty(), "discount field is displayed on default product page even when discount toggle is OFF");
+		System.out.println("discount field is not visible on default product page when discount toggle is OFF in product settings successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that if discount is OFF on default checkout page link user can't see discount option
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardField2 = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardField2.isEmpty(), "discount field is displayed on checkout page even when discount toggle is OFF");
+		System.out.println("discount field is not visible on checkout page when discount toggle is OFF in product settings successfully.\n");	
+		driver.close();
+		driver.switchTo().window(originalTab);	
+	}
+
+	@Test(priority = 21)
+	public void Tax_CheckoutSettings() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		WebElement taxfield = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Tax']/following::input[@type='text'][1]")));
+		Assert.assertTrue(taxfield.isDisplayed(), "Tax field is not present in Checkout Settings section");
+		System.out.println("\nTax field is present in Checkout Settings section successfully.\n");
+
+		//
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-		
-	
+
+
+
+
+
+
+
+
+
+
+
 }
