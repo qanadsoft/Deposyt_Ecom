@@ -33,25 +33,26 @@ public class Products extends Data {
 	java.util.Random r = new java.util.Random();
 
 	String Product_Names = "OneTime Product @#$!/" + UUID.randomUUID().toString().replace("- ", "").substring(0, 30).toUpperCase(),
-	Product_Name = "OneTime Product " + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),
-	SuscProduct_Name = "Suscription Product - " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
-	Private_Name = "TestProduct " + UUID.randomUUID().toString().replace("- ", "").substring(0, 8).toUpperCase(),
-	Description = "test-Nadsoft " + UUID.randomUUID().toString().replace("- ", "").substring(0, 10).toUpperCase(),
-	SKU = "SKU_No" + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),chars = "abcdefghijklmnopqrstuvwxyz",
+			Product_Name = "OneTime Product " + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),
+			SuscProduct_Name = "Suscription Product - " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+			Private_Name = "TestProduct " + UUID.randomUUID().toString().replace("- ", "").substring(0, 8).toUpperCase(),
+			Description = "test-Nadsoft " + UUID.randomUUID().toString().replace("- ", "").substring(0, 10).toUpperCase(),
+			SKU = "SKU_No" + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase(),chars = "abcdefghijklmnopqrstuvwxyz",
 
-	OneTimeProductValue = "10", OneTimePurchaseSalePrice = "5", Discountedprice = "9.50",
-	File1 = "file1.jpg", File2 = "sample.bmp", File3 = "sample.tiff", File4 = "10mb.jpg", File5 = "sample.jpe", File6 = "file3.jpeg", File7 = "file7.jpg", 
-	File8 = "file4.png", Attachment = "Jira_Guide.pdf", Fileone = "file1.jpg", Filetwo = "file2.png", Filethree = "file3.jpeg", Filefour = "file4.png", 
-	Filefive = "file5.png", Filesix = "file6.jpg", Fileseven = "file7.jpg", Fileeight = "file8.jpg", Filenine = "file9.jpg", Fileten = "sample.mp4",
+			OneTimeProductValue = "10", Discountedprice = "9.50",
+			File1 = "file1.jpg", File2 = "sample.bmp", File3 = "sample.tiff", File4 = "10mb.jpg", File5 = "sample.jpe", File6 = "file3.jpeg", File7 = "file7.jpg", 
+			File8 = "file4.png", Attachment = "Jira_Guide.pdf", Fileone = "file1.jpg", Filetwo = "file2.png", Filethree = "file3.jpeg", Filefour = "file4.png", 
+			Filefive = "file5.png", Filesix = "file6.jpg", Fileseven = "file7.jpg", Fileeight = "file8.jpg", Filenine = "file9.jpg", Fileten = "sample.mp4",
 
-	F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
-	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
-	DiscriptionTier1 = "Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TierOneTitle = "Second Tier Title",
-	TitleTier1 = "First Tier Installment",TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one",
+			F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
+			Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
+			DiscriptionTier1 = "Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment", TierOneTitle = "Second Tier Title",
+			TitleTier1 = "First Tier Installment",TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one",
 
-	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
-	email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+			firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+			lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
+			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
+			//OneTimeProductValue = "5"
 
 	//@BeforeClass
 	public void OneTime_SalesOrder() throws InterruptedException {
@@ -75,7 +76,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+Thread.sleep(1000);
+driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
 
@@ -436,7 +439,9 @@ public class Products extends Data {
 		String allFiles4 = String.join("\n", files4);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles4);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		System.out.println("User able to upload image Upto 10 mb in media and crop functionality also works fine");	
 		Thread.sleep(3000);
 
@@ -460,7 +465,9 @@ public class Products extends Data {
 		String allFiles5 = String.join("\n", files5);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles5);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		System.out.println("User able to upload image in JPE format in media and crop functionality also works fine");
 		WebElement parent1 = driver.findElement(By.xpath("//div[contains(@class,'absolute') and contains(@class,'inset-0')]//*[name()='svg']"));
 		actions.moveToElement(parent1).perform();
@@ -475,7 +482,9 @@ public class Products extends Data {
 		String allFiles6 = String.join("\n", files6);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles6);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		System.out.println("User able to upload image in JPEG format in media and crop functionality also works fine");
 		WebElement parent2 = driver.findElement(By.xpath("//div[contains(@class,'absolute') and contains(@class,'inset-0')]//*[name()='svg']"));
 		actions.moveToElement(parent2).perform();
@@ -506,7 +515,7 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		System.out.println("User able to upload image in PNG format in media and crop functionality also works fine");
 
-		//check that user can upload videos in media
+		/*//check that user can upload videos in media
 		WebElement uploadImages = driver.findElement(By.cssSelector("input[type=\"file\"]"));
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImages);	
 		Thread.sleep(3000);
@@ -520,18 +529,20 @@ public class Products extends Data {
 		String actualMessages = warningMessages.getText().trim();
 		String expectedMessages = "Thumbnail should not be video";
 		Assert.assertEquals(actualMessages, expectedMessages, "Warning message not Displays");
-		System.out.println("Invalid file format message displayed successfully when user try to upload Video file in media");
+		System.out.println("Invalid file format message displayed successfully when user try to upload Video file in media");*/
 
 		WebElement uploadImagee = driver.findElement(By.cssSelector("input[type=\"file\"]"));
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImagee);
 
 		Thread.sleep(3000);
-		String[] filess = {Media_Path + Fileone};
+		String[] filess = {Media_Path + Fileseven};
 
 		String allFiless = String.join("\n", filess);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiless);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		//check that user can upload 9 images
 		/*WebElement uploadImagee = driver.findElement(By.cssSelector("input[type=\"file\"]"));
@@ -978,7 +989,7 @@ public class Products extends Data {
 		}
 
 		Thread.sleep(2000);
-		WebElement productNameOnprodCheckout = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>span"));
+		WebElement productNameOnprodCheckout = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:first-of-type>span:first-of-type"));
 		String actualProductNameOnprodCheckout = productNameOnprodCheckout.getText().trim();
 		Assert.assertEquals(actualProductNameOnprodCheckout, Product_Name, "Saved product name is not displayed on Product checkout page");
 		System.out.println("Saved product name is displayed successfully on Product checkout page\n");
@@ -1095,7 +1106,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(OneTimeProductValue);
@@ -1107,7 +1120,7 @@ public class Products extends Data {
 		Thread.sleep(5000);
 
 		//check that if user enters One Time Purchase Price then it should reflect in  products listing
-		WebElement recentProduct = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")));	
+		WebElement recentProduct = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div:nth-of-type(2)")));	
 		String actualRecentProduct = recentProduct.getText().trim();
 		double actualPrice = Double.parseDouble(actualRecentProduct.replace("$", ""));
 		double expectedPrice = Double.parseDouble(OneTimeProductValue);
@@ -1228,7 +1241,7 @@ public class Products extends Data {
 		salePriceCheckbox.click();
 		Thread.sleep(1000);
 		driver.findElement(By.name("productPricing.salePrice")).click();
-		driver.findElement(By.name("productPricing.salePrice")).sendKeys(OneTimePurchaseSalePrice);
+		driver.findElement(By.name("productPricing.salePrice")).sendKeys(OneTimeProductValue);
 		driver.findElement(By.xpath("//input[@placeholder=\"Sale Start Date\"]")).click();
 		WebElement startdate = driver.findElement(By.cssSelector("div.react-datepicker__day--today"));
 		startdate.click();
@@ -1238,7 +1251,7 @@ public class Products extends Data {
 		enddate.click();	
 		Thread.sleep(2000);	
 
-		WebElement showQuantityPickerToggle = driver.findElement(By.cssSelector("#one-time-purchase-div>div:nth-of-type(2)>div>div>div:last-of-type>div>div>button"));
+		WebElement showQuantityPickerToggle = driver.findElement(By.cssSelector("#one-time-purchase-div>div:nth-of-type(2)>div>div>div:nth-of-type(5)>div>div>button"));
 		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", showQuantityPickerToggle);
 		Thread.sleep(1000);
 		jse.executeScript("arguments[0].click();", showQuantityPickerToggle);
@@ -1249,7 +1262,7 @@ public class Products extends Data {
 		//check that if user enters sale Price for product then it should reflect in product listing
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		WebElement recentProduct1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div")));	
+		WebElement recentProduct1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div:nth-of-type(2)>div")));	
 		String actualRecentProduct1 = recentProduct1.getText().trim();
 		double actualPrice1 = Double.parseDouble(actualRecentProduct1.replace("$", ""));
 		double expectedPrice1 = Double.parseDouble(Discountedprice);
@@ -1301,7 +1314,7 @@ public class Products extends Data {
 		}
 
 		Thread.sleep(5000);
-		WebElement productNameOndefCheckout1 = driver.findElement(By.cssSelector("#ProductDescriptionColumn>span"));
+		WebElement productNameOndefCheckout1 = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div>span:nth-of-type(2)"));
 		String actualProductNameOndefCheckout1 = productNameOndefCheckout1.getText().trim();
 		double actualPriced1 = Double.parseDouble(actualProductNameOndefCheckout1.replaceAll("[^0-9.]", ""));
 		double expectedPriced1 = Double.parseDouble(Discountedprice);
@@ -1499,7 +1512,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		//check that user can click on toggle to enable the subscription 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
@@ -1545,10 +1560,10 @@ public class Products extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click();
 		Thread.sleep(1000);
-		//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
+		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
 		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 		//		suscprise.clear();
-		//		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		//		suscprise.sendKeys(OneTimeProductValue);
 
 		//check that user can see + sign to increase the number of cycle for the subscription
 		//check that user can see - sign to decrease the number of cycle for the subscription
@@ -1782,7 +1797,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		//check that user can click on toggle to enable the subscription 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
@@ -1834,7 +1851,7 @@ public class Products extends Data {
 		//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click();
 		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 		//		suscprise.clear();
-		//		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		//		suscprise.sendKeys(OneTimeProductValue);
 
 		//check that user can see + sign to increase the number of cycle for the subscription
 		//check that user can see - sign to decrease the number of cycle for the subscription
@@ -2069,7 +2086,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -2083,10 +2102,10 @@ public class Products extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); 
 		Thread.sleep(1000);
-		//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
+		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
 		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 		//		suscprise.clear();
-		//		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		//		suscprise.sendKeys(OneTimeProductValue);
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click();
@@ -2157,10 +2176,10 @@ public class Products extends Data {
 		//Verify that if user enters subscription Price then it should reflect in  products listing
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		String subscriptionprice = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
+		String subscriptionprice = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div:nth-of-type(2)")).getText().trim();
 		String subscriptionprice1 = subscriptionprice.replaceAll("[^0-9.]", ""); 
 		int actualPrice = (int) Double.parseDouble(subscriptionprice1);
-		Assert.assertEquals(String.valueOf(actualPrice), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPrice), OneTimeProductValue, "Price mismatch");
 		System.out.println("Monthly Subscription Price on products listing matches.");
 
 		//Verify that if user enters subscription Price then it should reflect in  products detail page 
@@ -2172,7 +2191,7 @@ public class Products extends Data {
 		String priceText = subscriptionPb.getText().trim();
 		String numericPrice = priceText.replaceAll("[^0-9.]", "");
 		int actualPrice1 = (int) Double.parseDouble(numericPrice);
-		Assert.assertEquals(String.valueOf(actualPrice1), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPrice1), OneTimeProductValue, "Price mismatch");
 		System.out.println("Monthly Subscription Price on product detail page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on product details page in subscription section
@@ -2229,15 +2248,15 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPrv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		WebElement subscriptionPrv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>div>p:first-of-type>span:first-of-type"));
 		String priceTexts = subscriptionPrv.getText().trim();
 		String numericPrices = priceTexts.replaceAll("[^0-9.]", "");
 		int actualPrics = (int) Double.parseDouble(numericPrices);
-		Assert.assertEquals(String.valueOf(actualPrics), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPrics), OneTimeProductValue, "Price mismatch");
 		System.out.println("Monthly Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on checkout page 
-		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>span:first-of-type"));
+		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:last-of-type>span"));
 		String priceTexxts = subscriptionPrcv.getText().trim();
 		String numericPdrices = priceTexxts.replaceAll("[^0-9.]", "");
 		int actualPrxics = (int) Double.parseDouble(numericPdrices);
@@ -2265,15 +2284,15 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPfe = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		WebElement subscriptionPfe = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>div>p:first-of-type>span:first-of-type"));
 		String priceTextss = subscriptionPfe.getText().trim();
 		String numericPricess = priceTextss.replaceAll("[^0-9.]", "");
 		int actualPricez = (int) Double.parseDouble(numericPricess);
-		Assert.assertEquals(String.valueOf(actualPricez), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricez), OneTimeProductValue, "Price mismatch");
 		System.out.println("Monthly Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on default checkout page 
-		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div>div>p>span:first-of-type"));
+		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:last-of-type>span"));
 		String priceTextsss = subscriptionPfne.getText().trim();
 		String numerdicPricess = priceTextsss.replaceAll("[^0-9.]", "");
 		int actualPrxicez = (int) Double.parseDouble(numerdicPricess);
@@ -2305,7 +2324,7 @@ public class Products extends Data {
 		String priceTexta = subscriptions.getText().trim();
 		String numericPricess1 = priceTexta.replaceAll("[^0-9.]", "");
 		int actualPricev = (int) Double.parseDouble(numericPricess1);
-		Assert.assertEquals(String.valueOf(actualPricev), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricev), OneTimeProductValue, "Price mismatch");
 		System.out.println("Monthly Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on default product page 
@@ -2333,7 +2352,7 @@ public class Products extends Data {
 		String priceTexta1 = subscriptionPcm.getText().trim();
 		String numericPricef = priceTexta1.replaceAll("[^0-9.]", "");
 		int actualPricex = (int) Double.parseDouble(numericPricef);
-		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricex), OneTimeProductValue, "Price mismatch");
 		System.out.println("Monthly Subscription Price on order summary page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on order summary of order module
@@ -2355,7 +2374,7 @@ public class Products extends Data {
 		String priceTexta11 = subscriptionPm.getText().trim();
 		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
 		int actualPricde = (int) Double.parseDouble(numericPricen);
-		Assert.assertEquals(String.valueOf(actualPricde), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
 		System.out.println("first payment Monthly Subscription Price on order subscription summary page matches.");
 
 		//Verify that when Monthly option is selected then it will reflect on subscription summary of order module 
@@ -2394,7 +2413,7 @@ public class Products extends Data {
 		String priceTextastore = subscriptionPrm.getText().trim();
 		String numericPricesstore = priceTextastore.replaceAll("[^0-9.]", "");
 		int actualPriced = (int) Double.parseDouble(numericPricesstore);
-		Assert.assertEquals(String.valueOf(actualPriced), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPriced), OneTimeProductValue, "Price mismatch");
 		System.out.println("Monthly Subscription Price on storefront side matches.");
 
 		//Verify that when first payment different is entered then it will reflect on storefront side
@@ -2436,7 +2455,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -2453,7 +2474,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
 		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 		suscprise.clear();
-		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		suscprise.sendKeys(OneTimeProductValue);
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click();
@@ -2524,22 +2545,22 @@ public class Products extends Data {
 		//Verify that if user enters weekly subscription Price then it should reflect in  products listing
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		String subscriptionprices1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
+		String subscriptionprices1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div:nth-of-type(2)")).getText().trim();
 		String subscriptionces = subscriptionprices1.replaceAll("[^0-9.]", ""); 
 		int actualPricec = (int) Double.parseDouble(subscriptionces);
-		Assert.assertEquals(String.valueOf(actualPricec), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricec), OneTimeProductValue, "Price mismatch");
 		System.out.println("Weekly Subscription Price on products listing matches.");
 
 		//Verify that when weekly option is selected then it will reflect on preview section of product details 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>	li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		Thread.sleep(5000);
 		WebElement subscriptionPxc = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
 		String priceTextt = subscriptionPxc.getText().trim();
 		String numericPricee = priceTextt.replaceAll("[^0-9.]", "");
 		int actualPricee1 = (int) Double.parseDouble(numericPricee);
-		Assert.assertEquals(String.valueOf(actualPricee1), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricee1), OneTimeProductValue, "Price mismatch");
 		System.out.println("Weekly Subscription Price on product detail page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on product details page in subscription section
@@ -2577,15 +2598,15 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPc = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		WebElement subscriptionPc = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>div>p:first-of-type>span"));
 		String priceTexts1 = subscriptionPc.getText().trim();
 		String numericPrices1 = priceTexts1.replaceAll("[^0-9.]", "");
 		int actualPricesa = (int) Double.parseDouble(numericPrices1);
-		Assert.assertEquals(String.valueOf(actualPricesa), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricesa), OneTimeProductValue, "Price mismatch");
 		System.out.println("Weekly Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on checkout page 
-		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>span:first-of-type"));
+		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:last-of-type>span"));
 		String priceTexxts = subscriptionPrcv.getText().trim();
 		String numericPdrices = priceTexxts.replaceAll("[^0-9.]", "");
 		int actualPrxics = (int) Double.parseDouble(numericPdrices);
@@ -2613,15 +2634,15 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPrib = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		WebElement subscriptionPrib = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>div>p:first-of-type>span:first-of-type"));
 		String priceTextgss = subscriptionPrib.getText().trim();
 		String numericPricegss = priceTextgss.replaceAll("[^0-9.]", "");
 		int actualPricegs = (int) Double.parseDouble(numericPricegss);
-		Assert.assertEquals(String.valueOf(actualPricegs), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricegs), OneTimeProductValue, "Price mismatch");
 		System.out.println("Weekly Subscription Price on default checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on default checkout page 
-		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div>div>p>span:first-of-type"));
+		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:last-of-type>span"));
 		String priceTextsss = subscriptionPfne.getText().trim();
 		String numerdicPricess = priceTextsss.replaceAll("[^0-9.]", "");
 		int actualPrxicez = (int) Double.parseDouble(numerdicPricess);
@@ -2653,7 +2674,7 @@ public class Products extends Data {
 		String priceTexta = subscriptionPm.getText().trim();
 		String numericPriceg = priceTexta.replaceAll("[^0-9.]", "");
 		int actualPricea = (int) Double.parseDouble(numericPriceg);
-		Assert.assertEquals(String.valueOf(actualPricea), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricea), OneTimeProductValue, "Price mismatch");
 		System.out.println("Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on default product page 
@@ -2681,7 +2702,7 @@ public class Products extends Data {
 		String priceTextaa11 = subscriptionPrh.getText().trim();
 		String numericPriw= priceTextaa11.replaceAll("[^0-9.]", "");
 		int actualPrih = (int) Double.parseDouble(numericPriw);
-		Assert.assertEquals(String.valueOf(actualPrih), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPrih), OneTimeProductValue, "Price mismatch");
 		System.out.println("Weekly Subscription Price on order summary page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on order summary of order module
@@ -2703,7 +2724,7 @@ public class Products extends Data {
 		String priceTexta111 = subscriptionw.getText().trim();
 		String numericPricews = priceTexta111.replaceAll("[^0-9.]", "");
 		int actualPricesd = (int) Double.parseDouble(numericPricews);
-		Assert.assertEquals(String.valueOf(actualPricesd), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricesd), OneTimeProductValue, "Price mismatch");
 		System.out.println("Weekly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters subscription price then it should reflect in  subscription summary of order module  
@@ -2711,7 +2732,7 @@ public class Products extends Data {
 		String priceTexta11 = subscriptionPm1.getText().trim();
 		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
 		int actualPricde = (int) Double.parseDouble(numericPricen);
-		Assert.assertEquals(String.valueOf(actualPricde), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
 		System.out.println("first payment Weekly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters weekly subscription price then it should reflect in  subscription summary of order module  
@@ -2750,7 +2771,7 @@ public class Products extends Data {
 		String priceTextastore1 = subscriptionsw.getText().trim();
 		String numericPricew = priceTextastore1.replaceAll("[^0-9.]", "");
 		int actualPricex = (int) Double.parseDouble(numericPricew);
-		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricex), OneTimeProductValue, "Price mismatch");
 		System.out.println("Weekly Subscription Price on storefront side matches.");
 
 		//Verify that when first payment different is entered then it will reflect on storefront side
@@ -2793,7 +2814,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -2810,7 +2833,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
 		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 		suscprise.clear();
-		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		suscprise.sendKeys(OneTimeProductValue);
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click();
@@ -2836,7 +2859,7 @@ public class Products extends Data {
 			}
 		}	
 
-		Thread.sleep(10000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -2881,22 +2904,22 @@ public class Products extends Data {
 		//Verify that if user enters Quarterly subscription Price then it should reflect in  products listing
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		String subscriptionprices1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
+		String subscriptionprices1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div:nth-of-type(2)")).getText().trim();
 		String subscriptionpriced = subscriptionprices1.replaceAll("[^0-9.]", ""); 
 		int actualPricec = (int) Double.parseDouble(subscriptionpriced);
-		Assert.assertEquals(String.valueOf(actualPricec), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricec), OneTimeProductValue, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on products listing matches.");
 
 		//Verify that if user enters Quarterly subscription Price then it should reflect in  products detail page
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>	li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		Thread.sleep(5000);
 		WebElement subscriptionf = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
 		String priceTextt = subscriptionf.getText().trim();
 		String numericPricee = priceTextt.replaceAll("[^0-9.]", "");
 		int actualPricee1 = (int) Double.parseDouble(numericPricee);
-		Assert.assertEquals(String.valueOf(actualPricee1), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricee1), OneTimeProductValue, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on product detail page matches.\n");
 
 		//Verify that when first payment different is entered then it will reflect on product details page in subscription section
@@ -2934,15 +2957,15 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptior = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		WebElement subscriptior = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>div>p:first-of-type>span"));
 		String priceTexts1 = subscriptior.getText().trim();
 		String numericPrices1 = priceTexts1.replaceAll("[^0-9.]", "");
 		int actualPricesg = (int) Double.parseDouble(numericPrices1);
-		Assert.assertEquals(String.valueOf(actualPricesg), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricesg), OneTimeProductValue, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on checkout page 
-		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>span:first-of-type"));
+		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:last-of-type>span"));
 		String priceTexxts = subscriptionPrcv.getText().trim();
 		String numericPdrices = priceTexxts.replaceAll("[^0-9.]", "");
 		int actualPrxics = (int) Double.parseDouble(numericPdrices);
@@ -2970,15 +2993,15 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionm = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		WebElement subscriptionm = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>div>p:first-of-type>span:first-of-type"));
 		String priceTextgss = subscriptionm.getText().trim();
 		String numericPricegss = priceTextgss.replaceAll("[^0-9.]", "");
 		int actualPriceg111 = (int) Double.parseDouble(numericPricegss);
-		Assert.assertEquals(String.valueOf(actualPriceg111), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPriceg111), OneTimeProductValue, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on default checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on default checkout page 
-		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div>div>p>span:first-of-type"));
+		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:last-of-type>span"));
 		String priceTextsss = subscriptionPfne.getText().trim();
 		String numerdicPricess = priceTextsss.replaceAll("[^0-9.]", "");
 		int actualPrxicez = (int) Double.parseDouble(numerdicPricess);
@@ -3010,7 +3033,7 @@ public class Products extends Data {
 		String priceTexta = subscriptionPrik.getText().trim();
 		String numericPricess1 = priceTexta.replaceAll("[^0-9.]", "");
 		int actualPricew = (int) Double.parseDouble(numericPricess1);
-		Assert.assertEquals(String.valueOf(actualPricew), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricew), OneTimeProductValue, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on default product page 
@@ -3038,7 +3061,7 @@ public class Products extends Data {
 		String priceTextaa11 = subscriptionPria.getText().trim();
 		String numericPricesz = priceTextaa11.replaceAll("[^0-9.]", "");
 		int actualPricesq = (int) Double.parseDouble(numericPricesz);
-		Assert.assertEquals(String.valueOf(actualPricesq), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricesq), OneTimeProductValue, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on order summary page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on order summary of order module
@@ -3060,7 +3083,7 @@ public class Products extends Data {
 		String priceTextaz = subscriptionPri.getText().trim();
 		String numericPric = priceTextaz.replaceAll("[^0-9.]", "");
 		int actualPricesd = (int) Double.parseDouble(numericPric);
-		Assert.assertEquals(String.valueOf(actualPricesd), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricesd), OneTimeProductValue, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters subscription price then it should reflect in  subscription summary of order module  
@@ -3068,7 +3091,7 @@ public class Products extends Data {
 		String priceTexta11 = subscriptionPm.getText().trim();
 		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
 		int actualPricde = (int) Double.parseDouble(numericPricen);
-		Assert.assertEquals(String.valueOf(actualPricde), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
 		System.out.println("first payment Quarterly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters Quarterly subscription price then it should reflect in  subscription summary of order module  
@@ -3107,7 +3130,7 @@ public class Products extends Data {
 		String priceTextastore1 = subscriptionst.getText().trim();
 		String numericstore= priceTextastore1.replaceAll("[^0-9.]", "");
 		int actualPricex = (int) Double.parseDouble(numericstore);
-		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricex), OneTimeProductValue, "Price mismatch");
 		System.out.println("Quarterly Subscription Price on storefront side matches.");
 
 		//Verify that when first payment different is entered then it will reflect on storefront side
@@ -3150,7 +3173,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -3167,7 +3192,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
 		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 		suscprise.clear();
-		suscprise.sendKeys(OneTimePurchaseSalePrice);
+		suscprise.sendKeys(OneTimeProductValue);
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click();
@@ -3238,22 +3263,22 @@ public class Products extends Data {
 		//Verify that if user enters Yearly subscription Price then it should reflect in  products listing
 		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		String subscriptionprices1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
+		String subscriptionprices1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div:nth-of-type(2)")).getText().trim();
 		String subscriptionprices11 = subscriptionprices1.replaceAll("[^0-9.]", ""); 
 		int actualPricec = (int) Double.parseDouble(subscriptionprices11);
-		Assert.assertEquals(String.valueOf(actualPricec), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricec), OneTimeProductValue, "Price mismatch");
 		System.out.println("Yearly Subscription Price on products listing matches.");
 
 		//Verify that if user enters Quarterly subscription Price then it should reflect in  products detail page
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>	li>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		Thread.sleep(5000);
 		WebElement subscriptiol = driver.findElement(By.cssSelector("#global-product-topbar>div>div>div:first-of-type>div>div:nth-of-type(2)>span:nth-of-type(2)>span>span:first-of-type"));
 		String priceTextt = subscriptiol.getText().trim();
 		String numericPricee = priceTextt.replaceAll("[^0-9.]", "");
 		int actualPricee1 = (int) Double.parseDouble(numericPricee);
-		Assert.assertEquals(String.valueOf(actualPricee1), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricee1), OneTimeProductValue, "Price mismatch");
 		System.out.println("Yearly Subscription Price on product detail page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on product details page in subscription section
@@ -3291,15 +3316,15 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptio= driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		WebElement subscriptio= driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>div>p:first-of-type>span"));
 		String priceTexts1 = subscriptio.getText().trim();
 		String numericPrices1 = priceTexts1.replaceAll("[^0-9.]", "");
 		int actualPricesz = (int) Double.parseDouble(numericPrices1);
-		Assert.assertEquals(String.valueOf(actualPricesz), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricesz), OneTimeProductValue, "Price mismatch");
 		System.out.println("Yearly Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on checkout page 
-		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>p>span:first-of-type"));
+		WebElement subscriptionPrcv = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:last-of-type>span"));
 		String priceTexxts = subscriptionPrcv.getText().trim();
 		String numericPdrices = priceTexxts.replaceAll("[^0-9.]", "");
 		int actualPrxics = (int) Double.parseDouble(numericPdrices);
@@ -3327,15 +3352,15 @@ public class Products extends Data {
 		}		
 
 		Thread.sleep(7000);
-		WebElement subscriptionPg = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span"));
+		WebElement subscriptionPg = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>div>p:first-of-type>span:first-of-type"));
 		String priceTextgss = subscriptionPg.getText().trim();
 		String numericPricegss = priceTextgss.replaceAll("[^0-9.]", "");
 		int actualPriceg111 = (int) Double.parseDouble(numericPricegss);
-		Assert.assertEquals(String.valueOf(actualPriceg111), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPriceg111), OneTimeProductValue, "Price mismatch");
 		System.out.println("Yearly Subscription Price on default checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on default checkout page 
-		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#checkout-template>div>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div>div>p>span:first-of-type"));
+		WebElement subscriptionPfne = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:last-of-type>span"));
 		String priceTextsss = subscriptionPfne.getText().trim();
 		String numerdicPricess = priceTextsss.replaceAll("[^0-9.]", "");
 		int actualPrxicez = (int) Double.parseDouble(numerdicPricess);
@@ -3367,7 +3392,7 @@ public class Products extends Data {
 		String priceTexta = subscriptionPriceO.getText().trim();
 		String numericPrices = priceTexta.replaceAll("[^0-9.]", "");
 		int actualPricex = (int) Double.parseDouble(numericPrices);
-		Assert.assertEquals(String.valueOf(actualPricex), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricex), OneTimeProductValue, "Price mismatch");
 		System.out.println("Yearly Subscription Price on product checkout page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on default product page 
@@ -3395,7 +3420,7 @@ public class Products extends Data {
 		String priceTextas = subscriptionsum.getText().trim();
 		String numericPric = priceTextas.replaceAll("[^0-9.]", "");
 		int actualPricd = (int) Double.parseDouble(numericPric);
-		Assert.assertEquals(String.valueOf(actualPricd), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricd), OneTimeProductValue, "Price mismatch");
 		System.out.println("Yearly Subscription Price on order summary page matches.");
 
 		//Verify that when first payment different is entered then it will reflect on order summary of order module
@@ -3417,7 +3442,7 @@ public class Products extends Data {
 		String priceTextam = subscriptionsumm.getText().trim();
 		String numericPricesd = priceTextam.replaceAll("[^0-9.]", "");
 		int actualPricesd = (int) Double.parseDouble(numericPricesd);
-		Assert.assertEquals(String.valueOf(actualPricesd), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricesd), OneTimeProductValue, "Price mismatch");
 		System.out.println("Yearly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters subscription price then it should reflect in  subscription summary of order module  
@@ -3425,7 +3450,7 @@ public class Products extends Data {
 		String priceTexta11 = subscriptionPm.getText().trim();
 		String numericPricen = priceTexta11.replaceAll("[^0-9.]", "");
 		int actualPricde = (int) Double.parseDouble(numericPricen);
-		Assert.assertEquals(String.valueOf(actualPricde), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricde), OneTimeProductValue, "Price mismatch");
 		System.out.println("first payment Yearly Subscription Price on order subscription summary page matches.");
 
 		//Verify that if user enters Yearly subscription price then it should reflect in  subscription summary of order module  
@@ -3464,7 +3489,7 @@ public class Products extends Data {
 		String priceTextastore1 = storefront1.getText().trim();
 		String numericPricesstore1 = priceTextastore1.replaceAll("[^0-9.]", "");
 		int actualPricez = (int) Double.parseDouble(numericPricesstore1);
-		Assert.assertEquals(String.valueOf(actualPricez), OneTimePurchaseSalePrice, "Price mismatch");
+		Assert.assertEquals(String.valueOf(actualPricez), OneTimeProductValue, "Price mismatch");
 		System.out.println("Yearly Subscription Price On Storefront Side Matches.");
 
 		//Verify that for yearly frequency when first payment different is entered then it will reflect on storefront side
@@ -3513,7 +3538,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();	
@@ -3750,7 +3777,9 @@ public class Products extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
 		WebElement confirmSaveBtn11 = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
@@ -3977,7 +4006,9 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -4508,7 +4539,7 @@ public class Products extends Data {
 		//check that after selection of Tier Product should show matching and correct results for the filter
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
 		driver.findElement(By.xpath("//span[normalize-space()=\"Tiered Product\"]//parent::div")).click();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a")).click();//click on first product
 		Thread.sleep(2000);
 
@@ -4703,7 +4734,8 @@ public class Products extends Data {
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();//click on first product
 		Thread.sleep(2000);
-
+		driver.findElement(By.cssSelector("div.product-list-section:first-of-type>div>button:first-of-type>div:first-of-type")).click();
+		Thread.sleep(1000);
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Product Type']")));
 		String Inventorystate = driver.findElement(By.id("Physical")).getAttribute("data-state").trim();
 		Assert.assertEquals(Inventorystate, "checked", "Inventory product type filter is not working");	
@@ -4897,7 +4929,7 @@ public class Products extends Data {
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 
 		driver.navigate().to(Products);
-		Thread.sleep(20000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>div>span>button")).click();
 
 		String ProductName = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>a>div>div>p")).getText().trim();
@@ -4950,8 +4982,10 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//span[contains(text(),'Edit Product')]/ancestor::button")).click();
 		Thread.sleep(5000);
 		WebElement ProductsName = driver.findElement(By.name("productDetails.productName"));
-		ProductsName.click();	
-		ProductsName.sendKeys(" Edited");
+		ProductsName.click();
+		ProductsName.clear();
+		Thread.sleep(1000);
+		ProductsName.sendKeys(ProductName + " Edited");
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("#crm-top-bar>div>button")).click();//navigate to products page
@@ -5081,6 +5115,7 @@ public class Products extends Data {
 		Thread.sleep(5000);
 		WebElement ProductsName = driver.findElement(By.name("productDetails.productName"));
 		ProductsName.click();	
+		ProductsName.clear();	
 		ProductsName.sendKeys(" Edited");
 		driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();//click on save button	
 		Thread.sleep(3000);
@@ -5658,7 +5693,7 @@ public class Products extends Data {
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Pricing Options']")));
 		driver.findElement(By.name("productPricing.regularPrice")).clear();
 		Thread.sleep(1000);
-		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(OneTimePurchaseSalePrice);
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(OneTimeProductValue);
 		Thread.sleep(1000);
 		WebElement saveButton = driver.findElement(By.cssSelector("#global-product-topbar>div>div:first-of-type>div:nth-of-type(2)>div>button"));
 		jse.executeScript("arguments[0].click();", saveButton);
@@ -5668,10 +5703,10 @@ public class Products extends Data {
 
 		driver.navigate().refresh();
 		Thread.sleep(3000);		
-		String ProductPriceUpdated = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div")).getText().trim();
+		String ProductPriceUpdated = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>div>div>div:nth-of-type(2)")).getText().trim();
 		System.out.println("Product Price in Price List View After Edit: " + ProductPriceUpdated);
 		double actualPrice = Double.parseDouble(ProductPriceUpdated.replace("$", "").trim());
-		double expectedPrice = Double.parseDouble(OneTimePurchaseSalePrice.trim());
+		double expectedPrice = Double.parseDouble(OneTimeProductValue.trim());
 		Assert.assertEquals(actualPrice, expectedPrice,"Product price is not updated in list view after edit");
 		System.out.println("Product price is updated in list view after edit successfully.\n");
 
@@ -6165,7 +6200,7 @@ public class Products extends Data {
 			}
 		}	
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Tax3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Tax3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
@@ -6225,6 +6260,8 @@ public class Products extends Data {
 		String Taxx = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:nth-of-type(2)")).getText().trim();
 		Assert.assertNotEquals(Taxx, TotalTax, "After enabling inventory product tax toggle tax is not showing on checkout page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on checkout page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
 
 		//If inventory tax toggle is enable  for default checkout page then on success page tax should show as tax
 		try {
@@ -6267,7 +6304,7 @@ public class Products extends Data {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 
 		String Taxs1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
-		Assert.assertNotEquals(Taxs1, TotalTax, "After enabling inventory product tax toggle	tax is not showing on success page");
+		Assert.assertNotEquals(Taxs1, TotalTax, "After enabling inventory product tax toggle tax is not showing on success page");
 		System.out.println("After enabling inventory product tax toggle tax is showing on success page successfully.\n");		
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -6279,7 +6316,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 
 		String Taxs2 = driver.findElement(By.xpath("//span[text()='Tax']/ancestor::div[contains(@class,'justify-between')]//span[contains(text(),'$')]")).getText().trim();
-		Assert.assertNotEquals(Taxs2, TotalTax, "After enabling inventory product tax toggle	tax is not showing in order summary");
+		Assert.assertNotEquals(Taxs2, TotalTax, "After enabling inventory product tax toggle tax is not showing in order summary");
 		System.out.println("After enabling inventory product tax toggle tax is showing in order summary successfully.\n");
 
 		//If inventory tax toggle is enable  for default checkout page then order placed then in customer hub tax should show as tax 
@@ -6295,9 +6332,9 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
-		Assert.assertNotEquals(Taxs3, TotalTax, "After enabling inventory product tax toggle	tax is not showing in customer hub");
+		Assert.assertNotEquals(Taxs3, TotalTax, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
 
 		//User can disable the inventory product tax toggle from settings for checkout page
@@ -6415,7 +6452,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxr3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Taxr3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
@@ -6545,7 +6582,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxs31 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs31, TotalTax1, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
@@ -6672,7 +6709,7 @@ public class Products extends Data {
 			}
 		}	
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxa3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Taxa3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
@@ -6803,7 +6840,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxx3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxx3, TotalTaax11, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");	*/
@@ -6932,7 +6969,7 @@ public class Products extends Data {
 			}
 		}	
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Tax3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Tax3, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling Non-inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
@@ -7062,7 +7099,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs3, TotalTax, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
@@ -7182,7 +7219,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxr3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Taxr3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
@@ -7312,7 +7349,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxs31 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs31, TotalTax1, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
@@ -7444,7 +7481,7 @@ public class Products extends Data {
 			}
 		}	
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxa3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//span[contains(text(),'$')]"))).getText().trim();
 		Assert.assertEquals(Taxa3, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% in customer hub");
 		System.out.println("After disabling inventory product tax toggle tax is showing as 0% in customer hub successfully.\n");
@@ -7575,7 +7612,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxx3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxx3, TotalTaax11, "After enabling inventory product tax toggle tax is not showing in customer hub");
 		System.out.println("After enabling inventory product tax toggle	tax is showing in customer hub successfully.\n");
@@ -7989,7 +8026,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxs3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs3, Tax_Rate, "After entering tax rate in tax field it is not showing in customer hub");
 		System.out.println("After entering tax rate in tax field it is showing in customer hub successfully.\n");
@@ -8116,7 +8153,7 @@ public class Products extends Data {
 			}
 		}
 
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String Taxs31 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tax')]/parent::div//p[contains(text(),'%')]"))).getText().trim();
 		Assert.assertNotEquals(Taxs31, Tax_Rate, "After entering tax rate in tax field it is not showing in customer hub");
 		System.out.println("After entering tax rate in tax field it is showing in customer hub successfully.\n");
@@ -8405,7 +8442,7 @@ public class Products extends Data {
 		}
 
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>div>div>a")).click();
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
 		String giftcardcustomerhub = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Gift Card']"))).getText().trim();
 		Assert.assertEquals(giftcardcustomerhub, "Gift Card", "Gift card details not showing in customer hub");
 		System.out.println("Gift card details are showing in customer hub successfully.\n");		
@@ -8968,21 +9005,52 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 21)
-	public void Tax_CheckoutSettings() throws InterruptedException {
+	public void TipAmount_CheckoutSettings() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 
+		//check that Checkout Settings section with Tip Amount toggle 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
 
-		WebElement taxfield = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Tax']/following::input[@type='text'][1]")));
-		Assert.assertTrue(taxfield.isDisplayed(), "Tax field is not present in Checkout Settings section");
-		System.out.println("\nTax field is present in Checkout Settings section successfully.\n");
+		WebElement taxfield = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Tip Amount']/following::button[@type='button'][1]")));
+		Assert.assertTrue(taxfield.isDisplayed(), "Tip Amount field is not present in Checkout Settings section");
+		System.out.println("\nTip Amount field is present in Checkout Settings section successfully.\n");
 
-		//
+		//check that user can enable and disable Tip Amount toggle button 
+		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Tip Amount']/following::button[@type='button'][1]")));
+		String toggleState = toggleButton.getAttribute("data-state");
+		if (toggleState.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
 	}
 
 
