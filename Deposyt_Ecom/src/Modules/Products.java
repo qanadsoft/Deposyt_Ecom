@@ -9002,6 +9002,20 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		System.out.println("discount field is not visible on checkout page when discount toggle is OFF in product settings successfully.\n");	
 		driver.close();
 		driver.switchTo().window(originalTab);	
+		
+		//check that as discount is off on virtual terminal discount will not reflect
+		driver.navigate().to(Virtual_Terminal);
+		Thread.sleep(20000);
+		driver.findElement(By.xpath("//span[normalize-space(.)='ACH']//parent::button")).click();
+		Thread.sleep(1000);
+		
+		try {
+			jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Discounts']")));
+			driver.findElement(By.xpath("//span[text()='Discounts']")).click();
+			Assert.assertTrue(false, "Test Failed: Virtual Terminal Tab is Displayed when Discounts toggle is OFF.");
+		} catch(Exception noSuchEelementException){
+		    System.out.println("Discounts option is not visible on virtual terminal when Discounts toggle is OFF successfully.\n");
+		}	
 	}
 
 	@Test(priority = 21)
@@ -9010,6 +9024,12 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 
+		driver.navigate().to(Sales);
+		Thread.sleep(10000);
+		String totalRevenue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
+		String totalRevenueValue = totalRevenue.replaceAll("[^0-9.]", ""); 
+		double RevenueValue = Double.parseDouble(totalRevenueValue);
+		
 		//check that Checkout Settings section with Tip Amount toggle 
 		driver.navigate().to(Products);
 		Thread.sleep(7000);
@@ -9037,23 +9057,386 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		//check that when Tip Amount ON from product then on checkout page Tip Amount field is visible
+		driver.navigate().to(Products);
+		Thread.sleep(7000);			
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
 
+		Thread.sleep(4000);
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		//check that valid Tip Amount can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder = driver.findElement(By.id("tipAmount"));
+		String actualPlaceholder = Inputplaceholder.getAttribute("placeholder"); 	        
+		String expectedPlaceholder = "Tip Amount"; 
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder, "Tip Amount Code placeholder text mismatch");
+
+		//check that on checkout page there is a Apply button for Tip Amount
+		WebElement applybutton = driver.findElement(By.id("applyTip"));
+		Assert.assertTrue(applybutton.isDisplayed(), "Apply button is not enabled after entering Tip Amount");
+		System.out.println("Apply button is displayed after entering Tip Amount successfully on default checkout page.\n");
+
+		//check that Tip Amount can be entered in the Tip Amount field with success message 
+		driver.findElement(By.id("tipAmount")).sendKeys(OneTimeProductValue); 
+		driver.findElement(By.id("applyTip")).click(); 
+		WebElement successmsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Tip applied successfully!']")));
+		String successmsgtext = successmsg.getText().trim();
+		Assert.assertEquals(successmsgtext, "Tip applied successfully!", "Tip Amount applied successfully message is not present.");
+		System.out.println("Tip Amount applied successfully message is present on default checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that when Tip Amount is ON from product then on default checkout page Tip Amount field is visible
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		//check that valid Tip Amount can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder1 = driver.findElement(By.id("tipAmount"));
+		String actualPlaceholder1 = Inputplaceholder1.getAttribute("placeholder"); 	        
+		String expectedPlaceholder1 = "Tip Amount"; 
+		Assert.assertEquals(actualPlaceholder1, expectedPlaceholder1, "Tip Amount Code placeholder text mismatch");
+
+		//check that on checkout page there is a Apply button for discount
+		WebElement applybutton1 = driver.findElement(By.id("applyTip"));
+		Assert.assertTrue(applybutton1.isDisplayed(), "Apply button is not enabled after entering Tip Amount");
+		System.out.println("Apply button is displayed after entering Tip Amount successfully on checkout page.\n");
+
+		//check that Tip Amount can be entered in the discount field with success message 
+		driver.findElement(By.id("tipAmount")).sendKeys(OneTimeProductValue); 
+		driver.findElement(By.id("applyTip")).click(); 
+		WebElement successmsg1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Tip applied successfully!']")));
+		String successmsgtext1 = successmsg1.getText().trim();
+		Assert.assertEquals(successmsgtext1, "Tip applied successfully!", "Tip Amount applied successfully message is not present.");
+		System.out.println("Tip Amount applied successfully message is present on checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);	
+		
+		//check that when Tip Amount is ON from product then on default product page Tip Amount field is visible
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();	
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();	
+		Thread.sleep(1000);
+
+		//check that valid Tip Amount can be seen with placeholder text	
+		Thread.sleep(7000);	
+		WebElement Inputplaceholder11 = driver.findElement(By.id("tipAmount"));
+		String actualPlaceholder11 = Inputplaceholder11.getAttribute("placeholder"); 	        
+		String expectedPlaceholder11 = "Tip Amount"; 
+		Assert.assertEquals(actualPlaceholder11, expectedPlaceholder11, "Tip Amount Code placeholder text mismatch");
+
+		//check that on checkout page there is a Apply button for Tip Amount
+		WebElement applybutton11 = driver.findElement(By.id("applyTip"));
+		Assert.assertTrue(applybutton11.isDisplayed(), "Apply button is not enabled after entering Tip Amount");
+		System.out.println("Apply button is displayed after entering Tip Amount successfully on default product page.\n");
+
+		//check that Tip Amount can be entered in the Tip Amount field with success message 
+		driver.findElement(By.id("tipAmount")).sendKeys(OneTimeProductValue); 
+		driver.findElement(By.id("applyTip")).click(); 
+		WebElement successmsg11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Tip applied successfully!']")));
+		String successmsgtext11 = successmsg11.getText().trim();
+		Assert.assertEquals(successmsgtext11, "Tip applied successfully!", "Tip Amount applied successfully message is not present.");
+		System.out.println("Tip Amount applied successfully message is present on default product page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that when Tip Amount is ON and order placed from checkout page link then Tip Amount details can be seen on order success page 
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.id("tipAmount")).sendKeys(OneTimeProductValue); 
+		driver.findElement(By.id("applyTip")).click(); 
+
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
+		Thread.sleep(2000);		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+
+		//check that when Tip Amount is ON and order placed from default checkout page link then Tip details can be seen on order success page
+		String TipSuccessPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Tip Amount')]"))).getText().trim();
+		Assert.assertTrue(TipSuccessPage.contains("Tip Amount"),"Tip Amount details are not showing on order success page after applying Tip Amount.");
+		System.out.println("Tip Amount details are showing on order success page after applying in checkout page successfully.\n");
+		
+		//check that when Tip Amount is ON and order placed from default checkout page link then Tip Amount amount can be seen on order success page
+		String TipAmountSuccessPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Tip Amount']/following-sibling::span"))).getText().trim();
+		Assert.assertEquals(TipAmountSuccessPage, "$" + OneTimeProductValue + ".00","Tip Amount is not showing with correct value on order success page after applying Tip Amount.");
+		System.out.println("Tip Amount is showing with correct value on order success page after applying Tip Amount in checkout page successfully.\n");	
+		driver.close();
+		driver.switchTo().window(originalTab);		
+		
+		//check that when Tip Amount is ON and order placed from default checkout page link then Tip Amount details can be seen on order summary
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:first-of-type")).click();
+		Thread.sleep(2000);
+		
+		//check that when Tip Amount is ON and order placed from default checkout page link then Tip  details can be seen on order summary
+		String TipSuccessPage1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[contains(text(),'Tip Amount')])[2]"))).getText().trim();
+		Assert.assertTrue(TipSuccessPage1.contains("Tip Amount"),"Tip Amount details are not showing on order success page after applying Tip Amount.");
+		System.out.println("Tip Amount details are showing on order success page successfully.\n");
+				
+		String TipAmountSuccessPage1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Tip Amount']/ancestor::div[contains(@class,'justify-between')]//div[contains(@class,'second-class-for-gift-card-in-order-module')]/span[1]"))).getText().trim();
+		Assert.assertEquals(TipAmountSuccessPage1, "$" + OneTimeProductValue + ".00", "Tip Amount is not showing with correct value on order success page after applying Tip Amount.");
+		System.out.println("Tip Amount is showing with correct value on order success page after applying Tip Amount in order summary page successfully.\n");	
+		
+		//check that Tip Amount is On and apply for order then it will reflect in customer hub
+		driver.findElement(By.cssSelector("div.order-details-section-class-width>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),\"Open Customer Hub\")]")).click();
+		Thread.sleep(5000);
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(2000);				
+		String productprice = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:last-of-type"))).getText().trim();
+		double productPriceValue = Double.parseDouble(productprice.replaceAll("[^0-9.]", ""));
+
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(2)>main>section:nth-of-type(2)>div>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		String TipSuccessPage11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Tip Amount')]"))).getText().trim();
+		Assert.assertTrue(TipSuccessPage11.contains("Tip Amount"),"Tip Amount details are not showing on customer hub page after applying Tip Amount.");
+		System.out.println("Tip Amount details are showing on customer hub page successfully.\n");
+		
+		String TipAmountSuccessPage11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[normalize-space()='Tip Amount']/following-sibling::div/span[1]"))).getText().trim();
+		Assert.assertEquals(TipAmountSuccessPage11, "$" + OneTimeProductValue + ".00", "Tip Amount is not showing with correct value on customer hub page after applying Tip Amount.");
+		System.out.println("Tip Amount showing in customer hub page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+			
+		//check that when Tip Amount is ON and order placed using default checkout page link then in revenue it should not include Tip Amount amount
+		driver.navigate().to(Sales);
+		Thread.sleep(10000);
+		String totalRevenueafter = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Primary Sales Report Card']>h2"))).getText().trim();
+		String totalRevenueValueafter = totalRevenueafter.replaceAll("[^0-9.]", "");
+		double RevenueValueafter = Double.parseDouble(totalRevenueValueafter);
+		Assert.assertEquals(RevenueValue + productPriceValue, RevenueValueafter , 0.01, "Total revenue value is not increased after applying gift card in default checkout page");
+		System.out.println("Total revenue value is not increased after applying gift card in default checkout page successfully.\n");
+		
+		//check that as tip amount is ON on virtual terminal user can see Tip Amount option 
+		driver.navigate().to(Virtual_Terminal);
+		Thread.sleep(20000);
+		driver.findElement(By.xpath("//span[normalize-space(.)='ACH']//parent::button")).click(); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@placeholder=\"Search Customer\"]")).sendKeys(Number); 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[contains(@class,'overflow-y-auto')]/div[contains(@class,'mb-[5px]')][1]")).click(); 
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//text()[contains(., 'Add Line Items')]]"))).click(); 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Item Name']/following::input[@placeholder='Select an item'][1]")).click(); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); 
+		Thread.sleep(1000);
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Bank Account Details']")));
+		Thread.sleep(3000);
+		driver.findElement(By.name("creditCard.achAccountHolderName")).sendKeys(Account_Holder_Name);
+		driver.findElement(By.name("creditCard.achRoutingNumber")).sendKeys(Routing_Number);
+		driver.findElement(By.name("creditCard.achAccountNumber")).sendKeys(Account_Number);
+		driver.findElement(By.id("creditCard.achAccType")).click();
+		driver.findElement(By.id("react-select-2-option-0")).click();
+		driver.findElement(By.id("creditCard.achAccountCategory")).click();
+		driver.findElement(By.id("react-select-3-option-0")).click(); 
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.virtual-terminal-ui>form>div>div>div:nth-of-type(7)>div:nth-of-type(2)>h3>div>div>div:last-of-type")).click(); 
+		driver.findElement(By.name("address.address_1")).sendKeys(Street_Add); 
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
+		Thread.sleep(1000);
+		driver.findElement(By.name("address.address_2")).sendKeys(Street_Add); 
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Tip Amount']")));
+		driver.findElement(By.xpath("//span[text()='Tip Amount']")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Enter Tip Amount (Optional)\"]")).sendKeys(OneTimeProductValue);	
+
+		//check that if user enters tip amount it should apply for products and can be seen in order summary of virtual terminal
+		String orderSummaryvt = driver.findElement(By.xpath("(//span[contains(text(),'Tip Amount')])[2]")).getText().trim();
+		Assert.assertEquals(orderSummaryvt, "Tip Amount", "Tip Amount mismatch in Virtual terminal order success page");
+		
+		String TipAmountSuccessPage111 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[contains(text(),'Tip Amount')])[2]/following-sibling::span"))).getText().trim().replace("+$", "");
+		Assert.assertEquals((int) Double.parseDouble(TipAmountSuccessPage111),Integer.parseInt(OneTimeProductValue), "Tip Amount is not showing with correct value on virtual terminal page after applying Tip Amount.");	
+		System.out.println("After entering tip amount it is showing correct in Virtual terminal summary page successfully.\n");		
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[normalize-space(.//p/text())='ACH Payment']")).click(); 
+		Thread.sleep(15000);
+		driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); 		
+			
+		//check that as tip amount  is off on virtual terminal user can see Tip Amount option on transaction success page
+		String orderSummaryvt1 = driver.findElement(By.xpath("//p[contains(text(),'Tip Amount')]")).getText().trim();
+		Assert.assertEquals(orderSummaryvt1, "Tip Amount", "Tip Amount mismatch in Virtual terminal order success page");
+		System.out.println("After entering Tip Amount it is showing correct in Virtual terminal order Success page successfully.\n");
+		
+		String TipAmountSuccessPages = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[normalize-space()='Tip Amount']/following-sibling::p"))).getText().trim().replace("+$", "");
+		Assert.assertEquals((int) Double.parseDouble(TipAmountSuccessPages),Integer.parseInt(OneTimeProductValue), "Tip Amount is not showing with correct value on virtual terminal page after applying Tip Amount.");	
+		System.out.println("After entering tip amount it is showing correct in Virtual terminal order Success page successfully.\n");
+				
+		//check that after selecting Tip Amount OFF button it reflects the same 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+
+		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Tip Amount']/following::button[@type='button'][1]")));
+		String toggleState1 = toggleButton1.getAttribute("data-state");
+		if (toggleState1.equals("checked")) {
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState1.equals("checked");
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton1);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		//check that if Tip Amount is OFF on checkout page link user can't see Tip Amount option
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardField = driver.findElements(By.id("applyTip"));
+		Assert.assertTrue(giftCardField.isEmpty(), "Tip Amount field is displayed even when Tip Amount toggle is OFF");
+		System.out.println("Tip Amount field is not visible on checkout page when discount toggle is OFF in product checkout page successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that if Tip Amount is OFF on default product page link user can't see Tip Amount option
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(1000);
+		List<WebElement> giftCardField1 = driver.findElements(By.id("applyTip"));
+		Assert.assertTrue(giftCardField1.isEmpty(), "Tip Amount field is displayed on default product page even when Tip Amount toggle is OFF");
+		System.out.println("Tip Amount field is not visible on default product page when toggle is OFF in default product page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//check that if Tip Amount is OFF on default checkout page link user can't see discount option
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardField2 = driver.findElements(By.id("applyTip"));
+		Assert.assertTrue(giftCardField2.isEmpty(), "Tip Amount field is displayed on checkout page even when Tip Amount toggle is OFF");
+		System.out.println("Tip Amount field is not visible on checkout page when Tip Amount toggle is OFF on checkout page successfully.\n");	
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//check that as tip amount  is off on virtual terminal user cant see Tip Amount option 
+		driver.navigate().to(Virtual_Terminal);
+		Thread.sleep(20000);
+		driver.findElement(By.xpath("//span[normalize-space(.)='ACH']//parent::button")).click();
+		Thread.sleep(1000);
+				
+		try {
+			jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Tip Amount']")));
+			driver.findElement(By.xpath("//span[text()='Tip Amount']")).click();
+			Assert.assertTrue(false, "Test Failed: Virtual Terminal Tab is Displayed when Tip Amount toggle is OFF.");
+		} catch(Exception noSuchEelementException){
+		    System.out.println("Tip Amount option is not visible on virtual terminal when Tip Amount toggle is OFF successfully.\n");
+		}
 	}
 
-
+	
 
 
 
