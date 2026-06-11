@@ -154,7 +154,7 @@ public class settings extends Data {
 
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click();
 		Thread.sleep(7000);
 		String PlacedOrderd = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderd);
@@ -617,12 +617,12 @@ public class settings extends Data {
 			}
 		}		
 
-		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(9)>span:first-of-type")).getText().trim();
+		Thread.sleep(8000);
+		String ordertax = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(8)>span:first-of-type")).getText().trim();
 		System.out.println("Order Tax: " + ordertax);
 		String extractedTax = ordertax.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedTax, taxRegion, "Tax rate mismatch in order summary");
 
-		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -1504,7 +1504,8 @@ public class settings extends Data {
 		    }
 		}
 		
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table-auto>tbody>tr:first-of-type>td:first-of-type>div>div>a"))).click();
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table-auto>tbody>tr:first-of-type>td:first-of-type>a"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()=\"Subscription Summary\"]"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()=\"Manage Subscription\"]"))).click();	
 		List<WebElement> cancelSubscriptionBtn = driver.findElements(By.cssSelector("div.manage-sub-wrapper>div:first-of-type>div>div"));

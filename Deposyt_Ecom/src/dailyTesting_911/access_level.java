@@ -1025,91 +1025,91 @@ public class access_level extends Data {
 		Assert.assertTrue(totalProductsAfter < totalProductsBefore,"Product count did NOT increase after adding item");
 		System.out.println("Order placed successfully with Modify Access in Order Module.");
 		
-//		//Invoices module in "modify" condition
-//		driver.navigate().to(invoices);
-//		Thread.sleep(7000);
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='+ New Invoice'])[2]"))).click(); //Click on new invoice button		
-//		Thread.sleep(3000);
-//		driver.findElement(By.xpath("(//input[contains(@placeholder,'Describe what this invoice is about')])[1]")).sendKeys("This invoice is created for 911 Automation Test");
-//		driver.findElement(By.xpath("//span[normalize-space()='+ Add Recipient']")).click(); //Click on add recipient button
-//		driver.findElement(By.xpath("//input[contains(@placeholder,'Search Customers')]")).click();
-//		driver.findElement(By.xpath("(//span[contains(text(),'Create new customer')])[1]")).click(); //Select create contact
-//		driver.findElement(By.id("field_first_name")).sendKeys(firstName1); //Input first name
-//		driver.findElement(By.id("field_last_name")).sendKeys(lastName1); //Input last name
-//		driver.findElement(By.id("field_email_id")).sendKeys(email1); //Input email
-//		driver.findElement(By.name("phone_no")).sendKeys(phone1); //Input phone number
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add); //Input street address
-//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); 
-//		
-//		Thread.sleep(3000);
-//		driver.findElement(By.xpath("//span[normalize-space()='+ Add Line Items']//parent::button")).click(); //Click on add item button
-//		driver.findElement(By.xpath("//div[contains(@class,'truncate flex justify-start')]")).click(); //Click on select product drop down		
-//		driver.findElement(By.xpath("(//input[@placeholder='Enter Line Item Name'])[1]")).sendKeys("Product 1"); //Select product
-//		driver.findElement(By.xpath("(//input[contains(@placeholder,'—')])[1]")).sendKeys(Value); //Input quantity
-//		driver.findElement(By.id("unit-price")).sendKeys(Value); //input value in unit price field
-//		driver.findElement(By.xpath("//textarea[@placeholder=\"Custom line item description\"]")).sendKeys("Add New Product Discription"); 
-//		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); //Click on save button to save line item
-//		
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("(//span[text()='Save And Send'])[1]//parent::span//parent::button")).click(); //Click on send invoice button
-//		Thread.sleep(3000);
-//		driver.findElement(By.cssSelector("div.vf-code-frame > div:nth-of-type(3) > div > button:first-of-type")); //Click on send now button in pop up
-//		Thread.sleep(2000);
-//		WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[role='dialog'] > div > div:nth-of-type(3) > div > button:first-of-type")));
-//		jse.executeScript("arguments[0].click();", button);
-//		
-//		Thread.sleep(5000);
-//		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:last-of-type>button")).click();
-//		Thread.sleep(2000);
-//		driver.findElement(By.xpath("//*[text()='Share Link']")).click(); 
-//		Thread.sleep(2000);
-//		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#order-table-body > tr:first-of-type > td:last-of-type > button"))).click();
-//        WebElement quickCheckoutLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Share Link']")));
-//
-//        jse.executeScript("navigator.clipboard.writeText = function(text) { window.copiedLink = text; }");
-//        quickCheckoutLink.click();
-//        String checkoutUrl = (String) jse.executeScript("return window.copiedLink;");
-//        driver.get(checkoutUrl);
-//        
-//        Thread.sleep(5000);
-//        driver.findElement(By.xpath("//button[@role='checkbox']")).click();
-//        driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
-//        driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-//        Thread.sleep(2000);
-//		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-//		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
-//		Thread.sleep(1000);
-//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down  
-//		
-//        jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
-//		Thread.sleep(2000);
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
-//		driver.switchTo().defaultContent();
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
-//		driver.switchTo().defaultContent();
-//
-//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
-//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
-//		driver.switchTo().defaultContent();
-//		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
-//		cardHolder1.clear();
-//		cardHolder1.sendKeys(F_Name + " " + L_Name);	
-//		Thread.sleep(2000);
-//        driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click();
-//        
-//        Thread.sleep(7000);
-//		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-//		System.out.println("Placed Order ID: " + PlacedOrderID11);
-//		System.out.println("Order placed successfully with Modify Access in Invoice Module.");
+		//Invoices module in "modify" condition
+		driver.navigate().to(invoices);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='+ New Invoice'])[2]"))).click(); //Click on new invoice button		
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//input[contains(@placeholder,'Describe what this invoice is about')])[1]")).sendKeys("This invoice is created for 911 Automation Test");
+		driver.findElement(By.xpath("//span[normalize-space()='+ Add Recipient']")).click(); //Click on add recipient button
+		driver.findElement(By.xpath("//input[contains(@placeholder,'Search Customers')]")).click();
+		driver.findElement(By.xpath("(//span[contains(text(),'Create new customer')])[1]")).click(); //Select create contact
+		driver.findElement(By.id("field_first_name")).sendKeys(firstName1); //Input first name
+		driver.findElement(By.id("field_last_name")).sendKeys(lastName1); //Input last name
+		driver.findElement(By.id("field_email_id")).sendKeys(email1); //Input email
+		driver.findElement(By.name("phone_no")).sendKeys(phone1); //Input phone number
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//input[@id='field_'])[3]")).sendKeys(Street_Add); //Input street address
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down		
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); 
+		
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[normalize-space()='+ Add Line Items']//parent::button")).click(); //Click on add item button
+		driver.findElement(By.xpath("//div[contains(@class,'truncate flex justify-start')]")).click(); //Click on select product drop down		
+		driver.findElement(By.xpath("(//input[@placeholder='Enter Line Item Name'])[1]")).sendKeys("Product 1"); //Select product
+		driver.findElement(By.xpath("(//input[contains(@placeholder,'—')])[1]")).sendKeys(Value); //Input quantity
+		driver.findElement(By.id("unit-price")).sendKeys(Value); //input value in unit price field
+		driver.findElement(By.xpath("//textarea[@placeholder=\"Custom line item description\"]")).sendKeys("Add New Product Discription"); 
+		driver.findElement(By.xpath("(//span[normalize-space()='Done'])[1]")).click(); //Click on save button to save line item
+		
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//span[text()='Save And Send'])[1]//parent::span//parent::button")).click(); //Click on send invoice button
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.vf-code-frame > div:nth-of-type(3) > div > button:first-of-type")); //Click on send now button in pop up
+		Thread.sleep(2000);
+		WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[role='dialog'] > div > div:nth-of-type(3) > div > button:first-of-type")));
+		jse.executeScript("arguments[0].click();", button);
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:last-of-type>button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[text()='Share Link']")).click(); 
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#order-table-body > tr:first-of-type > td:last-of-type > button"))).click();
+        WebElement quickCheckoutLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='Share Link']")));
+
+        jse.executeScript("navigator.clipboard.writeText = function(text) { window.copiedLink = text; }");
+        quickCheckoutLink.click();
+        String checkoutUrl = (String) jse.executeScript("return window.copiedLink;");
+        driver.get(checkoutUrl);
+        
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+        driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
+        driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
+        Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down  
+		
+        jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder1.clear();
+		cardHolder1.sendKeys(F_Name + " " + L_Name);	
+		Thread.sleep(2000);
+        driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click();
+        
+        Thread.sleep(7000);
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		System.out.println("Placed Order ID: " + PlacedOrderID11);
+		System.out.println("Order placed successfully with Modify Access in Invoice Module.");
 		
 		//Virtual Terminal  module in "modify" condition
 		driver.navigate().to(Virtual_Terminal);
@@ -1126,7 +1126,7 @@ public class access_level extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); //Clicking on first product from the dropdown
 		Thread.sleep(1000);
-		//jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Cash Payment Method']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Cash Payment Method']")));
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//div[contains(@class,'custom-class-for-aaply-the-css')]//div[contains(@class,'flex flex-1 items-center') and .//div[contains(@id,'placeholder')]]")).click(); //Clicking on payment type dropdown
 		Thread.sleep(2000);
@@ -1402,7 +1402,7 @@ public class access_level extends Data {
 		}		
 		
 		Thread.sleep(9000);	
-		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(9)>span"))).getText().trim();
+		String orderconvenienceFee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div>div:nth-of-type(8)>span"))).getText().trim();
 		System.out.println("convenience Fee On Checkout Page : " + orderconvenienceFee);
 		String extractedconvenienceFee = orderconvenienceFee.replaceAll("[^0-9]", "");
 		Assert.assertEquals(extractedconvenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),convenienceFee.replaceAll("[^0-9]", "").replaceAll("00$", ""),"Convenience Fee mismatch in order summary");

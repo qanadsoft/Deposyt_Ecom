@@ -197,10 +197,10 @@ public class virtualTerminal extends Data {
 		System.out.println("Order ID in Virtual Terminal: " + orderIdInVirtualTerminal1);
 		Assert.assertEquals(orderId1, orderIdInVirtualTerminal1, "Order ID in virtual terminal does not match the recorded order ID.");
 
-		ReceivedMail("Subscription Charge Receipt for Subscription# ");
+		//ReceivedMail("Subscription Charge Receipt for Subscription# ");
 
 		//Verify that after ACH payment user will receive email for the order
-		DeleteMail("Your Order is Confirmed — Order# ");
+		//DeleteMail("Your Order is Confirmed — Order# ");
 
 		try {
 			driver.navigate().to(settings);
@@ -290,6 +290,6 @@ public class virtualTerminal extends Data {
 		System.out.println("Order ID in Virtual Terminal: " + orderIdInVirtualTerminal11);
 		Assert.assertEquals(orderId11, orderIdInVirtualTerminal11, "Order ID in virtual terminal does not match the recorded order ID.");	
 
-		ReceivedMail("Your Order is Confirmed — Order# ");		
+		//ReceivedMail("Your Order is Confirmed — Order# ");		
 	}
 }

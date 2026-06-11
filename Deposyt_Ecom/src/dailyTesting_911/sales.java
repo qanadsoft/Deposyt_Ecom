@@ -31,8 +31,8 @@ public class sales extends Data {
 			
 		ContactPhone1 = "(775) 986-5200", F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", Value = "1",
 		ContactPhone2 = "(539) 321-3502",Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", 
-		Card_No = "4242424242424242",chars = "abcdefghijklmnopqrstuvwxyz", Country_Add = "Boardman, Oregon, 97818",	Price = "2",susbcriptionPrice = "3",Fileone = "file1.jpg", 
-		Attachment = "Jira_Guide.pdf",
+		Card_No = "4242424242424242",chars = "abcdefghijklmnopqrstuvwxyz", Country_Add = "Boardman, Oregon, 97818",	Price = "2",susbcriptionPrice = "3", Price1 = "1",
+		Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
 			
 		firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 		lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
@@ -42,7 +42,7 @@ public class sales extends Data {
 		lastName1 = "" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 		email1 = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone1 = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 	
-	@BeforeClass
+	//@BeforeClass
 	public void ProductTax () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -144,7 +144,9 @@ public class sales extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
 
@@ -211,19 +213,6 @@ public class sales extends Data {
 		System.out.println();
 		driver.close();
 		driver.switchTo().window(originalTab);
-		
-		//
-		//
-		//
-		//
-		driver.navigate().to(Orders);
-		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("[id^=\"radix-\"]")).click(); //Click on filter
-		Thread.sleep(5000);
-		//
-		//
-		//
-		//
 		
 		driver.navigate().to(Sales);
 		Thread.sleep(7000);
@@ -502,9 +491,9 @@ public class sales extends Data {
 //		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 //		suscprise.clear();
 //		suscprise.sendKeys(susbcriptionPrice);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -536,7 +525,6 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
@@ -574,7 +562,7 @@ public class sales extends Data {
 		double RevenueValue11 = Double.parseDouble(totalRevenueValue11);	
 		System.out.println("Total Revenue Value After In All Sales Tab : " + RevenueValue11);
 		
-		double expectedTotalRevenue = RevenueValue1 + Double.parseDouble(susbcriptionPrice);
+		double expectedTotalRevenue = RevenueValue1 + Double.parseDouble(Price1);
 		Assert.assertEquals(RevenueValue11,expectedTotalRevenue,"Total Revenue value mismatch after calculation.");
 		
 		Thread.sleep(2000);
@@ -587,7 +575,7 @@ public class sales extends Data {
 		System.out.println("Total Revenue Value After In Subscriptions Tab : " + RevenueValue21);
 		System.out.println();
 		
-		double expectedTotalRevenue1 = RevenueValue2 + Double.parseDouble(susbcriptionPrice);
+		double expectedTotalRevenue1 = RevenueValue2 + Double.parseDouble(Price1);
 		Assert.assertEquals(RevenueValue21, expectedTotalRevenue1, "Total revenue is not updated in subscription tab after placing subscription order");
 		
 		String totalorders21 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Orders Statistics Card']>div>div>p"))).getText().trim();
@@ -626,7 +614,7 @@ public class sales extends Data {
 		System.out.println("Total Customers Before Applying Product Filter In subscription Tab : " + customersValue1);	
 		System.out.println();
 		
-		Assert.assertEquals(RevenueValue51,Double.parseDouble(susbcriptionPrice),0.01,"Total revenue is not updated correctly Before applying product filter");
+		Assert.assertEquals(RevenueValue51,Double.parseDouble(Price1),0.01,"Total revenue is not updated correctly Before applying product filter");
 		Assert.assertEquals((int) orderValue1, 1, "Total Order Values is not updated correctly After applying product filter");
 		Assert.assertEquals((int) customersValue1, 1, "Total Customers not updated correctly After applying product filter");
 		
@@ -710,7 +698,7 @@ public class sales extends Data {
 		double RevenueValue111 = Double.parseDouble(totalRevenueValue111);	
 		System.out.println("\nTotal Revenue Value After In All Sales Tab : " + RevenueValue111);
 		
-		double expectedTotalRevenue11 = RevenueValue11 + Double.parseDouble(susbcriptionPrice);
+		double expectedTotalRevenue11 = RevenueValue11 + Double.parseDouble(Price1);
 		System.out.println("Total Revenue After Adding Subscription and Upsell Order: " + expectedTotalRevenue11);
 		//Assert.assertEquals(RevenueValue111 + 1 ,expectedTotalRevenue11,"Total Revenue value mismatch after calculation.");
 		
@@ -723,7 +711,7 @@ public class sales extends Data {
 		double RevenueValue211 = Double.parseDouble(totalRevenueValue211);	
 		System.out.println("Total Revenue Value After In upsell Tab : " + RevenueValue211);
 		
-		double expectedTotalRevenue111 = RevenueValue11 + Double.parseDouble(susbcriptionPrice);
+		double expectedTotalRevenue111 = RevenueValue11 + Double.parseDouble(Price1);
 		System.out.println("Total Revenue After Adding Subscription Order in upsell Tab: " + expectedTotalRevenue111);
 		Assert.assertEquals(expectedTotalRevenue11, expectedTotalRevenue111, "Total revenue is not updated in upsell tab after placing upsell order");
 		
@@ -1291,7 +1279,7 @@ public class sales extends Data {
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("button#Physical")).click(); //Select physical product	
+		driver.findElement(By.cssSelector("button#Digital")).click(); //Select physical product	
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
 		driver.findElement(By.xpath("//div[@id='one-time-purchase-div']/descendant::button[@role=\"switch\"][1]")).click(); //One time purchase toggle button
 		Thread.sleep(1000);
@@ -1308,9 +1296,14 @@ public class sales extends Data {
 //		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 //		suscprise.clear();
 //		suscprise.sendKeys(susbcriptionPrice);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+		
+		WebElement unlockCourseButton = driver.findElement(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button//span"));
+		jse.executeScript("arguments[0].scrollIntoView({block: 'center'});", unlockCourseButton);
+		Thread.sleep(1000);
+		jse.executeScript("arguments[0].click();", unlockCourseButton);
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -1408,7 +1401,7 @@ public class sales extends Data {
 		String totalRevenueValue11 = totalRevenue11.replaceAll("[^0-9.]", ""); 
 		double RevenueValue11 = Double.parseDouble(totalRevenueValue11);	
 		System.out.println("Total Revenue Value After In All Sales Tab : " + RevenueValue11);
-		double expectedTotalRevenueaf = RevenueValue1 + Double.parseDouble(susbcriptionPrice);
+		double expectedTotalRevenueaf = RevenueValue1 + Double.parseDouble(Price1);
 		Assert.assertEquals(RevenueValue11, expectedTotalRevenueaf, "Total revenue is not updated in Courses tab after placing course order");
 		System.out.println();
 
@@ -1472,11 +1465,11 @@ public class sales extends Data {
 		System.out.println("Total Users In One-Time Tab : " + Revenueusersonetime1);
 		System.out.println();
 		
-		Assert.assertEquals(RevenueValue21, RevenueValuecource + Double.parseDouble(susbcriptionPrice), "Total revenue is not updated in Courses tab after placing course order");
+		Assert.assertEquals(RevenueValue21, RevenueValuecource + Double.parseDouble(Price1), "Total revenue is not updated in Courses tab after placing course order");
 		Assert.assertEquals(Revenueorders21, Revenueorderscource + 1, "Order count is not incremented in Courses tab");
 		Assert.assertEquals(Revenueusers21, Revenueordercources + 1, "Customer count is not incremented in Courses tab");
 		
-		Assert.assertEquals(RevenueValueonetime1, RevenueValueonetime + Double.parseDouble(susbcriptionPrice), "Total revenue is not updated in Subscriptions tab after placing course order");
+		Assert.assertEquals(RevenueValueonetime1, RevenueValueonetime + Double.parseDouble(Price1), "Total revenue is not updated in Subscriptions tab after placing course order");
 		Assert.assertEquals(Revenueordersonetime1, Revenueordersonetime + 1, "Order count is not incremented in Subscriptions tab");
 		Assert.assertEquals(Revenueusersonetime1, Revenueusersonetime +	1, "Customer count is not incremented in Subscriptions tab");	
 		
@@ -1707,12 +1700,13 @@ public class sales extends Data {
 		driver.findElement(By.xpath("//button[.//span[text()='Create New Item']]/parent::div/following-sibling::div[1]")).click(); //Clicking on first product from the dropdown
 		Thread.sleep(1000);
 		double unitPrice = Double.parseDouble(driver.findElement(By.xpath("//input[@name='lineItems.0.unitPrice']")).getAttribute("value").replace("$", "").trim());
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Payment Type']")));
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space(text())='Cash Payment Method']")));
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//div[contains(@class,'custom-class-for-aaply-the-css')]//div[contains(@class,'flex flex-1 items-center') and .//div[contains(@id,'placeholder')]]")).click(); //Clicking on payment type dropdown
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//div[@id='react-select-2-listbox']//div[@role='option'][1]")).click(); //Select payment type cash
 		Thread.sleep(1000);
+		driver.findElement(By.id("vtMarkAsPaid")).click(); //Clicking on mark as paid button
 		driver.findElement(By.xpath("//button[normalize-space(.//p/text())='Record Cash Sale']")).click(); //Clicking on record cash sale button
 		Thread.sleep(15000);
 		String orderId = driver.findElement(By.xpath("//div[h2[normalize-space(text())='Transaction Summary']]/p")).getText().trim().replace("#", ""); //Getting order id
@@ -2088,9 +2082,7 @@ public class sales extends Data {
 		
 		driver.navigate().to(Sales);
 		Thread.sleep(10000);	
-		driver.findElement(By.cssSelector("div.sales-list-section>div>div:first-of-type")).click();
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@aria-label='Subscription Analytics']")).click(); 
+		jse.executeScript("arguments[0].click();",driver.findElement(By.xpath("//button[@aria-label='Subscription Analytics']"))); 
 		
 		String totalPausedSuscbefore = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Paused Subs. Statistics Card']>div>div>p"))).getText().trim();
 		String totalPausedSuscbefor = totalPausedSuscbefore.replaceAll("[^0-9.]", ""); 
@@ -2137,9 +2129,9 @@ public class sales extends Data {
 //		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 //		suscprise.clear();
 //		suscprise.sendKeys(susbcriptionPrice);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);

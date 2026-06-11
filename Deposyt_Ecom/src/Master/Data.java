@@ -1,6 +1,7 @@
 package Master;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,19 +35,23 @@ public class Data extends Public_Strings {
 		switch(bname) {
 		
 		case "chrome":
-			WebDriverManager.chromedriver().setup();
-			ChromeOptions options = new ChromeOptions();
-			Map<String, Object> prefs = new HashMap<>();
-			prefs.put("credentials_enable_service", false);
-			prefs.put("profile.password_manager_enabled", false);
-			options.setExperimentalOption("prefs", prefs);
-			options.addArguments("--disable-save-password-bubble");
-			options.addArguments("--disable-extensions");
-			options.addArguments("--disable-password-manager-reauthentication");
-			options.setExperimentalOption("excludeSwitches", new String[] {"enable-automation"});
-			options.addArguments("use-fake-ui-for-media-stream");
-			driver = new ChromeDriver(options);
-			break;
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions options = new ChromeOptions();
+            Map<String, Object> prefs = new HashMap<>();
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enabled", false);
+            prefs.put("profile.password_manager_leak_detection", false);
+            options.setExperimentalOption("prefs", prefs);
+            options.addArguments("--disable-save-password-bubble");
+            options.addArguments("--disable-password-manager-reauthentication");
+            options.addArguments("--disable-features=PasswordManagerOnboarding");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--disable-extensions");
+            options.addArguments("--use-fake-ui-for-media-stream");
+            options.addArguments("--guest"); // Opens browser in guest mode
+            options.setExperimentalOption("excludeSwitches",Arrays.asList("enable-automation"));
+            driver = new ChromeDriver(options);
+            break;
 
 		case "edge":
 			WebDriverManager.edgedriver().setup();

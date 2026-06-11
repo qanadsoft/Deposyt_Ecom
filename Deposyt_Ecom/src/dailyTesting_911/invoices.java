@@ -120,15 +120,7 @@ public class invoices extends Data {
         driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-        Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-		driver.findElement(By.id("street-address")).clear();
-		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
-		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down          
-		
+        Thread.sleep(2000);	
         jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
 		Thread.sleep(2000);
 
@@ -258,15 +250,7 @@ public class invoices extends Data {
         driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-        Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-		driver.findElement(By.id("street-address")).clear();
-		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
-		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down          
-		
+        Thread.sleep(2000);		
         jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
 		Thread.sleep(2000);
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
@@ -408,15 +392,7 @@ public class invoices extends Data {
         driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-        Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-		driver.findElement(By.id("street-address")).clear();
-		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
-		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down          
-		
+        Thread.sleep(2000);	
         jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
 		Thread.sleep(2000);
 
@@ -558,15 +534,7 @@ public class invoices extends Data {
         driver.findElement(By.xpath("//button[@role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-        Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-		driver.findElement(By.id("street-address")).clear();
-		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
-		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down          
-		
+        Thread.sleep(2000);		
         jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
 		Thread.sleep(2000);
 
@@ -1486,8 +1454,7 @@ public class invoices extends Data {
 		driver.findElement(By.xpath("(//span[text()='Save And Send'])[1]//parent::span//parent::button")).click(); //Click on send invoice button
 		Thread.sleep(3000);
 		driver.findElement(By.cssSelector("div.vf-code-frame > div:nth-of-type(3) > div > button:first-of-type")); //Click on send now button in pop up
-		Thread.sleep(2000);
-		
+		Thread.sleep(2000);		
 		WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[role='dialog'] > div > div:nth-of-type(3) > div > button:first-of-type")));
 		jse.executeScript("arguments[0].click();", button);
 		
@@ -1508,14 +1475,7 @@ public class invoices extends Data {
         driver.findElement(By.cssSelector("button[role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-        Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
-		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down          
-		
+        Thread.sleep(2000);          	
         jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
 		Thread.sleep(2000);
 
@@ -1638,8 +1598,7 @@ public class invoices extends Data {
 		
 		Thread.sleep(3000);
 		WebElement el = driver.findElement(By.xpath("//span[normalize-space()='Split Payments']//parent::button"));
-		jse.executeScript("arguments[0].click();", el);
-		
+		jse.executeScript("arguments[0].click();", el);	
 		WebElement taxRate = driver.findElement(By.xpath("//input[@placeholder=\"1\"]"));
 		Thread.sleep(3000);
 		taxRate.click();
@@ -1678,14 +1637,7 @@ public class invoices extends Data {
         driver.findElement(By.cssSelector("button[role='checkbox']")).click();
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-        Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
-		Thread.sleep(1000);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down          
-		
+        Thread.sleep(2000);          		
         jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
 		Thread.sleep(2000);
 

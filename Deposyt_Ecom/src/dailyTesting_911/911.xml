@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="Suite" parallel="tests" thread-count="2">
+<suite name = "Suite" parallel = "tests" thread-count = "2">
+
     <parameter name = "bname" 					value = "chrome"/>
     <parameter name = "role"  					value = "Admin"/>
     <parameter name = "loginTypeMainAccess"     value = "user"/>
 
-    <test name="911">
+    <test name = "911">
     
     <!--  Store front Module sandeep live !-->
     <!--  <parameter name = "uname" value = "taronegerton@sharklasers.com"/>
@@ -50,7 +51,7 @@
         <classes>
             <class name="dailyTesting_911.invoices">
                 <methods>
-                    <include name="Full_SplitPayment_Refund"/>
+                    <include name="Bulk_Operations"/>
                 </methods>
             </class>
         </classes>

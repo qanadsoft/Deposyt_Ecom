@@ -115,7 +115,9 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+Thread.sleep(1000);
+driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
 		Thread.sleep(1000);
@@ -306,9 +308,7 @@ public class orders extends Data {
 			
 		//Verify order is visible in order list after complete order from invoice
 		driver.navigate().to(invoices);
-		Thread.sleep(15000);
-		driver.navigate().refresh();
-		Thread.sleep(7000);
+		Thread.sleep(10000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[normalize-space()='+ New Invoice'])[2]"))).click(); //Click on new invoice button
 		
 		Thread.sleep(3000);
@@ -363,15 +363,7 @@ public class orders extends Data {
         driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
         driver.findElement(By.xpath("(//button[normalize-space()='Pay'])[1]")).click(); //Click on pay button in invoice checkout page
         driver.findElement(By.xpath("(//button[normalize-space()='Pay As Guest'])[1]")).click(); //Click on pay as guest button in invoice checkout page
-        Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
-		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
-		driver.findElement(By.id("street-address")).sendKeys(Street_Add);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
-        driver.findElement(By.name("tips_amount")).sendKeys(Value); //Input tip amount in invoice checkout page           
-		
+        Thread.sleep(2000);           		
         jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[normalize-space()='Card Information']")));
 		Thread.sleep(2000);
 
@@ -541,8 +533,21 @@ public class orders extends Data {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@placeholder='Premade Gift Card Name'])[1]"))).sendKeys(giftCardName);//Input gift card name
 		
 		driver.findElement(By.xpath("(//textarea[@placeholder='Premade Gift Card Description'])[1]")).sendKeys("911 Gift card Discription"); //Input gift card value
-		driver.findElement(By.xpath("(//input[@placeholder='0.00'])[1]")).sendKeys("10"); //Input gift card value
-		driver.findElement(By.xpath("(//input[contains(@placeholder,'0.00')])[2]")).sendKeys("9"); //Click on create gift card button
+		Thread.sleep(500);		
+		WebElement giftCardValue = driver.findElement(By.xpath("(//input[@placeholder='0.00'])[1]"));// Input gift card value
+		Thread.sleep(3000);
+		giftCardValue.click();
+		giftCardValue.sendKeys(Keys.CONTROL, "a");
+		giftCardValue.sendKeys(Keys.DELETE);
+		giftCardValue.sendKeys("10");
+		
+		WebElement giftCardValue1 = driver.findElement(By.xpath("(//input[contains(@placeholder,'0.00')])[2]"));// Input gift card value
+		Thread.sleep(3000);
+		giftCardValue1.click();
+		giftCardValue1.sendKeys(Keys.CONTROL, "a");
+		giftCardValue1.sendKeys(Keys.DELETE);
+		giftCardValue1.sendKeys("9");
+		
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//span[normalize-space()='Create & Publish'])[1]")).click();//click on publisg button
 		
@@ -862,7 +867,9 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+Thread.sleep(1000);
+driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -884,9 +891,9 @@ public class orders extends Data {
 //		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 //		suscprise.clear();
 //		suscprise.sendKeys(susbcriptionPrice);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -1052,7 +1059,9 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+Thread.sleep(1000);
+driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("100");
 		Thread.sleep(1000);

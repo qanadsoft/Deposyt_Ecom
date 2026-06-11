@@ -188,8 +188,7 @@ public class store_Front extends Data {
 		Thread.sleep(2000);	
 		
 		//Verify that the store email, phone number, and address in the footer are displayed/hidden correctly when the toggle is turned ON/OFF.
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Contact Info']")));
-		
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Contact Info']")));		
 		Thread.sleep(5000);
 		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@value,'on')])[2]")));
 		if (toggleButton1.getAttribute("data-state").equals("unchecked")) {

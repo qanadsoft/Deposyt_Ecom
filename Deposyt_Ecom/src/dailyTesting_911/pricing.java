@@ -381,11 +381,11 @@ public class pricing extends Data{
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
 		Thread.sleep(5000);
 
-		String suscPricee = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(1).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
+		String suscPricee = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>span")).get(1).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("Subscription price on Add to cart page: " + suscPricee);
 		//Assert.assertEquals(suscPricee, Price1, "Sale price is not applied");	
 
-		String onetimePrice11 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(0).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
+		String onetimePrice11 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>span")).get(0).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("One time purchase price on checkout page: " + onetimePrice11);
 		//Assert.assertEquals(onetimePrice11, Price2, "Sale price is not applied");
 
@@ -586,7 +586,7 @@ public class pricing extends Data{
 			}
 		}	
 
-		Thread.sleep(7000);
+		Thread.sleep(10000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -709,10 +709,10 @@ public class pricing extends Data{
 		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name1);	
 		Thread.sleep(4000);
-		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();		
-
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
+		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>a")).click();
 
 		for (String handle : driver.getWindowHandles()) {
@@ -755,11 +755,11 @@ public class pricing extends Data{
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
 		Thread.sleep(5000);
 
-		String suscPricee1 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(1).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
+		String suscPricee1 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>span")).get(1).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("Subscription price on Add to cart page: " + suscPricee1);
 		Assert.assertEquals(suscPricee1, Price2, "Sale price is not applied");	
 
-		String onetimePrice111 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div:nth-of-type(2)>span")).get(0).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
+		String onetimePrice111 = driver.findElements(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div>div:nth-of-type(2)>span")).get(0).getText().replaceAll("[^0-9.]", "").replaceAll("\\.00$", "");  
 		System.out.println("One time purchase price on checkout page: " + onetimePrice111);
 		Assert.assertEquals(onetimePrice111, Price1, "Sale price is not applied");
 
