@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -9436,6 +9438,772 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		}
 	}
 
+	@Test(priority = 22)
+	public void Product_SettingsPage() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		Random random = new Random();
+		
+		String Tax_Rate = String.valueOf(random.nextInt(9) + 1);	
+		String Shop_Descriptor = "MYSHOP" + RandomStringUtils.randomAlphabetic(5);
+		String HTTPs_URL = "https://www.google.com";
+		//String HTTP_URL = "http://.badssl.com";
+		
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		Thread.sleep(2000);
+		
+		//Verify Checkout Descriptor field is visible on Product Settings page
+		WebElement Descriptor = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Checkout Descriptor']")));
+		String Descriptortext = Descriptor.getText().trim();
+		Assert.assertEquals(Descriptortext, "Checkout Descriptor", "Checkout Descriptor label is not present.");
+		System.out.println("Checkout Descriptor label is present on Settings page.\n");
+		
+		//Verify placeholder text in Checkout Descriptor field
+		WebElement Inputplaceholder = driver.findElement(By.name("general.checkout_descriptor"));
+		String actualPlaceholder = Inputplaceholder.getAttribute("placeholder"); 	        
+		String expectedPlaceholder = "Checkout Descriptor"; 
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder, "Checkout Descriptor placeholder text mismatch");
+		System.out.println("Checkout Descriptor placeholder text is correct on Settings page.\n");
+		
+		//Verify Save button becomes enabled after modifying descriptor
+		Inputplaceholder.sendKeys(Keys.CONTROL, "a");
+		Inputplaceholder.sendKeys(Keys.DELETE);
+		Inputplaceholder.sendKeys(Shop_Descriptor);	
+		WebElement Savebutton = driver.findElement(By.xpath("//header//button[normalize-space()='Save']"));
+		Assert.assertTrue(Savebutton.isEnabled(), "Save button is not enabled after modifying Checkout Descriptor");
+		Savebutton.click();
+		
+		//Verify descriptor is displayed correctly on checkout page 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		Thread.sleep(4000);
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		WebElement descriptorcheckoutpage = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:first-of-type>div:last-of-type>p"));
+		String descriptorcheckoutpagetext = descriptorcheckoutpage.getText().trim();
+		Assert.assertEquals(descriptorcheckoutpagetext, Shop_Descriptor, "Checkout Descriptor text is not showing correctly on checkout page after saving in product settings");
+		System.out.println("Checkout Descriptor text is showing correctly on checkout page after saving in product settings	successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify user can enable Post Checkout Redirect 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='post checkout redirect']")));
+		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='post checkout redirect']/following::button[@role='switch'][1]")));
+		String toggleState = toggleButton.getAttribute("data-state");
+		if (toggleState.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState.equals("unchecked");
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", toggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+		
+		//Verify URL field becomes enabled after enabling toggle 
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='post checkout redirect']")));
+		WebElement urlInput = driver.findElement(By.xpath("//input[@placeholder='Enter URL']"));
+		urlInput.click();
+		urlInput.sendKeys(Keys.CONTROL, "a");
+		urlInput.sendKeys(Keys.DELETE);
+		Thread.sleep(3000);
+		wait.until(driver -> urlInput.getAttribute("disabled") == null);
+		Assert.assertNull(urlInput.getAttribute("disabled"),"URL field should not have disabled attribute");
+		System.out.println("URL field is enabled after enabling Post Checkout Redirect toggle successfully.\n");	
+		
+		//Verify Redirect After drop down becomes enabled after enabling toggle 
+		WebElement dropdownBtn = driver.findElement(By.xpath("//div[@class='relative w-[180px]']//button"));
+		wait.until(ExpectedConditions.elementToBeClickable(dropdownBtn));
+		Assert.assertNull(dropdownBtn.getAttribute("disabled"),"Disabled attribute should be removed");
+		System.out.println("Redirect After dropdown is enabled after enabling Post Checkout Redirect toggle successfully.\n");
+		
+		//Verify blank URL when toggle is enabled 
+		urlInput.clear();
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		WebElement errorwarning = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Redirect URL is required when post checkout redirect is enabled.'])[1]")));
+		String errormsgtext = errorwarning.getText().trim();
+		Assert.assertEquals(errormsgtext, "Redirect URL is required when post checkout redirect is enabled.", "Redirect URL is required when post checkout redirect is enabled message is not present.");
+		
+		//Verify invalid URL format error message when toggle is enabled and entering invalid URL format in URL field
+		Thread.sleep(3000);
+		urlInput.sendKeys("app.deposyt");	
+		WebElement errorwarning1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Invalid URL format']")));
+		String errormsgtext1 = errorwarning1.getText().trim();
+		Assert.assertEquals(errormsgtext1, "Invalid URL format", "Please enter a valid URL message is not present when entering invalid URL format in URL field.");
+		System.out.println("Please enter a valid URL message is present when entering invalid URL format in URL field successfully.\n");
+		
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		WebElement errorwarning11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Please enter a valid redirect URL.'])[1]")));
+		String errormsgtext11 = errorwarning11.getText().trim();
+		Assert.assertEquals(errormsgtext11, "Please enter a valid redirect URL.", "Please enter a valid URL message is not present when entering invalid URL format in URL field.");
+		System.out.println("Please enter a valid redirect URL message is present when entering invalid URL format in URL field successfully.\n");
+		
+		//Verify valid HTTP URL can be entered 
+		/*urlInput.clear();
+		urlInput.sendKeys(HTTP_URL);
+		WebElement errorwarning111 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Invalid URL format']")));
+		String errormsgtext111 = errorwarning111.getText().trim();
+		Assert.assertEquals(errormsgtext111, "Invalid URL format", "Please enter a valid URL message is not present when entering http URL format in URL field.");		
+		System.out.println("Please enter a valid URL message is present when entering http URL format in URL field successfully.\n");*/
+		
+		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
+		Thread.sleep(3000);
+		taxRate.click();
+		taxRate.sendKeys(Keys.CONTROL, "a");
+		taxRate.sendKeys(Keys.DELETE);
+		taxRate.sendKeys(Tax_Rate);
+		
+		//Verify valid HTTPS URL can be entered 
+		urlInput.clear();
+		urlInput.sendKeys(HTTPs_URL);	
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		WebElement successmsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Successfully updated general settings'])[1]")));
+		String successmsgtext = successmsg.getText().trim();
+		Assert.assertEquals(successmsgtext, "Successfully updated general settings", "Successfully updated general settings message is not present after entering valid HTTPS URL in URL field");
+		System.out.println("Successfully updated general settings message is present after entering valid HTTPS URL in URL field and saving the settings successfully.\n");
+		
+		//Verify after selecting "3 Seconds" redirect value customer is redirected to configured URL after successful checkout 
+		driver.findElement(By.xpath("//div[@class='relative w-[180px]']//button")).click();
+		driver.findElement(By.xpath("//span[text()='3 Seconds']//parent::div")).click();
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		Thread.sleep(5000);
+		String currentURL = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify after selecting "5 Seconds" redirect value customer is redirected to configured URL after successful checkout 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='post checkout redirect']")));
+		driver.findElement(By.xpath("//div[@class='relative w-[180px]']//button")).click();
+		driver.findElement(By.xpath("//span[text()='5 Seconds']//parent::div")).click();
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder1.clear();
+		cardHolder1.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		Thread.sleep(7000);
+		String currentURL1 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 5 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 5 Seconds successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify after selecting "7 Seconds" redirect value customer is redirected to configured URL after successful checkout 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='post checkout redirect']")));
+		driver.findElement(By.xpath("//div[@class='relative w-[180px]']//button")).click();
+		driver.findElement(By.xpath("//span[text()='7 Seconds']//parent::div")).click();
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder11 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder11.clear();
+		cardHolder11.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		Thread.sleep(10000);
+		String currentURL11 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL11.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 7 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 7 Seconds successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify after selecting "10 Seconds" redirect value customer is redirected to configured URL after successful checkout 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='post checkout redirect']")));
+		driver.findElement(By.xpath("//div[@class='relative w-[180px]']//button")).click();
+		driver.findElement(By.xpath("//span[text()='10 Seconds']//parent::div")).click();
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:first-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+
+		WebElement cardHolder111 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder111.clear();
+		cardHolder111.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		Thread.sleep(15000);
+		String currentURL111 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL111.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 10 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 10 Seconds successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify the Terms & Privacy section is displayed on the Product Settings page.
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='Terms & Privacy']")));
+		WebElement Descriptor1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Terms & Privacy']")));
+		String Descriptortext1 = Descriptor1.getText().trim();
+		Assert.assertEquals(Descriptortext1, "Terms & Privacy", "Terms & Privacy label is not present.");
+		System.out.println("Terms & Privacy label is present on Product Settings page successfully.\n");
+
+		//Verify the "Require in checkout (By default)" setting is displayed. 
+		WebElement RequireCheckoutLabel1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Require in checkout (By default)']")));
+		String RequireCheckoutLabelText1 = RequireCheckoutLabel1.getText().trim();
+		Assert.assertEquals(RequireCheckoutLabelText1, "Require in checkout (By default)", "Require in checkout (By default) label is not correct.");
+		System.out.println("Require in checkout (By default) label text is correct on Product Settings page successfully.\n");
+
+		//Verify label Manage your terms of use and privacy policy pages. These settings can be updated here or from Store Details in your store settings. 
+		WebElement ManageTermsLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Manage your terms of use and privacy policy pages. These settings can be updated here or from Store  Details in your store settings.']")));	
+		String ManageTermsLabelText = ManageTermsLabel.getText().trim().replaceAll("\\s+", " ").toLowerCase();
+		Assert.assertEquals(ManageTermsLabelText.trim().replaceAll("\\s+", " ").toLowerCase(),"manage your terms of use and privacy policy pages. these settings can be updated here or from store details in your store settings.".trim().replaceAll("\\s+", " ").toLowerCase(), "label text is not correct.");
+		System.out.println("Manage your terms of use and privacy policy pages. These settings can be updated here or from Store  Details in your store settings. label text is correct on Product Settings page successfully.\n");
+
+		//Verify label "Require your customers to agree to Terms & Conditions."
+		WebElement RequireCheckoutLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Require your customers to agree to Terms & Conditions.']")));
+		String RequireCheckoutLabelText = RequireCheckoutLabel.getText().trim();
+		Assert.assertEquals(RequireCheckoutLabelText, "Require your customers to agree to Terms & Conditions.", "Require in checkout (By default) label is not correct.");
+		System.out.println("Require in checkout (By default) label text is correct on Product Settings page successfully.\n");
+
+		//Verify label "This can be turned on or off for single product checkouts." 
+		WebElement SingleProductCheckoutLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='This can be turned on or off for single product checkouts.']")));
+		String SingleProductCheckoutLabelText = SingleProductCheckoutLabel.getText().trim();
+		Assert.assertEquals(SingleProductCheckoutLabelText, "This can be turned on or off for single product checkouts.", "This can be turned on or off for single product checkouts. label text is not correct.");
+		System.out.println("This can be turned on or off for single product checkouts label text is correct on Product Settings page successfully.\n");
+
+		//Verify all configured policy cards (Privacy Policy, Terms & Conditions, Refund Policy, Shipping Policy, etc.) are displayed correctly. 
+		List<WebElement> policyCards = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(@class,'text-grey-130') and (text()='Privacy Policy' or text()='Terms & Conditions' or text()='refund policy' or text()='shipping policy')]")));
+		Assert.assertEquals(policyCards.size(), 4);
+		System.out.println("All configured policy cards (Privacy Policy, Terms & Conditions, Refund Policy, Shipping Policy) are displayed correctly on Product Settings page successfully.\n");
+
+		//Verify after click on Privacy Policy it navigates to Privacy Policy store front page.
+		driver.findElement(By.xpath("//a[contains(@href,'privacy-policy')]")).click();
+		Thread.sleep(4000);
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		String currentURLz = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURLz.contains("privacy-policy"), "After clicking on Privacy Policy it does not navigate to Privacy Policy store front page.");
+		System.out.println("After clicking on Privacy Policy it navigates to Privacy Policy store front page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//Verify after click on Terms & Conditions it navigates to Terms & Conditions store front page.
+		driver.findElement(By.xpath("//a[contains(@href,'terms-conditions')]")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		String currentURLs1 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURLs1.contains("terms-conditions"), "After clicking on Terms & Conditions it does not navigate to Terms & Conditions store front page.");
+		System.out.println("After clicking on Terms & Conditions it navigates to Terms & Conditions store front page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//Verify after click on Refund Policy it navigates to Refund Policy store front page. 
+		driver.findElement(By.xpath("//a[contains(@href,'refund-policy')]")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		String currentURLs11 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURLs11.contains("refund-policy"), "After clicking on Refund Policy it does not navigate to Refund Policy store front page.");
+		System.out.println("After clicking on Refund Policy it navigates to Refund Policy store front page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//Verify after click on shipping policy it navigates to shipping policy store front page.
+		driver.findElement(By.xpath("//a[contains(@href,'shipping-policy')]")).click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		String currentURLs111 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURLs111.contains("shipping-policy"), "After clicking on Shipping Policy it does not navigate to Shipping Policy store front page.");
+		System.out.println("After clicking on Shipping Policy it navigates to Shipping Policy store front page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+	
+		//Verify the user can enabled Privacy Policy are displayed on the store front. 
+		WebElement privacytoggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Privacy Policy']/following::button[@role='switch'][1]")));
+		String toggleStatee = privacytoggleButton.getAttribute("data-state");
+		if (toggleStatee.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", privacytoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleStatee.equals("unchecked");
+			jse.executeScript("arguments[0].click();", privacytoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", privacytoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		StoreFront();
+		WebElement privacyPolicy = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'privacy-policy')]")));
+		Assert.assertTrue(privacyPolicy.isDisplayed(), "Privacy Policy link is not displayed on store front after enabling it from product settings.");
+		System.out.println("Privacy Policy link is displayed on store front after enabling it from product settings	successfully.\n");
+		
+		privacyPolicy.click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		String currentURL1111 = driver.getCurrentUrl();
+		Assert.assertTrue(currentURL1111.contains("privacy-policy"), "After clicking on Privacy Policy it does not navigate to Privacy Policy store front page.");
+		System.out.println("After clicking on Privacy Policy it navigates to Privacy Policy store front page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify the user can enabled Terms and Conditions are displayed on the store front. 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='Terms & Privacy']")));
+		WebElement termstoggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Terms & Conditions']/following::button[@role='switch'][1]")));
+		String toggleState1 = termstoggleButton.getAttribute("data-state");
+		if (toggleState1.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", termstoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState1.equals("unchecked");
+			jse.executeScript("arguments[0].click();", termstoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", termstoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		StoreFront();
+		WebElement Termsconditions = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'terms-conditions')]")));
+		Assert.assertTrue(Termsconditions.isDisplayed(), "Terms & Conditions link is not displayed on store front after enabling it from product settings.");
+		System.out.println("Terms & Conditions link is displayed on store front after enabling it from product settings successfully.\n");
+		
+		Termsconditions.click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		String currentURLs = driver.getCurrentUrl();
+		Assert.assertTrue(currentURLs.contains("terms-conditions"), "After clicking on Terms & Conditions it does not navigate to Terms & Conditions store front page.");
+		System.out.println("After clicking on Terms & Conditions it navigates to Terms & Conditions store front page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify the user can enabled Shipping Policy are displayed on the store front. 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='Terms & Privacy']")));
+		WebElement shippingtoggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='shipping policy']/following::button[@role='switch'][1]")));
+		String toggleState11 = shippingtoggleButton.getAttribute("data-state");
+		if (toggleState11.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", shippingtoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState11.equals("unchecked");
+			jse.executeScript("arguments[0].click();", shippingtoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", shippingtoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		StoreFront();
+		WebElement shipping = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'shipping-policy')]")));
+		Assert.assertTrue(shipping.isDisplayed(), "shipping policy link is not displayed on store front after enabling it from product settings.");
+		System.out.println("shipping policy link is displayed on store front after enabling it from product settings successfully.\n");
+		
+		shipping.click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		String currentURLss = driver.getCurrentUrl();
+		Assert.assertTrue(currentURLss.contains("shipping-policy"), "After clicking on shipping policy it does not navigate to shipping policy store front page.");
+		System.out.println("After clicking on shipping policy it navigates to shipping policy store front page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify the user can enabled Refund Policy are displayed on the store front. 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='Terms & Privacy']")));
+		WebElement refundtoggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='refund policy']/following::button[@role='switch'][1]")));
+		String toggleState111 = refundtoggleButton.getAttribute("data-state");
+		if (toggleState111.equals("unchecked")) {
+			jse.executeScript("arguments[0].click();", refundtoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		} else {
+			toggleState111.equals("unchecked");
+			jse.executeScript("arguments[0].click();", refundtoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+			Thread.sleep(3000);
+			jse.executeScript("arguments[0].click();", refundtoggleButton);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		}
+
+		StoreFront();
+		WebElement refund = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'refund-policy')]")));
+		Assert.assertTrue(refund.isDisplayed(), "refund policy link is not displayed on store front after enabling it from product settings.");
+		System.out.println("refund policy link is displayed on store front after enabling it from product settings successfully.\n");
+		
+		refund.click();
+		Thread.sleep(4000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		String currentURLses = driver.getCurrentUrl();
+		Assert.assertTrue(currentURLses.contains("refund-policy"), "After clicking on refund policy it does not navigate to refund policy store front page.");
+		System.out.println("After clicking on refund policy it navigates to refund policy store front page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//Verify the user can disabled Privacy Policy are displayed on the store front. 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='Terms & Privacy']")));
+
+		List<By> toggleLocators = Arrays.asList(By.xpath("//p[text()='Privacy Policy']/following::button[@role='switch'][1]"),By.xpath("//p[text()='Terms & Conditions']/following::button[@role='switch'][1]"),
+		By.xpath("//p[text()='shipping policy']/following::button[@role='switch'][1]"),By.xpath("//p[text()='refund policy']/following::button[@role='switch'][1]"));
+
+		for (By toggleLocator : toggleLocators) {
+		    WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+		    String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+		    if ("checked".equals(toggleStatee1)) {
+		    	 Thread.sleep(2000);
+		        jse.executeScript("arguments[0].click();", toggleButtonn);
+		    }
+		}
+		
+		StoreFront();
+		try { 
+			driver.findElement(By.xpath("//a[contains(@href,'privacy-policy')]")).click();
+			Assert.assertTrue(false, "Test Failed: privacy policy link is still displayed on store front after disabling it from product settings.");
+		} catch(Exception noSuchEelementException){
+		    System.out.println("privacy policy link is hidden after disabling it from product settings.\n");
+		}
+		
+		//Verify the user can disabled Terms and Conditions are displayed on the store front. 
+		try { 
+			driver.findElement(By.xpath("//a[contains(@href,'terms-conditions')]")).click();
+			Assert.assertTrue(false, "Test Failed: terms conditions link is still displayed on store front after disabling it from product settings.");
+		} catch(Exception noSuchEelementException){
+		    System.out.println("Terms & Conditions link is hidden after disabling it from product settings.\n");
+		}
+		
+		//Verify the user can disabled Shipping Policy are displayed on the store front. 
+		try {	
+			driver.findElement(By.xpath("//a[contains(@href,'shipping-policy')]")).click();
+			Assert.assertTrue(false, "Test Failed: Shipping Policy link is still displayed on store front after disabling it from product settings.");
+		} catch(Exception noSuchEelementException){
+		   System.out.println("Shipping Policy link is hidden after disabling it from product settings.\n");
+		}
+		
+		//Verify the user can disabled Refund Policy are displayed on the store front.
+		try {	
+			driver.findElement(By.xpath("//a[contains(@href,'refund-policy')]")).click();
+			Assert.assertTrue(false, "Test Failed: Refund Policy link is still displayed on store front after disabling it from product settings.");
+		} catch(Exception noSuchEelementException){
+		    System.out.println("Refund Policy link is hidden after disabling it from product settings.\n");
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 
 
@@ -9443,7 +10211,7 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 
 
-
+	}
 
 
 }

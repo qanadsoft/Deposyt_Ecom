@@ -14,7 +14,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "TipAmount_CheckoutSettings" />
+					<include name = "Product_SettingsPage" />
 				</methods>
 			</class>
 		</classes>
