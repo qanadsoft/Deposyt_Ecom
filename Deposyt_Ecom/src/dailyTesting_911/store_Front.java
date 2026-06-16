@@ -458,6 +458,8 @@ public class store_Front extends Data {
 		Thread.sleep(7000);
 		String PlacedOrderID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID);
+		driver.close();
+		driver.switchTo().window(parentWindow);
 		
 		driver.navigate().to(Orders);
 		Thread.sleep(3000);

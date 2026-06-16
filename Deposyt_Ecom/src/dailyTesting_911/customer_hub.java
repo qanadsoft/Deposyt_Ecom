@@ -193,7 +193,7 @@ public class customer_hub extends Data {
 		Thread.sleep(4000);
 		String currentUrl = driver.getCurrentUrl().toLowerCase();	
 		System.out.println("Current URL : " + currentUrl);
-		Assert.assertTrue(currentUrl.contains(PlacedOrder), "Order ID not found in URL");
+		Assert.assertTrue(currentUrl.contains(PlacedOrder), "Order ID not found in URL"); 
 				
 		//Verify that when we purchase subscription product then its order is getting listed in order tab
 		driver.navigate().to(Products);

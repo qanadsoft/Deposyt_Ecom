@@ -97,9 +97,7 @@ public class products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-Thread.sleep(1000);
-driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		Thread.sleep(1000);
 
 		// Entering One Time Purchase Product price
@@ -379,9 +377,7 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-Thread.sleep(1000);
-driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		// Upload product attachment
 		/*WebElement uploadAttachment = driver.findElement(By.xpath("//p[normalize-space()='Upload File']/parent::div/parent::div/parent::label"));
@@ -651,9 +647,7 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-Thread.sleep(1000);
-driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");

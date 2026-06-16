@@ -444,7 +444,7 @@ public class pricing extends Data{
 		try {
 			driver.findElement(By.xpath("(//input[contains(@name,'fee_option')])[1]")).click();	
 			driver.findElement(By.xpath("//span[normalize-space()=\"I agree & enable\"]")).click();
-		}catch(Exception e) {
+		} catch(Exception e) {
 			System.out.println("No Dual Pricing Option is already enabled");
 		}
 		

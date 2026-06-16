@@ -33,8 +33,8 @@
     <!--  <parameter name = "uname" value = "belosas375@pacfut.com"/>
 	      <parameter name = "pass"  value = "Prashant0808"/>!-->
 	      
-          <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com"/>
-	      <parameter name = "pass"  value = "Nadsoft@2202"/>
+    <!--  <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com"/>
+	      <parameter name = "pass"  value = "Nadsoft@2202"/>!-->
 	 	  
 	 <!-- <parameter name = "uname" value = "vishwa.ink757@gmail.com"/>
 	 	  <parameter name = "pass"  value = "Rohan@030698"/>!-->
@@ -47,6 +47,9 @@
 	 	  
 	<!--  <parameter name = "uname" value = "prashantkashid1511@gmail.com"/>
 	      <parameter name = "pass"  value = "Prashant@1234"/> !-->  
+	      
+	      <parameter name = "uname" value = "sandeeppawar1010@sharklasers.com"/>
+	      <parameter name = "pass"  value = "Nadsoft@2202"/>
 	 	  
         <classes>
             <class name="dailyTesting_911.invoices">

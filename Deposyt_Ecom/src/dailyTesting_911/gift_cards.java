@@ -125,7 +125,6 @@ public class gift_cards extends Data {
 		
 		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID); //Input discount code in cart
 		driver.findElement(By.id("applyGiftCard")).click(); //Click on apply button for discount code
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
@@ -372,7 +371,6 @@ public class gift_cards extends Data {
 		
 		driver.findElement(By.id("Giftcardcode")).sendKeys(GiftCardID1); //Input discount code in cart
 		driver.findElement(By.id("applyGiftCard")).click(); //Click on apply button for discount code
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));

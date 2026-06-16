@@ -8,13 +8,16 @@
 
 	<test name = "Products Tests">
 	
-		<parameter name = "uname" value = "rishikesh.sakharekar@gmail.com" />
-		<parameter name = "pass"  value = "Nadsoft@2202" />
+	<!-- <parameter name = "uname" value = "rishikesh.sakharekar@gmail.com" />
+		 <parameter name = "pass"  value = "Nadsoft@2202" />!-->
+		
+		 <parameter name = "uname" value = "sandeeppawar1010@sharklasers.com"/>
+	     <parameter name = "pass"  value = "Nadsoft@2202"/>
 
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "Product_SettingsPage" />
+					<include name = "TipAmount_CheckoutSettings" />
 				</methods>
 			</class>
 		</classes>

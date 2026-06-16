@@ -38,7 +38,7 @@ public class settings extends Data {
 			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 	
 	@Test(priority = 1)
-	public void Settings() throws InterruptedException {
+	public void Settings () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;		
@@ -97,9 +97,9 @@ public class settings extends Data {
 //		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
 //		suscprise.clear();
 //		suscprise.sendKeys(susbcriptionPrice);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
@@ -121,7 +121,7 @@ public class settings extends Data {
 		}		
 		
 		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("input#email")).sendKeys(WMLogin);  
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
 		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
@@ -131,11 +131,9 @@ public class settings extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
-		Thread.sleep(2000);
 		
 		Thread.sleep(5000);
-		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));		
-
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));	
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
 		driver.switchTo().defaultContent();
@@ -218,7 +216,7 @@ public class settings extends Data {
 			}
 		}	
 		
-		Thread.sleep(2000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -1536,7 +1534,7 @@ public class settings extends Data {
 		}
 		
 		Thread.sleep(3000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table-auto>tbody>tr:first-of-type>td:first-of-type>div>div>a"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table-auto>tbody>tr:first-of-type>td:first-of-type>a:first-of-type"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()=\"Subscription Summary\"]"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()=\"Manage Subscription\"]"))).click();	
 		List<WebElement> cancelSubscriptionBtn1 = driver.findElements(By.cssSelector("div.manage-sub-wrapper>div:first-of-type>div>div"));
@@ -1633,7 +1631,7 @@ public class settings extends Data {
 		    driver.switchTo().window(window);
 		}	
 				
-		Thread.sleep(2000);
+		Thread.sleep(7000);
 		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
@@ -1702,7 +1700,7 @@ public class settings extends Data {
 		}
 		
 		Thread.sleep(3000);
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table-auto>tbody>tr:first-of-type>td:first-of-type>div>div>a"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("table.table-auto>tbody>tr:first-of-type>td:first-of-type>a:first-of-type"))).click();
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()=\"Subscription Summary\"]"))).click();
 		Thread.sleep(1000);

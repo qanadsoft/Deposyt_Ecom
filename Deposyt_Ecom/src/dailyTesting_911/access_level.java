@@ -350,7 +350,7 @@ public class access_level extends Data {
 		//for orders Module
 		WebElement ordersOff = driver.findElement(By.id("section-orders"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", ordersOff);
-		Thread.sleep(500);
+		Thread.sleep(500); 
 		driver.findElement(By.cssSelector("button.ac_orders_grant_view")).click();
 		driver.findElement(By.cssSelector("button.ac_orders_all_on")).click();
 		

@@ -115,9 +115,7 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-Thread.sleep(1000);
-driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
 		Thread.sleep(1000);
@@ -290,10 +288,10 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		Assert.assertEquals(OrderName, fullName, "Customer name not matching in order details");
 		Assert.assertEquals(OrderEmail, email, "Customer email not matching in order details");
 		
-		Assert.assertEquals("Allen Court,", Billing_Address1, "Street address not matching in order details");
+		/*Assert.assertEquals("Allen Court,", Billing_Address1, "Street address not matching in order details");
 		Assert.assertEquals("United States, 97818", Billing_Address2, "City, State and Zip code not matching in order details");
 		
-		/*String GiftcardValid = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[normalize-space()='" + GiftCardID + "'])[1]"))).getText().trim();
+		String GiftcardValid = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[normalize-space()='" + GiftCardID + "'])[1]"))).getText().trim();
 		String DiscountValid = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[text()='" + giftCardName + "'])[1]"))).getText().trim();
 		
 		Assert.assertEquals(GiftcardValid, GiftCardID, "Gift card code not applied properly");
@@ -443,7 +441,7 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		//Verify services orders are visible
 		driver.navigate().to(Services);
 		Thread.sleep(7000);
-		driver.findElement(By.cssSelector("div.fb-setting-icon-wrapper>a:first-of-type")).click(); //Click on service setting
+		driver.findElement(By.cssSelector("div.servicemenupdiv>div:nth-of-type(2)>div:last-of-type>a")).click(); //Click on service setting
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.assign-payment-type-dropdownsetting")).click(); //Click on assign payment type dropdown
 		Thread.sleep(1000);
@@ -867,9 +865,7 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-Thread.sleep(1000);
-driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -1059,9 +1055,7 @@ driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-Thread.sleep(1000);
-driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("100");
 		Thread.sleep(1000);

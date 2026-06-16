@@ -168,6 +168,7 @@ public class virtualTerminal extends Data {
 		if (matcher.find()) {
 			otp = matcher.group(1);
 		}
+		
 		System.out.println("Extracted OTP: " + otp);
 		driver.close();
 		driver.switchTo().window(parentWindow);
