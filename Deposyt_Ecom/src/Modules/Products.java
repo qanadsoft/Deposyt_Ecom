@@ -3,11 +3,14 @@ package Modules;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
@@ -23,12 +26,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import Master.Data;
 
 public class Products extends Data {
@@ -56,101 +57,64 @@ public class Products extends Data {
 			email = firstName + "." + lastName + r.nextInt(1000) + "@yopmail.com", phone = (r.nextInt(4) + 6) + "" + (100000000 + r.nextInt(900000000));
 			//OneTimeProductValue = "5"
 
-	//@BeforeClass
-	public void OneTime_SalesOrder() throws InterruptedException {
+	public void OneTime_SalesOrder () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 
 		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();		
+		Thread.sleep(3000);
+		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
+		Thread.sleep(3000);
+		taxRate.click();
+		taxRate.sendKeys(Keys.CONTROL, "a");
+		taxRate.sendKeys(Keys.DELETE);
+		taxRate.sendKeys("0");
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		
+		driver.navigate().to(Products);
 		Thread.sleep(5000);
-		/*wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
 		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
 		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
 		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
 		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
-
 		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
 		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
-
 		Thread.sleep(3000);
 		String[] files1 = {Media_Path + Fileseven};
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("100");
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
-		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
-		Thread.sleep(1000);
-
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
-		Thread.sleep(3000);*/
+		Thread.sleep(3000);
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
-		WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]")));
-		String toggleState = toggleButton.getAttribute("data-state");
-		if (toggleState.equals("unchecked")) {
-			jse.executeScript("arguments[0].click();", toggleButton);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-		} else {
-			toggleState.equals("unchecked");
-			jse.executeScript("arguments[0].click();", toggleButton);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-			Thread.sleep(3000);
-			jse.executeScript("arguments[0].click();", toggleButton);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();		
+		List<By> toggleLocators = Arrays.asList(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]"),By.xpath("//p[text()='Discount Coupon']/following::button[@role='switch'][1]"),
+				By.xpath("//p[text()='Tip Amount']/following::button[@role='switch'][1]"));
+
+		for (By toggleLocator : toggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
 		}
 
-		Thread.sleep(2000);
-		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Discount Coupon']/following::button[@role='switch'][1]")));
-		String toggleState1 = toggleButton1.getAttribute("data-state");
-		if (toggleState1.equals("unchecked")) {
-			jse.executeScript("arguments[0].click();", toggleButton1);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-		} else {
-			toggleState1.equals("unchecked");
-			jse.executeScript("arguments[0].click();", toggleButton1);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-			Thread.sleep(3000);
-			jse.executeScript("arguments[0].click();", toggleButton1);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-		}
-
-		Thread.sleep(2000);
-		WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Tip Amount']/following::button[@role='switch'][1]")));
-		String toggleStatee = toggleButtonn.getAttribute("data-state");
-		if (toggleStatee.equals("unchecked")) {
-			jse.executeScript("arguments[0].click();", toggleButtonn);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-		} else {
-			toggleStatee.equals("unchecked");
-			jse.executeScript("arguments[0].click();", toggleButtonn);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-			Thread.sleep(3000);
-			jse.executeScript("arguments[0].click();", toggleButtonn);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
-		}
-
-		/*driver.navigate().to(Products);
+		driver.navigate().to(Products);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);	
 		Thread.sleep(4000);
 		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
-
 		Thread.sleep(2000);
-		driver.findElement(By.id("orderPagesFunnel")).click();//Click on pages
-		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
 
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
@@ -166,28 +130,24 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
 		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
-		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); 
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
-		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
 
 		Thread.sleep(5000);
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
 		driver.switchTo().defaultContent();
-
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
 		driver.switchTo().defaultContent();
-
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
 		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
 		driver.switchTo().defaultContent();
-
 		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
 		cardHolder.clear();
 		cardHolder.sendKeys(F_Name + " " + L_Name);
@@ -196,14 +156,13 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		System.out.println("Placed Order ID: " + PlacedOrderID11);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
 		driver.close();
-		driver.switchTo().window(originalTab);*/
+		driver.switchTo().window(originalTab);
 	}
 
 	@Test(priority = 1)
-	public void Create_NewProduct() throws InterruptedException {
+	public void Create_NewProduct () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;	
@@ -1076,7 +1035,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 2)
-	public void Product_OneTimePurchase() throws InterruptedException {
+	public void Product_OneTimePurchase () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;	
@@ -1097,9 +1056,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(OneTimeProductValue);
@@ -1479,7 +1435,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 3)
-	public void NonInv_SubscriptionPurchase() throws InterruptedException {
+	public void NonInv_SubscriptionPurchase () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -1500,9 +1456,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		//check that user can click on toggle to enable the subscription 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
@@ -1549,9 +1502,9 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
-		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-		//		suscprise.clear();
-		//		suscprise.sendKeys(OneTimeProductValue);
+		//WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+		//suscprise.clear();
+		//suscprise.sendKeys(OneTimeProductValue);
 
 		//check that user can see + sign to increase the number of cycle for the subscription
 		//check that user can see - sign to decrease the number of cycle for the subscription
@@ -1658,7 +1611,6 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
-
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
@@ -1763,7 +1715,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 4)
-	public void Inv_SubscriptionPurchase() throws InterruptedException {
+	public void Inv_SubscriptionPurchase () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -1785,9 +1737,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		//check that user can click on toggle to enable the subscription 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
@@ -1835,11 +1784,11 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("div.frequency-select-container")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click();
-		//		Thread.sleep(1000);
-		//		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click();
-		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-		//		suscprise.clear();
-		//		suscprise.sendKeys(OneTimeProductValue);
+		Thread.sleep(1000);
+		//driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click();
+		//WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+		//suscprise.clear();
+		//suscprise.sendKeys(OneTimeProductValue);
 
 		//check that user can see + sign to increase the number of cycle for the subscription
 		//check that user can see - sign to decrease the number of cycle for the subscription
@@ -2051,7 +2000,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 5)
-	public void SubscriptionProduct_Monthly() throws InterruptedException {
+	public void SubscriptionProduct_Monthly () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -2074,9 +2023,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -2091,9 +2037,9 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
-		//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-		//		suscprise.clear();
-		//		suscprise.sendKeys(OneTimeProductValue);
+		//WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+		//suscprise.clear();
+		//suscprise.sendKeys(OneTimeProductValue);
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); 
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click();
@@ -2420,7 +2366,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 5)
-	public void SubscriptionProduct_Weekly() throws InterruptedException {
+	public void SubscriptionProduct_Weekly () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -2443,9 +2389,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -2778,7 +2721,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 6)
-	public void SubscriptionProduct_Quarterly() throws InterruptedException {
+	public void SubscriptionProduct_Quarterly () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -2802,9 +2745,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -3137,7 +3077,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 7)
-	public void SubscriptionProduct_Yearly() throws InterruptedException {
+	public void SubscriptionProduct_Yearly () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -3161,9 +3101,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -3496,7 +3433,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 8)
-	public void TierPricing() throws InterruptedException {
+	public void TierPricing () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -3526,9 +3463,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
 
 		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
 		driver.findElement(By.cssSelector("button#Physical")).click();	
@@ -3765,9 +3699,7 @@ public class Products extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
+
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
 		WebElement confirmSaveBtn11 = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
@@ -3967,7 +3899,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 9)
-	public void TierUpsell() throws InterruptedException {
+	public void TierUpsell () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -3994,11 +3926,6 @@ public class Products extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.cssSelector("div.Product-Detial-side-modal-Scrollbar>div:nth-of-type(2)>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>svg")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[text()='Crop']//parent::button")).click();
-
-		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("button#Physical")).click();
@@ -4216,7 +4143,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 10)
-	public void Filter_GridView() throws InterruptedException, ParseException{
+	public void Filter_GridView () throws InterruptedException, ParseException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -4565,7 +4492,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 11)
-	public void Filter_ListView() throws InterruptedException, ParseException{
+	public void Filter_ListView () throws InterruptedException, ParseException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -4911,11 +4838,9 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 12)
-	public void ThreeDot_GridView() throws InterruptedException{
+	public void ThreeDot_GridView () throws InterruptedException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		Actions action = new Actions(driver);
-		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 
 		driver.navigate().to(Products);
 		Thread.sleep(10000);
@@ -4928,44 +4853,7 @@ public class Products extends Data {
 		//check that product card after active Product Product/Checkout is live label displays
 		WebElement productElement = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>button"));		
 		action.moveToElement(productElement).click().perform();
-
 		Thread.sleep(2000);
-		/*WebElement toggleButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>div>div>div>div>button:first-of-type")));
-		if (toggleButton.getAttribute("data-state").equals("unchecked")) {
-			jse.executeScript("arguments[0].click();", toggleButton);
-		}
-
-		Thread.sleep(5000);
-		WebElement activateOption = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>div>div>div>div>button:first-of-type"));
-		Assert.assertTrue(activateOption.isDisplayed() && activateOption.isEnabled(), "Activate option is not clickable or not having label Active");
-
-		String activateOptionText = driver.findElement(By.xpath("//div[text()='Active']")).getText().trim();
-		Assert.assertEquals(activateOptionText, "Active", "Activate option does not have label Active");
-
-		String ActiveLabelText = driver.findElement(By.xpath("//div[text()='Product/Checkout is live']")).getText().trim();
-		Assert.assertEquals(ActiveLabelText, "Product/Checkout is live", "Live label is not displayed after activating the product");		
-		System.out.println("\nActivate option is clickable with label Active.\n");
-
-		//check that De-activate option is clickable with label In-active
-		//check that product card after inactive Product is hidden everywhere label displays
-		driver.navigate().refresh();
-		Thread.sleep(5000);
-		WebElement productElement1 = driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>button"));
-		action.moveToElement(productElement1).click().perform();
-		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>div>div>div>div>button")).click();
-
-		String deactivateOptionText = driver.findElement(By.xpath("//div[text()='Inactive']")).getText().trim();
-		Assert.assertEquals(deactivateOptionText, "Inactive", "Inactive option does not have label In-active");
-
-		String InActiveLabelText = driver.findElement(By.xpath("//div[text()='Product is hidden everywhere']")).getText().trim();
-		Assert.assertEquals(InActiveLabelText, "Product is hidden everywhere", "Live label is not displayed after activating the product");		
-		System.out.println("In-activate option is clickable with label In-active.\n");
-
-		WebElement toggleButton1 = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>div>div:first-of-type>div>div>div>div>div>div>div>button:first-of-type")));
-		if (toggleButton1.getAttribute("data-state").equals("unchecked")) {
-			jse.executeScript("arguments[0].click();", toggleButton1);
-		}*/
 
 		//after click on edit product button should navigate to edit product details	
 		Thread.sleep(2000);
@@ -5048,7 +4936,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 13)
-	public void ThreeDot_ListView() throws InterruptedException{
+	public void ThreeDot_ListView () throws InterruptedException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
@@ -5170,7 +5058,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 14)
-	public void Sort_ListView() throws InterruptedException{
+	public void Sort_ListView () throws InterruptedException{
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -5727,7 +5615,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 15)
-	public void Product_Settings() throws InterruptedException {
+	public void Product_Settings () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
@@ -5911,8 +5799,8 @@ public class Products extends Data {
 
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
-		//String PlacedOrderIDs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
-		//System.out.println("Placed Order ID: " + PlacedOrderIDs1);		
+		String PlacedOrderIDs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		System.out.println("Placed Order ID: " + PlacedOrderIDs1);		
 		driver.close();
 		driver.switchTo().window(originalTab);		
 
@@ -5997,7 +5885,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 16)
-	public void Product_SettingsPage_TaxInventory() throws InterruptedException {
+	public void Product_SettingsPage_TaxInventory () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
@@ -6835,7 +6723,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 17)
-	public void Product_SettingsPage_TaxNonInventory() throws InterruptedException {
+	public void Product_SettingsPage_TaxNonInventory () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
@@ -7608,7 +7496,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 18)
-	public void Flat_Ratetax() throws InterruptedException {
+	public void Flat_Ratetax () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -8150,7 +8038,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 19)
-	public void GiftCard_CheckoutSettings() throws InterruptedException {
+	public void GiftCard_CheckoutSettings () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -8543,7 +8431,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 20)
-	public void Discount_CheckoutSettings() throws InterruptedException {
+	public void Discount_CheckoutSettings () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -9007,7 +8895,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 21)
-	public void TipAmount_CheckoutSettings() throws InterruptedException {
+	public void TipAmount_CheckoutSettings () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -9425,7 +9313,7 @@ public class Products extends Data {
 	}
 
 	@Test(priority = 22)
-	public void Product_SettingsPage() throws InterruptedException {
+	public void Product_SettingsPage () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -10168,36 +10056,594 @@ public class Products extends Data {
 		} catch(Exception noSuchEelementException){
 		    System.out.println("Refund Policy link is hidden after disabling it from product settings.\n");
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-
-
-
-
-
-
 	}
+	
+	@Test(priority = 23)	//dependsOnMethods = "OneTime_SalesOrder"
+	public void global_upsellSettings () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		
+		String Product_Name = "Upsell Product (Single / Multiple) " + UUID.randomUUID().toString().replace("- ", "").substring(0, 4).toUpperCase();
+		
+		//check that there is a description for Global Upsell Settings option 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='Global Upsell Settings']")));
+		WebElement Descriptor = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Global Upsell Settings']")));
+		String Descriptortext = Descriptor.getText().trim();
+		Assert.assertEquals(Descriptortext, "Global Upsell Settings", "Global Upsell Settings label is not present.");
+		System.out.println("Global Upsell Settings label is present on Product Settings page successfully.\n");
+		
+		WebElement GlobalUpselllabel = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Manage your upsell products for checkout page, this settings only consider if there are multiple products in the cart']")));
+		String GlobalUpselllabelText = GlobalUpselllabel.getText().trim();
+		Assert.assertEquals(GlobalUpselllabelText, "Manage your upsell products for checkout page, this settings only consider if there are multiple products in the cart", "Enable global upsell label is not present.");
+		System.out.println("Manage your upsell products for checkout page, this settings only consider if there are multiple products in the cart label is present on Product Settings page successfully.\n");
+		
+		//Global Upsell Settings option has single layout option 
+		WebElement SingleLayoutOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(text(),'Single')]/ancestor::div[contains(@class,'cursor-pointer')]")));
+		Assert.assertTrue(SingleLayoutOption.isDisplayed(), "Single Layout option is not displayed under Global Upsell Settings.");
+		System.out.println("Single Layout option is displayed under Global Upsell Settings successfully.\n");
+		
+		WebElement MultipleLayoutOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(text(),'Multiple')]/ancestor::div[contains(@class,'cursor-pointer')]")));
+		Assert.assertTrue(MultipleLayoutOption.isDisplayed(), "Multiple Layout option is not displayed under Global Upsell Settings.");
+		System.out.println("Multiple Layout option is displayed under Global Upsell Settings successfully.\n");
+		SingleLayoutOption.click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		
+		//check that global upsell setting applied only when there are single products in the cart 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
 
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileseven};
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);	
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
+		Thread.sleep(1000);
 
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+		Thread.sleep(3000);
+			
+		//check that global upsell setting applied only when there are single products in the cart then on checkout only single upsell can be possible
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(Product_Name);		
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
+		driver.findElement(By.cssSelector("div.button-group-class>button:nth-of-type(3)>div")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//button[@value='on'])[3]")).click();
+		Thread.sleep(3000);
+		String Upsell_Product = driver.findElement(By.cssSelector("table.rounded-large>tbody>tr>td>article>div>p:first-of-type")).getText().trim();
+		System.out.println("Single Upsell Product Name: " + Upsell_Product);
+		driver.findElement(By.xpath("(//button[@type='button'][normalize-space()='+ Add'])[1]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[@type=\"submit\"]")).click();
+		
+		StoreFront();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='SHOP NOW']"))).click();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("#header-right-side>div:first-of-type>a")).click();
+		driver.findElement(By.cssSelector("ul.grid.grid-cols-2>li:first-of-type>a")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("#header-right-side>div:last-of-type>div>button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[normalize-space()=\"Go to checkout\"]")).click();
+		
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down	
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		
+		//check that global upsell setting applied only when there are single products in the cart
+		String Upsell_Product_in_Checkout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.overflow-x-hidden>div>div>div:nth-of-type(2)>div>p:first-of-type"))).getText().trim();
+		System.out.println("Single Upsell Product in Checkout: " + Upsell_Product_in_Checkout);
+		Assert.assertEquals(Upsell_Product.toLowerCase(), Upsell_Product_in_Checkout.toLowerCase(), "Upsell product not added to checkout");
+		System.out.println("Global Upsell setting is applied successfully when there is single product in the cart.\n");
+		
+		driver.findElement(By.xpath("//button[text()='Add to Order']")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//span[text()='Complete Checkout']//parent::span//parent::button")).click();
+		Thread.sleep(7000);
+		String SingleupsellID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		//check that global upsell setting applied for single product order updates in upsell orders tab 
+		driver.navigate().to(Orders);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Upsells Toggle Button']"))).click(); 		
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:nth-of-type(2)>span")).click(); 
+		Thread.sleep(4000);
+		String currentUrl = driver.getCurrentUrl().toLowerCase();	
+		Assert.assertTrue(currentUrl.contains(SingleupsellID), "Order ID not found in URL");
+		
+		//check that global upsell setting applied for single product order updates with upsell tag 
+		String Upsell_Tag = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Upsell'])[1]"))).getText().trim();
+		Assert.assertEquals(Upsell_Tag, "Upsell", "Upsell tag not found in order details");
+		System.out.println("Global Upsell setting is applied successfully when there is single product in the cart and Upsell tag is displayed in order details page successfully.\n");
+			
+		//check that global upsell setting applied only when there are multiple products in the cart then on checkout multiple upsell can be possible
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//div[text()='Global Upsell Settings']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[contains(text(),'Multiple')]/ancestor::div[contains(@class,'cursor-pointer')]"))).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();		
+		
+		driver.navigate().to(Products);		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+		driver.findElement(By.cssSelector("div.button-group-class>button:nth-of-type(3)>div")).click();
+		Thread.sleep(3000);
+		String Upsell_Product1 = driver.findElement(By.cssSelector("table.rounded-large>tbody>tr:first-of-type>td>article>div>p:first-of-type")).getText().trim();
+		String Upsell_Product2 = driver.findElement(By.cssSelector("table.rounded-large>tbody>tr:nth-of-type(2)>td>article>div>p:first-of-type")).getText().trim();
+
+		driver.findElement(By.xpath("(//button[@type='button'][normalize-space()='+ Add'])[1]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[@type=\"submit\"]")).click();
+		
+		StoreFront();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='SHOP NOW']"))).click();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("#header-right-side>div:first-of-type>a")).click();
+		driver.findElement(By.cssSelector("ul.grid.grid-cols-2>li:first-of-type>a")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("#header-right-side>div:last-of-type>div>button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[normalize-space()=\"Go to checkout\"]")).click();
+		
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down	
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder1.clear();
+		cardHolder1.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		
+		//check that global upsell setting applied only when there are multiple products in the cart
+		String Upsell_Product_in_Checkout1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.overflow-x-hidden>div>div>div:nth-of-type(2)>div>p:first-of-type"))).getText().trim();
+		System.out.println("\nmultiple Upsell first Product in Checkout: " + Upsell_Product_in_Checkout1);
+		Assert.assertEquals(Upsell_Product1.toLowerCase(), Upsell_Product_in_Checkout1.toLowerCase(), "First Upsell product not added to checkout");		
+		driver.findElement(By.xpath("//button[text()='Add to Order']")).click(); 
+		Thread.sleep(2000);
+		String Upsell_Product_in_Checkout2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.overflow-x-hidden>div>div>div:nth-of-type(2)>div>p:first-of-type"))).getText().trim();
+		System.out.println("multiple Upsell second Product in Checkout: " + Upsell_Product_in_Checkout2);
+		Assert.assertEquals(Upsell_Product2.toLowerCase(), Upsell_Product_in_Checkout2.toLowerCase(), "Second Upsell product not added to checkout");	
+		System.out.println("Global Upsell setting is applied successfully when there are multiple products in the cart.\n");
+		driver.findElement(By.xpath("//button[text()='Add to Order']")).click();		
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//span[text()='Complete Checkout']//parent::span//parent::button")).click();
+		Thread.sleep(7000);
+		String MultipleupsellID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		
+		//check that global upsell setting applied for multiple product for multiple product order updates in upsell orders tab
+		driver.navigate().to(Orders);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Upsells Toggle Button']"))).click(); 		
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:nth-of-type(2)>span")).click(); 
+		Thread.sleep(4000);
+		String currentUrl1 = driver.getCurrentUrl().toLowerCase();
+		Assert.assertTrue(currentUrl1.contains(MultipleupsellID), "Order ID not found in URL");
+		
+		//check that global upsell setting applied for multiple  product for multiple products order updates with upsell tag
+		String multipleUpsell_Tag1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Upsell'])[1]"))).getText().trim();
+		Assert.assertEquals(multipleUpsell_Tag1, "Upsell", "Upsell tag not found for first order details");
+		
+		String multipleUpsell_Tag2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[text()='Upsell'])[1]"))).getText().trim();
+		Assert.assertEquals(multipleUpsell_Tag2, "Upsell", "Upsell tag not found for second order details");
+		System.out.println("Global Upsell setting is applied successfully when there are multiple products in the cart and Upsell tag is displayed in order details page successfully.\n");	
+	}
+	
+	@Test(priority = 24)	
+	public void Sales_OrdersTab () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		
+		OneTime_SalesOrder();
+						
+		//driver.navigate().to(Products);//remove this code
+		//Thread.sleep(10000);
+		//driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+//		driver.navigate().to(Products);
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys("Photo Frame");	
+//		Thread.sleep(4000);
+//		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
+				
+		//check that order section available for every product created 
+		Thread.sleep(2000);
+		WebElement Orderstab = driver.findElement(By.id("orderHistoryToggleID"));
+		Assert.assertTrue(Orderstab.isDisplayed(), "Orders tab is not displayed in order summary page.");
+		Orderstab.click();
+		
+		//check that under revenue title there is a revenue for the product
+		Thread.sleep(2000);
+		String OrderRecived = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("tbody#order-table-body>tr>td:nth-of-type(3)>div>span:last-of-type"))).getText().trim().toLowerCase();
+		Assert.assertEquals(OrderRecived, firstName.toLowerCase() + " " + lastName.toLowerCase() , "Customer name not matching on order summary");
+		System.out.println("user can see orders section for particular order on order summary successfully.\n");
+		
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		String Revenuegenerated = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[normalize-space()='Total Revenue']/following-sibling::span)[2]"))).getText().trim();
+		
+		//check that user can see orders section for particular order
+		String Purchases = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#order-table-body>tr:first-of-type>td:nth-of-type(4)>span"))).getText().trim();
+		Assert.assertEquals(Purchases, Revenuegenerated, "Revenue generated not matching with purchases in order details");
+		System.out.println("user can see purchases section for particular order on order details successfully.\n");
+		
+		//check that Total no of orders and orders count data matches
+		String OrdersCount = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.order-history-table>div>p>span:first-of-type"))).getText().trim();
+		String ordersCount = OrdersCount.split(" ")[0];		
+		List<WebElement> Orderss = driver.findElements(By.cssSelector("#order-table-body>tr"));
+		int OrdersSize = Orderss.size();
+		Assert.assertEquals(ordersCount, String.valueOf(OrdersSize), "Total no of orders count not matching with orders count in order details");
+		System.out.println("Total no of orders count is matching with orders count in order details successfully.\n");
+		
+		//check that there is a Order ID, Invoice ID, Name ,Total, # Of Items ,Order Date, Pay Method, Pay Status column 
+		List<WebElement> OrderIDs = driver.findElements(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th>div>div>span"));	
+		List<String> expectedColumns = Arrays.asList("Order ID", "Invoice ID","Name","Total","# Of Items","Order Date","Pay Method", "Pay Status");
+		Assert.assertEquals(OrderIDs.size(),expectedColumns.size(),"Column count mismatch");
+		for (int i = 0; i < expectedColumns.size(); i++) {
+		    String actualColumn = OrderIDs.get(i).getText().trim();
+		    Assert.assertEquals(actualColumn,expectedColumns.get(i),"Column mismatch at index " + i);
+		}
+		
+		//check that name column should have sorting icon
+		WebElement NameArrow = driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(3)>div>div>div>span>svg"));
+		Assert.assertTrue(NameArrow.isDisplayed(), "Sorting icon is not displayed in Name column");
+		System.out.println("Sorting icon is displayed in Name column successfully.\n");
+		
+		//check that total column should have sorting icon
+		WebElement TotalArrow = driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(4)>div>div>div>span>svg"));
+		Assert.assertTrue(TotalArrow.isDisplayed(), "Sorting icon is not displayed in Total column");
+		System.out.println("Sorting icon is displayed in Total column successfully.\n");
+		
+		//check that number of items column should have sorting icon
+		WebElement NoofItemArrow = driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(5)>div>div>div>span>svg"));
+		Assert.assertTrue(NoofItemArrow.isDisplayed(), "Sorting icon is not displayed in number of items column");
+		System.out.println("Sorting icon is displayed in number of items column successfully.\n");
+		
+		//check that order date column should have sorting icon
+		WebElement DateArrow = driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(6)>div>div>div>span>svg"));
+		Assert.assertTrue(DateArrow.isDisplayed(), "Sorting icon is not displayed in date column");
+		System.out.println("Sorting icon is displayed in date column successfully.\n");
+		
+		//check that pay method column should have sorting icon
+		WebElement PaymethodArrow = driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(7)>div>div>div>svg"));
+		Assert.assertTrue(PaymethodArrow.isDisplayed(), "Sorting icon is not displayed in pay method column");
+		System.out.println("Sorting icon is displayed in pay method column successfully.\n");
+		
+		//check that pay status column should have sorting icon
+		WebElement PaystatusArrow = driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(8)>div>div>div>svg"));
+		Assert.assertTrue(PaystatusArrow.isDisplayed(), "Sorting icon is not displayed in pay status column");
+		System.out.println("Sorting icon is displayed in pay status column successfully.\n");
+		
+		/*//check that after apply of ascending sorting for column name should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(3)>div>div>div>span>svg")).click();
+		List<WebElement> Names = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(3)>div>span:nth-of-type(2)"));
+		List<String> namesList = new ArrayList<>();
+		for(WebElement name:Names) {
+			namesList.add(name.getText().trim());
+			
+		}
+		
+		List<String> sortedNamesList = new ArrayList<>(namesList);
+		Collections.sort(sortedNamesList);
+		Assert.assertEquals(namesList, sortedNamesList, "Ascending sorting is not working for Name column");
+		System.out.println("Ascending sorting is working for Name column successfully.\n");
+		
+		//check that after apply of descending sorting for column name should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(3)>div>div>div>span>svg")).click();
+		List<WebElement> Names1 = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(3)>div>span:nth-of-type(2)"));
+		List<String> namesList1 = new ArrayList<>();
+		for(WebElement name:Names1) {
+			namesList1.add(name.getText().trim());
+		}
+		
+		List<String> sortedNamesList1 = new ArrayList<>(namesList1);
+		Collections.sort(sortedNamesList1, Collections.reverseOrder());
+		Assert.assertEquals(namesList1, sortedNamesList1, "Descending sorting is not working for Name column");
+		System.out.println("Descending sorting is working for Name column successfully.\n");*/
+		
+		//check that after apply of ascending sorting for column total should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(4)>div>div>div>span>svg")).click();
+		List<WebElement> Totals = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(4)>span"));
+		List<Double> totalList = new ArrayList<>();
+		for(WebElement total:Totals) {
+			String totalText = total.getText().trim().replace("$", "").replace(",", "");
+			totalList.add(Double.parseDouble(totalText));
+			
+		}
+		
+		System.out.println("Total Ascending List: " + totalList);
+		List<Double> sortedTotalList = new ArrayList<>(totalList);
+		Collections.sort(sortedTotalList);
+		Assert.assertEquals(totalList, sortedTotalList, "Ascending sorting is not working for Total column");
+		System.out.println("Ascending sorting is working for Total column successfully.\n");
+		
+		//check that after apply of descending sorting for column total should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(4)>div>div>div>span>svg")).click();
+		List<WebElement> Totals1 = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(4)>span"));
+		List<Double> totalList1 = new ArrayList<>();
+		for(WebElement total:Totals1) {
+			String totalText = total.getText().trim().replace("$", "").replace(",", "");
+			totalList1.add(Double.parseDouble(totalText));
+		}
+		
+		System.out.println("Total Descending List: " + totalList1);
+		List<Double> sortedTotalList1 = new ArrayList<>(totalList1);
+		Collections.sort(sortedTotalList1, Collections.reverseOrder());
+		Assert.assertEquals(totalList1, sortedTotalList1, "Descending sorting is not working for Total column");
+		System.out.println("Descending sorting is working for Total column successfully.\n");
+		
+		//check that after apply of ascending sorting for column number of items should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(5)>div>div>div>span>svg")).click();
+		List<WebElement> NoofItems = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(5)>span"));
+		List<Integer> NoofItemsList	 = new ArrayList<>();
+		for(WebElement NoofItem:NoofItems) {
+			String NoofItemText = NoofItem.getText().trim();
+			NoofItemsList.add(Integer.parseInt(NoofItemText));
+		}
+		
+		System.out.println("No of Items Ascending List: " + NoofItemsList);
+		List<Integer> sortedNoofItemsList = new ArrayList<>(NoofItemsList);
+		Collections.sort(sortedNoofItemsList);
+		Assert.assertEquals(NoofItemsList, sortedNoofItemsList, "Ascending sorting is not working for No of Items column");
+		System.out.println("Ascending sorting is working for No of Items column successfully.\n");
+		
+		//check that after apply of descending sorting for column number of items should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(5)>div>div>div>span>svg")).click();
+		List<WebElement> NoofItems1 = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(5)>span"));
+		List<Integer> NoofItemsList1 = new ArrayList<>();
+		for(WebElement NoofItem:NoofItems1) {
+			String NoofItemText = NoofItem.getText().trim();
+			NoofItemsList1.add(Integer.parseInt(NoofItemText));
+		}
+		
+		System.out.println("No of Items Descending List: " + NoofItemsList1);
+		List<Integer> sortedNoofItemsList1 = new ArrayList<>(NoofItemsList1);
+		Collections.sort(sortedNoofItemsList1, Collections.reverseOrder());
+		Assert.assertEquals(NoofItemsList1, sortedNoofItemsList1, "Descending sorting is not working for No of Items column");
+		System.out.println("Descending sorting is working for No of Items column successfully.\n");
+		
+		//check that after apply of ascending sorting for column order date should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(6)>div>div>div>span>svg")).click();
+		List<WebElement> orderDates = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(6)>span"));
+		List<LocalDate> orderDatesList = new ArrayList<>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.ENGLISH);
+
+		for (WebElement orderDate : orderDates) {
+		    String orderDateText = orderDate.getText().trim();
+		    LocalDate date = LocalDate.parse(orderDateText, formatter);
+		    orderDatesList.add(date);
+		}
+
+		System.out.println("order date Ascending List: " + orderDatesList);
+		List<LocalDate> sortedOrderDatesList =new ArrayList<>(orderDatesList);
+		Collections.sort(sortedOrderDatesList);
+		Assert.assertEquals(orderDatesList, sortedOrderDatesList,"Ascending sorting is not working for Order Date column");
+		System.out.println("Ascending sorting is working for order date column successfully.\n.");
+		
+		//check that after apply of descending sorting for column order date  should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(6)>div>div>div>span>svg")).click();
+		List<WebElement> orderDates1 = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(6)>span"));
+		List<LocalDate> orderDatesList1 = new ArrayList<>();
+		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.ENGLISH);
+		
+		for (WebElement orderDate : orderDates1) {
+		    String orderDateText = orderDate.getText().trim();
+		    LocalDate date = LocalDate.parse(orderDateText, formatter1);
+		    orderDatesList1.add(date);
+		}
+		
+		System.out.println("order date Descending List: " + orderDatesList1);
+		List<LocalDate> sortedOrderDatesList1 = new ArrayList<>(orderDatesList);
+		Collections.sort(sortedOrderDatesList1, Collections.reverseOrder());
+		Assert.assertEquals(orderDatesList1, sortedOrderDatesList1,"Descending sorting is not working for Order Date column");
+		System.out.println("Descending sorting is working for order date column successfully.\n");
+		
+		//check that after apply of ascending sorting for column pay method should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(7)>div>div>div>svg")).click();
+		List<WebElement> PayMethods = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(7)>div"));
+		List<String> PayMethodsList = new ArrayList<>();
+		for(WebElement PayMethod:PayMethods) {
+			PayMethodsList.add(PayMethod.getText().trim());
+			
+		}
+		
+		System.out.println("Pay method Ascending List: " + PayMethodsList);
+		List<String> sortedPayMethodsList = new ArrayList<>(PayMethodsList);
+		Collections.sort(sortedPayMethodsList);
+		Assert.assertEquals(PayMethodsList, sortedPayMethodsList,"Ascending sorting is not working for Pay Method column");
+		System.out.println("Ascending sorting is working for Pay Method column successfully.\n");
+		
+		//check that after apply of descending sorting for column pay method should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(7)>div>div>div>svg")).click();
+		List<WebElement> PayMethods1 = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(7)>div"));
+		List<String> PayMethodsList1 = new ArrayList<>();
+		for(WebElement PayMethod:PayMethods1) {
+			PayMethodsList1.add(PayMethod.getText().trim());
+		}
+		
+		System.out.println("Pay method Descending List: " + PayMethodsList1);
+		List<String> sortedPayMethodsList1 = new ArrayList<>(PayMethodsList1);
+		Collections.sort(sortedPayMethodsList1, Collections.reverseOrder());
+		Assert.assertEquals(PayMethodsList1, sortedPayMethodsList1,"Descending sorting is not working for Pay Method column");
+		System.out.println("Descending sorting is working for Pay Method column successfully.\n");
+		
+		//check that after apply of ascending sorting for column pay status should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(8)>div>div>div>svg")).click();
+		List<WebElement> PayStatus = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(8)>div>p>span"));
+		List<String> PayStatusList = new ArrayList<>();
+		for(WebElement status:PayStatus) {
+			PayStatusList.add(status.getText().trim());
+		}
+		
+		System.out.println("Pay status Ascending List: " + PayStatusList);
+		List<String> sortedPayStatusList = new ArrayList<>(PayStatusList);
+		Collections.sort(sortedPayStatusList);
+		Assert.assertEquals(PayStatusList, sortedPayStatusList,"Ascending sorting is not working for Pay Status column");
+		System.out.println("Ascending sorting is working for Pay Status column successfully.\n");
+		
+		//check that after apply of descending sorting for column pay status should show correct results 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr:first-of-type>th:nth-of-type(8)>div>div>div>svg")).click();
+		List<WebElement> PayStatus1 = driver.findElements(By.cssSelector("#order-table-body>tr>td:nth-of-type(8)>div>p>span"));
+		List<String> PayStatusList1 = new ArrayList<>();
+		for(WebElement status:PayStatus1) {
+			PayStatusList1.add(status.getText().trim());
+		}
+		
+		System.out.println("Pay status Descending List: " + PayStatusList1);
+		List<String> sortedPayStatusList1 = new ArrayList<>(PayStatusList1);
+		Collections.sort(sortedPayStatusList1, Collections.reverseOrder());
+		Assert.assertEquals(PayStatusList1, sortedPayStatusList1,"Descending sorting is not working for Pay Status column");
+		System.out.println("Descending sorting is working for Pay Status column successfully.\n");
+		
+		//check that it should navigate to the orders page for the product
+		driver.findElement(By.xpath("//p[text()='Full History']//parent::a")).click();
+		Thread.sleep(3000);
+		String currentUrl = driver.getCurrentUrl().toLowerCase();
+		Assert.assertTrue(currentUrl.contains("orders"), "Not navigated to orders page after clicking on full history link");
+		System.out.println("Navigated to orders page successfully after clicking on full history link.\n");			
+		driver.navigate().back();
+		Thread.sleep(3000);
+		
+		//check that there is a sales report tab 
+		WebElement SalesTab = driver.findElement(By.id("orderSalesReport"));
+		Assert.assertTrue(SalesTab.isDisplayed(), "Sales report tab is not displayed in order summary page.");
+		SalesTab.click();
+		
+		//check that there is total revenue showed just below the total revenue title
+		String TotalRevenue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Text alignment']>button:first-of-type>div>article>div>p:nth-of-type(2)"))).getText().trim();
+		Assert.assertEquals(TotalRevenue, Revenuegenerated, "Total revenue is not displayed in sales report tab");
+		System.out.println("Total revenue is displayed in sales report tab successfully.\n");
+		
+		//check that just below the All Sales link there are three different sections
+		List<WebElement> SalesSections = driver.findElements(By.cssSelector("div[aria-label='Text alignment']>button>div>article>div>p:first-of-type"));
+		List<String> expectedSections = Arrays.asList("Total Revenue", "Purchases",	"Refunds");
+		Assert.assertEquals(SalesSections.size(), expectedSections.size(), "Sales sections count mismatch");
+		for (int i = 0; i < expectedSections.size(); i++) {
+			String actualSection = SalesSections.get(i).getText().trim();
+		    Assert.assertEquals(actualSection, expectedSections.get(i), "Sales section mismatch");
+		}
+		
+		System.out.println("All sales three sections are displayed in sales report successfully.\n");
+		
+		//check that total purchase section with all the purchase detail 
+		String TotalPurchase = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Text alignment']>button:nth-of-type(2)>div>article>div>p:nth-of-type(2)"))).getText().trim();
+		Assert.assertEquals(TotalPurchase, "1", "Total purchase is not displayed in sales report tab");
+		System.out.println("Total purchase is displayed in sales report tab successfully.\n");
+		
+		//check that total purchase section with all the purchase 
+		driver.navigate().to(Orders);
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("#order-table-body>tr:first-of-type>td:nth-of-type(2)>span")).click();
+		Thread.sleep(4000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[text()='Refund']//parent::span//parent::button)[1]"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@id=\"Partially Refund\"]")).click();
+		
+		Thread.sleep(2000);
+		WebElement refundAmountField = driver.findElement(By.xpath("//input[contains(@placeholder,\"0.00\")]"));
+		Thread.sleep(3000);
+		refundAmountField.click();
+		refundAmountField.sendKeys(Keys.CONTROL, "a");
+		refundAmountField.sendKeys(Keys.DELETE);
+		refundAmountField.sendKeys("10");
+		Thread.sleep(2000);
+		WebElement element = driver.findElement(By.xpath("//span[normalize-space()='Complete']//parent::button"));
+		jse.executeScript("arguments[0].click();", element);
+		Thread.sleep(3000);
+				
+		driver.navigate().to(Products);
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+		driver.findElement(By.id("orderSalesReport")).click();
+		Thread.sleep(3000);
+		String Refunds = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Text alignment']>button:nth-of-type(3)>div>article>div>p:nth-of-type(2)"))).getText().trim();
+		Assert.assertEquals(Refunds, "$10", "Refund amount is not displayed in sales report tab");
+		System.out.println("Refund amount is displayed in sales report tab successfully.\n");
+		
+		//check that there is All Sales revenue is getting updated after refund in a sales report tab
+		String TotalRevenue1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[aria-label='Text alignment']>button:first-of-type>div>article>div>p:nth-of-type(2)"))).getText().trim();		
+		Assert.assertEquals(TotalRevenue1, "$90.00", "Total revenue is not updated after refund in sales report tab");
+		System.out.println("Total revenue is updated after refund in sales report tab successfully.\n");
+		
+		//check that after click on All sales link it should navigate to the orders of the same product 
+		driver.findElement(By.xpath("//p[text()='Sales History']//parent::a")).click();
+		Thread.sleep(3000);
+		String currentUrl1 = driver.getCurrentUrl().toLowerCase();
+		Assert.assertTrue(currentUrl1.contains("sales"), "Not navigated to sales page after clicking on All sales link");
+		System.out.println("Navigated to sales page successfully after clicking on sales history button.\n");	
+		
+		//check that there is revenue is getting updated after refund in orders tab
+		driver.navigate().back();
+		Thread.sleep(3000);
+		driver.findElement(By.id("orderHistoryToggleID")).click();
+		Thread.sleep(3000);
+		String Refunds1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//span[normalize-space()='Total Revenue']/following-sibling::span)[2]"))).getText().trim();
+		Assert.assertEquals(Refunds1, "$90.00", "Refund amount is not displayed in	orders tab after refund");
+		System.out.println("Refund amount is displayed in orders tab successfully after refund in orders tab.\n");			
+	}
 }

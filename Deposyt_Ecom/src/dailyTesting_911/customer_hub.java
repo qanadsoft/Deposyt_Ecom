@@ -27,7 +27,7 @@ public class customer_hub extends Data {
 	
 	ContactPhone1 = "(775) 986-5200",F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
 	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
-	chars = "abcdefghijklmnopqrstuvwxyz",Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",Country_Add = "Boardman, Oregon, 97818",
+	chars = "abcdefghijklmnopqrstuvwxyz",Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file7.jpg", Attachment = "Jira_Guide.pdf",Country_Add = "Boardman, Oregon, 97818",
 			
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
@@ -116,9 +116,7 @@ public class customer_hub extends Data {
 		String[] files1 = {Media_Path + Fileone};
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
-		
+		Thread.sleep(3000);		
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
 
@@ -210,8 +208,6 @@ public class customer_hub extends Data {
 		String[] files11 = {Media_Path + Fileone};
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -326,8 +322,6 @@ public class customer_hub extends Data {
 		String[] files111 = {Media_Path + Fileone};
 		String allFiles111 = String.join("\n", files111);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles111);
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");

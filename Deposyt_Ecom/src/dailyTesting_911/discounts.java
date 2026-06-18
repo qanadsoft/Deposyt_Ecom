@@ -23,8 +23,8 @@ public class discounts extends Data {
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(),
 			
 	ContactPhone1 = "(775) 986-5200",F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", Price = "2", Value = "1",
-	ContactPhone2 = "(539) 321-3502",Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",
-	chars = "abcdefghijklmnopqrstuvwxyz",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",Country_Add = "Boardman, Oregon, 97818",
+	ContactPhone2 = "(539) 321-3502",Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", 
+	Card_No = "4242424242424242",chars = "abcdefghijklmnopqrstuvwxyz",susbcriptionPrice = "3",Country_Add = "Boardman, Oregon, 97818",
 					
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
@@ -189,7 +189,6 @@ public class discounts extends Data {
 		//Check discount is getting applied in vt
 		Thread.sleep(5000);
 		driver.navigate().to(Virtual_Terminal);
-
 		Thread.sleep(20000);
 		driver.findElement(By.xpath("//button[.//span[normalize-space()='Add Customer']]")).click(); //Clicking on add customer button
 		Thread.sleep(1000);

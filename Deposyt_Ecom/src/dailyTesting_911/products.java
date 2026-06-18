@@ -29,9 +29,9 @@ public class products extends Data {
 	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), 
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), 
 	
-	ContactPhone1 = "(775) 986-5200",F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", ContactPhone2 = "(539) 321-3502",
-	Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", Card_No = "4242424242424242",Price = "2",
-	chars = "abcdefghijklmnopqrstuvwxyz", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",	Country_Add = "Boardman, Oregon, 97818",    
+	ContactPhone1 = "(775) 986-5200",F_Name = "NineEleven", L_Name = "Contact", Number = "(314) 237-5324", Street_Add = "Allen Court", country = "United States", 
+	ContactPhone2 = "(539) 321-3502",Account_Holder_Name = "DeposytCert", Routing_Number = "490000018", Account_Number = "000123456789", EXP = "12/44", CVV = "123", 
+	Card_No = "4242424242424242",Price = "2",chars = "abcdefghijklmnopqrstuvwxyz", Value = "1",susbcriptionPrice = "3",Fileone = "file7.jpg",	Country_Add = "Boardman, Oregon, 97818",    
 	
 	firstName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
 	lastName ="" + chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)) + chars.charAt(r.nextInt(26))+ chars.charAt(r.nextInt(26)),
@@ -96,9 +96,6 @@ public class products extends Data {
 
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
-		Thread.sleep(1000);
 
 		// Entering One Time Purchase Product price
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys(Price);
@@ -375,19 +372,7 @@ public class products extends Data {
 		String[] files1 = {Media_Path + Fileone};
 
 		String allFiles1 = String.join("\n", files1);
-		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
-
-		// Upload product attachment
-		/*WebElement uploadAttachment = driver.findElement(By.xpath("//p[normalize-space()='Upload File']/parent::div/parent::div/parent::label"));
-		jse.executeScript("arguments[0].scrollIntoView(true);", uploadAttachment);	
-		Thread.sleep(5000);
-		driver.findElement(By.xpath("//p[normalize-space()='Upload File']/parent::div/parent::div/parent::label")).click();
-		Thread.sleep(2500);
-		driver.findElement(By.xpath("(//div[normalize-space()='Upload File'])[3]")).click();
-		uploadAttachment.sendKeys(Media_Path + Attachment);*/
-		
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);	
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);
@@ -645,10 +630,7 @@ public class products extends Data {
 		String[] files1 = {Media_Path + Fileone};
 
 		String allFiles1 = String.join("\n", files1);
-		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
-		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
-		
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);	
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
 		Thread.sleep(1000);

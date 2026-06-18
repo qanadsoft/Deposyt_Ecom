@@ -30,7 +30,7 @@ public class access_level extends Data {
 	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(),
 	
-	ContactPhone1 = "(775) 986-5200",Fileone = "file1.jpg", chars = "abcdefghijklmnopqrstuvwxyz", Value = "1", ContactPhone2 = "(539) 321-3502",GiftCard = "0.20",
+	ContactPhone1 = "(775) 986-5200",Fileone = "file7.jpg", chars = "abcdefghijklmnopqrstuvwxyz", Value = "1", ContactPhone2 = "(539) 321-3502",GiftCard = "0.20",
 	Card_No = "4242424242424242",F_Name = "NineEleven", L_Name = "Contact", Street_Add = "Allen Court", country = "United States",Discounts_Price = "1",Country_Add = "Boardman, Oregon, 97818",
 	
 	giftCardName = "GiftCard" + UUID.randomUUID().toString().substring(0, 6).toUpperCase(),
@@ -421,7 +421,6 @@ public class access_level extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
@@ -928,7 +927,6 @@ public class access_level extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);
 
@@ -1377,7 +1375,6 @@ public class access_level extends Data {
 		String allFiles11 = String.join("\n", files11);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles11);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("1");
 		Thread.sleep(1000);

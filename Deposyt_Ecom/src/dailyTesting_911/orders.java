@@ -22,7 +22,7 @@ import Master.Data;
 public class orders extends Data {
 	java.util.Random r = new java.util.Random();	
 	
-	String Price = "2", Value = "1",susbcriptionPrice = "3",Fileone = "file1.jpg", Attachment = "Jira_Guide.pdf",
+	String Price = "2", Value = "1", susbcriptionPrice = "3", Fileone = "file7.jpg",
 	Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 	SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
 	Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(), 
@@ -115,7 +115,6 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		actions.sendKeys(Keys.PAGE_DOWN).perform();
 		Thread.sleep(1000);
@@ -134,12 +133,12 @@ public class orders extends Data {
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); //Select frequency as monthly
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); //First payment different toggle button
-//		WebElement suscprise1 = driver.findElement(By.name("productPricing.regularPrice"));
-//		suscprise1.clear();
-//		suscprise1.sendKeys(susbcriptionPrice);
-//		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
+		//WebElement suscprise1 = driver.findElement(By.name("productPricing.regularPrice"));
+		//suscprise1.clear();
+		//suscprise1.sendKeys(susbcriptionPrice);
+		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
 		
 		//Scroll to "This Product Unlocks Courses" button
 		WebElement unlockCourseButton = driver.findElement(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button//span"));
@@ -227,8 +226,8 @@ public class orders extends Data {
 
 		Assert.assertEquals(Order_Name, firstName + " " + lastName, "Customer name not matching on order summary");
 		Assert.assertEquals(Order_Mail, email, "Customer email not matching on order summary");		
-		String Billing_Address1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>p:first-of-type")).getText().trim();
-		String Billing_Address2 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>p:nth-of-type(4)")).getText().trim();
+		//String Billing_Address1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>p:first-of-type")).getText().trim();
+		//String Billing_Address2 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(3)>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>p:nth-of-type(4)")).getText().trim();
 		
 		// Order History Section Show Proper Order 
 		driver.close();
@@ -865,7 +864,6 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
 		
 		Thread.sleep(1000);
 		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
@@ -884,9 +882,9 @@ public class orders extends Data {
 		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); //Select frequency as monthly
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); //First payment different toggle button
-//		WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
-//		suscprise.clear();
-//		suscprise.sendKeys(susbcriptionPrice);
+		//WebElement suscprise = driver.findElement(By.name("productPricing.regularPrice"));
+		//suscprise.clear();
+		//suscprise.sendKeys(susbcriptionPrice);
 		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); //Limited subscription toggle button
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); //plus button to add subscription limit
@@ -1055,8 +1053,6 @@ public class orders extends Data {
 		String allFiles1 = String.join("\n", files1);
 		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
-
 		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("100");
 		Thread.sleep(1000);
 		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
