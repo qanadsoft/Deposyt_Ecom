@@ -17,7 +17,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "Sales_OrdersTab" />
+					<include name = "Global_postcheckout" />
 				</methods>
 			</class>
 		</classes>

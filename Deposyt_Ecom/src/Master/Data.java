@@ -4,8 +4,10 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -280,5 +282,37 @@ public class Data extends Public_Strings {
 		WebElement Store =  driver.findElement(By.cssSelector("a[rel='noopener noreferrer']:first-of-type"));
 		String Storeurl = Store.getAttribute("href");
 		driver.get(Storeurl);
+	}
+	
+	public void Create_product () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		
+		String Product_Name = "OneTime Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+		SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), 
+		Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase();
+		String Fileseven = "file7.jpg";
+		
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileseven};
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(3000);
+		driver.findElement(By.name("productPricing.regularPrice")).sendKeys("100");
+		Thread.sleep(1000);
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+		Thread.sleep(3000);
 	}
 }

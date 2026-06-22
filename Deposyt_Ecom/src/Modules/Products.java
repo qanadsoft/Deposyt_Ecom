@@ -8263,7 +8263,6 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();	
-		Thread.sleep(2000);		
 		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
 
@@ -10298,7 +10297,7 @@ public class Products extends Data {
 	@Test(priority = 24)	
 	public void Sales_OrdersTab () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
 		
 		OneTime_SalesOrder();
@@ -10306,10 +10305,11 @@ public class Products extends Data {
 		//driver.navigate().to(Products);//remove this code
 		//Thread.sleep(10000);
 		//driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
-//		driver.navigate().to(Products);
-//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys("Photo Frame");	
-//		Thread.sleep(4000);
-//		driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
+		
+		//driver.navigate().to(Products);
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys("Photo Frame");	
+		//Thread.sleep(4000);
+		//driver.findElement(By.cssSelector("ul#results-list>div>div>div>li:nth-of-type(2)>a:first-of-type")).click();
 				
 		//check that order section available for every product created 
 		Thread.sleep(2000);
@@ -10646,4 +10646,2012 @@ public class Products extends Data {
 		Assert.assertEquals(Refunds1, "$90.00", "Refund amount is not displayed in	orders tab after refund");
 		System.out.println("Refund amount is displayed in orders tab successfully after refund in orders tab.\n");			
 	}
+	
+	@Test(priority = 25)
+	public void product_Details () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		Actions actions = new Actions(driver);
+		
+		String uniqueCode = UUID.randomUUID().toString().substring(0, 8);
+		String description = "Automation Test Description - " + uniqueCode;
+		String HTTPs_URL = "https://www.google.com";
+		
+		Create_product();
+		
+		//driver.navigate().to(Products);//remove this code
+		//Thread.sleep(10000);
+		//driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+		
+		//change the product name from the product details and check that user is able to save the product details 
+		driver.navigate().to(Products);
+		Thread.sleep(10000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+		Thread.sleep(3000);			
+
+		WebElement ProdbeforeEdit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table > table > tbody > tr:first-of-type > td:nth-of-type(2) > div > a > div > div")));
+		String PdodName = ProdbeforeEdit.getText().trim();
+		System.out.println("Product name before edit: " + PdodName);
+		
+		String PrivateName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>p"))).getText().trim();
+		System.out.println("Private name before edit: " + PrivateName);		
+		ProdbeforeEdit.click();
+		Thread.sleep(3000);
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[text()='Product Details']")));		
+		Thread.sleep(3000);
+		WebElement ProductsName = driver.findElement(By.name("productDetails.productName"));
+		ProductsName.click();
+		Thread.sleep(1000);
+		ProductsName.sendKeys(" Edited");
+		
+		WebElement PrivateNameField = driver.findElement(By.name("productDetails.privateName"));
+		PrivateNameField.click();
+		PrivateNameField.clear();
+		Thread.sleep(1000);
+		PrivateNameField.sendKeys(PrivateName + " Edited");	
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		
+		WebElement ToasterMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Product was successfully updated']")));
+		Assert.assertTrue(ToasterMsg.isDisplayed(), "Product settings changes success message is not displayed after saving changes");
+		Assert.assertEquals(ToasterMsg.getText().trim(), "Product was successfully updated", "Product settings changes success message is not displayed after saving changes");
+		System.out.println("Product settings changes success message is displayed after saving changes successfully.\n");
+		
+		//change the product name from the product details and check that same product name reflects on the default checkout page 
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		
+		//change the private name for the product and same is reflected just below the default checkout page title on pages tab
+		String defaultCheckoutPagePrivateName = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div:nth-of-type(2)>p")).getText().trim();
+		Assert.assertEquals(defaultCheckoutPagePrivateName, PrivateName + " Edited", "Private name is not updated on the default checkout page after editing product details");
+		System.out.println("Private name is updated on the checkout page after editing product details successfully.\n");		
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		String defaultCheckoutPageProductName = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>div>div>div>span")).getText().trim();
+		Assert.assertEquals(defaultCheckoutPageProductName, PdodName + " Edited", "Product name is not updated on the default checkout page after editing product details");
+		System.out.println("Product name is updated on the checkout page after editing product details successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//change the product name from the product details and check that same product name reflects on the default product page 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(3000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		String ProductPageProductName = driver.findElement(By.cssSelector("#ProductDescriptionColumn>h2")).getText().trim();
+		Assert.assertEquals(ProductPageProductName, PdodName + " Edited", "Product name is not updated on the default product page after editing product details");
+		System.out.println("Product name is updated on the default product page after editing product details successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//change the product name from the product details and check that same product name reflects on the checkout page 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(3000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		String CheckoutPageProductName = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:first-of-type>span")).getText().trim();
+		Assert.assertEquals(CheckoutPageProductName, PdodName + " Edited", "Product name is not updated on the checkout page after editing product details");
+		System.out.println("Product name is updated on the checkout page after editing product details successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//change the private name for the product and same is reflected on the product listing page for the just below the product name 
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		String PrivateName1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>p"))).getText().trim();
+		Assert.assertEquals(PrivateName1, PrivateName + " Edited", "Private name is	 not updated on the product listing page after editing product details");
+		System.out.println("Private name is updated on the product listing page after editing product details successfully.\n");
+		
+		//change the description of the product from the product details and same is reflected on the default product page 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.name("productDetails.productDescription")).clear();
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys(description);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(3000);
+		
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();		
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(3000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		String ProductDescription = driver.findElement(By.cssSelector("#ProductDescriptionColumn>p")).getText().trim();
+		Assert.assertEquals(ProductDescription, description, "Product description is not updated on the default product page after editing product details");
+		System.out.println("Product description is updated on the default product page after editing product details successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//change the SKU code for the product and user should able to save the product details 
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		driver.findElement(By.name("productDetails.sku")).clear();
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		
+		//change the description of the product from the product details and enter same description in the global search then it will show the result with same product
+		Thread.sleep(3000);
+		driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(description);
+		Thread.sleep(3000);	
+		WebElement SearchResult = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div"));
+		Assert.assertTrue(SearchResult.isDisplayed(), "Search result is not displayed after searching with product description");
+		Assert.assertEquals(SearchResult.getText().trim(), PdodName + " Edited", "Search result is not matching with product description");
+		System.out.println("Search result is displayed and matching with product description successfully.\n");
+		SearchResult.click();
+		Thread.sleep(3000);
+		
+		//change the SKU code for the product and then on global search if user enters same sku code then results will show the product in the search result
+		/*driver.navigate().to(Products);
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[placeholder=\"Search Products\"]"))).sendKeys(SKU);
+		Thread.sleep(3000);
+		WebElement SearchResult1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div"));
+		Assert.assertTrue(SearchResult1.isDisplayed(), "Search result is not displayed after searching with SKU code");
+		Assert.assertEquals(SearchResult1.getText().trim(), PdodName + " Edited", "Search result is not matching with SKU code");
+		System.out.println("Search result is displayed and matching with SKU code successfully.\n");*/
+		
+		//verify that when user can delete the uploaded images for the product 
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);	
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileseven};
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		WebElement parent = driver.findElement(By.xpath("//div[contains(@class,'absolute') and contains(@class,'inset-0')]//*[name()='svg']"));
+		actions.moveToElement(parent).perform();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		WebElement parent1 = driver.findElement(By.xpath("//div[contains(@class,'absolute') and contains(@class,'inset-0')]//*[name()='svg']"));
+		actions.moveToElement(parent1).perform();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("#product-details-tab>div:first-of-type>div:nth-of-type(2)>div>div:nth-of-type(2)>div>div>div>div>div>div>div>svg")).click();
+		
+		//verify that user can can not upload more that one video in the media of the product details 
+		List<WebElement> inputs = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input[type='file']")));
+		WebElement uploadInput = null;
+		for (WebElement input : inputs) {
+		    if (input.getAttribute("multiple") != null) {
+		        uploadInput = input;
+		        break;
+		    }
+		}
+
+		if (uploadInput == null) {
+		    throw new RuntimeException("Multiple upload input not found");
+		}
+		
+		String[] files = {Media_Path + Fileten ,Media_Path + Fileten};
+		uploadInput.sendKeys(String.join("\n", files));
+		Thread.sleep(3000);
+
+		WebElement warningMessages = driver.findElement(By.xpath("//span[text()='Only 1 video is allowed']")); 
+		String actualMessages = warningMessages.getText().trim();
+		String expectedMessages = "Only 1 video is allowed";
+		Assert.assertEquals(actualMessages, expectedMessages, "Warning message not Displays");
+		System.out.println("Only 1 video is allowed message displayed successfully when user try to upload more than one Video file in details page.");
+		
+		//check that in media user can upload 9 images for the product and can save the product details 
+		List<WebElement> inputs1 = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input[type='file']")));
+		WebElement uploadInput1 = null;
+		for (WebElement input : inputs1) {
+		    if (input.getAttribute("multiple") != null) {
+		        uploadInput1 = input;
+		        break;
+		    }
+		}
+
+		if (uploadInput1 == null) {
+		    throw new RuntimeException("Multiple upload input not found");
+		}
+
+		String[] files11 = {Media_Path + Fileseven,Media_Path + Fileseven,Media_Path + Fileseven,Media_Path + Fileseven,Media_Path + Fileseven,Media_Path + Fileseven,Media_Path + Fileseven,Media_Path + Fileseven};
+		uploadInput1.sendKeys(String.join("\n", files11));
+		Thread.sleep(3000);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		
+		//verify that uploaded all the images can be seen on the default product page 
+		Thread.sleep(5000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(3000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		List<WebElement> uploadedImages = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[id^='thumbnail-container'] img")));
+		for (WebElement image : uploadedImages) {
+		    Assert.assertTrue(image.isDisplayed(), "One of the uploaded images is not displayed");
+		}
+		
+		System.out.println("All uploaded images are displayed on the default product page successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For non inventory product upload file type and same can be downloaded from the success page of the order using default checkout page
+		/*driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
+		WebElement uploadAttachment = driver.findElement(By.xpath("//p[normalize-space()='Upload File']/parent::div/parent::div/parent::label"));
+		jse.executeScript("arguments[0].click();", uploadAttachment);
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//input[@type=\"file\"])[3]")).sendKeys(Media_Path + Attachment);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); 
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		WebElement DownloadLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Download Here']//parent::button")));
+		Assert.assertTrue(DownloadLink.isDisplayed(), "Uploaded file is not displayed on default checkout order success page after uploading file in product details");
+		System.out.println("Uploaded file is displayed on default checkout order success page after uploading file in product details successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For non inventory product upload file type and same can be downloaded from the success page of the order using default product page 
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();	
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder1.clear();
+		cardHolder1.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		WebElement DownloadLink1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Download Here']//parent::button")));
+		Assert.assertTrue(DownloadLink1.isDisplayed(), "Uploaded file is not displayed on default product order success page after uploading file in product details");
+		System.out.println("Uploaded file is displayed on default product order success page after uploading file in product details successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For non inventory product upload file type and same can be downloaded from the success page of the order using checkout page 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(3000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); //click on country drop down
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); //select country as USA
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();//select address from drop down
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder11 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder11.clear();
+		cardHolder11.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		WebElement DownloadLink11 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Download Here']//parent::button")));
+		Assert.assertTrue(DownloadLink11.isDisplayed(), "Uploaded file is not displayed on checkout product order success page after uploading file in product details");
+		System.out.println("Uploaded file is displayed on checkout product order success page after uploading file in product details successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For non inventory product upload the link and purchase product using default checkout page then on success page user can navigate using private link 
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
+		WebElement uploadAttachment1 = driver.findElement(By.xpath("//p[normalize-space()='Private Link']/parent::div/parent::div/parent::label"));
+		jse.executeScript("arguments[0].click();", uploadAttachment1);
+		driver.findElement(By.name("productType.digital.privateLink")).sendKeys("https://www.google.com/");
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); 
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		WebElement PrivateLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Access File Here']//parent::button")));
+		Assert.assertTrue(PrivateLink.isDisplayed(), "Private link is not displayed on default checkout order success page after adding private link in product details");
+		System.out.println("Private link is displayed on default checkout order success page after adding private link in product details successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For non inventory product upload the link and purchase product using default product page then on success page user can navigate using private link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();	
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		WebElement PrivateLink1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Access File Here']//parent::button")));
+		Assert.assertTrue(PrivateLink1.isDisplayed(), "Private link is not displayed on default product order success page after adding private link in product details");
+		System.out.println("Private link is displayed on default product order success page after adding private link in product details successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For non inventory product upload the link and purchase product using checkout page then on success page user can navigate using private link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(3000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}	
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		WebElement PrivateLink11 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Access File Here']//parent::button")));
+		Assert.assertTrue(PrivateLink11.isDisplayed(), "Private link is not displayed on checkout order success page after adding private link in product details");
+		System.out.println("Private link is displayed on checkout order success page after adding private link in product details successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);*/
+		
+		//For inventory product if simple in stock option is selected then user can purchase the product using default checkout page
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		Thread.sleep(3000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
+		WebElement physicalBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button#Physical")));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", physicalBtn);
+
+		physicalBtn.click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("button#in_stock")).click();
+		
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));		
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		WebElement ReceiptID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Assert.assertTrue(ReceiptID.isDisplayed(), "Receipt ID is not displayed on default checkout order success page after purchasing inventory product");	
+		System.out.println("Inventory product purchased successfully using the default checkout page when the 'In Stock' option is selected.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For inventory product if simple in stock option is selected then user can purchase the product using default product page
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		WebElement ReceiptID1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Assert.assertTrue(ReceiptID1.isDisplayed(), "Receipt ID is not displayed on default product order success page after purchasing inventory product");	
+		System.out.println("Inventory product purchased successfully using the default product page when the 'In Stock' option is selected.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For inventory product if simple in stock option is selected then user can purchase the product using checkout page
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		WebElement ReceiptID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Assert.assertTrue(ReceiptID11.isDisplayed(), "Receipt ID is not displayed on checkout order success page after purchasing inventory product");	
+		System.out.println("Inventory product purchased successfully using the checkout page when the 'In Stock' option is selected.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For inventory product if simple out of stock option is selected then user can not purchase the product using default checkout page
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
+		driver.findElement(By.cssSelector("button#out_of_stock")).click();
+		
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));		
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		WebElement outOfStockBtn = driver.findElement(By.xpath("//button[normalize-space()='Out of Stock']"));
+		Assert.assertFalse(outOfStockBtn.isEnabled(),"'Out of Stock' button should be disabled.");
+		System.out.println("Submit button is not displayed on default checkout page when the 'Out of Stock' option is selected for inventory product.\n");	
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For inventory product if simple out of stock option is selected then user can not purchase the product using default product page
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(5000);
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();	
+		Thread.sleep(1000);
+		WebElement outOfStockBtn1 = driver.findElement(By.xpath("//span[text()='Product does not have enough items in stock']"));
+		Assert.assertTrue(outOfStockBtn1.isDisplayed(),"'Out of Stock' button should be disabled.");
+		System.out.println("Submit button is not displayed on default product page when the 'Out of Stock' option is selected for inventory product.\n");	
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For inventory product if simple out of stock option is selected then user can not purchase the product using checkout page
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		WebElement outOfStockBtn11 = driver.findElement(By.xpath("//button[normalize-space()='Out of Stock']"));
+		Assert.assertFalse(outOfStockBtn11.isEnabled(),"'Out of Stock' button should be disabled.");
+		System.out.println("Submit button is not displayed on checkout page when the 'Out of Stock' option is selected for inventory product.\n");	
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		Thread.sleep(3000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Type']")));
+		WebElement physicalBtnn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button#Physical")));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", physicalBtnn);
+
+		physicalBtnn.click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("button#in_stock")).click();
+		
+		//If gift card ON option is selected then user can see the gift card field on the default checkout page link
+		Thread.sleep(3000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement onLabel = driver.findElement(By.xpath("//p[text()='Gift Card']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='On']]"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", onLabel);
+		jse.executeScript("arguments[0].click();", onLabel);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		WebElement Inputplaceholder = driver.findElement(By.id("Giftcardcode"));
+		String actualPlaceholder = Inputplaceholder.getAttribute("placeholder"); 	        
+		String expectedPlaceholder = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder, "Gift Card Code placeholder text mismatch");
+
+		WebElement applybutton = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybutton.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Gift card code field is displayed on default checkout page when gift card option is enabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If gift card ON option is selected then user can see the gift card field on the default product page link
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		
+		Thread.sleep(7000);
+		WebElement Inputplaceholder1 = driver.findElement(By.id("Giftcardcode"));
+		String actualPlaceholder1 = Inputplaceholder1.getAttribute("placeholder"); 	        
+		String expectedPlaceholder1 = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholder1, expectedPlaceholder1, "Gift Card Code placeholder text mismatch");
+
+		WebElement applybutton1 = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybutton1.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Gift card code field is displayed on default product page when gift card option is enabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If gift card ON option is selected then user can see the gift card field on the checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		WebElement Inputplaceholder11 = driver.findElement(By.id("Giftcardcode"));
+		String actualPlaceholder11 = Inputplaceholder11.getAttribute("placeholder"); 	        
+		String expectedPlaceholder11 = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholder11, expectedPlaceholder11, "Gift Card Code placeholder text mismatch");
+
+		WebElement applybutton11 = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybutton11.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Gift card code field is displayed on checkout page when gift card option is enabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If gift card OFF option is selected then user can't see the gift card field on the default checkout page link
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		Thread.sleep(3000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement offLabel = driver.findElement(By.xpath("//p[text()='Gift Card']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Off']]"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", offLabel);
+		jse.executeScript("arguments[0].click();", offLabel);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		List<WebElement> giftCardField = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardField.isEmpty(), "Gift Card field is displayed even when Gift Card toggle is OFF");
+		System.out.println("Gift card code field is not displayed on default checkout page when gift card option is disabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If gift card OFF option is selected then user cant see the gift card field on the default product page link
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		
+		Thread.sleep(7000);
+		List<WebElement> giftCardField1 = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardField1.isEmpty(), "Gift Card field is displayed even when Gift Card toggle is OFF");
+		System.out.println("Gift card code field is not displayed on default product page when gift card option is disabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);	
+		
+		//If gift card OFF option is selected then user cant see the gift card field on the checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		List<WebElement> giftCardField11 = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardField11.isEmpty(), "Gift Card field is displayed even when Gift Card toggle is OFF");
+		System.out.println("Gift card code field is not displayed on checkout page when gift card option is disabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);	
+		
+		//If discount ON option is selected then user can see the discount field on the default checkout page link
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement onLabell = driver.findElement(By.xpath("//p[text()='Discount Coupon']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='On']]"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", onLabell);
+		jse.executeScript("arguments[0].click();", onLabell);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		WebElement Inputplaceholderr1 = driver.findElement(By.id("couponCode1"));
+		String actualPlaceholdeer = Inputplaceholderr1.getAttribute("placeholder"); 	        
+		String expectedPlaceholdeer = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholdeer, expectedPlaceholdeer, "Discount Coupon Code placeholder text mismatch");
+
+		WebElement applybuttonn = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybuttonn.isDisplayed(), "Apply button is not enabled after entering Discount Coupon code");
+		System.out.println("Discount Coupon code field is displayed on default checkout page when Discount Coupon option is enabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If discount ON option is selected then user can see the discount field on the default product page link
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+
+		Thread.sleep(7000);
+		WebElement Inputplaceholders1 = driver.findElement(By.id("couponCode1"));
+		String actualPlaceholders1 = Inputplaceholders1.getAttribute("placeholder"); 	        
+		String expectedPlaceholders1 = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholders1, expectedPlaceholders1, "Discount Coupon Code placeholder text mismatch");
+
+		WebElement applybuttonn1 = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybuttonn1.isDisplayed(), "Apply button is not enabled after entering Discount Coupon code");
+		System.out.println("Discount Coupon code field is displayed on default product page when Discount Coupon option is enabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If discount ON option is selected then user can see the discount field on the checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		WebElement Inputplaceholders11 = driver.findElement(By.id("couponCode1"));
+		String actualPlaceholders11 = Inputplaceholders11.getAttribute("placeholder"); 	        
+		String expectedPlaceholders11 = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholders11, expectedPlaceholders11, "Discount Coupon Code placeholder text mismatch");
+
+		WebElement applybutton111 = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybutton111.isDisplayed(), "Apply button is not enabled after entering Discount Coupon code");
+		System.out.println("Discount Coupon code field is displayed on checkout page when Discount Coupon option is enabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If discount OFF option is selected then user cant see the discount field on the default checkout page link
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		Thread.sleep(3000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement offLabell = driver.findElement(By.xpath("//p[text()='Discount Coupon']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Off']]"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", offLabell);
+		jse.executeScript("arguments[0].click();", offLabell);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardFieldd = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardFieldd.isEmpty(), "Discount Coupon field is displayed even when Discount Coupon toggle is OFF");
+		System.out.println("Discount Coupon code field is not displayed on default checkout page when Discount Coupon option is disabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If discount OFF option is selected then user cant see the discount field on the default product page link
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		List<WebElement> giftCardField1d = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardField1d.isEmpty(), "Gift Card field is displayed even when Discount Coupon toggle is OFF");
+		System.out.println("Discount Coupon code field is not displayed on default product page when Discount Coupon option is disabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);	
+
+		//If discount OFF option is selected then user cant see the discount field on the checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardField11d = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardField11d.isEmpty(), "Discount Coupon field is displayed even when Discount Coupon toggle is OFF");
+		System.out.println("Discount Coupon code field is not displayed on checkout page when Discount Coupon option is disabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);	
+
+		//If Post Checkout Redirect ON option is selected then user will redirect to the link given in the Post Checkout Redirect for the default checkout page link
+		/*Thread.sleep(3000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement onLabel = driver.findElement(By.xpath("//p[text()='Post Checkout Redirect ']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='On']]"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", onLabel);
+		jse.executeScript("arguments[0].click();", onLabel);
+		WebElement urlInput = driver.findElement(By.xpath("//input[@placeholder='Enter URL']"));
+		urlInput.sendKeys(HTTPs_URL);	
+		Thread.sleep(1000);		
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURL = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect successfully from default checkout page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If Post Checkout Redirect ON option is selected then user will redirect to the link given in the Post Checkout Redirect for the default product page link
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURL1 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect successfully from default product page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If Post Checkout Redirect ON option is selected then user will redirect to the link given in the Post Checkout Redirect for the checkout page link
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURLl1 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURLl1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect successfully from checkout page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);*/
+
+		//If Post Checkout Redirect OFF option is selected then user cant redirect to anywhere when order is placed using the default checkout page link 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		Thread.sleep(3000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement offLabels = driver.findElement(By.xpath("//p[text()='Post Checkout Redirect ']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Off']]"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", offLabels);
+		jse.executeScript("arguments[0].click();", offLabels);	
+		Thread.sleep(1000);		
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURLBefore = driver.getCurrentUrl();
+		Thread.sleep(3000);
+		String currentURLAfter = driver.getCurrentUrl();
+		Assert.assertEquals(currentURLAfter, currentURLBefore, "Customer was redirected unexpectedly.");
+		System.out.println("Customer is not redirected to any other page after successful checkout when Post Checkout Redirect toggle is OFF and order is placed from default checkout page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If Post Checkout Redirect OFF option is selected then user cant redirect to anywhere when order is placed using the default product page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click	();
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURLBeforee = driver.getCurrentUrl();
+		Thread.sleep(3000);
+		String currentURLAftere = driver.getCurrentUrl();
+		Assert.assertEquals(currentURLAftere, currentURLBeforee, "Customer was redirected unexpectedly.");
+		System.out.println("Customer is not redirected to any other page after successful checkout when Post Checkout Redirect toggle is OFF and order is placed from default product page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If Post Checkout Redirect OFF option is selected then user cant redirect to anywhere when order is placed using the checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURLBefore1 = driver.getCurrentUrl();
+		Thread.sleep(3000);
+		String currentURLAfter1 = driver.getCurrentUrl();
+		Assert.assertEquals(currentURLAfter1, currentURLBefore1, "Customer was redirected unexpectedly.");
+		System.out.println("Customer is not redirected to any other page after successful checkout when Post Checkout Redirect toggle is OFF and order is placed from checkout page link.\n");	
+		driver.close();
+		driver.switchTo().window(originalTab);
+	}
+		
+	@Test(priority = 26)
+	public void GlobalOnOff_GiftCard () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		
+		Create_product();
+		
+		//If from product setting gift card option is OFF then on product details page it should show Use Global (Off) select it and then user cant see the the gift card option on default checkout page link 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		List<By> toggleLocators = Arrays.asList(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]"));
+		for (By toggleLocator : toggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
+
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(2000);
+		driver.navigate().to(Products);
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement globaloffLabel = driver.findElement(By.xpath("//p[text()='Gift Card']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Use Global (Off)']]//div//button"));
+		String selected = globaloffLabel.getAttribute("aria-checked");
+		Assert.assertEquals(selected, "true");
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardFieldd = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardFieldd.isEmpty(), "Gift Card field is displayed even when Gift Card toggle is OFF");
+		System.out.println("Verified that when the Gift Card option is set to 'Off' in Product Settings, the Product Details page displays 'Use Global (Off)'. After selecting it, the Gift Card option is not visible on the default checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If from product setting gift card option is OFF then on product details page it should show Use Global (Off) select it and then user cant see the the gift card option on default product page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardFieldd1 = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardFieldd1.isEmpty(), "Gift Card field is displayed even when Gift Card toggle is OFF");
+		System.out.println("Verified that when the Gift Card option is set to 'Off' in Product Settings, the Product Details page displays 'Use Global (Off)'. After selecting it, the Gift Card option is not visible on the default product page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If from product setting gift card option is OFF then on product details page it should show Use Global (Off) select it and then user cant see the the gift card option on checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardFieldd11 = driver.findElements(By.id("applyGiftCard"));
+		Assert.assertTrue(giftCardFieldd11.isEmpty(), "Gift Card field is displayed even when Gift Card toggle is OFF");
+		System.out.println("Verified that when the Gift Card option is set to 'Off' in Product Settings, the Product Details page displays 'Use Global (Off)'. After selecting it, the Gift Card option is not visible on the checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If from product setting gift card option is ON then on product details page it should show Use Global (ON) select it and then user can see the the gift card option on default checkout page link 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		List<By> toggleLocators1 = Arrays.asList(By.xpath("//p[text()='Gift Card']/following::button[@role='switch'][1]"));
+		for (By toggleLocator : toggleLocators1) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
+
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(2000);
+		driver.navigate().to(Products);
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement globalonLabel = driver.findElement(By.xpath("//p[text()='Gift Card']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Use Global (On)']]//div//button"));
+		String selected1 = globalonLabel.getAttribute("aria-checked");
+		Assert.assertEquals(selected1, "true");
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		WebElement Inputplaceholder = driver.findElement(By.id("Giftcardcode"));
+		String actualPlaceholder = Inputplaceholder.getAttribute("placeholder"); 	        
+		String expectedPlaceholder = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder, "Gift Card Code placeholder text mismatch");
+
+		WebElement applybutton = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybutton.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Verified that when the Gift Card option is set to 'On' in Product Settings, the Product Details page displays 'Use Global (On)'. After selecting it, the Gift Card option is visible on the default checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If from product setting gift card option is ON then on product details page it should show Use Global (ON) select it and then user can see the the gift card option on default product page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		WebElement Inputplaceholderr = driver.findElement(By.id("Giftcardcode"));
+		String actualPlaceholderr = Inputplaceholderr.getAttribute("placeholder"); 	        
+		String expectedPlaceholderr = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholderr, expectedPlaceholderr, "Gift Card Code placeholder text mismatch");
+
+		WebElement applybuttonn = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybuttonn.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Verified that when the Gift Card option is set to 'On' in Product Settings, the Product Details page displays 'Use Global (On)'. After selecting it, the Gift Card option is visible on the default product page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If from product setting gift card option is ON then on product details page it should show Use Global (ON) select it and then user can see the the gift card option on checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		WebElement Inputplaceholderr1 = driver.findElement(By.id("Giftcardcode"));
+		String actualPlaceholderr1 = Inputplaceholderr1.getAttribute("placeholder"); 	        
+		String expectedPlaceholderr1 = "Gift Card Code"; 
+		Assert.assertEquals(actualPlaceholderr1, expectedPlaceholderr1, "Gift Card Code placeholder text mismatch");
+
+		WebElement applybuttonn1 = driver.findElement(By.id("applyGiftCard"));
+		Assert.assertTrue(applybuttonn1.isDisplayed(), "Apply button is not enabled after entering gift card code");
+		System.out.println("Verified that when the Gift Card option is set to 'On' in Product Settings, the Product Details page displays 'Use Global (On)'. After selecting it, the Gift Card option is visible on the checkout page.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+	}
+	
+	@Test(priority = 27)
+	public void GlobalOnOff_Discount () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		
+		Create_product();
+		
+		//If from product setting discount option is OFF then on product details page it should show Use Global (Off) select it and then user cant see the the discount option on default checkout page link 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		List<By> toggleLocators = Arrays.asList(By.xpath("//p[text()='Discount Coupon']/following::button[@role='switch'][1]"));
+		for (By toggleLocator : toggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
+
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(2000);
+		driver.navigate().to(Products);
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement globaloffLabel = driver.findElement(By.xpath("//p[text()='Discount Coupon']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Use Global (Off)']]//div//button"));
+		String selected = globaloffLabel.getAttribute("aria-checked");
+		Assert.assertEquals(selected, "true");
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardFieldd = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardFieldd.isEmpty(), "Discount Coupon field is displayed even when Discount Coupon toggle is OFF");
+		System.out.println("Verified that when the Discount Coupon option is set to 'Off' in Product Settings, the Product Details page displays 'Use Global (Off)'. After selecting it, the Discount Coupon option is not visible on the default checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If from product setting discount option is OFF then on product details page it should show Use Global (Off) select it and then user cant see the the discount option on default product page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		List<WebElement> giftCardFieldd1 = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardFieldd1.isEmpty(), "Discount Coupon field is displayed even when Discount Coupon toggle is OFF");
+		System.out.println("Verified that when the Discount Coupon option is set to 'Off' in Product Settings, the Product Details page displays 'Use Global (Off)'. After selecting it, the Discount Coupon option is not visible on the default product page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If from product setting discount option is OFF then on product details page it should show Use Global (Off) select it and then user cant see the the discount option on checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		List<WebElement> giftCardFieldd11 = driver.findElements(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(giftCardFieldd11.isEmpty(), "Discount Coupon field is displayed even when Discount Coupon toggle is OFF");
+		System.out.println("Verified that when the Discount Coupon option is set to 'Off' in Product Settings, the Product Details page displays 'Use Global (Off)'. After selecting it, the Discount Coupon option is not visible on the checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If from product setting discount option is ON then on product details page it should show Use Global (ON) select it and then user can see the the discount option on default checkout page link 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		List<By> toggleLocators1 = Arrays.asList(By.xpath("//p[text()='Discount Coupon']/following::button[@role='switch'][1]"));
+		for (By toggleLocator : toggleLocators1) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
+
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(2000);
+		driver.navigate().to(Products);
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement globalonLabel = driver.findElement(By.xpath("//p[text()='Discount Coupon']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Use Global (On)']]//div//button"));
+		String selected1 = globalonLabel.getAttribute("aria-checked");
+		Assert.assertEquals(selected1, "true");
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		WebElement Inputplaceholder = driver.findElement(By.id("couponCode1"));
+		String actualPlaceholder = Inputplaceholder.getAttribute("placeholder"); 	        
+		String expectedPlaceholder = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholder, expectedPlaceholder, "Discount Coupon placeholder text mismatch");
+
+		WebElement applybutton = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybutton.isDisplayed(), "Apply button is not enabled after entering Discount Coupon code");
+		System.out.println("Verified that when the Discount Coupon option is set to 'On' in Product Settings, the Product Details page displays 'Use Global (On)'. After selecting it, the Discount Coupon option is visible on the default checkout page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If from product setting discount option is ON then on product details page it should show Use Global (ON) select it and then user can see the the discount option on default product page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		WebElement Inputplaceholderr = driver.findElement(By.id("couponCode1"));
+		String actualPlaceholderr = Inputplaceholderr.getAttribute("placeholder"); 	        
+		String expectedPlaceholderr = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholderr, expectedPlaceholderr, "Discount Coupon Code placeholder text mismatch");
+
+		WebElement applybuttonn = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybuttonn.isDisplayed(), "Apply button is not enabled after entering Discount Coupon code");
+		System.out.println("Verified that when the Discount Coupon option is set to 'On' in Product Settings, the Product Details page displays 'Use Global (On)'. After selecting it, the Discount Coupon option is visible on the default product page.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If from product setting discount option is ON then on product details page it should show Use Global (ON) select it and then user can see the the discount option on checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		WebElement Inputplaceholderr1 = driver.findElement(By.id("couponCode1"));
+		String actualPlaceholderr1 = Inputplaceholderr1.getAttribute("placeholder"); 	        
+		String expectedPlaceholderr1 = "Discount Code"; 
+		Assert.assertEquals(actualPlaceholderr1, expectedPlaceholderr1, "Discount Coupon Code placeholder text mismatch");
+
+		WebElement applybuttonn1 = driver.findElement(By.id("applyDiscountCoupon"));
+		Assert.assertTrue(applybuttonn1.isDisplayed(), "Apply button is not enabled after entering Discount Coupon code");
+		System.out.println("Verified that when the Discount Coupon option is set to 'On' in Product Settings, the Product Details page displays 'Use Global (On)'. After selecting it, the Discount Coupon option is visible on the checkout page.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+	}
+	
+	@Test(priority = 28)
+	public void Global_postcheckout () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		String HTTPs_URL = "https://www.google.com";
+		
+		Create_product();
+	
+		//If from product setting Post Checkout Redirect option is OFF then on product details page it should show Use Global (Off) select it and then user cant redirect to anywhere if product is purchased using default checkout page link 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//div[text()='post checkout redirect']")));
+		List<By> toggleLocators = Arrays.asList(By.xpath("//div[text()='post checkout redirect']/following::button[@role='switch'][1]"));
+		for (By toggleLocator : toggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
+
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(2000);
+		driver.navigate().to(Products);
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement globaloffLabel = driver.findElement(By.xpath("//p[text()='Post Checkout Redirect ']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Use Global (Off)']]//div//button"));
+		String selected = globaloffLabel.getAttribute("aria-checked");
+		Assert.assertEquals(selected, "true");
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURLBefore = driver.getCurrentUrl();
+		Thread.sleep(3000);
+		String currentURLAfter = driver.getCurrentUrl();
+		Assert.assertEquals(currentURLAfter, currentURLBefore, "Customer was redirected unexpectedly.");
+		System.out.println("Customer is not redirected to any other page after successful checkout when Post Checkout Redirect toggle is OFF and order is placed from default checkout page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If from product setting Post Checkout Redirect option is OFF then on product details page it should show Use Global (Off) select it and then user cant redirect to anywhere if product is purchased using default product page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click	();
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURLBeforee = driver.getCurrentUrl();
+		Thread.sleep(3000);
+		String currentURLAftere = driver.getCurrentUrl();
+		Assert.assertEquals(currentURLAftere, currentURLBeforee, "Customer was redirected unexpectedly.");
+		System.out.println("Customer is not redirected to any other page after successful checkout when Post Checkout Redirect toggle is OFF and order is placed from default product page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If from product setting Post Checkout Redirect option is OFF then on product details page it should show Use Global (Off) select it and then user cant redirect to anywhere if product is purchased using checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURLBefore1 = driver.getCurrentUrl();
+		Thread.sleep(3000);
+		String currentURLAfter1 = driver.getCurrentUrl();
+		Assert.assertEquals(currentURLAfter1, currentURLBefore1, "Customer was redirected unexpectedly.");
+		System.out.println("Customer is not redirected to any other page after successful checkout when Post Checkout Redirect toggle is OFF and order is placed from checkout page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If from product setting Post Checkout Redirect option is ON then on product details page it should show Use Global (ON) select it and then user will redirect to the link added in the product setting when user placed an order using default checkout page link 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//div[text()='post checkout redirect']")));
+		List<By> toggleLocators1 = Arrays.asList(By.xpath("//div[text()='post checkout redirect']/following::button[@role='switch'][1]"));
+		for (By toggleLocator : toggleLocators1) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
+
+		WebElement urlInput = driver.findElement(By.xpath("//input[@placeholder='Enter URL']"));
+		urlInput.clear();	
+		urlInput.sendKeys(HTTPs_URL);	
+		driver.findElement(By.xpath("//div[@class='relative w-[180px]']//button")).click();
+		driver.findElement(By.xpath("//span[text()='3 Seconds']//parent::div")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();
+		Thread.sleep(2000);
+		driver.navigate().to(Products);
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h3[text()='Checkout Settings']")));
+		Thread.sleep(2000);
+		WebElement globalonLabel = driver.findElement(By.xpath("//p[text()='Post Checkout Redirect ']/ancestor::div[contains(@class,'items-center')]//label[.//p[normalize-space()='Use Global (On)']]//div//button"));
+		String selectedd = globalonLabel.getAttribute("aria-checked");
+		Assert.assertEquals(selectedd, "true");
+
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURL = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect successfully from default checkout page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If from product setting Post Checkout Redirect option is ON then on product details page it should show Use Global (ON) select it and then user will redirect to the link added in the product setting when user placed an order using default product page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURL1 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect successfully from default product page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//If Post Checkout Redirect ON option is selected then user will redirect to the link given in the Post Checkout Redirect for the checkout page link
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURL11 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURL11.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect successfully from default product page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//If from product setting Post Checkout Redirect option is ON then on product details page it should show Use Global (ON) select it and then user will redirect to the link added in the product setting when user placed an order using checkout page link 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		Thread.sleep(5000);
+		String currentURLl1 = driver.getCurrentUrl();		
+		Assert.assertTrue(currentURLl1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
+		System.out.println("Customer is redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect successfully from checkout page link.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
