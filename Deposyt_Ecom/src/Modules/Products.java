@@ -10657,19 +10657,20 @@ public class Products extends Data {
 		String uniqueCode = UUID.randomUUID().toString().substring(0, 8);
 		String description = "Automation Test Description - " + uniqueCode;
 		String HTTPs_URL = "https://www.google.com";
+		String Edited_purchasePrice = "100", Discountedprice2 = "91";
 		
 		Create_product();
 		
-		//driver.navigate().to(Products);//remove this code
-		//Thread.sleep(10000);
-		//driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
+		driver.navigate().to(Products);//remove this code
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();
 		
 		//change the product name from the product details and check that user is able to save the product details 
 		driver.navigate().to(Products);
 		Thread.sleep(10000);
 		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
 		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
-		Thread.sleep(3000);			
+		Thread.sleep(3000);
 
 		WebElement ProdbeforeEdit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table > table > tbody > tr:first-of-type > td:nth-of-type(2) > div > a > div > div")));
 		String PdodName = ProdbeforeEdit.getText().trim();
@@ -11906,6 +11907,564 @@ public class Products extends Data {
 		System.out.println("Customer is not redirected to any other page after successful checkout when Post Checkout Redirect toggle is OFF and order is placed from checkout page link.\n");	
 		driver.close();
 		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply one time purchase price then on default checkout page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
+		WebElement uploadOneTimePrice = driver.findElement(By.name("productPricing.regularPrice"));
+		Thread.sleep(1000);
+		uploadOneTimePrice.click();
+		uploadOneTimePrice.sendKeys(Keys.CONTROL, "a");
+		uploadOneTimePrice.sendKeys(Keys.DELETE);
+		uploadOneTimePrice.sendKeys(Edited_purchasePrice);	
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		String actualPrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:nth-of-type(2)>span")).getText().trim();
+		double actual = Double.parseDouble(actualPrice.replace("$", "").replace(",", ""));
+		double expected = Double.parseDouble(Edited_purchasePrice);
+		Assert.assertEquals(actual, expected, "Product price mismatch on default checkout page");
+		System.out.println("Verified that the product price on the default checkout page matches the one-time purchase price set in the product details.\n");
+		
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		String actualPriceOnSuccessPage = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPrice = Double.parseDouble(actualPriceOnSuccessPage.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPrice, expected, "Product price mismatch on success page");
+		System.out.println("Verified that the product price on the default checkout order success page matches the one-time purchase price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply one time purchase price then on default product page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		String actualPrice1 = driver.findElement(By.cssSelector("#ProductDescriptionColumn>span")).getText().trim();
+		double actual1 = Double.parseDouble(actualPrice1.replace("$", "").replace(",", ""));
+		double expected1 = Double.parseDouble(Edited_purchasePrice);
+		Assert.assertEquals(actual1, expected1, "Product price mismatch on default product page");
+		System.out.println("Verified that the product price on the default product page matches the one-time purchase price set in the product details.\n");
+		
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		
+		String actualPriceOnSuccessPage1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPrice1 = Double.parseDouble(actualPriceOnSuccessPage1.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPrice1, expected, "Product price mismatch on success page");
+		System.out.println("Verified that the product price on the default product order success page matches the one-time purchase price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply one time purchase price then on checkout page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		String actualPricee = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:nth-of-type(2)>span")).getText().trim();
+		double actuale = Double.parseDouble(actualPricee.replace("$", "").replace(",", ""));
+		double expectede = Double.parseDouble(Edited_purchasePrice);
+		Assert.assertEquals(actuale, expectede, "Product price mismatch on default checkout page");
+		System.out.println("Verified that the product price on the checkout page matches the one-time purchase price set in the product details.\n");
+		
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		String actualPriceOnSuccessPagee = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPricee = Double.parseDouble(actualPriceOnSuccessPagee.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPricee, expected, "Product price mismatch on success page");
+		System.out.println("Verified that the product price on the checkout order success page matches the one-time purchase price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply flat sales price price then on default checkout page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
+		WebElement salePriceCheckbox = driver.findElement(By.cssSelector("#one-time-purchase-div>div:nth-of-type(2)>div>div>div:nth-of-type(3)>div>label>input"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", salePriceCheckbox);
+		Thread.sleep(1000);
+
+		if (!salePriceCheckbox.isSelected()) {
+		    salePriceCheckbox.click();
+		    driver.findElement(By.xpath("//button[normalize-space()='$']")).click();
+		    WebElement salePrice = driver.findElement(By.name("productPricing.salePrice"));
+		    salePrice.click();
+		    salePrice.sendKeys(Keys.CONTROL, "a");
+		    salePrice.sendKeys(Keys.DELETE);
+		    salePrice.sendKeys(Discountedprice1);
+		} else {
+		    WebElement salePrice = driver.findElement(By.name("productPricing.salePrice"));
+		    String existingSalePrice = salePrice.getAttribute("value");
+		    Discountedprice1 = existingSalePrice;
+		}
+
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));	
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		String actualPricec = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:nth-of-type(2)>span")).getText().trim();
+		double actualc = Double.parseDouble(actualPricec.replace("$", "").replace(",", ""));
+		double expectedc = Double.parseDouble(Discountedprice1);
+		Assert.assertEquals(actualc, expectedc, "Product sale price mismatch on default checkout page");
+		System.out.println("Verified that the product flat sale price on the default checkout page matches the one-time purchase flat sale price set in the product details.\n");
+		
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		String actualPriceOnSuccessPagee1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPricee1 = Double.parseDouble(actualPriceOnSuccessPagee1.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPricee1, expected, "Product sale price mismatch on success page");
+		System.out.println("Verified that the product flat sale price on the default checkout order success page matches the one-time purchase flat sale price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply flat sales price price then on default product page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		String actualPrice1c = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div>span:nth-of-type(2)")).getText().trim();
+		double actual1c = Double.parseDouble(actualPrice1c.replace("$", "").replace(",", ""));
+		double expected1c = Double.parseDouble(Discountedprice1);
+		Assert.assertEquals(actual1c, expected1c, "Product sale price mismatch on default product page");
+		System.out.println("Verified that the product flat sale price on the default product page matches the one-time purchase flat sale price set in the product details.\n");
+		
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);	
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		
+		String actualPriceOnSuccessPage1b = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPrice1b = Double.parseDouble(actualPriceOnSuccessPage1b.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPrice1b, expected, "Product sale price mismatch on success page");
+		System.out.println("Verified that the product flat sale price on the default checkout order success page matches the one-time purchase flat sale price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply flat sales price price then on  checkout page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		String actualPrice11 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:nth-of-type(2)>span")).getText().trim();
+		double actual11 = Double.parseDouble(actualPrice11.replace("$", "").replace(",", ""));
+		double expected11 = Double.parseDouble(Discountedprice1);
+		Assert.assertEquals(actual11, expected11, "Product flat sale price mismatch on default checkout page");
+		System.out.println("Verified that the product flat sale price on the checkout page matches the one-time purchase flat sale price set in the product details.\n");
+		
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		String actualPriceOnSuccessPage11 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPrice11 = Double.parseDouble(actualPriceOnSuccessPage11.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPrice11, expected11, "Product flat sale price mismatch on success page");
+		System.out.println("Verified that the product flat sale price on the checkout order success page matches the one-time purchase flat sale price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply % sales price price then on default checkout page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
+		WebElement salePriceCheckbox1 = driver.findElement(By.cssSelector("#one-time-purchase-div>div:nth-of-type(2)>div>div>div:nth-of-type(3)>div>label>input"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", salePriceCheckbox1);
+		Thread.sleep(1000);
+
+		if (!salePriceCheckbox1.isSelected()) {
+		    salePriceCheckbox1.click();
+		    driver.findElement(By.xpath("//button[normalize-space()='%']")).click();
+		    WebElement salePrice = driver.findElement(By.name("productPricing.salePrice"));
+		    salePrice.click();
+		    salePrice.sendKeys(Keys.CONTROL, "a");
+		    salePrice.sendKeys(Keys.DELETE);
+		    salePrice.sendKeys(Discountedprice1);
+		} else {
+		    WebElement salePrice = driver.findElement(By.name("productPricing.salePrice"));
+		    String existingSalePrice = salePrice.getAttribute("value");
+		    Discountedprice1 = existingSalePrice;
+		}
+
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		String actualPrices = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:nth-of-type(2)>span")).getText().trim();
+		double actuals = Double.parseDouble(actualPrices.replace("$", "").replace(",", ""));
+		double expecteds = Double.parseDouble(Discountedprice2);
+		Assert.assertEquals(actuals, expecteds, "Product sale price mismatch on default checkout page");
+		System.out.println("Verified that the product % sale price on the default checkout page matches the one-time purchase % sale price set in the product details.\n");
+		
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		String actualPriceOnSuccessPages = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPrices = Double.parseDouble(actualPriceOnSuccessPages.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPrices, expecteds, "Product sale price mismatch on success page");
+		System.out.println("Verified that the product % sale price on the default checkout order success page matches the one-time purchase % sale price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply % sales price price then on default product page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		String actualPrice1b = driver.findElement(By.cssSelector("#ProductDescriptionColumn>div>span:nth-of-type(2)")).getText().trim();
+		double actual1b = Double.parseDouble(actualPrice1b.replace("$", "").replace(",", ""));
+		double expected1b = Double.parseDouble(Discountedprice2);
+		Assert.assertEquals(actual1b, expected1b, "Product % sale price mismatch on default product page");
+		System.out.println("Verified that the product % sale price on the default product page matches the one-time purchase % sale price set in the product details.\n");
+		
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);	
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		
+		String actualPriceOnSuccessPage1b1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPrice1b1 = Double.parseDouble(actualPriceOnSuccessPage1b1.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPrice1b1, expected1, "Product % sale price mismatch on success page");
+		System.out.println("Verified that the product % sale price on the default checkout order success page matches the one-time purchase % sale price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//From pricing options select one time product and apply % sales price price then on  checkout page it should show same price and on success page as well it should show same price 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		String actualPrice11b = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div:nth-of-type(2)>span")).getText().trim();
+		double actual11b = Double.parseDouble(actualPrice11b.replace("$", "").replace(",", ""));
+		double expected11b = Double.parseDouble(Discountedprice2);
+		Assert.assertEquals(actual11b, expected11b, "Product % sale price mismatch on default checkout page");
+		System.out.println("Verified that the product % sale price on the checkout page matches the one-time purchase % sale price set in the product details.\n");
+		
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		String actualPriceOnSuccessPage11b = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		double actualSuccessPrice11b = Double.parseDouble(actualPriceOnSuccessPage11b.replace("$", "").replace(",", ""));
+		Assert.assertEquals(actualSuccessPrice11b, expected11, "Product % sale price mismatch on success page");
+		System.out.println("Verified that the product % sale price on the checkout order success page matches the one-time purchase % sale price set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For one time product apply sales start date and end date then on default checkout page link it should display the end date 
+		//For one time product enable the Show quantity picker option then on default checkout page link should show the quantity picker 
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);	
+		
+		driver.findElement(By.xpath("//input[@placeholder=\"Sale End Date\"]")).click();
+		Thread.sleep(500);
+		WebElement enddate = driver.findElement(By.cssSelector("div.react-datepicker__day--today"));
+		jse.executeScript("arguments[0].click();", enddate);
+		
+		WebElement showQuantityPickerToggle = driver.findElement(By.cssSelector("#one-time-purchase-div>div:nth-of-type(2)>div>div>div:nth-of-type(5)>div>div>button"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", showQuantityPickerToggle);
+		Thread.sleep(1000);
+		if (!showQuantityPickerToggle.getAttribute("aria-checked").equals("true")) {
+		    jse.executeScript("arguments[0].click();", showQuantityPickerToggle);
+		} else {
+		    System.out.println("Quantity picker already enabled");
+		}
+		
+		WebElement showenddateToggle = driver.findElement(By.cssSelector("#one-time-purchase-div>div:nth-of-type(2)>div>div>div:nth-of-type(6)>div>div>button"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", showenddateToggle);
+		Thread.sleep(1000);
+		if (!showenddateToggle.getAttribute("aria-checked").equals("true")) {
+		    jse.executeScript("arguments[0].click();", showenddateToggle);
+		} else {
+		    System.out.println("End date already enabled");
+		}
+		
+		jse.executeScript("arguments[0].click();", driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(2000);	
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+					break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		String End_date = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>span:nth-of-type(2)")).getText().trim();
+		String actualDate = End_date.replace("Sale ends on", "").trim();
+		String expectedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MMM d"));
+		Assert.assertEquals(actualDate, expectedDate, "Sale end date mismatch");
+		System.out.println("Verified that the sale end date on the default checkout page matches the sale end date set in the product details.\n");
+		
+		WebElement quantityPicker = driver.findElement(By.xpath("//button[@aria-label='Decrease quantity']/parent::div"));
+		Assert.assertTrue(quantityPicker.isDisplayed(), "Quantity picker is not displayed");
+		System.out.println("Verified that the quantity picker is displayed on the default checkout page when the 'Show quantity picker' option is enabled in the product details.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For one time product apply sales start date and end date then on default product page link it should display the end date 
+		//For one time product enable the Show quantity picker option then on default product page link should show the quantity picker 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		String End_date1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>div>div>span:nth-of-type(2)")).getText().trim();
+		String actualDate1 = End_date1.replace("Sale ends on", "").trim();
+		String expectedDate1 = LocalDate.now().format(DateTimeFormatter.ofPattern("MMM d"));
+		Assert.assertEquals(actualDate1, expectedDate1, "Sale end date mismatch");
+		System.out.println("Verified that the sale end date on the default product page matches the sale end date set in the product details.\n");
+		
+		WebElement quantityPicker1 = driver.findElement(By.xpath("//button[@aria-label='Decrease quantity']/parent::div"));
+		Assert.assertTrue(quantityPicker1.isDisplayed(), "Quantity picker is not displayed");
+		System.out.println("Verified that the quantity picker is displayed on the default product page when the 'Show quantity picker' option is enabled in the product details.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//For one time product apply sales start date and end date then on checkout page link it should display the end date 
+		//For one time product enable the Show quantity picker option then on checkout page link should show the quantity picker 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		String End_date11 = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div:first-of-type>div>span:nth-of-type(2)")).getText().trim();
+		String actualDate11 = End_date11.replace("Sale ends on", "").trim();
+		String expectedDate11 = LocalDate.now().format(DateTimeFormatter.ofPattern("MMM d"));
+		Assert.assertEquals(actualDate11, expectedDate11, "Sale end date mismatch");
+		System.out.println("Verified that the sale end date on the checkout page matches the sale end date set in the product details.\n");
+		
+		WebElement quantityPicker11 = driver.findElement(By.xpath("//button[@aria-label='Decrease quantity']/parent::div"));
+		Assert.assertTrue(quantityPicker11.isDisplayed(), "Quantity picker is not displayed");
+		System.out.println("Verified that the quantity picker is displayed on the checkout page when the 'Show quantity picker' option is enabled in the product details.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);		
 	}
 		
 	@Test(priority = 26)
