@@ -271,7 +271,7 @@ public class Data extends Public_Strings {
 		driver.switchTo().window(pwindo);
 	}
 	
-	public void StoreFront() throws InterruptedException {
+	public void StoreFront () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));	
 		
@@ -284,7 +284,7 @@ public class Data extends Public_Strings {
 		driver.get(Storeurl);
 	}
 	
-	public void Create_product () throws InterruptedException {
+	public void OneTimeproduct () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor)driver;
@@ -314,5 +314,132 @@ public class Data extends Public_Strings {
 		jse.executeScript("arguments[0].click();", confirmSaveBtn);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
 		Thread.sleep(3000);
+	}
+	
+	public void SubscriptionProduct () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		
+		String Product_Name = "Suscription Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+		SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Fileone = "file7.jpg",susbcriptionPrice = "3",
+		Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase();
+		
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);		
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileone};
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);	
+		
+		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("button#Physical")).click(); 
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		driver.findElement(By.xpath("//div[@id='one-time-purchase-div']/descendant::button[@role=\"switch\"][1]")).click(); 
+		Thread.sleep(1000);
+		WebElement subscriptionToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='subscription-option-div']//button[@role='switch'][1]")));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});",subscriptionToggle);
+		subscriptionToggle.click(); 
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("input[name=\"productPricing.regularPrice\"]")).sendKeys(susbcriptionPrice); 
+	    driver.findElement(By.cssSelector("div.frequency-select-container")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//div[@role=\"listbox\"]/div[2]")).click(); 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[normalize-space()='Make the first payment different']/following-sibling::button[@role=\"switch\"]")).click(); 
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[normalize-space()='Make this a limited subscription']/following-sibling::button[@role=\"switch\"]")).click(); 
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//button[@type='button' and @tabindex='-1']/*[name()='svg'])[2]")).click(); 
+		
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
+	}
+	
+	public void TierProducts () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor)driver;
+		Actions actions = new Actions(driver);
+		
+		String Product_Name = "Tier Product - 911 " + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(),
+		DiscriptionTier1 = 	"Description for first tier installment", DiscriptionTier2 = "Description for Second tier installment",
+		TitleTier1 = "First Tier Installment",TitleTier2 = "Second Tier Installment", Tier1Feature1 = "Tier one Feature First", Tier2Feature1 = "Tier two Feature one",
+		SKU = "PrivateNo" + UUID.randomUUID().toString().replace("-", "").substring(0, 4).toUpperCase(), Fileone = "file7.jpg",susbcriptionPrice = "3",
+		Private_Name = "TestProduct" + UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase(),Value = "1";
+			
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#main-page-ui-div button.newproductbutton:nth-of-type(2)"))).click();
+		driver.findElement(By.name("productDetails.productName")).sendKeys(Product_Name);	
+		driver.findElement(By.name("productDetails.privateName")).sendKeys(Private_Name);
+		driver.findElement(By.name("productDetails.productDescription")).sendKeys("test-Nadsoft");
+		driver.findElement(By.name("productDetails.sku")).sendKeys(SKU);
+
+		WebElement uploadImage = driver.findElement(By.cssSelector("input[type=\"file\"]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);		
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileone};
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);	
+		Thread.sleep(1000);
+		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("button#Physical")).click();
+		jse.executeScript("window.scrollBy(0,500)");
+
+		WebElement TierToggle = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='tiered-pricing-option-div']//button[@role='switch'][1]")));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});",TierToggle);
+		TierToggle.click();
+		Thread.sleep(2000);
+		
+		//tier - I
+		driver.findElement(By.xpath("//input[@placeholder=\"Starter\"]")).sendKeys("First Tier Installment");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-1>div>div>div>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
+		driver.findElement(By.xpath("(//input[@name='productDetails.variants.0.prices[0].amount'])[1]")).sendKeys(Value);
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("div.wrapdescription")).click();
+		driver.findElement(By.xpath("(//textarea[contains(@name,'productDetails.variants.0.product_tier_description')])[1]")).sendKeys(DiscriptionTier1);
+		jse.executeScript("document.querySelector('div.Product-Detial-side-modal-Scrollbar').scrollTop=800");
+		driver.findElement(By.xpath("//input[contains(@placeholder,\"Add Title\")]")).sendKeys(TitleTier1);
+		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(0).click();
+		driver.findElement(By.xpath("//input[contains(@placeholder,\"Enter Feature\")]")).sendKeys(Tier1Feature1);
+		
+		//tier - II
+		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[normalize-space()='+ Add Tier']")).click();	
+		driver.findElement(By.xpath("(//input[contains(@name,'productDetails.variants.1.title')])[1]")).sendKeys("Second Tier Installment");
+		Thread.sleep(1000);
+		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-2>div>div>div>button")).click();
+		driver.findElement(By.xpath("//div[@role=\"menuitem\"][normalize-space()=\"Price\"]")).click();
+		driver.findElement(By.xpath("(//input[@name='productDetails.variants.1.prices[0].amount'])[1]")).sendKeys(susbcriptionPrice);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//div[normalize-space()='Description + Bullet points'])[2]")).click();
+		driver.findElement(By.xpath("//textarea[@name=\"productDetails.variants.1.product_tier_description\"]")).sendKeys(DiscriptionTier2);
+		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@name=\"productDetails.variants.1.product_tier_features.0.title\"]")).sendKeys(TitleTier2);
+		driver.findElements(By.cssSelector("div.key-features>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//input[contains(@name,\"productDetails.variants.1.product_tier_features.0.feature_title.0\")]")).sendKeys(Tier2Feature1);
+		
+		WebElement confirmSaveBtn = driver.findElement(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)"));
+		jse.executeScript("arguments[0].click();", confirmSaveBtn);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div.sticky.bottom-0>div>button:nth-of-type(2)")));
 	}
 }
