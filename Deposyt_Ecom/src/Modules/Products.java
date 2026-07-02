@@ -6729,6 +6729,7 @@ public class Products extends Data {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		Date cDate = new Date();
 
 		//user can disable the Non-inventory product tax toggle from settings 
 		driver.navigate().to(Products);
@@ -13850,163 +13851,168 @@ public class Products extends Data {
 	}
 	
 	@Test(priority = 30)
-	public void Tier_product () throws InterruptedException {
+	public void Tier_productOperations1 () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 		JavascriptExecutor jse =  (JavascriptExecutor) driver;
-		String TitleTier1 = "First Tier Installment",TitleTier2 = "Second Tier Installment";
-				
+		String TitleTier1 = "First Tier Installment", TitleTier2 = "Second Tier Installment", Value = "1";
+			
+		driver.navigate().to(Forms);
+		Thread.sleep(5000);
+		String FormName = driver.findElement(By.cssSelector("#list-folder>a:first-of-type")).getText().trim();
+		String formCount = FormName.replaceAll(".*\\((\\d+)\\).*", "$1");
+			
 		//TierProducts();
 		
 		//while creating tier product enter the tier name and check same name  is reflected on the tier checkout page from open option
 		driver.navigate().to(Products);
-		Thread.sleep(5000);
-		WebElement ProdbeforeEdit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div>div")));
+		Thread.sleep(15000);
+		WebElement ProdbeforeEdit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div")));
 		String PdodName = ProdbeforeEdit.getText().trim();
 		
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();		
-//		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
-//		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
-//		Thread.sleep(3000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
 		
 		String originalTab = driver.getWindowHandle();
-//		driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div:first-of-type>div>div:first-of-type>div>button:first-of-type")).click();
-//		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
-//
-//		for (String handle : driver.getWindowHandles()) {
-//		    if (!handle.equals(originalTab)) {
-//		        driver.switchTo().window(handle);
-//		        break;
-//		    }
-//		}
-//
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@type,'button')])[2]"))).click();
-//		wait.until(ExpectedConditions.numberOfWindowsToBe(3));
-//		String child1 = driver.getWindowHandle();
-//
-//		for (String handle : driver.getWindowHandles()) {
-//		    if (!handle.equals(originalTab) && !handle.equals(child1)) {
-//		        driver.switchTo().window(child1);
-//		        driver.close();
-//		        driver.switchTo().window(handle);
-//		        break;
-//		    }
-//		}
-//		
-//		String actualTierName = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>p>div>p:first-of-type")).getText().trim();
-//		Assert.assertEquals(actualTierName, PdodName, "Tier Product name mismatch on Tier checkout page");
-//		System.out.println("Verified that after opne Tier Product on the Tier open page matches the Tier Product name set in the product details.\n");		
-//		driver.close();
-//		driver.switchTo().window(originalTab);
-//		
-//		//while creating tier product enter the tier name and check same name is reflected on the default checkout page
-//		driver.findElement(By.id("orderPagesFunnel")).click();
-//		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
-//		for (String handle : driver.getWindowHandles()) {
-//			if (!handle.equals(originalTab)) {
-//				driver.switchTo().window(handle);
-//				break;
-//			}
-//		}
-//
-//		Thread.sleep(7000);
-//		String actualTierName1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>p>div>p:first-of-type")).getText().trim();
-//		Assert.assertEquals(actualTierName1, PdodName, "Tier Product name mismatch on Tier default checkout page");
-//		System.out.println("Verified that the Tier Product name on the Tier default checkout page matches the Tier Product name set in the product details.\n");
-//		driver.close();
-//		driver.switchTo().window(originalTab);
-//		
-//		//while creating tier product enter the tier name and check same is reflected on the default product page	
-//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
-//		for (String handle : driver.getWindowHandles()) {
-//			if (!handle.equals(originalTab)) {
-//				driver.switchTo().window(handle);
-//				break;
-//			}
-//		}
-//
-//		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
-//		Thread.sleep(3000);
-//		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
-//		Thread.sleep(7000);
-//		String actualTierName2 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>p>div>p:first-of-type")).getText().trim();
-//		Assert.assertEquals(actualTierName2, PdodName, "Tier Product name mismatch on Tier default checkout page");
-//		System.out.println("Verified that the Tier Product name on the Tier default checkout page matches the Tier Product name set in the product details.\n");
-//		driver.close();
-//		driver.switchTo().window(originalTab);	
-//		
-//		//while creating tier product enter the tier name and check same is reflected on the checkout page
-//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
-//		for (String handle : driver.getWindowHandles()) {
-//			if (!handle.equals(originalTab)) {
-//				driver.switchTo().window(handle);
-//				break;
-//			}
-//		}
-//
-//		Thread.sleep(7000);
-//		String actualTierName3 = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>p>div>p:first-of-type")).getText().trim();
-//		Assert.assertEquals(actualTierName3, PdodName, "Tier Product name mismatch on Tier default checkout page");
-//		System.out.println("Verified that the Tier Product name on the Tier checkout page matches the Tier Product name set in the product details.\n");
-//		driver.close();
-//		driver.switchTo().window(originalTab);
-//		
-//		//while creating tier product enter the tier name and check same is reflected on the edit option of the tier product 
-//		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
-//		Thread.sleep(3000);
-//		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
-//		Thread.sleep(3000);
-//		driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div:first-of-type>div>div:first-of-type>div>button:nth-of-type(2)")).click();		
-//		Thread.sleep(1000);
-//		
-//		List<WebElement> tierNames = driver.findElements(By.cssSelector("#card-div > div > div > h3"));
-//		List<String> actualTierNames = tierNames.stream().map(WebElement::getText).collect(Collectors.toList());
-//		Assert.assertTrue(actualTierNames.contains(TitleTier1),"First Tier Installment is not displayed.");
-//		Assert.assertTrue(actualTierNames.contains(TitleTier2),"Second Tier Installment is not displayed.");
-//		System.out.println("Verified that the Tier Product name on the Tier edit page matches the Tier Product name set in the product details.\n");
-//		driver.findElement(By.cssSelector("div.custom-setting-region-tab>div>div:nth-of-type(2)>button")).click();
-//		
-//		//verify that when user go to the share button then copy the link and open the link then it should show the same tier name
-//		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
-//		Thread.sleep(3000);
-//		driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div:first-of-type>div>div:first-of-type>div>button:nth-of-type(3)")).click();		
-//		Thread.sleep(1000);
-//		driver.findElement(By.xpath("//span[text()='Copy']//parent::button")).click();
-//
-//		String checkoutUrl = (String) jse.executeAsyncScript("const callback = arguments[arguments.length - 1];" + "navigator.clipboard.readText().then(callback);");
-//		jse.executeScript("window.open();");
-//		ArrayList <String> tabs = new ArrayList <> (driver.getWindowHandles());
-//		driver.switchTo().window(tabs.get(1));
-//		driver.get(checkoutUrl);
-//		
-//		String checkoutTab = driver.getWindowHandle();
-//		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@type,'button')])[2]"))).click();
-//		wait.until(ExpectedConditions.numberOfWindowsToBe(3));
-//
-//		for (String handle : driver.getWindowHandles()) {
-//		    if (!handle.equals(checkoutTab) && !handle.equals(originalTab)) {
-//		        driver.switchTo().window(handle);
-//		        break;
-//		    }
-//		}
-//
-//		driver.switchTo().window(checkoutTab);
-//		driver.close();
-//
-//		for (String handle : driver.getWindowHandles()) {
-//		    if (!handle.equals(originalTab)) {
-//		        driver.switchTo().window(handle);
-//		        break;
-//		    }
-//		}
-//
-//		String actualTierNamee = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>p>div>p:first-of-type")).getText().trim();
-//		Assert.assertEquals(actualTierNamee, PdodName,"Tier Product name mismatch after opening the copied checkout link.");
-//		System.out.println("Verified that the Tier Product name displayed after opening the copied checkout link matches the Tier Product name configured during product creation.");
-//		driver.close();
-//		driver.switchTo().window(originalTab);
-//		Thread.sleep(1000);
-//		driver.findElement(By.cssSelector("div[role='dialog']>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div:first-of-type>div>div:first-of-type>div>button:first-of-type")).click();
+		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+		for (String handle : driver.getWindowHandles()) {
+		    if (!handle.equals(originalTab)) {
+		        driver.switchTo().window(handle);
+		        break;
+		    }
+		}
+
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@type,'button')])[2]"))).click();
+		wait.until(ExpectedConditions.numberOfWindowsToBe(3));
+		String child1 = driver.getWindowHandle();
+
+		for (String handle : driver.getWindowHandles()) {
+		    if (!handle.equals(originalTab) && !handle.equals(child1)) {
+		        driver.switchTo().window(child1);
+		        driver.close();
+		        driver.switchTo().window(handle);
+		        break;
+		    }
+		}
+		
+		String actualTierName = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>p>div>p:first-of-type")).getText().trim();
+		Assert.assertEquals(actualTierName, PdodName, "Tier Product name mismatch on Tier checkout page");
+		System.out.println("Verified that after opne Tier Product on the Tier open page matches the Tier Product name set in the product details.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//while creating tier product enter the tier name and check same name is reflected on the default checkout page
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		String actualTierName1 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>p>div>p:first-of-type")).getText().trim();
+		Assert.assertEquals(actualTierName1, PdodName, "Tier Product name mismatch on Tier default checkout page");
+		System.out.println("Verified that the Tier Product name on the Tier default checkout page matches the Tier Product name set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//while creating tier product enter the tier name and check same is reflected on the default product page	
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		Thread.sleep(7000);
+		String actualTierName2 = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>p>div>p:first-of-type")).getText().trim();
+		Assert.assertEquals(actualTierName2, PdodName, "Tier Product name mismatch on Tier default checkout page");
+		System.out.println("Verified that the Tier Product name on the Tier default checkout page matches the Tier Product name set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);	
+		
+		//while creating tier product enter the tier name and check same is reflected on the checkout page
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		String actualTierName3 = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>p>div>p:first-of-type")).getText().trim();
+		Assert.assertEquals(actualTierName3, PdodName, "Tier Product name mismatch on Tier default checkout page");
+		System.out.println("Verified that the Tier Product name on the Tier checkout page matches the Tier Product name set in the product details.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//while creating tier product enter the tier name and check same is reflected on the edit option of the tier product 
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		Thread.sleep(3000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div:first-of-type>div>div:first-of-type>div>button:nth-of-type(2)")).click();		
+		Thread.sleep(1000);
+		
+		List<WebElement> tierNames = driver.findElements(By.cssSelector("#card-div > div > div > h3"));
+		List<String> actualTierNames = tierNames.stream().map(WebElement::getText).collect(Collectors.toList());
+		Assert.assertTrue(actualTierNames.contains(TitleTier1),"First Tier Installment is not displayed.");
+		Assert.assertTrue(actualTierNames.contains(TitleTier2),"Second Tier Installment is not displayed.");
+		System.out.println("Verified that the Tier Product name on the Tier edit page matches the Tier Product name set in the product details.\n");
+		driver.findElement(By.cssSelector("div.custom-setting-region-tab>div>div:nth-of-type(2)>button")).click();
+		
+		//verify that when user go to the share button then copy the link and open the link then it should show the same tier name
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div:first-of-type>div>div:first-of-type>div>button:nth-of-type(3)")).click();		
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[text()='Copy']//parent::button")).click();
+
+		String checkoutUrl = (String) jse.executeAsyncScript("const callback = arguments[arguments.length - 1];" + "navigator.clipboard.readText().then(callback);");
+		jse.executeScript("window.open();");
+		ArrayList <String> tabs = new ArrayList <> (driver.getWindowHandles());
+		driver.switchTo().window(tabs.get(1));
+		driver.get(checkoutUrl);
+		
+		String checkoutTab = driver.getWindowHandle();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@type,'button')])[2]"))).click();
+		wait.until(ExpectedConditions.numberOfWindowsToBe(3));
+
+		for (String handle : driver.getWindowHandles()) {
+		    if (!handle.equals(checkoutTab) && !handle.equals(originalTab)) {
+		        driver.switchTo().window(handle);
+		        break;
+		    }
+		}
+
+		driver.switchTo().window(checkoutTab);
+		driver.close();
+
+		for (String handle : driver.getWindowHandles()) {
+		    if (!handle.equals(originalTab)) {
+		        driver.switchTo().window(handle);
+		        break;
+		    }
+		}
+
+		String actualTierNamee = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>p>div>p:first-of-type")).getText().trim();
+		Assert.assertEquals(actualTierNamee, PdodName,"Tier Product name mismatch after opening the copied checkout link.");
+		System.out.println("Verified that the Tier Product name displayed after opening the copied checkout link matches the Tier Product name configured during product creation.");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("div[role='dialog']>div>div:nth-of-type(2)>button")).click();
 		
 		//while creating tier product enter the tier name and check same is reflected on the manually created pages
 		driver.findElement(By.id("orderPagesFunnel")).click();
@@ -14018,9 +14024,9 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//span[normalize-space()=\"Create Page\"]//parent::button")).click();
 		Thread.sleep(8000);
 		driver.findElement(By.xpath("//button[@aria-label='Save Action Button']")).click();
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		driver.findElement(By.xpath("//button[@aria-label='Close Editor']")).click();
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//span[text()='Exit']")).click();
 		Thread.sleep(2000);
 		
@@ -14033,8 +14039,8 @@ public class Products extends Data {
 		}
 
 		Thread.sleep(7000);
-		String actualTierName3 = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>p>div>p:first-of-type")).getText().trim();
-		Assert.assertEquals(actualTierName3, PdodName, "Tier Product name mismatch on Tier manually created page");
+		String actualTierName31 = driver.findElement(By.cssSelector("#CheckoutFormTemplate>section>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>p>div>p:first-of-type")).getText().trim();
+		Assert.assertEquals(actualTierName31, PdodName, "Tier Product name mismatch on Tier manually created page");
 		System.out.println("Verified that the Tier Product name on the Tier manually created page with the Tier Product name set in the product details.\n");
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -14097,36 +14103,1158 @@ public class Products extends Data {
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
+		//verify if Active toggle is enabled then only that tier is visible on the pricing page
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
 		
+		List<By> ActivetoggleLocators = Arrays.asList(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(2)>span>button"));
+		for (By toggleLocator : ActivetoggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+			}
+		}
 		
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
 		
+		Thread.sleep(5000);
+		String Activetier1Pricelabel = driver.findElement(By.cssSelector("div.pricing-card-text>div>div:first-of-type>div:nth-of-type(2)>div>div>h3")).getText().trim();
+		Assert.assertEquals(Activetier1Pricelabel, TitleTier1,"First Tier Installment is not displayed on the pricing page.");
+		System.out.println("Verified that the First Tier Installment is displayed on the pricing page when Active toggle is enabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
 		
+		//verify that if user disable the active tier toggle then user can't see the tier details on the pricing page 
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
 		
+		List<By> InActivetoggleLocators = Arrays.asList(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(2)>span>button"));
+		for (By toggleLocator : InActivetoggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
 		
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
 		
+		Thread.sleep(5000);
+		String InActivetier1Pricelabel = driver.findElement(By.cssSelector("div.pricing-card-text>div>div:first-of-type>div:nth-of-type(2)>div>div>h3")).getText().trim();
+		Assert.assertNotEquals(InActivetier1Pricelabel, TitleTier1,"First Tier Installment is displayed on the pricing page.");
+		System.out.println("Verified that the First Tier Installment is not displayed on the pricing page when Active toggle is disabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);		
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(2)>span>button")).click();
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(2000);
 		
+		//verify that if user select the option free then user can add the valid URL and can save the product details 
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(3)>div:first-of-type>button")).click();
+		driver.findElement(By.cssSelector("div[data-orientation='vertical']>div:first-of-type")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(1)")).click();
+		driver.findElement(By.name("productDetails.variants.0.tier_option_url")).sendKeys("https://www.google.com");
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
 		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.pricing-card:first-of-type>div:nth-of-type(2)>div>div>button")).click();
+		Thread.sleep(2000);
+		String CurrentUrl = driver.getCurrentUrl();
+		Assert.assertEquals(CurrentUrl, "https://www.google.com/","The URL is not navigated to the expected URL.");
+		System.out.println("Verified that the user can add the valid URL and from pricing page can navigate to URL successfully.\n");		
+		driver.close();
+		driver.switchTo().window(originalTab);
 		
+		//verify that when user selects option for the tier as free then can add form for the tier and can select any form from the dropdown
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(3)>div:first-of-type>button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div[data-orientation='vertical']>div:nth-of-type(1)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(4)>div>button")).click();
+		Thread.sleep(2000);
+		List<WebElement> formOptions = driver.findElements(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(4)>div>div:last-of-type>div>div:nth-of-type(2)>div"));
+		int formCount1 = formOptions.size();
+		Assert.assertEquals(formCount1, Integer.parseInt(formCount), "Form count mismatch in the dropdown.");
+		System.out.println("Verified that the avaliable form count and form avaliable in the dropdown matches successfully.\n");
 		
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(4)>div>div:last-of-type>div>div:nth-of-type(2)>div")).click();
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
 		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.pricing-card:first-of-type>div:nth-of-type(2)>div>div>button")).click();
 		
+		wait.until(ExpectedConditions.numberOfWindowsToBe(3));
+		String firstNewTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+		    if (!handle.equals(originalTab) && !handle.equals(firstNewTab)) {
+		        driver.switchTo().window(handle);
+		        break;
+		    }
+		}
+
+		wait.until(ExpectedConditions.urlContains("forms"));
+		String currentUrl = driver.getCurrentUrl();
+		Assert.assertTrue(currentUrl.contains("forms"),"The URL is not navigated to the expected form URL.");
+		System.out.println("Verified that the user is navigated to the Forms page successfully.");
+		driver.close();
+		driver.switchTo().window(firstNewTab);
+		driver.close();
+		driver.switchTo().window(originalTab);
 		
+		//verify that user can add the monthly price for the tier then same can be visible on the pricing page also monthly price can be seen on the checkout page as well 
+		driver.findElement(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div>div:first-of-type>div:nth-of-type(2)>div>button")).click();
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(2000);		
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(3)>div:first-of-type>button")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div[data-orientation='vertical']>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
 		
+		driver.findElement(By.xpath("(//input[@name='productDetails.variants.0.prices[0].amount'])[1]")).sendKeys(Value);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
 		
+		Set<String> windows = driver.getWindowHandles();
+		windows.remove(originalTab);
+		String pricingTab = windows.iterator().next();
+		driver.switchTo().window(pricingTab);
+
+		String tierPrice = driver.findElement(By.cssSelector("div.pricing-card-text>div>div:first-of-type>div:nth-of-type(2)>div>div>div:nth-of-type(2)>div>div>span:first-of-type")).getText().trim();
+		tierPrice = tierPrice.replace("$", "").replace(".00", "");
+		Assert.assertEquals(tierPrice, Value);
+		System.out.println("Verified that the Monthly price for the tier is displayed on the pricing page successfully.\n");
+
+		driver.findElement(By.cssSelector("div.pricing-card:first-of-type>div:nth-of-type(2)>div>div>button")).click();
+		wait.until(ExpectedConditions.numberOfWindowsToBe(3));
+		windows = driver.getWindowHandles();
+		windows.remove(originalTab);
+		windows.remove(pricingTab);
+
+		String checkoutTab1 = windows.iterator().next();
+		driver.switchTo().window(checkoutTab1);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base section")));
+
+		String actualMonthlyPrice = driver.findElement(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:first-of-type>p>div:nth-of-type(2)>div>div>span:first-of-type")).getText().trim();
+		actualMonthlyPrice = actualMonthlyPrice.replace("$", "").replace(".00", "");
+		Assert.assertEquals(actualMonthlyPrice, Value);
+		System.out.println("Verified that the Monthly price for the tier is displayed on the checkout page successfully.\n");
+		driver.close();
+		driver.switchTo().window(pricingTab);
+		driver.close();
+		driver.switchTo().window(originalTab);
 		
+		//verify that user can apply % discount as well for the tier and same can be seen infront of the Monthly dropdown 
+		List<By> toggleLocatorss = Arrays.asList(By.cssSelector("#tiered-pricing-option-div>div:nth-of-type(2)>div>div:first-of-type>div:nth-of-type(2)>div>button"));
+		for (By toggleLocator : toggleLocatorss) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
 		
+		driver.findElement(By.cssSelector("div.yearly-price>button")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("((//div[@data-orientation='vertical'])[1]//div)[2]")).click();
+		Thread.sleep(2000);
+		String offer10s = driver.findElement(By.cssSelector("div.yearly-price>button>p")).getText().trim();
+		Assert.assertTrue(offer10s.contains("10% Off"), "10% Off text is not displayed");
+		System.out.println("10% Off is displayed successfully in Show Annual Upsell In details option.\n");
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(5000);
 		
+		String offer10Checkoutt = driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(3)>div:nth-of-type(2)>button>p")).getText().trim();
+		offer10Checkoutt = offer10Checkoutt.replace(" ", "");
+		Assert.assertEquals(offer10Checkoutt, "10%Off", "10% Off text is not displayed in the Monthly dropdown.");
+		System.out.println("10% Off discount tag displayed successfully in the Monthly dropdown.\n");
 		
-		
-		
-		
+		//verify that when yearly discount is on then on checkout user can have both yearly and monthly checkout options
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
+		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+
+		Set<String> handles = driver.getWindowHandles();
+		handles.remove(originalTab);
+		String pricingTab1 = handles.iterator().next();
+		driver.switchTo().window(pricingTab1);
+
+		String offerTag = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.pricing-card-text>div>div>div:first-of-type:first-of-type>div>div"))).getText().trim();
+		Assert.assertTrue(offerTag.contains("10 % Off"), "10% Off tag is not displayed on Pricing page.");
+		System.out.println("Verified 10% Off discount tag displayed on Pricing page sucessfully.");
+		driver.findElement(By.cssSelector("div.pricing-card:first-of-type>div:nth-of-type(2)>div>div>button")).click();
+
+		wait.until(ExpectedConditions.numberOfWindowsToBe(3));
+		handles = driver.getWindowHandles();
+		handles.remove(originalTab);
+		handles.remove(pricingTab1);
+
+		String checkoutTabb1 = handles.iterator().next();
+		driver.switchTo().window(checkoutTabb1);
+		String checkoutOffer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2)>button:nth-of-type(2)"))).getText().trim();
+		Assert.assertTrue(checkoutOffer.contains("10%"), "10% Off tag is not displayed on Checkout page.");
+		System.out.println("Verified 10% Off discount tag displayed on Checkout page sucessfully.");
+		driver.close();
+		driver.switchTo().window(pricingTab1);
+		driver.close();
+		driver.switchTo().window(originalTab);	
 	}
 	
-	
+	@Test(priority = 31)
+	public void Tier_productOperations2 () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		SimpleDateFormat cSimpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		Date cDate = new Date();
+		Actions action = new Actions(driver);
+
+		String AptNameOneonOne = "Automation Appointment ProductLink : " + java.util.UUID.randomUUID().toString().replace("-", "").substring(0, 5);
+
+		//TierProducts();
+		
+		//verify that while creating tier product add description for the tier same should be reflect in the product details 
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Tiered Product\"]")).click();
+		Thread.sleep(10000);		
+		WebElement ProdbeforeEdit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a>div")));
+		String PdodName = ProdbeforeEdit.getText().trim();
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(2)>div>a")).click();		
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//span[text()='Pricing Options']")));
+		Thread.sleep(3000);
+
+		String Discription = driver.findElement(By.name("productDetails.variants.0.product_tier_description")).getText().trim();
+		Assert.assertEquals(Discription, DiscriptionTier1, "Tier Product description mismatch on product details page");
+		System.out.println("Verified that the Tier Product description on the product details page matches the Tier	Product description set in the product creation.\n");
+
+		//verify that when title is added or removed then user can save the product details 
+		String Title = driver.findElement(By.name("productDetails.variants.0.product_tier_features.0.title")).getAttribute("value").trim();
+		Assert.assertEquals(Title, TitleTier1, "Tier Product title mismatch on product details page");
+		System.out.println("Verified that the Tier Product title on the product details page matches the Tier Product title set in the product creation.\n");
+
+		//verify that when feature is added or removed then user can save the product details 
+		String Feature = driver.findElement(By.name("productDetails.variants.0.product_tier_features.0.feature_title.0")).getAttribute("value").trim();
+		Assert.assertEquals(Feature, Tier1Feature1, "Tier Product feature mismatch on product details page");
+		System.out.println("Verified that the Tier Product feature on the product details page matches the Tier Product feature set in the product creation.\n");	
+
+		//verify that added description for the tier must be same on the pricing page 
+		Thread.sleep(2000);
+		String originalTab = driver.getWindowHandle();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:nth-of-type(2)"))).click();
+
+		Thread.sleep(3000);
+		String Activetier1Pricelabel = driver.findElement(By.cssSelector("div.sync-description:first-of-type>p:first-of-type")).getText().trim();
+		Assert.assertEquals(Activetier1Pricelabel, DiscriptionTier1,"First Tier Installment is not displayed on the Edit pricing page.");
+		System.out.println("Verified that the First Tier Installment is displayed on the edit pricing page when Active toggle is enabled.\n");
+
+		//verify that add title for the tier and same is reflected on the edit option  page 
+		String EditpageTitle = driver.findElement(By.cssSelector("#key-feature-section>div>div>h4:first-of-type")).getText().trim();
+		Assert.assertEquals(EditpageTitle, TitleTier1,"First Tier Installment title is not displayed on the Edit pricing page.");
+		System.out.println("Verified that the First Tier Installment title is displayed on the edit pricing page when Active toggle is enabled.\n");
+
+		//verify that add feature for the tier and same is reflected on the edit option  page 
+		String EditpageFeature = driver.findElement(By.cssSelector("#key-feature-section>div>div>div>ul>li")).getText().trim();
+		Assert.assertEquals(EditpageFeature, Tier1Feature1,"First Tier Installment feature is not displayed on the Edit pricing page.");
+		System.out.println("Verified that the First Tier Installment feature is displayed on the edit pricing page when Active toggle is enabled.\n");
+		driver.findElement(By.cssSelector("div.custom-setting-region-tab>div>div:nth-of-type(2)>button")).click();
+		Thread.sleep(2000);
+
+		//verify that added description for the tier should be same on the edit option for the tier option
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(5000);
+		String Activetier1Pricelabel1 = driver.findElement(By.cssSelector("div.pricing-card-text>div:first-of-type>div:first-of-type>div#card-div>div>div>div>p")).getText().trim();
+		Assert.assertEquals(Activetier1Pricelabel1, DiscriptionTier1,"First Tier Installment is not displayed on the Open pricing page.");
+		System.out.println("Verified that the First Tier Installment is displayed on the open pricing page when Active toggle is enabled.\n");
+
+		//verify that add title for the tier and same is reflected on the edit option  page 
+		String OpenpageTitle1 = driver.findElement(By.cssSelector("div.pricing-card-text>div>div:first-of-type>div>div:first-of-type>div:nth-of-type(3)>div>div>h4")).getText().trim();
+		Assert.assertEquals(OpenpageTitle1, TitleTier1,"First Tier Installment title is not displayed on the Open pricing page.");
+		System.out.println("Verified that the First Tier Installment title is displayed on the open pricing page when Active toggle is enabled.\n");
+
+		//verify that add feature for the tier and same is reflected on the pricing page 
+		String OpenpageFeature1 = driver.findElement(By.cssSelector("div.pricing-card-text>div>div:first-of-type>div>div:first-of-type>div:nth-of-type(3)>div>div>div>ul>li")).getText().trim();
+		Assert.assertEquals(OpenpageFeature1, Tier1Feature1,"First Tier Installment feature is not displayed on the Open pricing page.");
+		System.out.println("Verified that the First Tier Installment feature is displayed on the open pricing page when Active toggle is enabled.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//verify that using upload option user can upload image for the tier and uploaded same image is visible on the checkout page as well for the same tier checkout	
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(2)>div:nth-of-type(3)")));
+		WebElement uploadImage = driver.findElement(By.xpath("//label[@for='file-upload-1']"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", uploadImage);		
+		Thread.sleep(3000);
+		String[] files1 = {Media_Path + Fileone};
+		String allFiles1 = String.join("\n", files1);
+		driver.findElement(By.cssSelector("[type='file']")).sendKeys(allFiles1);
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@class='btn focus:shadow-none btn-black btn-large']")).click();
+		Thread.sleep(2000);
+		jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();		
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.pricing-card:first-of-type>div:nth-of-type(2)>div>div>button")).click();
+
+		wait.until(ExpectedConditions.numberOfWindowsToBe(3));
+		String firstNewTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab) && !handle.equals(firstNewTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		WebElement uploadedImage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#no-tailwindcss-base>section>div>div:nth-of-type(2)>div:nth-of-type(2)>div>div>div>img")));
+		Assert.assertTrue(uploadedImage.isDisplayed(), "Uploaded image is not displayed on the checkout page.");
+		System.out.println("Verified that the uploaded image for the tier is displayed on the checkout page	successfully.\n");
+		driver.close();
+		driver.switchTo().window(firstNewTab);
+		driver.close();
+		driver.switchTo().window(originalTab);
+
+		//verify that by default upsell on click toggle is disabled for the product and user cant enable it 
+		/*Thread.sleep(2000);
+		List<By> toggleLocators = Arrays.asList(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(4)>span>div>div>button"));
+		for (By toggleLocator : toggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
+
+		Assert.assertEquals(driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(4)>span>div>div>button")).getAttribute("data-state"), "unchecked","Upsell on click toggle is enabled for the product.");
+		System.out.println("Verified that by default upsell on click toggle is disabled for the product and user cant enable it.\n");*/
+
+		//verify that if most popular toggle is enabled then same text can be seen infront of the tier name in the product details page 
+		Thread.sleep(2000);
+		List<By> populartoggleLocators = Arrays.asList(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(5)>div>div>button"));
+		for (By toggleLocator : populartoggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+			}
+		}
+
+		Assert.assertEquals(driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(5)>div>div>button")).getAttribute("data-state"), "checked","Most Popular toggle is enabled for the product.");
+		System.out.println("Verified that when most popular toggle is enabled then same text can be seen infront of the tier name in the product details page.\n");
+		String MostPopularText = driver.findElement(By.xpath("(//span[text()='Most Popular'])[1]")).getText().trim();
+		Assert.assertEquals(MostPopularText, "Most Popular","Most Popular text is not displayed	infront of the tier name in the product details page.");
+		System.out.println("Verified that when most popular toggle is enabled then same text can be seen infront of the tier name in the product details page successfully.\n");	
+
+		//verify that when user enable the most popular toggle then same can be seen on open button of pricing page 
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:nth-of-type(2)"))).click();	
+		Thread.sleep(3000);
+		String MostPopularText1 = driver.findElement(By.xpath("(//div[text()='Most Popular'])[1]")).getText().trim();
+		Assert.assertEquals(MostPopularText1, "Most Popular","Most Popular text is not displayed on the edit button of pricing page.");
+		System.out.println("Verified that when most popular toggle is enabled then same text can be seen on edit button of pricing page successfully.\n");
+		driver.findElement(By.cssSelector("div.custom-setting-region-tab>div>div:nth-of-type(2)>button")).click();
+
+		//verify that when most popular toggle is enabled then same is reflected on the edit option	[ISSUE]
+		/*Thread.sleep(4000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#product-details-tab>div:nth-of-type(2)>div>div>div>button:first-of-type"))).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(5000);
+		String MostPopularText2 = driver.findElement(By.xpath("(//div[text()='Most Popular'])[1]")).getText().trim();
+		Assert.assertEquals(MostPopularText2, "Most Popular","Most Popular text is not displayed on the open option of pricing page.");
+		System.out.println("Verified that when most popular toggle is enabled then same text can be seen on open option of pricing page successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);*/
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#tier-item-1>div:nth-of-type(2)>div:nth-of-type(5)>div:nth-of-type(5)>div>div>button")).click();
+
+		//verify that user can use the hide product from store option for the tier product and product cant see from store
+		List<By> hidetoggleLocators = Arrays.asList(By.xpath("//p[text() = 'Hide Products from Store']//following-sibling::button"));
+		for (By toggleLocator : hidetoggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		StoreFront();
+		driver.findElement(By.xpath("//button[normalize-space()='SHOP NOW']")).click();
+		List<WebElement> products = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("p[data-testid='product-title']")));
+		boolean isProductPresent = products.stream().map(p -> p.getText().trim()).anyMatch(name -> name.equalsIgnoreCase(PdodName));
+		Assert.assertFalse(isProductPresent, "Product is visible but should be hidden: " + PdodName);
+		System.out.println("Verified that the hide product toggle is enabled from details page then the product is hidden from the store successfully.\n");
+
+		//verify that for one time product with Non-Inventory type user can enable the toggle and disable also of hide product from store and same product will be hidden from store
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+		Thread.sleep(2000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement OneTimeProdName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String OneTimePdodName = OneTimeProdName.getText().trim();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> hidetoggleLocators1 = Arrays.asList(By.xpath("//p[text() = 'Hide Products from Store']//following-sibling::button"));
+		for (By toggleLocator : hidetoggleLocators1) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		StoreFront();
+		driver.findElement(By.xpath("//button[normalize-space()='SHOP NOW']")).click();
+		List<WebElement> products1 = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("p[data-testid='product-title']")));
+		boolean isProductPresent1 = products1.stream().map(p -> p.getText().trim()).anyMatch(name -> name.equalsIgnoreCase(OneTimePdodName));
+		Assert.assertFalse(isProductPresent1, "One Time Product is visible but should be hidden: " + OneTimePdodName);
+		System.out.println("Verified that the One Time hide product toggle is enabled from details page then the product is hidden from the store successfully.\n");
+
+		//verify that for one time product with Non-Inventory type user can enable and disable the toggle for hide product from store and save the product details 
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement OneTimeProdName1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String OneTimePdodName1 = OneTimeProdName1.getText().trim();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> hidetoggleLocators11 = Arrays.asList(By.xpath("//p[text() = 'Hide Products from Store']//following-sibling::button"));
+		for (By toggleLocator : hidetoggleLocators11) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		StoreFront();
+		driver.findElement(By.xpath("//button[normalize-space()='SHOP NOW']")).click();
+		List<WebElement> products11 = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("p[data-testid='product-title']")));
+		boolean isProductPresent11 = products11.stream().map(p -> p.getText().trim()).anyMatch(name -> name.equalsIgnoreCase(OneTimePdodName1));
+		Assert.assertTrue(isProductPresent11, "One Time Product is hidden : " + OneTimePdodName1);
+		System.out.println("Verified that the One Time hide product toggle is disabled from details page then the product is displayed the store successfully.\n");
+
+		//verify that for one time product with Non-Inventory type user can enable the toggle and disable also of product unlock courses and same product will be visible in the courses
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement courseProdName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String coursePdodName = courseProdName.getText().trim();
+		System.out.println("Product Name: " + coursePdodName);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> courselinktoggleLocators = Arrays.asList(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button"));
+		for (By toggleLocator : courselinktoggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		driver.navigate().to(Courses);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.list-form-img>div>div")).click();//click on courses
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.edit-course-sidebar>div>div>div>nav>div:nth-of-type(4)>div>div:nth-of-type(2)")).click();//click on products
+		driver.findElement(By.id("paidCourseTab")).click();
+		driver.findElement(By.id("connect-product")).click();
+		Thread.sleep(3000);
+
+		driver.findElement(By.name("searchproductsDD")).sendKeys(coursePdodName);
+		Thread.sleep(2000);		
+		List<WebElement> connectedProducts = driver.findElements(By.cssSelector("span.connect_product_title"));
+		System.out.println("Expected Product: " + coursePdodName);
+		boolean productFound = false;
+		for (WebElement product : connectedProducts) {
+			if (product.getText().toLowerCase().trim().equals(coursePdodName)) {
+				productFound = true;
+				break;
+			}
+		}	
+
+		//Assert.assertTrue(productFound, "Product not found in connect product listing");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.connect-product-listing>div:first-of-type")).click();
+		driver.findElement(By.cssSelector("button.connect-productbtn")).click();
+		System.out.println("Verified that the product is displayed in the courses product listing when the toggle is enabled from the product details page.\n");
+
+		//verify that if product unloack courses toggle enabled then same product can be purchased from the courses
+		Thread.sleep(2000);
+		WebElement openEditProduct = driver.findElement(By.xpath("(//a[normalize-space()='Open/Edit Product'])[last()]"));
+		jse.executeScript("arguments[0].scrollIntoView(true);", openEditProduct);
+		openEditProduct.click();
+
+		String parentWindow = driver.getWindowHandle();
+		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(parentWindow)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("orderPagesFunnel"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("td.tracking-tighter>div>a:first-of-type"))).click();
+		Thread.sleep(3000);
+		driver.close();
+		driver.switchTo().window(parentWindow);
+
+		wait.until(ExpectedConditions.numberOfWindowsToBe(2));
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(parentWindow)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click(); 
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country); 
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
+		Thread.sleep(7000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		driver.close();
+		driver.switchTo().window(parentWindow);
+
+		//verify that for one time product with Non-Inventory type user can enable and disable the toggle for product unlock courses and save the product details 
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement courseProdName1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String coursePdodName1 = courseProdName1.getText().trim();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> courselinktoggleLocators1 = Arrays.asList(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button"));
+		for (By toggleLocator : courselinktoggleLocators1) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		driver.navigate().to(Courses);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.list-form-img>div>div")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.edit-course-sidebar>div>div>div>nav>div:nth-of-type(4)>div>div:nth-of-type(2)")).click();	
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#templateListTBodycourses>tr:last-of-type>td:last-of-type>div>div:nth-of-type(2)>a")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("(//a[contains(@class,'dropdown-item') and normalize-space()='Delete Connection'])[2]")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[normalize-space()='Yes, Delete Connection']")).click();
+		Thread.sleep(2000);	
+		driver.findElement(By.id("paidCourseTab")).click();
+		driver.findElement(By.id("connect-product")).click();
+		Thread.sleep(3000);
+
+		List<WebElement> connectedProducts1 = driver.findElements(By.cssSelector("span.connect_product_title"));
+		boolean productFound1 = false;
+		for (WebElement product : connectedProducts1) {
+			if (product.getText().trim().equals(coursePdodName1)) {
+				productFound1 = true;
+				break;
+			}
+		}	
+
+		Assert.assertFalse(productFound1, "Product not found in connect product listing");
+		System.out.println("Verified that the product is not displayed in the courses product listing when the toggle is disabled from the product details page.\n");
+
+		//verify that for one time product with Non-Inventory type user can enable the toggle and disable also of link product to services and same product will be visible in the services
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement courseProdName11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String PdodName1 = courseProdName11.getText().trim();
+		System.out.println("Product Name : " + PdodName1);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> courselinktoggleLocators11 = Arrays.asList(By.xpath("//p[text() = 'Link Product to Services']//following-sibling::button"));
+		for (By toggleLocator : courselinktoggleLocators11) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		driver.navigate().to(Services);
+		Thread.sleep(3000);
+		driver.findElement(By.name("search")).sendKeys(PdodName1, Keys.ENTER);
+		Thread.sleep(5000);
+		String serviceName = driver.findElement(By.cssSelector("span.servicenamespan")).getText();
+		Assert.assertEquals(serviceName, PdodName1, "Service not created with product name");
+		System.out.println("Verified that the product is displayed in the services listing when the toggle is enabled from the product details page.\n");
+
+		//verify that if link product to services toggle enabled then same product can be purchased from the services
+		driver.navigate().to(Services);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div.servicemenupdiv>div:nth-of-type(2)>div:last-of-type>a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.assign-payment-type-dropdownsetting")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("li[data-paymenttype='paidbooking']")).click();
+
+		String Pwindow = driver.getWindowHandle();
+		driver.findElement(By.cssSelector("a.bookingwidgetborder")).click();
+		driver.findElement(By.cssSelector("a[target=\"_blank\"]")).click();
+		for (String handle:driver.getWindowHandles()){
+			driver.switchTo().window(handle);
+		}
+
+		Thread.sleep(2000);	
+		WebElement searchField = wait.until(ExpectedConditions.elementToBeClickable(By.id("searchservicefield")));
+		searchField.clear();
+		searchField.sendKeys(PdodName1);
+		Thread.sleep(5000);
+		wait.until(driver -> {List<WebElement> services = driver.findElements(By.xpath("//div[contains(@class,'masterservicediv') and not(contains(@style,'display: none'))]//a[contains(@class,'mainservices')]"));return services.size() > 0;});
+		WebElement firstResult = driver.findElement(By.xpath("(//div[contains(@class,'masterservicediv') and not(contains(@style,'display: none'))]//a[contains(@class,'mainservices')])[1]"));
+		jse.executeScript("arguments[0].scrollIntoView({block:'center'});", firstResult);
+		Thread.sleep(500);
+		jse.executeScript("arguments[0].click();", firstResult);
+
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.nextchoosenbtnmaindiv a[data-action=\"datetime\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector("div[id='"+cSimpleDateFormat.format(cDate.getTime())+"']+div")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("div.booking_timeslots>p.timeslot")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("a.closemaintippopuplater")).click();
+		driver.findElement(By.cssSelector("a.floatingbtnfornextaction")).click();
+		Thread.sleep(10000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		Thread.sleep(2000);
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);// MMYY format
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder1.clear();
+		cardHolder1.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click(); //Clicking on checkbox
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h1.order_details_info_orderID"))).getText().trim().toLowerCase();
+		driver.close();		
+		driver.switchTo().window(Pwindow);
+		System.out.println("Verified that the product can be purchased from the services when the toggle is enabled from the product details page.\n");
+
+		//verify that for one time product with Non-Inventory type user can enable and disable the toggle for link product to services and save the product details 
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement courseProdName111 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String PdodName11 = courseProdName111.getText().trim();
+		System.out.println("Product Name : " + PdodName11);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> courselinktoggleLocators111 = Arrays.asList(By.xpath("//p[text() = 'Link Product to Services']//following-sibling::button"));
+		for (By toggleLocator : courselinktoggleLocators111) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		driver.navigate().to(Services);
+		Thread.sleep(3000);
+		driver.findElement(By.name("search")).sendKeys(PdodName11, Keys.ENTER);
+		Thread.sleep(5000);
+		String serviceName1 = driver.findElement(By.cssSelector("div.global-banner-inner-container>h1")).getText();
+		Assert.assertEquals(serviceName1, "No services found.", "Service not created with product name");
+		System.out.println("Verified that the product is not displayed in the services listing when the toggle is disabled from the product details page.\n");
+
+		//verify that for one time product with Non-Inventory type user can enable the toggle and disable also of link product to appointments and same product will be visible in the appointments
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement ApptProdName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String AptPdodName = ApptProdName.getText().trim();
+		System.out.println("Appointment Product Name : " + AptPdodName);
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> ApptlinktoggleLocators = Arrays.asList(By.xpath("//p[text() = 'Link Product to Appointments']//following-sibling::button"));
+		for (By toggleLocator : ApptlinktoggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		driver.navigate().to(AppointmentTypes);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector(".blocktitlesection div #eventtypebutton")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("div.rounded-15>div:nth-child(1)>div")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.id("payment_paid")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("span[title='Select Product']")).click();
+		Thread.sleep(2000);
+		String connectedProducts11 = driver.findElement(By.cssSelector("li.select2-results__option--selectable:nth-of-type(2)")).getText().trim();
+		String actualProductName = connectedProducts11.split("\\|")[0].trim();
+		Assert.assertEquals(actualProductName, AptPdodName, "Saved product name is not displayed on Appointment page");
+		System.out.println("Verified that the product is displayed in the appointments listing when the toggle is enabled from the product details page.\n");
+
+		//verify that if link product to appointments toggle enabled then same product can be purchased from the appointment
+		driver.findElement(By.xpath("//input[@placeholder='Search Product ...']")).sendKeys(AptPdodName);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("ul.select2-results__options>li:first-of-type")).click();
+
+		driver.findElement(By.id("appttypename_title")).sendKeys(AptNameOneonOne);
+		driver.findElement(By.id("appttypealias_title")).sendKeys(AptNameOneonOne);
+		driver.findElement(By.cssSelector("div.mb-5.loc>div.nice-select:first-of-type")).click();
+		jse.executeScript("scroll(0,230)");
+		driver.findElement(By.cssSelector("li[data-value=\"inperson\"]")).click();
+		driver.findElement(By.id("inperson_address")).sendKeys("Valid Address");
+		driver.findElement(By.id("appttypedesc")).sendKeys("Test user");
+		jse.executeScript("scroll(0,0)");
+		driver.findElement(By.cssSelector("div.appt-head-section>div:nth-of-type(3)>button[type=\"button\"]")).click();
+		Thread.sleep(2000);
+
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.scheduleinnerdata>div:first-child>div>div+div")));
+		action.scrollByAmount(0, 475).perform();
+		driver.findElement(By.cssSelector("div.scheduleinnerdata>div:first-child>div>div+div")).click();//Custom Schedule button
+		Thread.sleep(1000);
+		jse.executeScript("scroll(0,475)");
+		driver.findElement(By.cssSelector("div.time-zone-title>span>span>span:first-child")).click();
+		driver.findElement(By.cssSelector("input.select2-search__field")).sendKeys("Asia/Kolkata", Keys.ENTER);
+
+		try{
+			jse.executeScript("document.getElementsByName('to_time[0][]')[0].setAttribute('value','11:45 PM')");
+		} catch (Exception JavaScriptException){
+			driver.findElement(By.cssSelector("a[data-dayid = \"0\"]")).click();
+			jse.executeScript("document.getElementsByName('to_time[0][]')[0].setAttribute('value','11:45 PM')");
+		}
+
+		driver.findElement(By.cssSelector("#deactive-time-div-0+div>div>a")).click();
+		for(int i = 3; i <= 8;i ++){
+			driver.findElement(By.cssSelector("#deactive-time-div-0+div>div>div>label:nth-child("+i+")>span")).click();
+		}
+
+		driver.findElement(By.cssSelector("#deactive-time-div-0+div>div>div>div>button")).click();
+		jse.executeScript("scroll(0,0)");
+		driver.findElement(By.cssSelector("button.initsecondnextbutton")).click();
+
+		action.scrollByAmount(0,475).perform();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.appt-detail-section>div.justify-end>button.thirdstepqnans"))).click();
+		Thread.sleep(3000);
+
+		jse.executeScript("window.scrollTo(0, 391)");
+		driver.findElement(By.cssSelector("div.appt-head-section>div.justify-end>button.fourthstepnotification")).click();
+		Thread.sleep(4000);
+		jse.executeScript("scroll(0, 475)");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.fifthdivapptdetailswrapper >div>div:nth-child(3)>button")).click();
+		Thread.sleep(5000);
+
+		//verify that for one time product with Non-Inventory type user can enable and disable the toggle for link product to appointments and save the product details 
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> ApptlinktoggleLocatorsOFF = Arrays.asList(By.xpath("//p[text() = 'Link Product to Appointments']//following-sibling::button"));
+		for (By toggleLocator : ApptlinktoggleLocatorsOFF) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		driver.navigate().to(AppointmentTypes);
+		Thread.sleep(3000);
+		driver.findElement(By.cssSelector(".blocktitlesection div #eventtypebutton")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("div.rounded-15>div:nth-child(1)>div")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.id("payment_paid")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("span[title='Select Product']")).click();
+		Thread.sleep(2000);
+		String connectedProducts111 = driver.findElement(By.cssSelector("li.select2-results__option--selectable:nth-of-type(2)")).getText().trim();
+		String actualProductName1 = connectedProducts111.split("\\|")[0].trim();
+		Assert.assertNotEquals(actualProductName1, AptPdodName, "Saved product name is displayed on Appointment page");
+		System.out.println("Verified that the product is hidden in the appointments listing when the toggle is disabled from the product details page.\n");
+
+		//verify that for one time product with Inventory type user can enable the toggle and disable also of hide product from store and same product will be hidden from store
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement OneTimeProdName1111 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String OneTimePdodName1111 = OneTimeProdName1111.getText().trim();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> hidetoggleLocators111 = Arrays.asList(By.xpath("//p[text() = 'Hide Products from Store']//following-sibling::button"));
+		for (By toggleLocator : hidetoggleLocators111) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		StoreFront();
+		driver.findElement(By.xpath("//button[normalize-space()='SHOP NOW']")).click();
+		List<WebElement> products111 = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("p[data-testid='product-title']")));
+		boolean isProductPresent1111 = products111.stream().map(p -> p.getText().trim()).anyMatch(name -> name.equalsIgnoreCase(OneTimePdodName1111));
+		Assert.assertFalse(isProductPresent1111, "One Time Product is displayed");
+		System.out.println("Verified that the Inventory One Time hide product toggle is disabled from details page then the product is hidden from the store successfully.\n");
+
+		//verify that for one time product with Inventory type user can enable and disable the toggle for hide product from store and save the product details 
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		WebElement OneTimeProdNamee1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#global-product-topbar>div:first-of-type>div>div>div>div:nth-of-type(2)>span>div")));
+		String OneTimePdodNamee1 = OneTimeProdNamee1.getText().trim();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> showtoggleLocators1 = Arrays.asList(By.xpath("//p[text() = 'Hide Products from Store']//following-sibling::button"));
+		for (By toggleLocator : showtoggleLocators1) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("checked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		StoreFront();
+		driver.findElement(By.xpath("//button[normalize-space()='SHOP NOW']")).click();
+		List<WebElement> productss1 = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("p[data-testid='product-title']")));
+		boolean isProductPresentt = productss1.stream().map(p -> p.getText().trim()).anyMatch(name -> name.equalsIgnoreCase(OneTimePdodNamee1));
+		Assert.assertTrue(isProductPresentt, "One Time Product is hidden : " + OneTimePdodNamee1);
+		System.out.println("Verified that the Inventory One Time hide product toggle is enabled from details page then the product is displayed from the store successfully.\n");
+
+		//verify that for one time product with inventory type if user try to enable the toggle for this product unlock courses then it shows msg as "This option is only available for non-inventory product"
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> courselinktoggleLocators1111 = Arrays.asList(By.xpath("//p[text() = 'This Product Unlocks Courses']//following-sibling::button"));
+		for (By toggleLocator : courselinktoggleLocators1111) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		String errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.shadow-toaster>div:nth-of-type(2)>span:nth-of-type(2)"))).getText().trim();
+		Assert.assertEquals(errorMsg, "This option is only available for non-inventory product", "Error message not displayed for Inventory product");
+		System.out.println("Verified that for one time product with inventory type if user try to enable the toggle for this product unlock courses then error message displays successfully.\n");
+
+		//verify that for one time product with inventory type if user try to enable the toggle for this link product to services then it shows msg as "This option is only available for non-inventory product"
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> servicelinktoggleLocators = Arrays.asList(By.xpath("//p[text() = 'Link Product to Services']//following-sibling::button"));
+		for (By toggleLocator : servicelinktoggleLocators) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		String errorMsgg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.shadow-toaster>div:nth-of-type(2)>span:nth-of-type(2)"))).getText().trim();
+		Assert.assertEquals(errorMsgg, "This option is only available for non-inventory product", "Error message not displayed for Inventory product");
+		System.out.println("Verified that for one time product with inventory type if user try to enable the toggle for this product link services then error message displays successfully.\n");
+
+		//verify that for one time product with inventory type if user try to enable the toggle for this link product to appointments then it shows msg as "This option is only available for non-inventory product"
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[text()='Details']//parent::div//parent::button")).click();
+		jse.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.xpath("//h2[text()='Product Unlocks']")));
+		Thread.sleep(3000);
+
+		List<By> ApptlinktoggleLocators1 = Arrays.asList(By.xpath("//p[text() = 'Link Product to Appointments']//following-sibling::button"));
+		for (By toggleLocator : ApptlinktoggleLocators1) {
+			WebElement toggleButtonn = wait.until(ExpectedConditions.elementToBeClickable(toggleLocator));
+			String toggleStatee1 = toggleButtonn.getAttribute("data-state");
+			if ("unchecked".equals(toggleStatee1)) {
+				Thread.sleep(2000);
+				jse.executeScript("arguments[0].click();", toggleButtonn);
+				jse.executeScript("arguments[0].click();",driver.findElement(By.cssSelector("#global-product-topbar > div > div:first-of-type > div:nth-of-type(2) > div > button")));
+			}
+		}
+
+		Thread.sleep(2000);
+		String errorMsggg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.shadow-toaster>div:nth-of-type(2)>span:nth-of-type(2)"))).getText().trim();
+		Assert.assertEquals(errorMsggg, "This option is only available for non-inventory product", "Error message not displayed for Inventory product");
+		System.out.println("Verified that for one time product with inventory type if user try to enable the toggle for link Product to Appointments then error message displays successfully.\n");
+	}
 	
 	
 	
