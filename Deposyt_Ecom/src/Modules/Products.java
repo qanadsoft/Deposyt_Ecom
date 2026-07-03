@@ -15256,7 +15256,382 @@ public class Products extends Data {
 		System.out.println("Verified that for one time product with inventory type if user try to enable the toggle for link Product to Appointments then error message displays successfully.\n");
 	}
 	
-	
+	@Test(priority = 32)
+	public void PagesTab1 () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		
+		String ProductPage = "Product Page By Automation", ProductSLUG = "productpagebyautomation" + (int)(Math.random() * 900 + 100),
+			   CheckoutPageName = "Checkout Page By Automation", CheckoutSLUG = "checkoutpagebyautomation" + (int)(Math.random() * 900 + 100);
+		
+		OneTimeproduct();
+		
+		//verify that when user try to create checkout page need to enter the page name and after creation same name is reflecting on pages as well 
+		driver.navigate().to(Products);
+		Thread.sleep(15000);
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(1).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"Non-Inventory\"]")).click();
+
+		driver.findElements(By.cssSelector("div.product-page-ui>div:nth-of-type(2)>div>div>div:first-of-type>div>div>div>button")).get(3).click();
+		driver.findElement(By.xpath("//div[normalize-space()=\"One-Time Purchase\"]")).click();
+		Thread.sleep(3000);	
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("div.order-in-product-first>div>div>div>button")).click();
+		driver.findElement(By.cssSelector("div.product-card>div:first-of-type>div>svg")).click();
+		
+		driver.findElement(By.xpath("//input[@placeholder=\"Page name...\"]")).sendKeys(CheckoutPageName);
+		driver.findElement(By.xpath("//input[@placeholder=\"URL / Slug...\"]")).sendKeys(CheckoutSLUG);
+		driver.findElement(By.xpath("//span[normalize-space()=\"Create Page\"]//parent::button")).click();
+		Thread.sleep(8000);
+		driver.findElement(By.xpath("//button[@aria-label='Save Action Button']")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//button[@aria-label='Close Editor']")).click();
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("//span[text()='Exit']")).click();
+		Thread.sleep(2000);
+		
+		//verify that on page editor user can close it directly and redirected to the pages section again 
+		String CurrentPageName = driver.getCurrentUrl();
+		Assert.assertTrue(CurrentPageName.contains("tab=Pages"), "User is not redirected to the page editor of the created page");
+		System.out.println("Verified that when user try to create checkout page need to enter the page name and after creation same name is reflecting on pages as well.\n");
+		
+		String PageName = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(2)>p")).getText().trim();
+		Assert.assertEquals(PageName, CheckoutPageName, "Created page name is not displayed in the pages section");
+		System.out.println("Verified that after publish checkout page added checkout page displays in pages section successfully.\n");
+		Thread.sleep(5000);
+			
+		//verify that when user try to create product page need to enter the page name and after creation same name is reflecting on pages as well 
+		driver.findElement(By.cssSelector("div.order-in-product-first>div>div>div>button")).click();
+		driver.findElement(By.cssSelector("div.product-card>div:nth-of-type(2)>div>svg")).click();
+		
+		driver.findElement(By.xpath("//input[@placeholder=\"Page name...\"]")).sendKeys(ProductPage);
+		driver.findElement(By.xpath("//input[@placeholder=\"URL / Slug...\"]")).sendKeys(ProductSLUG);
+		driver.findElement(By.xpath("//span[normalize-space()=\"Create Page\"]//parent::button")).click();
+		Thread.sleep(8000);
+		driver.findElement(By.xpath("//button[@aria-label='Save Action Button']")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//button[@aria-label='Close Editor']")).click();
+		Thread.sleep(4000);
+		driver.findElement(By.xpath("//span[text()='Exit']")).click();
+		Thread.sleep(2000);
+		
+		//verify that on page editor user can close it directly and redirected to the pages section again 
+		String CurrentPageName1 = driver.getCurrentUrl();
+		Assert.assertTrue(CurrentPageName1.contains("tab=Pages"), "User is not redirected to the page editor of the created page");
+		System.out.println("Verified that when user try to create product page need to enter the page name and after creation same name is reflecting on pages as well.\n");
+		
+		String PageName1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(2)>p")).getText().trim();
+		Assert.assertEquals(PageName1, ProductPage, "Created page name is not displayed in the pages section");
+		System.out.println("Verified that after publish product page added product page displays in pages section successfully.\n");
+		
+		//verify that user can purchase the product using the default checkout page 
+		driver.navigate().refresh();
+		Thread.sleep(5000);		
+		String DefaultProductPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Default Product Page View Count before purchase : " + DefaultProductPageViewCount);
+		
+		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
+		Thread.sleep(4000);
+		String originalTab = driver.getWindowHandle();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//verify that if user purchase the product using default checkout page then view count should be increase to 1 
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		String UpdatedViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Product Checkout Page View Count after purchase : " + UpdatedViewCount);
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCount), Integer.parseInt(DefaultProductPageViewCount) + 1, "View count is not increased after purchase");
+		
+		//verify that same view count should show on the right side section and total count should be 1 
+		String UpdatedViewCountPrevSection = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection), Integer.parseInt(DefaultProductPageViewCount) + 1, "View count is not increased after purchase");
+		System.out.println("Verified that user can purchase the product using the default checkout page and view count is updated successfully.\n");
+			
+		//verify that user can purchase the product using the default product page 
+		String DefaultCheckoutPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Default Checkout Page View Count before purchase : " + DefaultCheckoutPageViewCount);		
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
+
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//verify that if user purchase the product using default product page then view count should be increase to 1 
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		String UpdatedViewCount1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Product Checkout Page View Count after purchase : " + UpdatedViewCount1);
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCount1), Integer.parseInt(DefaultCheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		
+		//verify that same view count should show on the right side section and total count should be 1 
+		String UpdatedViewCountPrevSection1 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection1), Integer.parseInt(UpdatedViewCount1) + 1, "View count is not increased after purchase");
+		System.out.println("Verified that user can purchase the product using the default product page and view count is updated successfully.\n");
+			
+		//verify that user can purchase the product using the checkout page 
+		String CheckoutPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Checkout Page View Count before purchase : " + CheckoutPageViewCount);	
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//verify that if user purchase the product using checkout page then view count should be increase to 1 
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		String UpdatedViewCount2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Checkout Page View Count after purchase : " + UpdatedViewCount2);
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(CheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		
+		//verify that same view count should show on the right side section and total count should be 1 
+		String UpdatedViewCountPrevSection2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection2), Integer.parseInt(UpdatedViewCount2) + 2, "View count is not increased after purchase");
+		System.out.println("Verified that user can purchase the product using the checkout page and view count is updated successfully.\n");
+				
+		//verify that user can purchase the product using the manually created checkout page
+		String ManualCheckoutPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Manualley Created Checkout Page View Count before purchase : " + ManualCheckoutPageViewCount);	
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(2)>div>div>p")).click();
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//verify that if user purchase the product using manually checkout page then view count should be increase to 1 
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		String ManualCheckoutUpdatedViewCount2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Manualley Created Checkout Page View Count after purchase : " + ManualCheckoutUpdatedViewCount2);
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(ManualCheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		
+		//verify that same view count should show on the right side section and total count should be 1 
+		String ManCheckUpdatedViewCountPrevSection2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(ManCheckUpdatedViewCountPrevSection2), Integer.parseInt(ManualCheckoutUpdatedViewCount2) + 3, "View count is not increased after purchase");
+		System.out.println("Verified that user can purchase the product using the manually Created checkout page and view count is updated successfully.\n");
+			
+		//verify that user can purchase the product using the manually created product page 
+		String ManualProductPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Manualley Created Product Page View Count before purchase : " + ManualProductPageViewCount);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(2)>div>div>p")).click();
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
+		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
+		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
+		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//verify that if user purchase the product using manually checkout page then view count should be increase to 1 
+		driver.navigate().refresh();
+		Thread.sleep(5000);
+		String ManualproductUpdatedViewCount2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Manualley Created Product Page View Count after purchase : " + ManualproductUpdatedViewCount2);
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(ManualCheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		
+		//verify that same view count should show on the right side section and total count should be 1 
+		String ManCheckUpdatedViewCountPrevSectionn2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(ManCheckUpdatedViewCountPrevSectionn2), Integer.parseInt(ManualproductUpdatedViewCount2) + 4, "View count is not increased after purchase");
+		System.out.println("Verified that user can purchase the product using the manually Created Product page and view count is updated successfully.\n");	
+		
+		//verify that manually created checkout page can be put to draft as a status 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(3)>div>span>div>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='delayed-open']>div>div>div:nth-of-type(2)>div")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(2000);		
+		String CheckoutDraftMode = driver.findElement(By.cssSelector("//h1[text()='Page not found']")).getText();
+		Assert.assertEquals(CheckoutDraftMode, "Page not found", "Checkout page is not in draft mode");
+		System.out.println("Verified that manually created checkout page can be put to Draft Mode as a status successfully.\n");
+		driver.close();
+		driver.switchTo().window(originalTab);
+		
+		//verify that manually created checkout page thumbnail shown as a draft mode and after click on link shows product is in draft mode msg 
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(1000);
+		String DraftModeMsg = driver.findElement(By.cssSelector("div.shadow-toaster>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(DraftModeMsg, "This page is currently in draft mode and cannot be viewed. Please publish the page to make it accessible.", "Draft mode message is not displayed");
+		System.out.println("Verified that manually created checkout page thumbnail shown as a draft mode and after click on link shows product is in draft mode msg successfully.\n");		
+		
+		//verify that manually created product page can be put to draft as a status 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(3)>div>span>div>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='delayed-open']>div>div>div:nth-of-type(2)>div")).click();
+		Thread.sleep(5000);
+		
+		String PdofuctDraftMode = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:first-of-type>div>div")).getText();
+		Assert.assertEquals(PdofuctDraftMode, "Draft Mode", "Checkout page is not in draft mode");
+		System.out.println("Verified that manually created Product page can be put to Draft Mode as a status successfully.\n");
+			
+		//verify that manually created product page thumbnail shown as a draft mode and after click on link shows product is in draft mode msg 
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(2)>div>div>p")).click();
+		Thread.sleep(1000);
+		String DraftModeMsg1 = driver.findElement(By.cssSelector("div.shadow-toaster>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(DraftModeMsg1, "This page is currently in draft mode and cannot be viewed. Please publish the page to make it accessible.", "Draft mode message is not displayed");
+		System.out.println("Verified that manually created Product page thumbnail shown as a draft mode and after click on link shows product is in draft mode msg successfully.\n");
+		
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:last-of-type>div>div>button")).click();
+		driver.findElement(By.xpath("//span[text()='Delete Page']//parent::span//parent::button")).click();
+		driver.findElement(By.xpath("//span[text()='Yes, Confirm']//parent::button")).click();
+		
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:last-of-type>div>div>button")).click();
+		driver.findElement(By.xpath("//span[text()='Delete Page']//parent::span//parent::button")).click();
+		driver.findElement(By.xpath("//span[text()='Yes, Confirm']//parent::button")).click();		
+	}
 	
 	
 	

@@ -17,7 +17,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "Tier_productOperations2" />
+					<include name = "PagesTab1" />
 				</methods>
 			</class>
 		</classes>
