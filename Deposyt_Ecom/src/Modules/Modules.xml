@@ -8,8 +8,8 @@
 
 	<test name = "Products Tests">
 	
-	     <parameter name = "uname" value = "hofoc23587@reifide.com" />
-		 <parameter name = "pass"  value = "Sushant@0808" />
+	     <parameter name = "uname" value = "djismylife1998@yopmail.com" />
+		 <parameter name = "pass"  value = "Nadsoft@2202" />
 		
 	<!-- <parameter name = "uname" value = "sandeeppawar1010@sharklasers.com"/>
 	     <parameter name = "pass"  value = "Nadsoft@2202"/>!-->
@@ -17,7 +17,7 @@
 		<classes>
 			<class name = "Modules.Products">
 				<methods>
-					<include name = "PagesTab1" />
+					<include name = "PagesTab2" />
 				</methods>
 			</class>
 		</classes>

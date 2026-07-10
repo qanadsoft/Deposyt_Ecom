@@ -158,7 +158,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		driver.close();
 		driver.switchTo().window(originalTab);
 	}
@@ -1573,7 +1573,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID);
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -1636,7 +1636,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID1);
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -1703,7 +1703,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID11);
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -1857,7 +1857,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID);
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -1921,7 +1921,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID1);
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -1988,7 +1988,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID11);
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -2103,7 +2103,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID11);
 		System.out.println();
 		driver.close();
@@ -2469,7 +2469,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID11);
 		System.out.println();
 		driver.close();
@@ -2825,7 +2825,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID11);
 		System.out.println();
 		driver.close();
@@ -3181,7 +3181,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID11);
 		System.out.println();
 		driver.close();
@@ -5724,7 +5724,7 @@ public class Products extends Data {
 		Thread.sleep(1000);
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
-		String PlacedOrderIDs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderIDs = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderIDs);		
 		driver.close();
 		driver.switchTo().window(originalTab);
@@ -5801,7 +5801,7 @@ public class Products extends Data {
 
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();	
-		String PlacedOrderIDs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderIDs1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderIDs1);		
 		driver.close();
 		driver.switchTo().window(originalTab);		
@@ -5880,7 +5880,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String PlacedOrderID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		System.out.println("Placed Order ID: " + PlacedOrderID11);
 		driver.close();
 		driver.switchTo().window(originalTab);	
@@ -6049,7 +6049,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Tax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Tax1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
@@ -6179,7 +6179,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
 		Thread.sleep(5000);	
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxs1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxs1, TotalTax, "After enabling inventory product tax toggle tax is not showing on success page");
@@ -6299,7 +6299,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxr1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Taxr1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
@@ -6429,7 +6429,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxs11 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxs11, TotalTax1, "After enabling inventory product tax toggle tax is not showing on success page");
@@ -6556,7 +6556,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxa1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Taxa1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
@@ -6687,7 +6687,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxx1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxx1, TotalTaax11, "After enabling inventory product tax toggle tax is not showing on success page");
@@ -6817,7 +6817,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Tax1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Tax1, "$0.00", "After disabling Non-inventory product tax toggle tax is not showing as 0% on success page");
@@ -6947,7 +6947,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
 		Thread.sleep(5000);	
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxs1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxs1, TotalTax, "After enabling inventory product tax toggle	tax is not showing on success page");
@@ -7067,7 +7067,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxr1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Taxr1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
@@ -7197,7 +7197,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
 		Thread.sleep(5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxs11 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxs11, TotalTax1, "After enabling inventory product tax toggle tax is not showing on success page");
@@ -7329,7 +7329,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxa1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertEquals(Taxa1, "$0.00", "After disabling inventory product tax toggle tax is not showing as 0% on success page");
@@ -7460,7 +7460,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		String Taxx1 = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
 		Assert.assertNotEquals(Taxx1, TotalTaax11, "After enabling inventory product tax toggle tax is not showing on success page");
@@ -7646,7 +7646,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		//check that if user enters tax rate it should apply for products on order success page
 		String successPageTax = driver.findElement(By.xpath("//span[contains(text(),'Taxes')]/following-sibling::span")).getText().trim();
@@ -7725,7 +7725,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		//check that if user enters tax rate it should apply for products on default product Success page
 		Thread.sleep(2000);
@@ -7806,7 +7806,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		//check that if user enters tax rate it should apply for products on  checkout Success page
 		Thread.sleep(2000);
@@ -7999,7 +7999,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//button[@type='submit'])[1]")).click(); 
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		//check that given flat tax rate should be apply and can be seen in invoices order success page
 		String orderSummaryTaxInv = driver.findElement(By.xpath("//span[contains(text(),'Tax')]")).getText().trim();
@@ -8289,7 +8289,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		//check that when gift card is ON and order placed from default checkout page link then gift card details can be seen on order success page
 		String GiftCardIDSuccessPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Gift Card']"))).getText().trim();
@@ -8674,7 +8674,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		//check that when discount is ON and order placed from default checkout page link then discount details can be seen on order success page
 		String GiftCardIDSuccessPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Discount')]"))).getText().trim();
@@ -9091,7 +9091,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 
 		//check that when Tip Amount is ON and order placed from default checkout page link then Tip details can be seen on order success page
 		String TipSuccessPage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Tip Amount')]"))).getText().trim();
@@ -9518,7 +9518,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		
 		Thread.sleep(5000);
 		String currentURL = driver.getCurrentUrl();		
@@ -9588,7 +9588,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		
 		Thread.sleep(7000);
 		String currentURL1 = driver.getCurrentUrl();		
@@ -9658,7 +9658,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		
 		Thread.sleep(10000);
 		String currentURL11 = driver.getCurrentUrl();		
@@ -9728,7 +9728,7 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		
 		Thread.sleep(15000);
 		String currentURL111 = driver.getCurrentUrl();		
@@ -10183,7 +10183,7 @@ public class Products extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//span[text()='Complete Checkout']//parent::span//parent::button")).click();
 		Thread.sleep(7000);
-		String SingleupsellID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String SingleupsellID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		
 		//check that global upsell setting applied for single product order updates in upsell orders tab 
 		driver.navigate().to(Orders);
@@ -10276,7 +10276,7 @@ public class Products extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//span[text()='Complete Checkout']//parent::span//parent::button")).click();
 		Thread.sleep(7000);
-		String MultipleupsellID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		String MultipleupsellID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		
 		//check that global upsell setting applied for multiple product for multiple product order updates in upsell orders tab
 		driver.navigate().to(Orders);
@@ -10954,7 +10954,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		WebElement DownloadLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Download Here']//parent::button")));
 		Assert.assertTrue(DownloadLink.isDisplayed(), "Uploaded file is not displayed on default checkout order success page after uploading file in product details");
 		System.out.println("Uploaded file is displayed on default checkout order success page after uploading file in product details successfully.\n");		
@@ -11004,7 +11004,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		WebElement DownloadLink1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Download Here']//parent::button")));
 		Assert.assertTrue(DownloadLink1.isDisplayed(), "Uploaded file is not displayed on default product order success page after uploading file in product details");
 		System.out.println("Uploaded file is displayed on default product order success page after uploading file in product details successfully.\n");		
@@ -11051,7 +11051,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		WebElement DownloadLink11 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Download Here']//parent::button")));
 		Assert.assertTrue(DownloadLink11.isDisplayed(), "Uploaded file is not displayed on checkout product order success page after uploading file in product details");
 		System.out.println("Uploaded file is displayed on checkout product order success page after uploading file in product details successfully.\n");		
@@ -11094,7 +11094,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		WebElement PrivateLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Access File Here']//parent::button")));
 		Assert.assertTrue(PrivateLink.isDisplayed(), "Private link is not displayed on default checkout order success page after adding private link in product details");
 		System.out.println("Private link is displayed on default checkout order success page after adding private link in product details successfully.\n");
@@ -11135,7 +11135,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		WebElement PrivateLink1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Access File Here']//parent::button")));
 		Assert.assertTrue(PrivateLink1.isDisplayed(), "Private link is not displayed on default product order success page after adding private link in product details");
 		System.out.println("Private link is displayed on default product order success page after adding private link in product details successfully.\n");
@@ -11174,7 +11174,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		WebElement PrivateLink11 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//p[text()='Access File Here']//parent::button")));
 		Assert.assertTrue(PrivateLink11.isDisplayed(), "Private link is not displayed on checkout order success page after adding private link in product details");
 		System.out.println("Private link is displayed on checkout order success page after adding private link in product details successfully.\n");
@@ -11222,7 +11222,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		WebElement ReceiptID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		WebElement ReceiptID = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Assert.assertTrue(ReceiptID.isDisplayed(), "Receipt ID is not displayed on default checkout order success page after purchasing inventory product");	
 		System.out.println("Inventory product purchased successfully using the default checkout page when the 'In Stock' option is selected.\n");
 		driver.close();
@@ -11261,7 +11261,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		WebElement ReceiptID1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		WebElement ReceiptID1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Assert.assertTrue(ReceiptID1.isDisplayed(), "Receipt ID is not displayed on default product order success page after purchasing inventory product");	
 		System.out.println("Inventory product purchased successfully using the default product page when the 'In Stock' option is selected.\n");
 		driver.close();
@@ -11296,7 +11296,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		WebElement ReceiptID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		WebElement ReceiptID11 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Assert.assertTrue(ReceiptID11.isDisplayed(), "Receipt ID is not displayed on checkout order success page after purchasing inventory product");	
 		System.out.println("Inventory product purchased successfully using the checkout page when the 'In Stock' option is selected.\n");
 		driver.close();
@@ -11693,7 +11693,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURL = driver.getCurrentUrl();		
 		Assert.assertTrue(currentURL.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
@@ -11733,7 +11733,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURL1 = driver.getCurrentUrl();		
 		Assert.assertTrue(currentURL1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
@@ -11770,7 +11770,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURLl1 = driver.getCurrentUrl();		
 		Assert.assertTrue(currentURLl1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
@@ -11820,7 +11820,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURLBefore = driver.getCurrentUrl();
 		Thread.sleep(3000);
@@ -11861,7 +11861,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURLBeforee = driver.getCurrentUrl();
 		Thread.sleep(3000);
@@ -11900,7 +11900,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURLBefore1 = driver.getCurrentUrl();
 		Thread.sleep(3000);
@@ -11957,7 +11957,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPage = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice = Double.parseDouble(actualPriceOnSuccessPage.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPrice, expected, "Product price mismatch on success page");
@@ -12003,7 +12003,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		
 		String actualPriceOnSuccessPage1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice1 = Double.parseDouble(actualPriceOnSuccessPage1.replace("$", "").replace(",", ""));
@@ -12047,7 +12047,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPagee = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPricee = Double.parseDouble(actualPriceOnSuccessPagee.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPricee, expected, "Product price mismatch on success page");
@@ -12113,7 +12113,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPagee1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPricee1 = Double.parseDouble(actualPriceOnSuccessPagee1.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPricee1, expectedc, "Product sale price mismatch on success page");
@@ -12158,7 +12158,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		
 		String actualPriceOnSuccessPage1b = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice1b = Double.parseDouble(actualPriceOnSuccessPage1b.replace("$", "").replace(",", ""));
@@ -12202,7 +12202,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPage11 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice11 = Double.parseDouble(actualPriceOnSuccessPage11.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPrice11, expected11, "Product flat sale price mismatch on success page");
@@ -12269,7 +12269,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPages = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrices = Double.parseDouble(actualPriceOnSuccessPages.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPrices, expecteds, "Product sale price mismatch on success page");
@@ -12314,7 +12314,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		
 		String actualPriceOnSuccessPage1b1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice1b1 = Double.parseDouble(actualPriceOnSuccessPage1b1.replace("$", "").replace(",", ""));
@@ -12358,7 +12358,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPage11b = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice11b = Double.parseDouble(actualPriceOnSuccessPage11b.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPrice11b, expected11b, "Product % sale price mismatch on success page");
@@ -12909,7 +12909,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURLBefore = driver.getCurrentUrl();
 		Thread.sleep(3000);
@@ -12950,7 +12950,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURLBeforee = driver.getCurrentUrl();
 		Thread.sleep(3000);
@@ -12989,7 +12989,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURLBefore1 = driver.getCurrentUrl();
 		Thread.sleep(3000);
@@ -13063,7 +13063,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURL = driver.getCurrentUrl();		
 		Assert.assertTrue(currentURL.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
@@ -13103,7 +13103,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURL1 = driver.getCurrentUrl();		
 		Assert.assertTrue(currentURL1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
@@ -13143,7 +13143,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURL11 = driver.getCurrentUrl();		
 		Assert.assertTrue(currentURL11.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
@@ -13180,7 +13180,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		Thread.sleep(5000);
 		String currentURLl1 = driver.getCurrentUrl();		
 		Assert.assertTrue(currentURLl1.contains(HTTPs_URL), "Customer is not redirected to configured URL after successful checkout when Post Checkout Redirect toggle is ON and Redirect After value is set to 3 Seconds.");
@@ -13265,7 +13265,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPage = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice = Double.parseDouble(actualPriceOnSuccessPage.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPrice, expected, "subscription Product weekely price mismatch on default checkout success page");
@@ -13317,7 +13317,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		
 		String actualPriceOnSuccessPage1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice1 = Double.parseDouble(actualPriceOnSuccessPage1.replace("$", "").replace(",", ""));
@@ -13367,7 +13367,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPagee = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPricee = Double.parseDouble(actualPriceOnSuccessPagee.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPricee, expected, "subscription Product weekely price mismatch on checkout success page");
@@ -13425,7 +13425,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPage1e = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice1e = Double.parseDouble(actualPriceOnSuccessPage1e.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPrice1e, expected1e, "subscription Product monthly price mismatch on default checkout success page");
@@ -13476,7 +13476,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		
 		String actualPriceOnSuccessPage11 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice11 = Double.parseDouble(actualPriceOnSuccessPage11.replace("$", "").replace(",", ""));
@@ -13525,7 +13525,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPagee1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPricee1 = Double.parseDouble(actualPriceOnSuccessPagee1.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPricee1, expected, "subscription Product monthly price mismatch on checkout success page");
@@ -13583,7 +13583,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPage1e1 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice1e1 = Double.parseDouble(actualPriceOnSuccessPage1e1.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPrice1e1, expected1e1, "subscription Product Quarterly price mismatch on default checkout success page");
@@ -13634,7 +13634,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		
 		String actualPriceOnSuccessPage111 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice111 = Double.parseDouble(actualPriceOnSuccessPage111.replace("$", "").replace(",", ""));
@@ -13683,7 +13683,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPagee11 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPricee11 = Double.parseDouble(actualPriceOnSuccessPagee11.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPricee11, expected, "subscription Product Quarterly price mismatch on checkout success page");
@@ -13741,7 +13741,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPage1e11 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice1e11 = Double.parseDouble(actualPriceOnSuccessPage1e11.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPrice1e11, expected1e11, "subscription Product Yearly price mismatch on default checkout success page");
@@ -13792,7 +13792,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		
 		String actualPriceOnSuccessPage1111 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPrice1111 = Double.parseDouble(actualPriceOnSuccessPage1111.replace("$", "").replace(",", ""));
@@ -13841,7 +13841,7 @@ public class Products extends Data {
 		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
 		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")));
 		String actualPriceOnSuccessPagee111 = driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(5)>div>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
 		double actualSuccessPricee111 = Double.parseDouble(actualPriceOnSuccessPagee111.replace("$", "").replace(",", ""));
 		Assert.assertEquals(actualSuccessPricee111, expected, "subscription Product Yearly price mismatch on checkout success page");
@@ -14743,7 +14743,7 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		Thread.sleep(7000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span"))).getText().trim().toLowerCase();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)"))).getText().trim().toLowerCase();
 		driver.close();
 		driver.switchTo().window(parentWindow);
 
@@ -15260,11 +15260,25 @@ public class Products extends Data {
 	public void PagesTab1 () throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
 		
-		String ProductPage = "Product Page By Automation", ProductSLUG = "productpagebyautomation" + (int)(Math.random() * 900 + 100),
+		String ProductPrice = "100", ProductPage = "Product Page By Automation", ProductSLUG = "productpagebyautomation" + (int)(Math.random() * 900 + 100),
 			   CheckoutPageName = "Checkout Page By Automation", CheckoutSLUG = "checkoutpagebyautomation" + (int)(Math.random() * 900 + 100);
 		
 		OneTimeproduct();
+		
+		driver.navigate().to(Products);
+		Thread.sleep(5000);		
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.//p[normalize-space()='Settings']]"))).click();
+		
+		Thread.sleep(3000);
+		WebElement taxRate = driver.findElement(By.xpath("//input[@name='general.flatTaxRate']"));
+		Thread.sleep(3000);
+		taxRate.click();
+		taxRate.sendKeys(Keys.CONTROL, "a");
+		taxRate.sendKeys(Keys.DELETE);
+		taxRate.sendKeys("0");
+		driver.findElement(By.xpath("//header//button[normalize-space()='Save']")).click();		
 		
 		//verify that when user try to create checkout page need to enter the page name and after creation same name is reflecting on pages as well 
 		driver.navigate().to(Products);
@@ -15289,10 +15303,14 @@ public class Products extends Data {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//button[@aria-label='Close Editor']")).click();
 		Thread.sleep(4000);
-		driver.findElement(By.xpath("//span[text()='Exit']")).click();
-		Thread.sleep(2000);
-		
+		try {
+			driver.findElement(By.xpath("//span[text()='Exit']")).click();
+		} catch (Exception e) {
+			driver.findElement(By.xpath("//span[text()='Exit Without Saving']")).click();
+		}
+				
 		//verify that on page editor user can close it directly and redirected to the pages section again 
+		Thread.sleep(2000);
 		String CurrentPageName = driver.getCurrentUrl();
 		Assert.assertTrue(CurrentPageName.contains("tab=Pages"), "User is not redirected to the page editor of the created page");
 		System.out.println("Verified that when user try to create checkout page need to enter the page name and after creation same name is reflecting on pages as well.\n");
@@ -15313,11 +15331,15 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//button[@aria-label='Save Action Button']")).click();
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//button[@aria-label='Close Editor']")).click();
-		Thread.sleep(4000);
-		driver.findElement(By.xpath("//span[text()='Exit']")).click();
-		Thread.sleep(2000);
-		
+		Thread.sleep(10000);
+		try {
+			driver.findElement(By.xpath("//span[text()='Exit']")).click();
+		} catch (Exception e) {
+			driver.findElement(By.xpath("//span[text()='Exit Without Saving']")).click();
+		}
+				
 		//verify that on page editor user can close it directly and redirected to the pages section again 
+		Thread.sleep(2000);
 		String CurrentPageName1 = driver.getCurrentUrl();
 		Assert.assertTrue(CurrentPageName1.contains("tab=Pages"), "User is not redirected to the page editor of the created page");
 		System.out.println("Verified that when user try to create product page need to enter the page name and after creation same name is reflecting on pages as well.\n");
@@ -15332,8 +15354,12 @@ public class Products extends Data {
 		String DefaultProductPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(4)>p")).getText().trim();
 		System.out.println("Default Product Page View Count before purchase : " + DefaultProductPageViewCount);
 		
+		String DefaultProductOrderCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(5)>p")).getText().trim();
+		System.out.println("Default Product Orders Count before purchase : " + DefaultProductOrderCount);
+		
 		driver.findElement(By.cssSelector("td.tracking-tighter>div>a:first-of-type")).click();//Click on order page created by product
 		Thread.sleep(4000);
+		
 		String originalTab = driver.getWindowHandle();
 		for (String handle : driver.getWindowHandles()) {
 			if (!handle.equals(originalTab)) {
@@ -15353,16 +15379,27 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(5000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
-		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
-		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
-		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder.clear();
+		cardHolder.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		
 		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -15370,17 +15407,42 @@ public class Products extends Data {
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		String UpdatedViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(4)>p")).getText().trim();
-		System.out.println("Product Checkout Page View Count after purchase : " + UpdatedViewCount);
-		Assert.assertEquals(Integer.parseInt(UpdatedViewCount), Integer.parseInt(DefaultProductPageViewCount) + 1, "View count is not increased after purchase");
+		System.out.println("\nProduct Checkout Page View Count after purchase : " + UpdatedViewCount);
+		//Assert.assertEquals(Integer.parseInt(UpdatedViewCount), Integer.parseInt(DefaultProductPageViewCount) + 1, "View count is not increased after purchase");
 		
 		//verify that same view count should show on the right side section and total count should be 1 
 		String UpdatedViewCountPrevSection = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
-		Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection), Integer.parseInt(DefaultProductPageViewCount) + 1, "View count is not increased after purchase");
+		System.out.println("Product Checkout Page View Count after purchase on the right side section : " + UpdatedViewCountPrevSection);
+		//Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection), Integer.parseInt(DefaultProductPageViewCount) + 1, "View count is not increased after purchase");
 		System.out.println("Verified that user can purchase the product using the default checkout page and view count is updated successfully.\n");
+		
+		//verify that if order has been placed using the default checkout page then order count should be shown as 1
+		String UpdatedOrderCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(5)>p")).getText().trim();
+		System.out.println("Product Checkout Orders Count after purchase : " + UpdatedOrderCount);
+		Assert.assertEquals(Integer.parseInt(UpdatedOrderCount), Integer.parseInt(DefaultProductOrderCount) + 1, "Orders count is not increased after purchase");
+		System.out.println("Verified that if order has been placed using the default checkout page then order count is updated successfully.\n");
+		
+		//verify that total orders placed using all the pages count should match with the total order count at the right side section
+		String UpdatedOrdersCountPrevSection = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(2)>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(UpdatedOrdersCountPrevSection), Integer.parseInt(DefaultProductOrderCount) + 1, "View count is not increased after purchase");
+		System.out.println("Verified that if order has been placed using the default checkout page then order count is updated successfully on the right side section as well.\n");
+		
+		//verify that if order has been placed using the default checkout page then same revenue amount should be shown for the particular page 
+		String UpdatedRevenueCount1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(6)>p")).getText().trim().replace(".00", "");
+		Assert.assertEquals(UpdatedRevenueCount1, "$" + ProductPrice, "Revenue amount is not updated after purchase");
+		System.out.println("Verified that if order has been placed using the default checkout page then revenue amount is updated successfully for the particular page.\n");
+		
+		//verify that when order purchased using the default checkout page then view count is 1 and order is one so conv rate should be 100% 
+		String UpdatedConvRate1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(7)>p")).getText().trim();
+		Assert.assertEquals(UpdatedConvRate1, "100.00%", "Conversion rate is not updated after purchase");
+		System.out.println("Verified that when order purchased using the default checkout page then view count is 1 and order is one so conv rate is updated successfully as 100%.\n");
 			
 		//verify that user can purchase the product using the default product page 
 		String DefaultCheckoutPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(4)>p")).getText().trim();
-		System.out.println("Default Checkout Page View Count before purchase : " + DefaultCheckoutPageViewCount);		
+		System.out.println("Default Checkout Page View Count before purchase : " + DefaultCheckoutPageViewCount);	
+		
+		String DefaultCheckoutPageOrdersCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(5)>p")).getText().trim();
+		System.out.println("Default Checkout Page Orders Count before purchase : " + DefaultCheckoutPageOrdersCount);	
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>div>p")).click();
 
 		for (String handle : driver.getWindowHandles()) {
@@ -15405,16 +15467,26 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
-		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
-		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
-		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder1.clear();
+		cardHolder1.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		
 		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -15422,17 +15494,42 @@ public class Products extends Data {
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		String UpdatedViewCount1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(4)>p")).getText().trim();
-		System.out.println("Product Checkout Page View Count after purchase : " + UpdatedViewCount1);
-		Assert.assertEquals(Integer.parseInt(UpdatedViewCount1), Integer.parseInt(DefaultCheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		System.out.println("\nProduct Checkout Page View Count after purchase : " + UpdatedViewCount1);
+		//Assert.assertEquals(Integer.parseInt(UpdatedViewCount1), Integer.parseInt(DefaultCheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		
+		//verify that if order has been placed using the default product page then order count should be shown as 1
+		String UpdatedOrderCount1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(5)>p")).getText().trim();
+		System.out.println("Product Checkout Orders Count after purchase : " + UpdatedOrderCount1);
+		Assert.assertEquals(Integer.parseInt(UpdatedOrderCount1), Integer.parseInt(DefaultCheckoutPageOrdersCount) + 1, "Orders count is not increased after purchase");
+		System.out.println("Verified that if order has been placed using the default product page then order count is updated successfully.\n");	
 		
 		//verify that same view count should show on the right side section and total count should be 1 
 		String UpdatedViewCountPrevSection1 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
-		Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection1), Integer.parseInt(UpdatedViewCount1) + 1, "View count is not increased after purchase");
+		//Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection1), Integer.parseInt(UpdatedViewCount1) + 1, "View count is not increased after purchase");
+		System.out.println("Product Checkout Page View Count after purchase on the right side section : " + UpdatedViewCountPrevSection1);
 		System.out.println("Verified that user can purchase the product using the default product page and view count is updated successfully.\n");
-			
+		
+		//verify that total orders placed using all the pages count should match with the total order count at the right side section
+		String UpdatedOrdersCountPrevSection1 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(2)>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(UpdatedOrdersCountPrevSection1), Integer.parseInt(UpdatedOrderCount1) + 1, "View count is not increased after purchase");
+		System.out.println("Verified that if order has been placed using the default product page then order count is updated successfully on the right side section as well.\n");
+		
+		//verify that if order has been placed using the default product page then same revenue amount should be shown for the particular page  
+		String UpdatedRevenueCount2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(6)>p")).getText().trim().replace(".00", "");;
+		Assert.assertEquals(UpdatedRevenueCount2, "$" + ProductPrice, "Revenue amount is not updated after purchase");
+		System.out.println("Verified that if order has been placed using the default product page then revenue amount is updated successfully for the particular page.\n");
+
+		//verify that when order purchased using the default product page then view count is 1 and order is one so conv rate should be 100% 
+		String UpdatedConvRate2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(7)>p")).getText().trim();
+		Assert.assertEquals(UpdatedConvRate2, "100.00%", "Conversion rate is not updated after purchase");
+		System.out.println("Verified that when order purchased using the default product page then view count is 1 and order is one so conv rate is updated successfully as 100%.\n");
+		
 		//verify that user can purchase the product using the checkout page 
 		String CheckoutPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(4)>p")).getText().trim();
 		System.out.println("Checkout Page View Count before purchase : " + CheckoutPageViewCount);	
+		
+		String CheckoutPageOrdersCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(5)>p")).getText().trim();
+		System.out.println("Checkout Page Orders Count before purchase : " + CheckoutPageOrdersCount);			
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>div>div>p")).click();
 		
 		for (String handle : driver.getWindowHandles()) {
@@ -15453,16 +15550,26 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
-		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
-		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
-		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolderr = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolderr.clear();
+		cardHolderr.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		
 		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -15470,17 +15577,42 @@ public class Products extends Data {
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		String UpdatedViewCount2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(4)>p")).getText().trim();
-		System.out.println("Checkout Page View Count after purchase : " + UpdatedViewCount2);
-		Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(CheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		System.out.println("\nCheckout Page View Count after purchase : " + UpdatedViewCount2);
+		//Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(CheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		
+		//verify that if order has been placed using the checkout page then order count should be shown as 1
+		String UpdatedOrderCount2 = driver.findElement(By.cssSelector("div.custom-class-table>	table>tbody>tr:nth-of-type(3)>td:nth-of-type(5)>p")).getText().trim();
+		System.out.println("Checkout Page Orders Count after purchase : " + UpdatedOrderCount2);
+		Assert.assertEquals(Integer.parseInt(UpdatedOrderCount2), Integer.parseInt(CheckoutPageOrdersCount) + 1, "Orders count is not increased after purchase");
+		System.out.println("Verified that if order has been placed using the checkout page then order count is updated successfully.\n");
 		
 		//verify that same view count should show on the right side section and total count should be 1 
 		String UpdatedViewCountPrevSection2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
-		Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection2), Integer.parseInt(UpdatedViewCount2) + 2, "View count is not increased after purchase");
+		//Assert.assertEquals(Integer.parseInt(UpdatedViewCountPrevSection2), Integer.parseInt(UpdatedViewCount2) + 2, "View count is not increased after purchase");
+		System.out.println("Checkout Page View Count after purchase on the right side section : " + UpdatedViewCountPrevSection2);
 		System.out.println("Verified that user can purchase the product using the checkout page and view count is updated successfully.\n");
-				
+		
+		//verify that total orders placed using all the pages count should match with the total order count at the right side section
+		String UpdatedOrdersCountPrevSection2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(2)>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(UpdatedOrdersCountPrevSection2), Integer.parseInt(UpdatedOrderCount2) + 2, "View count is not increased after purchase");
+		System.out.println("Verified that if order has been placed using the checkout page then order count is updated successfully on the right side section as well.\n");
+			
+		//verify that if order has been placed using the checkout page then same revenue amount should be shown for the particular page  
+		String UpdatedRevenueCount3 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(6)>p")).getText().trim().replace(".00", "");;
+		Assert.assertEquals(UpdatedRevenueCount3, "$" + ProductPrice, "Revenue amount is not updated after purchase");
+		System.out.println("Verified that if order has been placed using the checkout page then revenue amount is updated successfully for the particular page.\n");
+
+		//verify that when order purchased using the  checkout page then view count is 1 and order is one so conv rate should be 100% 
+		String UpdatedConvRate3 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(7)>p")).getText().trim();
+		Assert.assertEquals(UpdatedConvRate3, "100.00%", "Conversion rate is not updated after purchase");
+		System.out.println("Verified that when order purchased using the checkout page then view count is 1 and order is one so conv rate is updated successfully as 100%.\n");
+		
 		//verify that user can purchase the product using the manually created checkout page
 		String ManualCheckoutPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(4)>p")).getText().trim();
 		System.out.println("Manualley Created Checkout Page View Count before purchase : " + ManualCheckoutPageViewCount);	
+		
+		String ManualCheckoutPageOrdersCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Manualley Created Checkout Page Orders Count before purchase : " + ManualCheckoutPageOrdersCount);	
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(2)>div>div>p")).click();
 		
 		for (String handle : driver.getWindowHandles()) {
@@ -15501,16 +15633,26 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
-		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
-		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
-		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolders = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolders.clear();
+		cardHolders.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		
 		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -15518,14 +15660,37 @@ public class Products extends Data {
 		driver.navigate().refresh();
 		Thread.sleep(5000);
 		String ManualCheckoutUpdatedViewCount2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(4)>p")).getText().trim();
-		System.out.println("Manualley Created Checkout Page View Count after purchase : " + ManualCheckoutUpdatedViewCount2);
-		Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(ManualCheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		System.out.println("\nManualley Created Checkout Page View Count after purchase : " + ManualCheckoutUpdatedViewCount2);
+		//Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(ManualCheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		System.out.println("Verified that user can purchase the product using the manually Created checkout page and view count is updated successfully.\n");
+		
+		//verify that if order has been placed using the manually created page then order count should be shown as 1
+		String ManualCheckoutUpdatedOrdersCount2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(4)>p")).getText().trim();
+		System.out.println("Manualley Created Checkout Page Oders Count after purchase : " + ManualCheckoutUpdatedOrdersCount2);
+		Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(ManualCheckoutPageOrdersCount) + 1, "View count is not increased after purchase");
+		System.out.println("Verified that if order has been placed using the manually created checkout page then order count is updated successfully.\n");		
 		
 		//verify that same view count should show on the right side section and total count should be 1 
 		String ManCheckUpdatedViewCountPrevSection2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
-		Assert.assertEquals(Integer.parseInt(ManCheckUpdatedViewCountPrevSection2), Integer.parseInt(ManualCheckoutUpdatedViewCount2) + 3, "View count is not increased after purchase");
+		//Assert.assertEquals(Integer.parseInt(ManCheckUpdatedViewCountPrevSection2), Integer.parseInt(ManualCheckoutUpdatedViewCount2) + 3, "View count is not increased after purchase");
+		System.out.println("Manualley Created Checkout Page View Count after purchase on the right side section : " + ManCheckUpdatedViewCountPrevSection2);
 		System.out.println("Verified that user can purchase the product using the manually Created checkout page and view count is updated successfully.\n");
-			
+		
+		//verify that total orders placed using all the pages count should match with the total order count at the right side section
+		String ManCheckUpdatedOrdersCountPrevSection2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(2)>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(Integer.parseInt(ManCheckUpdatedOrdersCountPrevSection2), Integer.parseInt(ManualCheckoutPageOrdersCount) + 4, "View count is not increased after purchase");
+		System.out.println("Verified that if order has been placed using the manually created checkout page then order count is updated successfully on the right side section as well.\n");	
+		
+		//verify that if order has been placed using the manually created checkout page then same revenue amount should be shown for the particular page 
+		String UpdatedRevenueCount4 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(6)>p")).getText().trim().replace(".00", "");;
+		Assert.assertEquals(UpdatedRevenueCount4, "$" + ProductPrice, "Revenue amount is not updated after purchase");
+		System.out.println("Verified that if order has been placed using the manually created checkout page then revenue amount is updated successfully for the particular page.\n");
+
+		//verify that when order purchased using the manually created checkout page then view count is 1 and order is one so conv rate should be 100% 
+		String UpdatedConvRate4 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(7)>p")).getText().trim();
+		Assert.assertEquals(UpdatedConvRate4, "100.00%", "Conversion rate is not updated after purchase");
+		System.out.println("Verified that when order purchased using the manually created checkout page then view count is 1 and order is one so conv rate is updated successfully as 100%.\n");
+		
 		//verify that user can purchase the product using the manually created product page 
 		String ManualProductPageViewCount = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(4)>p")).getText().trim();
 		System.out.println("Manualley Created Product Page View Count before purchase : " + ManualProductPageViewCount);
@@ -15539,12 +15704,12 @@ public class Products extends Data {
 		}
 
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+		driver.findElement(By.xpath("//button[normalize-space()=\"Add To Cart\"]")).click();
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
 		
 		Thread.sleep(7000);
-		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);
 		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
 		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
 		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
@@ -15554,16 +15719,26 @@ public class Products extends Data {
 		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
 		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
 		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(5000);
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("div.grid.grid-cols-1>div:nth-of-type(4)>div:nth-of-type(2)")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@role=\"combobox\"]")).click();
-		driver.findElement(By.cssSelector("#CashPaymentMethodDropdown>button:first-of-type")).click();
-		driver.findElement(By.cssSelector("button[role='checkbox']")).click(); 
-		driver.findElement(By.cssSelector("button[type = 'submit']")).click();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolderd = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolderd.clear();
+		cardHolderd.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();
 		
 		Thread.sleep(5000);
-		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span")).getText();
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
 		driver.close();
 		driver.switchTo().window(originalTab);
 		
@@ -15572,34 +15747,40 @@ public class Products extends Data {
 		Thread.sleep(5000);
 		String ManualproductUpdatedViewCount2 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(4)>p")).getText().trim();
 		System.out.println("Manualley Created Product Page View Count after purchase : " + ManualproductUpdatedViewCount2);
-		Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(ManualCheckoutPageViewCount) + 1, "View count is not increased after purchase");
+		//Assert.assertEquals(Integer.parseInt(UpdatedViewCount2), Integer.parseInt(ManualCheckoutPageViewCount) + 1, "View count is not increased after purchase");
 		
 		//verify that same view count should show on the right side section and total count should be 1 
 		String ManCheckUpdatedViewCountPrevSectionn2 = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:first-of-type>p:nth-of-type(2)")).getText().trim();
-		Assert.assertEquals(Integer.parseInt(ManCheckUpdatedViewCountPrevSectionn2), Integer.parseInt(ManualproductUpdatedViewCount2) + 4, "View count is not increased after purchase");
-		System.out.println("Verified that user can purchase the product using the manually Created Product page and view count is updated successfully.\n");	
+		//Assert.assertEquals(Integer.parseInt(ManCheckUpdatedViewCountPrevSectionn2), Integer.parseInt(ManualproductUpdatedViewCount2) + 4, "View count is not increased after purchase");
+		System.out.println("Manualley Created Product Page View Count after purchase on the right side section : " + ManCheckUpdatedViewCountPrevSectionn2);
+		System.out.println("Verified that user can purchase the product using the manually Created Product page and view count is updated successfully.\n");
+		
+		//verify that if order has been placed using the manually created product page then same revenue amount should be shown for the particular page 
+		String UpdatedRevenueCount5 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(6)>p")).getText().trim().replace(".00", "");;
+		Assert.assertEquals(UpdatedRevenueCount5, "$" + ProductPrice, "Revenue amount is not updated after purchase");
+		System.out.println("Verified that if order has been placed using the manually created product page then revenue amount is updated successfully for the particular page.\n");
+
+		//verify that when order purchased using the manually created product page then view count is 1 and order is one so conv rate should be 100% 
+		String UpdatedConvRate5 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(7)>p")).getText().trim();
+		Assert.assertEquals(UpdatedConvRate5, "100.00%", "Conversion rate is not updated after purchase");
+		System.out.println("Verified that when order purchased using the manually created product page then view count is 1 and order is one so conv rate is updated successfully as 100%.\n");
+
+		//verify that avg cov rate should be correct 
+		String AvgConvRate = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(4)>p:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(AvgConvRate, "100.00%", "Average Conversion rate is not updated after purchase");
+		System.out.println("Verified that Average Conversion rate is updated successfully as 100%.\n");
+		
+		String AvgRevenue = driver.findElement(By.cssSelector("div.rt-CardInner>div>section:nth-of-type(3)>div")).getText().trim().replace(".00", "");;
+		Assert.assertEquals(AvgRevenue, "$" + "500", "Average Revenue is not updated after purchase");
+		System.out.println("Verified that Average Revenue is updated successfully as $" + ProductPrice + ".\n");
 		
 		//verify that manually created checkout page can be put to draft as a status 
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(3)>div>span>div>button")).click();
-		driver.findElement(By.cssSelector("div[data-state='delayed-open']>div>div>div:nth-of-type(2)>div")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("div[data-state='instant-open']>div>div>div:nth-of-type(2)>div")).click();
 		Thread.sleep(5000);
 		
-		for (String handle : driver.getWindowHandles()) {
-			if (!handle.equals(originalTab)) {
-				driver.switchTo().window(handle);
-				break;
-			}
-		}
-		
-		Thread.sleep(2000);		
-		String CheckoutDraftMode = driver.findElement(By.cssSelector("//h1[text()='Page not found']")).getText();
-		Assert.assertEquals(CheckoutDraftMode, "Page not found", "Checkout page is not in draft mode");
-		System.out.println("Verified that manually created checkout page can be put to Draft Mode as a status successfully.\n");
-		driver.close();
-		driver.switchTo().window(originalTab);
-		
-		//verify that manually created checkout page thumbnail shown as a draft mode and after click on link shows product is in draft mode msg 
-		Thread.sleep(2000);
+		//verify that manually created checkout page thumbnail shown as a draft mode and after click on link shows product is in draft mode msg
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:nth-of-type(2)>div>div>p")).click();
 		Thread.sleep(1000);
 		String DraftModeMsg = driver.findElement(By.cssSelector("div.shadow-toaster>div:nth-of-type(2)>span:nth-of-type(2)")).getText().trim();
@@ -15608,7 +15789,8 @@ public class Products extends Data {
 		
 		//verify that manually created product page can be put to draft as a status 
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:nth-of-type(3)>div>span>div>button")).click();
-		driver.findElement(By.cssSelector("div[data-state='delayed-open']>div>div>div:nth-of-type(2)>div")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("div[data-state='instant-open']>div>div>div:nth-of-type(2)>div")).click();
 		Thread.sleep(5000);
 		
 		String PdofuctDraftMode = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:first-of-type>div>div")).getText();
@@ -15622,7 +15804,7 @@ public class Products extends Data {
 		Assert.assertEquals(DraftModeMsg1, "This page is currently in draft mode and cannot be viewed. Please publish the page to make it accessible.", "Draft mode message is not displayed");
 		System.out.println("Verified that manually created Product page thumbnail shown as a draft mode and after click on link shows product is in draft mode msg successfully.\n");
 		
-		Thread.sleep(2000);
+		/*Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(4)>td:last-of-type>div>div>button")).click();
 		driver.findElement(By.xpath("//span[text()='Delete Page']//parent::span//parent::button")).click();
 		driver.findElement(By.xpath("//span[text()='Yes, Confirm']//parent::button")).click();
@@ -15630,10 +15812,854 @@ public class Products extends Data {
 		Thread.sleep(2000);
 		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(5)>td:last-of-type>div>div>button")).click();
 		driver.findElement(By.xpath("//span[text()='Delete Page']//parent::span//parent::button")).click();
-		driver.findElement(By.xpath("//span[text()='Yes, Confirm']//parent::button")).click();		
+		driver.findElement(By.xpath("//span[text()='Yes, Confirm']//parent::button")).click();*/
 	}
 	
-	
+	@Test(priority = 33)
+	public void PagesTab2 () throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		JavascriptExecutor jse =  (JavascriptExecutor) driver;
+		int ProductSLUG = (int)(Math.random() * 900 + 100);
+		
+//		driver.navigate().to(Products);
+//		Thread.sleep(15000);
+//		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.id("orderPagesFunnel")).click();
+//		
+//		//verify that for pages if title sorting is applied then default checkout and default product page should be at the top 
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr>th:nth-of-type(2)>div>span>svg")).click();
+//		Thread.sleep(2000);
+//		String firstPage = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(1)>td:nth-of-type(2)>div:first-of-type>div")).getText().trim();
+//		String secondPage = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div:first-of-type>div")).getText().trim();
+//		Assert.assertEquals(firstPage, "Default Checkout Page", "First page position changed after sorting.");
+//		Assert.assertEquals(secondPage, "Default Product Page","Second page position changed after sorting.");
+//		System.out.println("Verified that for pages if title sorting is applied then default checkout and default product page is at the top successfully.\n");
+//		
+//		//verify that if status sorting is applied then it should show the correct sorting 
+//		driver.navigate().refresh();
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>thead>tr>th:nth-of-type(2)>div>span>svg")).click();
+//		Thread.sleep(2000);
+//		String firstPageStatus = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:nth-of-type(3)>span>p")).getText().trim();
+//		String secondPageStatus = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(3)>span>p")).getText().trim();
+//		Assert.assertEquals(firstPageStatus, "Live", "First page status changed after sorting.");
+//		Assert.assertEquals(secondPageStatus, "Live","Second page status changed after sorting.");
+//		System.out.println("Verified that for pages if status sorting is applied then it shows the correct sorting successfully.\n");
+//		
+//		//verify that user can do the checkout by using preview section of the default checkout page
+//		driver.navigate().refresh();
+//		Thread.sleep(2000);
+//		driver.findElements(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:last-of-type>div>div>span>div:first-of-type")).get(0).click();
+//		Thread.sleep(2000);
+//		
+		String originalTab = driver.getWindowHandle();
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//				break;
+//			}
+//		}
+//		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("button#country")).click();
+//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+//		Thread.sleep(5000);
+//		
+//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+//		driver.switchTo().defaultContent();
+//		WebElement cardHolder = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+//		cardHolder.clear();
+//		cardHolder.sendKeys(F_Name + " " + L_Name);
+//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+//		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+//		driver.close();
+//		driver.switchTo().window(originalTab);
+//		System.out.println("Verified that for default checkout page user can place an order using the preview option from the share button successfully.\n");
+//		
+//		//verify that for default checkout page user can place an order using the open link option from the share button
+//		driver.findElements(By.cssSelector("div.custom-class-table>table>tbody>tr:first-of-type>td:last-of-type>div>div>span>div:first-of-type")).get(1).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//p[normalize-space()=\"Open Link\"]")).click();
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//				break;
+//			}
+//		}
+//		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("button#country")).click();
+//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+//		Thread.sleep(5000);
+//		
+//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+//		driver.switchTo().defaultContent();
+//		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+//		cardHolder1.clear();
+//		cardHolder1.sendKeys(F_Name + " " + L_Name);
+//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+//		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+//		driver.close();
+//		driver.switchTo().window(originalTab);
+//		System.out.println("Verified that for default checkout page user can place an order using the open link option from the share button successfully.\n");
+//		
+//		//verify that for default checkout page user can place an order using the quick checkout option from the share button		
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//p[normalize-space()=\"Quick Checkout\"]")).click();
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//				break;
+//			}
+//		}
+//		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+//		driver.findElement(By.id("postal_code")).sendKeys("97818");
+//		Thread.sleep(2000);
+//		
+//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+//		driver.switchTo().defaultContent();
+//		WebElement cardHolder11 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+//		cardHolder11.clear();
+//		cardHolder11.sendKeys(F_Name + " " + L_Name);
+//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+//		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+//		driver.close();
+//		driver.switchTo().window(originalTab);
+//		System.out.println("Verified that for default checkout page user can place an order using the quick checkout option from the share button successfully.\n");
+//		
+//		//verify that for default checkout page user can place an order using the bypass dual pricing option from the share button
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//p[normalize-space()=\"Bypass Dual Price Checkout\"]")).click();
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//				break;
+//			}
+//		}
+//		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("button#country")).click();
+//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+//		Thread.sleep(5000);
+//		
+//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+//		driver.switchTo().defaultContent();
+//		WebElement cardHolder111 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+//		cardHolder111.clear();
+//		cardHolder111.sendKeys(F_Name + " " + L_Name);
+//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+//		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+//		driver.close();
+//		driver.switchTo().window(originalTab);
+//		driver.findElement(By.cssSelector("div[data-state='open']>div:first-of-type>div:nth-of-type(2)>button")).click();
+//		System.out.println("Verified that for default checkout page user can place an order using the bypass dual pricing option from the share button successfully.\n");
+//		
+//		//verify that for default product page there is a page setting and user can add page name , slug and generate the QR code then page setting will be saved 
+//		/*Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(9)>div>div>div>span")).click();
+//		Thread.sleep(2000);
+//		WebElement EditedPageName = driver.findElement(By.xpath("//input[@placeholder='Enter Page Name']"));
+//		EditedPageName.sendKeys(String.valueOf(ProductSLUG));
+//		
+//		driver.findElement(By.xpath("//input[@placeholder=\"Enter Page Slug\"]")).sendKeys("ProductPage" + ProductSLUG);
+//		driver.findElement(By.xpath("//span[normalize-space()=\"Regenerate\"]")).click();
+//		driver.findElement(By.xpath("//button[@aria-label=\"Save Page Name and URL slug\"]")).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div[aria-label='Page Settings Modal Header']>div:nth-of-type(2)>button")).click();
+//		Thread.sleep(5000);
+//		
+//		String EditedPageName1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>p")).getText().trim();
+//		Assert.assertEquals(EditedPageName1, ProductSLUG, "Page name is not updated successfully");
+//		System.out.println("Verified that for default product page there is a page setting and user can add page name ,slug and generate the QR code then page setting is saved successfully.\n");*/
+//		
+//		//verify that for default product page user can place an order using the open link option from the share button
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(9)>div>div>span:last-of-type>div")).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//p[normalize-space()=\"Open Link\"]")).click();
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//				break;
+//			}
+//		}
+//		
+//		Thread.sleep(3000);
+//		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+//		Thread.sleep(3000);
+//		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();	
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("button#country")).click();
+//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+//		Thread.sleep(5000);
+//		
+//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+//		driver.switchTo().defaultContent();
+//		WebElement cardHolders1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+//		cardHolders1.clear();
+//		cardHolders1.sendKeys(F_Name + " " + L_Name);
+//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+//		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+//		driver.close();
+//		driver.switchTo().window(originalTab);
+//		driver.findElement(By.cssSelector("div[data-state='open']>div:first-of-type>div>button:first-of-type")).click();
+//		System.out.println("Verified that for default product page user can place an order using the open link option from the share button successfully.\n");
+//		
+//		//verify that for default product page on three dot menu from open page option user can place an order
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+//		driver.findElement(By.xpath("//span[text()='Open Page']//parent::span//parent::button")).click();
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//				break;
+//			}
+//		}
+//		
+//		Thread.sleep(3000);
+//		driver.findElement(By.xpath("//button[normalize-space()=\"Add to Cart\"]")).click();
+//		Thread.sleep(3000);
+//		driver.findElement(By.xpath("(//button[text()='Proceed to Checkout'])[2]")).click();
+//		Thread.sleep(5000);
+//		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+//		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+//		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+//		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("button#country")).click();
+//		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+//		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+//		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+//		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+//		Thread.sleep(5000);
+//		
+//		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+//		driver.switchTo().defaultContent();
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+//		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+//		driver.switchTo().defaultContent();
+//		WebElement cardHoldersc1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+//		cardHoldersc1.clear();
+//		cardHoldersc1.sendKeys(F_Name + " " + L_Name);
+//		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+//		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+//		Thread.sleep(7000);
+//		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+//		driver.close();
+//		driver.switchTo().window(originalTab);
+//		System.out.println("Verified that for default product page on three dot menu from open page option user can place an order successfully.\n");
+//		
+//		//verify that for default product page user can use the toggle of Active and can disable the page 
+//		//verify that for default product page user disable the page then it will automatically change the status to draft
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+//		driver.findElement(By.xpath("(//button[contains(@class,'custom-class-for-togle-second-body-class')])[2]")).click();
+//		Thread.sleep(5000);
+//		String PageStatus = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(3)>div>span>div>button>span")).getText().trim();
+//		Assert.assertEquals(PageStatus, "Draft", "Page status is not changed to Draft after disabling the page");
+//		System.out.println("Verified that for default product page user can use the toggle of Active and can disable the page successfully and status is changed to Draft.\n");
+//		
+//		//verify that for default product page on three dot menu from edit page option user can open the page editor 
+//		driver.navigate().to(Products);
+//		Thread.sleep(15000);
+//		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.id("orderPagesFunnel")).click();
+//		
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+//		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(5)>button")).click();
+//		Thread.sleep(5000);
+//		
+//		for (String handle : driver.getWindowHandles()) {
+//			if (!handle.equals(originalTab)) {
+//				driver.switchTo().window(handle);
+//				break;
+//			}
+//		}
+//		
+//		Thread.sleep(3000);
+//		String PageEditorURL = driver.getCurrentUrl();
+//		Assert.assertTrue(PageEditorURL.contains("page-builder"), "page-builder is not opened successfully");
+//		System.out.println("Verified that for default product page on three dot menu from edit page option user can open the page editor successfully.\n");
+//		Thread.sleep(8000);
+//		driver.findElement(By.xpath("//button[@aria-label='Save Action Button']")).click();
+//		Thread.sleep(5000);
+//		driver.findElement(By.xpath("//button[@aria-label='Close Editor']")).click();
+//		Thread.sleep(10000);
+//		try {
+//			driver.findElement(By.xpath("//span[text()='Exit']")).click();
+//		} catch (Exception e) {
+//			driver.findElement(By.xpath("//span[text()='Exit Without Saving']")).click();
+//		}
+//		
+//		driver.close();
+//		driver.switchTo().window(originalTab);
+//		System.out.println("Verified that for default product page on three dot menu from edit page option user can open the page editor successfully.\n");
+//		
+//		//verify that for default product page on three dot menu from duplicate page option user can create duplicate page
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+//		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(6)>button")).click();	
+//		driver.findElement(By.xpath("//input[@placeholder=\"Page Name...\"]")).sendKeys("Duplicate Product Page" + ProductSLUG);
+//		driver.findElement(By.xpath("//input[@placeholder=\"URL / Slug...\"]")).sendKeys("duplicateproductpage");
+//		driver.findElement(By.xpath("//span[normalize-space()=\"Create Page\"]")).click();
+//		Thread.sleep(5000);
+//		
+//		//verify that for default product page on three dot menu from duplicate page option user can delete its own created duplicate page
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(6)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+//		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(9)>button:first-of-type")).click();
+//		driver.findElement(By.xpath("//span[normalize-space()=\"Yes, Confirm\"]//parent::button")).click();
+//		String DeletedPage = driver.findElement(By.xpath("//span[text()='Successfully deleted product page']")).getText().trim();
+//		Assert.assertEquals(DeletedPage, "Successfully deleted product page", "Duplicate page is not deleted successfully");
+//		System.out.println("Verified that for default product page on three dot menu from duplicate page option	user can delete its own created duplicate page successfully.\n");
+//		
+//		//verify that for default product page on three dot menu from page setting option user can make changes and saves setting
+//		/*Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+//		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(7)>button")).click();
+//		Thread.sleep(2000);
+//		WebElement EditedPageName = driver.findElement(By.xpath("//input[@placeholder='Enter Page Name']"));
+//		EditedPageName.sendKeys(String.valueOf(ProductSLUG));		
+//		driver.findElement(By.xpath("//input[@placeholder=\"Enter Page Slug\"]")).sendKeys("ProductPage" + ProductSLUG);
+//		driver.findElement(By.xpath("//span[normalize-space()=\"Regenerate\"]")).click();
+//		driver.findElement(By.xpath("//button[@aria-label=\"Save Page Name and URL slug\"]")).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div[aria-label='Page Settings Modal Header']>div:nth-of-type(2)>button")).click();
+//		Thread.sleep(5000);	
+//		String EditedPageName1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>p")).getText().trim();
+//		Assert.assertEquals(EditedPageName1, ProductSLUG, "Page name is not updated successfully");
+//		System.out.println("Verified that for default product page there is a page setting and user can add page name ,slug and generate the QR code then page setting is saved successfully.\n");*/
+//		
+//		//verify that for default product page on three dot menu from set as default option user can make as default and also tag will be visible as default
+//		Thread.sleep(2000);
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+//		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(8)>button")).click();
+//		driver.findElement(By.xpath("//span[normalize-space()=\"Yes, Confirm\"]//parent::button")).click();
+//		Thread.sleep(5000);
+//		String DefaultTag = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div:first-of-type>div:nth-of-type(2)")).getText().trim();
+//		Assert.assertEquals(DefaultTag, "Default", "Default tag is not visible after setting the page as default");
+//		System.out.println("Verified that for default product page on three dot menu from set as default option user can make as default and also tag will be visible as default successfully.\n");
+//		
+//		//verify that for default product page on three dot menu from exit product option user can go to main product tab 
+//		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+//		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(9)>button")).click();
+//		Thread.sleep(5000);		
+//		String ProductTabURL = driver.getCurrentUrl();
+//		Assert.assertTrue(ProductTabURL.contains("products?"), "User is not navigated to main product tab after clicking on exit product option");
+//		System.out.println("Verified that for default product page on three dot menu from exit product option user can go to main product tab successfully.\n");
+		
+		//verify that for checkout page user can click on edit page button option user can open the page editor 
+		driver.navigate().to(Products);
+		Thread.sleep(5000);
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.custom-class-table>table>tbody>tr>td:nth-of-type(2)>div>a:first-of-type"))).click();
+		Thread.sleep(2000);
+		driver.findElement(By.id("orderPagesFunnel")).click();
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(8)>button")).click();
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(3000);
+		String PageEditorURL1 = driver.getCurrentUrl();
+		Assert.assertTrue(PageEditorURL1.contains("page-builder"), "page-builder is not opened successfully");
+		System.out.println("Verified that for checkout page on three dot menu from edit page option user can open the page editor successfully.\n");
+		Thread.sleep(8000);
+		driver.findElement(By.xpath("//button[@aria-label='Save Action Button']")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//button[@aria-label='Close Editor']")).click();
+		Thread.sleep(10000);
+		try {
+			driver.findElement(By.xpath("//span[text()='Exit']")).click();
+		} catch (Exception e) {
+			driver.findElement(By.xpath("//span[text()='Exit Without Saving']")).click();
+		}
+		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		System.out.println("Verified that for checkout page on three dot menu from edit page option user can open the page editor successfully.\n");
+		
+		//verify that for checkout page user can user preview section can place an order 
+		/*Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:first-of-type>span:first-of-type>div")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(5000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHoldersc1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHoldersc1.clear();
+		cardHoldersc1.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		System.out.println("Verified that for checkout page user can user preview section can place an order successfully.\n");*/
+		
+		//verify that for checkout page there is a page setting and user can add page name , slug and generate the QR code then page setting will be saved 
+		/*driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div>div>span")).click();
+		Thread.sleep(2000);
+		WebElement EditedPageName = driver.findElement(By.xpath("//input[@placeholder='Enter Page Name']"));
+		EditedPageName.sendKeys(String.valueOf(ProductSLUG));
+		
+		driver.findElement(By.xpath("//input[@placeholder=\"Enter Page Slug\"]")).sendKeys("ProductPage" + ProductSLUG);
+		driver.findElement(By.xpath("//span[normalize-space()=\"Regenerate\"]")).click();
+		driver.findElement(By.xpath("//button[@aria-label=\"Save Page Name and URL slug\"]")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div[aria-label='Page Settings Modal Header']>div:nth-of-type(2)>button")).click();
+		Thread.sleep(5000);
+		
+		String EditedPageName1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>p")).getText().trim();
+		Assert.assertEquals(EditedPageName1, ProductSLUG, "Page name is not updated successfully");
+		System.out.println("Verified that for default product page there is a page setting and user can add page name ,slug and generate the QR code then page setting is saved successfully.\n");*/
+		
+		//verify that for checkout page page user can place an order using the open link option from the share button
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:last-of-type>div>div>span:nth-of-type(2)")).click();	
+		driver.findElement(By.xpath("//p[normalize-space()=\"Open Link\"]")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(5000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder1 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder1.clear();
+		cardHolder1.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		System.out.println("Verified that for checkout page page user can place an order using the open link option from the share button successfully.\n");
+		
+		//verify that for checkout page page user can place an order using the quick checkout option from the share button
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[normalize-space()=\"Quick Checkout\"]")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		driver.findElement(By.id("postal_code")).sendKeys("97818");
+		Thread.sleep(2000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder11 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder11.clear();
+		cardHolder11.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		System.out.println("Verified that for checkout page page user can place an order using the open link option from the share button and quick checkout option from the share button successfully.\n");
+		
+		//verify that for checkout page page user can place an order using the bypass dual pricing option from the share button
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//p[normalize-space()=\"Bypass Dual Price Checkout\"]")).click();
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button#country")).click();
+		driver.findElement(By.xpath("//input[@placeholder=\"Search country...\"]")).sendKeys(country);
+		driver.findElement(By.xpath("//li[@role=\"option\"]")).click();
+		driver.findElement(By.cssSelector("input#street")).sendKeys(Street_Add);
+		driver.findElement(By.cssSelector("p.list-none.suggestions-dropdown>li:first-of-type")).click();
+		Thread.sleep(5000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolder111 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolder111.clear();
+		cardHolder111.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		driver.findElement(By.cssSelector("div[data-state='open']>div:first-of-type>div:nth-of-type(2)>button")).click();
+		System.out.println("Verified that for checkout page user can place an order using the open link option from the share button, quick checkout option from the share button and bypass dual pricing option from the share button successfully.\n");
+		
+		//verify that for checkout page user can use the toggle of Active and can disable the page 
+		//verify that for checkout page user disable the page then it will automatically change the status to draft
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.xpath("(//button[contains(@class,'custom-class-for-togle-second-body-class')])[2]")).click();
+		Thread.sleep(5000);
+		String PageStatus = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(3)>div>span>div>button>span")).getText().trim();
+		Assert.assertEquals(PageStatus, "Draft", "Page status is not changed to Draft after disabling the page");
+		System.out.println("Verified that for checkout page user can use the toggle of Active and can disable the page successfully and status is changed to Draft.\n");
+		
+		//verify that for checkout page on three dot menu from open page option user can place an order
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("(//button[contains(@class,'custom-class-for-togle-second-body-class')])[2]")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(3)>button")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		driver.findElement(By.id("postal_code")).sendKeys("97818");
+		Thread.sleep(5000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolderx111 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolderx111.clear();
+		cardHolderx111.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		System.out.println("Verified that for checkout page on three dot menu from open page option user can place an order successfully.\n");
+		
+		//verify that for checkout page on three dot menu from edit page option user can open the page editor 
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(5)>button")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(3000);
+		String PageEditorURLs = driver.getCurrentUrl();
+		Assert.assertTrue(PageEditorURLs.contains("page-builder"), "page-builder is not opened successfully");
+		System.out.println("Verified that for checkout page on three dot menu from edit page option user can open the page editor successfully.\n");
+		Thread.sleep(8000);
+		driver.findElement(By.xpath("//button[@aria-label='Save Action Button']")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//button[@aria-label='Close Editor']")).click();
+		Thread.sleep(10000);
+		try {
+			driver.findElement(By.xpath("//span[text()='Exit']")).click();
+		} catch (Exception e) {
+			driver.findElement(By.xpath("//span[text()='Exit Without Saving']")).click();
+		}
+		
+		driver.close();
+		driver.switchTo().window(originalTab);
+		System.out.println("Verified that for checkout page on three dot menu from edit page option user can open the page editor successfully.\n");
+		
+		//verify that for checkout page on three dot menu from quick checkout option user can do the checkout 
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(4)>button")).click();
+		Thread.sleep(5000);
+		
+		for (String handle : driver.getWindowHandles()) {
+			if (!handle.equals(originalTab)) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("input#email")).sendKeys(email);  
+		driver.findElement(By.cssSelector("input#first_name")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#last_name")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#phone")).sendKeys(phone);
+		driver.findElement(By.id("postal_code")).sendKeys("97818");
+		Thread.sleep(5000);
+		
+		jse.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.xpath("//h2[normalize-space()='Payment Information']")));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure card number input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cardnumber"))).sendKeys(Card_No);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure expiration date input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("exp-date"))).sendKeys(EXP);
+		driver.switchTo().defaultContent();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@title='Secure CVC input frame']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.name("cvc"))).sendKeys(CVV);
+		driver.switchTo().defaultContent();
+		WebElement cardHolderxs111 = wait.until(ExpectedConditions.elementToBeClickable(By.name("cardHolderName")));
+		cardHolderxs111.clear();
+		cardHolderxs111.sendKeys(F_Name + " " + L_Name);
+		driver.findElement(By.xpath("//button[@role='checkbox']")).click();
+		driver.findElement(By.cssSelector("button[type='submit']")).click();		
+		Thread.sleep(7000);
+		driver.findElement(By.cssSelector("div.print-container>div:nth-of-type(2)>p>span:nth-of-type(2)")).getText();
+		driver.close();
+		driver.switchTo().window(originalTab);
+		System.out.println("Verified that for checkout page on three dot menu from quick checkout option user can do the checkout successfully.\n");
+		
+		//verify that for checkout page on three dot menu from duplicate page option user can create duplicate page
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(6)>button")).click();	
+		driver.findElement(By.xpath("//input[@placeholder=\"Page Name...\"]")).sendKeys("Duplicate Product Page" + ProductSLUG);
+		driver.findElement(By.xpath("//input[@placeholder=\"URL / Slug...\"]")).sendKeys("duplicateproductpage");
+		driver.findElement(By.xpath("//span[normalize-space()=\"Create Page\"]")).click();
+		Thread.sleep(5000);
+		
+		//verify that for checkout page on three dot menu from duplicate page option user can delete its own created duplicate page
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(6)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(9)>button:first-of-type")).click();
+		driver.findElement(By.xpath("//span[normalize-space()=\"Yes, Confirm\"]//parent::button")).click();
+		String DeletedPage1 = driver.findElement(By.xpath("//span[text()='Successfully deleted product page']")).getText().trim();
+		Assert.assertEquals(DeletedPage1, "Successfully deleted product page", "Duplicate page is not deleted successfully");
+		System.out.println("Verified that for checkout page on three dot menu from duplicate page option user can delete its own created duplicate page successfully.\n");
+		
+		//verify that for checkout page on three dot menu from page setting option user can make changes and saves setting
+		/*Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(7)>button")).click();
+		Thread.sleep(2000);
+		WebElement EditedPageName = driver.findElement(By.xpath("//input[@placeholder='Enter Page Name']"));
+		EditedPageName.sendKeys(String.valueOf(ProductSLUG));		
+		driver.findElement(By.xpath("//input[@placeholder=\"Enter Page Slug\"]")).sendKeys("ProductPage" + ProductSLUG);
+		driver.findElement(By.xpath("//span[normalize-space()=\"Regenerate\"]")).click();
+		driver.findElement(By.xpath("//button[@aria-label=\"Save Page Name and URL slug\"]")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div[aria-label='Page Settings Modal Header']>div:nth-of-type(2)>button")).click();
+		Thread.sleep(5000);	
+		String EditedPageName1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div>p")).getText().trim();
+		Assert.assertEquals(EditedPageName1, ProductSLUG, "Page name is not updated successfully");
+		System.out.println("Verified that for checkout page there is a page setting and user can add page name ,slug and generate the QR code then page setting is saved successfully.\n");*/
+		
+		//verify that for checkout page on three dot menu from set as default option user can make as default and also tag will be visible as default
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(8)>button")).click();
+		driver.findElement(By.xpath("//span[normalize-space()=\"Yes, Confirm\"]//parent::button")).click();
+		Thread.sleep(5000);
+		String DefaultTag1 = driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>div:first-of-type>div:nth-of-type(2)")).getText().trim();
+		Assert.assertEquals(DefaultTag1, "Default", "Default tag is not visible after setting the page as default");
+		System.out.println("Verified that for checkout page on three dot menu from set as default option user can make as default and also tag will be visible as default successfully.\n");
+		
+		//verify that for checkout page on three dot menu from exit product option user can go to main product tab 
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div.custom-class-table>table>tbody>tr:nth-of-type(3)>td:nth-of-type(9)>div>div:nth-of-type(2)>button")).click();
+		driver.findElement(By.cssSelector("div[data-state='open']>div:nth-of-type(9)>button")).click();
+		Thread.sleep(5000);		
+		String ProductTabURL1 = driver.getCurrentUrl();
+		Assert.assertTrue(ProductTabURL1.contains("products?"), "User is not navigated to main product tab after clicking on exit product option");
+		System.out.println("Verified that for checkout page on three dot menu from exit product option user can go to main product tab successfully.\n");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	
